@@ -40,15 +40,15 @@ if ( not windows) then
 	end
 else
 	-- Create needed directories
-	if ( not os.fileexists( "../bin/plugins" ) ) then
-		os.mkdir( "../bin/plugins" )
+	if ( not os.fileexists( "..\\bin\\plugins" ) ) then
+		os.mkdir( "..\\bin\\plugins" )
 	end
 	-- Copy neede files (images)
-	if( not os.fileexists( "../bin/res" ) ) then
-		os.execute( "xcopy ../src/res ../bin/res /Y" )
+	if( not os.fileexists( "..\\bin\\res" ) ) then
+		os.execute( "xcopy ..\\src\\res ..\\bin\\res /Y /s /i /q" )
 	end
-	if( not os.fileexists( "../bin/plugins/res" ) ) then
-		os.execute( "xcopy ../src/plugins/res ../bin/plugins/res /Y" )
+	if( not os.fileexists( "..\\bin\\plugins\\res" ) ) then
+		os.execute( "xcopy ..\\src\\plugins\\res ..\\bin\\plugins\\res /Y /s /i /q" )
 	end
 end
 

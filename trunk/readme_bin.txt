@@ -47,7 +47,6 @@ Distribution content:
 
 .		- Application's binary file and shared libraries
 .\res		- Application's artwork
-.\doc		- Library documentation.
 .\plugins	- Application's plugins (providing various diagrams, code generators, GUI enhacements, ...)
 .\samples	- Sample projects
 
