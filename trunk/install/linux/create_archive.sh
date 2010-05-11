@@ -23,6 +23,10 @@ cp ../../LICENSE.txt $out
 cp ../../readme_bin.txt $out
 chmod +x $out/CodeDesigner
 
+# copy samples
+mkdir $out/samples
+cp ../../samples/*.* $out/samples
+
 # copy icon
 cp ../../src/res/gui/application-icon.png $out/icon.png
 
