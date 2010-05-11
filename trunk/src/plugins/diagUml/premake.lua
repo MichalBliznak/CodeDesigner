@@ -20,7 +20,7 @@ package.name = "diagUml"
 if( not windows ) then
 	package.bindir = "../../../output/lib/" .. project.name .. "/plugins"
 else
-	package.bindir = "../../../output/bin/plugins"
+	package.bindir = "../../../output/plugins"
 end
 -- Set this if you want a different name for your target than the package's name.
 custom_targetName = "diagUml";
