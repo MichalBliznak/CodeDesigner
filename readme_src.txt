@@ -55,13 +55,13 @@ Requirements:
 
 Distribution content:
 ---------------------
-.\bin		- Application's binary files
+.\output	- Application's binary files
 .\build		- Premake build system for creation of various project/make files
 .\install	- Installation scripts neede for the application's redistribution
 .\samples	- Sample CodeDesigner projects
 .\src		- Application's source codes
-.\release	- Output directory for installation scripts
-changes.txt	- Information about the application's version and release changes.
+changes.txt	- Information about the application's version and release changes
+LICENSE.txt	- License file
 
 
 Build instructions:

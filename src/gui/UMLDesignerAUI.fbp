@@ -133,7 +133,7 @@
                     <property name="name">fileMenu</property>
                     <property name="permission">protected</property>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/filenew.png; Load From File</property>
+                        <property name="bitmap">res/gui/filenew.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -148,7 +148,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/fileopen.png; Load From File</property>
+                        <property name="bitmap">res/gui/fileopen.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -163,7 +163,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/filesave.png; Load From File</property>
+                        <property name="bitmap">res/gui/filesave.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -178,7 +178,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/filesave.png; Load From File</property>
+                        <property name="bitmap">res/gui/filesave.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -216,7 +216,7 @@
                         <property name="permission">none</property>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/fileprint.png; Load From File</property>
+                        <property name="bitmap">res/gui/fileprint.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help">Print active diagram</property>
@@ -231,7 +231,7 @@
                         <event name="OnUpdateUI">OnUpdateCanvasActivated</event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/filepreview.png; Load From File</property>
+                        <property name="bitmap">res/gui/filepreview.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help">Preview active diagram</property>
@@ -274,7 +274,7 @@
                         <property name="permission">none</property>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/exit.png; Load From File</property>
+                        <property name="bitmap">res/gui/exit.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help">Quit the application</property>
@@ -294,7 +294,7 @@
                     <property name="name">editMenu</property>
                     <property name="permission">protected</property>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/undo.png; Load From File</property>
+                        <property name="bitmap">res/gui/undo.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -309,7 +309,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/redo.png; Load From File</property>
+                        <property name="bitmap">res/gui/redo.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -328,7 +328,7 @@
                         <property name="permission">none</property>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/editcopy.png; Load From File</property>
+                        <property name="bitmap">res/gui/editcopy.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -343,7 +343,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/editcut.png; Load From File</property>
+                        <property name="bitmap">res/gui/editcut.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -358,7 +358,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/editpaste.png; Load From File</property>
+                        <property name="bitmap">res/gui/editpaste.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -396,7 +396,7 @@
                         <property name="permission">none</property>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/configure.png; Load From File</property>
+                        <property name="bitmap">res/gui/configure.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -685,7 +685,7 @@
                         <property name="permission">none</property>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/configure.png; Load From File</property>
+                        <property name="bitmap">res/gui/configure.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
@@ -759,7 +759,7 @@
                     <property name="name">codeGenMenu</property>
                     <property name="permission">protected</property>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/spellcheck.png; Load From File</property>
+                        <property name="bitmap">res/gui/spellcheck.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help">Generate code from active diagram</property>
@@ -774,7 +774,7 @@
                         <event name="OnUpdateUI">OnUpdateGeneratorActivated</event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/actionrun.png; Load From File</property>
+                        <property name="bitmap">res/gui/actionrun.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help">Generate code for an active chart</property>
@@ -833,7 +833,7 @@
                     <property name="name">helpMenu</property>
                     <property name="permission">protected</property>
                     <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap">res/gui/helpindex.png; Load From File</property>
+                        <property name="bitmap">res/gui/helpindex.xpm; Load From File</property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help">Show info about this application</property>
@@ -1377,7 +1377,7 @@
             <event name="OnSetFocus"></event>
             <event name="OnSize"></event>
             <event name="OnUpdateUI"></event>
-            <object class="wxStatusBar" expanded="0">
+            <object class="wxStatusBar" expanded="1">
                 <property name="bg"></property>
                 <property name="context_help"></property>
                 <property name="context_menu">1</property>
@@ -1480,7 +1480,7 @@
                     <property name="label">&amp;File</property>
                     <property name="name">m_fileMenu</property>
                     <property name="permission">protected</property>
-                    <object class="wxMenuItem" expanded="0">
+                    <object class="wxMenuItem" expanded="1">
                         <property name="bitmap"></property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
@@ -1497,16 +1497,16 @@
                     </object>
                 </object>
             </object>
-            <object class="wxBoxSizer" expanded="0">
+            <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size"></property>
                 <property name="name">mainSizer</property>
                 <property name="orient">wxVERTICAL</property>
                 <property name="permission">none</property>
-                <object class="sizeritem" expanded="0">
+                <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
-                    <object class="wxScintilla" expanded="0">
+                    <object class="wxScintilla" expanded="1">
                         <property name="backspace_unindents">1</property>
                         <property name="bg"></property>
                         <property name="context_help"></property>
@@ -1855,7 +1855,7 @@
                             <event name="OnUpdateUI">OnUpdateShowProperties</event>
                         </object>
                         <object class="tool" expanded="0">
-                            <property name="bitmap">res/gui/organisation.png; Load From File</property>
+                            <property name="bitmap">res/gui/organisation.xpm; Load From File</property>
                             <property name="id">IDT_PROJMAN_ORGANIZECI</property>
                             <property name="kind">wxITEM_CHECK</property>
                             <property name="label">Organize code items</property>
@@ -2284,7 +2284,7 @@
                         <event name="OnSize"></event>
                         <event name="OnUpdateUI"></event>
                         <object class="tool" expanded="0">
-                            <property name="bitmap">res/gui/filesave.png; Load From File</property>
+                            <property name="bitmap">res/gui/filesave.xpm; Load From File</property>
                             <property name="id">IDT_INSTEDITOR_SAVE</property>
                             <property name="kind">wxITEM_NORMAL</property>
                             <property name="label">tool</property>

@@ -65,66 +65,66 @@ udUmlDiagramPlugin::udUmlDiagramPlugin(IPluginManager *manager) : IPlugin(manage
 bool udUmlDiagramPlugin::OnInit()
 {
 	// register bitmaps	
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Action.xpm"), wxT("udActionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Action_locked.xpm"), wxT("udImpActionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Action_link.xpm"), wxT("udActionLinkItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Action_link.xpm"), wxT("udStateActionLinkItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Condition.xpm"), wxT("udConditionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Condition_locked.xpm"), wxT("udImpConditionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Condition_link.xpm"), wxT("udConditionLinkItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Event.xpm"), wxT("udEventItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Event_locked.xpm"), wxT("udImpEventItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/Event_link.xpm"), wxT("udEventLinkItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/MemberData.xpm"), wxT("udMemberDataItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/MemberData_link.xpm"), wxT("udMemberDataLinkItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/MemberFunction.xpm"), wxT("udMemberFunctionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/MemberFunction.xpm"), wxT("udConstructorFunctionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/MemberFunction.xpm"), wxT("udDestructorFunctionItem") );
-	m_PluginManager->RegisterArtBitmap( wxT("plugins/res/project/MemberFunction_link.xpm"), wxT("udMemberFunctionLinkItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Action.xpm"), wxT("udActionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Action_locked.xpm"), wxT("udImpActionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Action_link.xpm"), wxT("udActionLinkItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Action_link.xpm"), wxT("udStateActionLinkItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Condition.xpm"), wxT("udConditionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Condition_locked.xpm"), wxT("udImpConditionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Condition_link.xpm"), wxT("udConditionLinkItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Event.xpm"), wxT("udEventItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Event_locked.xpm"), wxT("udImpEventItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/Event_link.xpm"), wxT("udEventLinkItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/MemberData.xpm"), wxT("udMemberDataItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/MemberData_link.xpm"), wxT("udMemberDataLinkItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/MemberFunction.xpm"), wxT("udMemberFunctionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/MemberFunction.xpm"), wxT("udConstructorFunctionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/MemberFunction.xpm"), wxT("udDestructorFunctionItem") );
+	m_PluginManager->RegisterArtBitmap( wxT("plugins/project/MemberFunction_link.xpm"), wxT("udMemberFunctionLinkItem") );
 	
 	// register diagrams
 	udDiagramInfo infoSSCH;
 	// set general info
 	infoSSCH.SetName( udnSIMPLE_STATE_CHART );
 	infoSSCH.SetDataClassName( wxT("udSStateChartDiagramItem") );
-	infoSSCH.SetIcon( wxT("plugins/res/project/SimpleStateChartDiag.xpm") );
+	infoSSCH.SetIcon( wxT("plugins/project/SimpleStateChartDiag.xpm") );
 
-	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/State.xpm"), wxT("Simple state"), wxT("umlSimpleStateItem"), wxT("udSimpleStateElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
-	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/SubState.xpm"), wxT("Sub machine"), wxT("umlSubStateItem"), wxT("udSCHSubDiagramElementItem"), udDiagramComponentInfo::pitELEMENT ) );												
-	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Initial.xpm"), wxT("Initial"), wxT("umlInitialItem"), wxT("udInitialElementItem"), udDiagramComponentInfo::pitELEMENT ) );
-	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Final.xpm"), wxT("Final"), wxT("umlFinalItem"), wxT("udFinalElementItem"), udDiagramComponentInfo::pitELEMENT ) );
-	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line1.xpm"), wxT("Transition connection"), wxT("umlTransitionItem"), wxT("udTransElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/State.xpm"), wxT("Simple state"), wxT("umlSimpleStateItem"), wxT("udSimpleStateElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
+	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/SubState.xpm"), wxT("Sub machine"), wxT("umlSubStateItem"), wxT("udSCHSubDiagramElementItem"), udDiagramComponentInfo::pitELEMENT ) );												
+	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Initial.xpm"), wxT("Initial"), wxT("umlInitialItem"), wxT("udInitialElementItem"), udDiagramComponentInfo::pitELEMENT ) );
+	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Final.xpm"), wxT("Final"), wxT("umlFinalItem"), wxT("udFinalElementItem"), udDiagramComponentInfo::pitELEMENT ) );
+	infoSSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line1.xpm"), wxT("Transition connection"), wxT("umlTransitionItem"), wxT("udTransElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 												
 	m_PluginManager->RegisterDiagram( infoSSCH );
 	
 	udDiagramInfo infoHSCH;
 	infoHSCH.SetName( udnSTATE_CHART );
 	infoHSCH.SetDataClassName( wxT("udHStateChartDiagramItem") );
-	infoHSCH.SetIcon( wxT("plugins/res/project/StateChartDiag.xpm") );
+	infoHSCH.SetIcon( wxT("plugins/project/StateChartDiag.xpm") );
 
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/State.xpm"), wxT("Simple state"), wxT("umlSimpleStateItem"), wxT("udSimpleStateElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/CompState.xpm"), wxT("Composite machine"), wxT("umlCompStateItem"), wxT("udCompStateElementItem"), udDiagramComponentInfo::pitELEMENT ) );												
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/SubState.xpm"), wxT("Sub machine"), wxT("umlSubStateItem"), wxT("udSCHSubDiagramElementItem"), udDiagramComponentInfo::pitELEMENT ) );												
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Initial.xpm"), wxT("Initial"), wxT("umlInitialItem"), wxT("udInitialElementItem"), udDiagramComponentInfo::pitELEMENT ) );
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Final.xpm"), wxT("Final"), wxT("umlFinalItem"), wxT("udFinalElementItem"), udDiagramComponentInfo::pitELEMENT ) );
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/History.xpm"), wxT("History"), wxT("umlHistoryItem"), wxT("udHistoryElementItem"), udDiagramComponentInfo::pitELEMENT ) );
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Decision.xpm"), wxT("Decision"), wxT("umlDecisionItem"), wxT("udDecisionElementItem"), udDiagramComponentInfo::pitELEMENT ) );
-	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line1.xpm"), wxT("Transition connection"), wxT("umlTransitionItem"), wxT("udTransElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/State.xpm"), wxT("Simple state"), wxT("umlSimpleStateItem"), wxT("udSimpleStateElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/CompState.xpm"), wxT("Composite machine"), wxT("umlCompStateItem"), wxT("udCompStateElementItem"), udDiagramComponentInfo::pitELEMENT ) );												
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/SubState.xpm"), wxT("Sub machine"), wxT("umlSubStateItem"), wxT("udSCHSubDiagramElementItem"), udDiagramComponentInfo::pitELEMENT ) );												
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Initial.xpm"), wxT("Initial"), wxT("umlInitialItem"), wxT("udInitialElementItem"), udDiagramComponentInfo::pitELEMENT ) );
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Final.xpm"), wxT("Final"), wxT("umlFinalItem"), wxT("udFinalElementItem"), udDiagramComponentInfo::pitELEMENT ) );
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/History.xpm"), wxT("History"), wxT("umlHistoryItem"), wxT("udHistoryElementItem"), udDiagramComponentInfo::pitELEMENT ) );
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Decision.xpm"), wxT("Decision"), wxT("umlDecisionItem"), wxT("udDecisionElementItem"), udDiagramComponentInfo::pitELEMENT ) );
+	infoHSCH.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line1.xpm"), wxT("Transition connection"), wxT("umlTransitionItem"), wxT("udTransElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 												
 	m_PluginManager->RegisterDiagram( infoHSCH );
 	
 	udDiagramInfo infoCD;
 	infoCD.SetName( udnCLASS_DIAGRAM );
 	infoCD.SetDataClassName( wxT("udClassDiagramItem") );
-	infoCD.SetIcon( wxT("plugins/res/project/ClassDiag.xpm") );
+	infoCD.SetIcon( wxT("plugins/project/ClassDiag.xpm") );
 
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Class.xpm"), wxT("Class"), wxT("umlClassItem"), wxT("udClassElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line1.xpm"), wxT("Inheritance connection"), wxT("umlInheritanceItem"), wxT("udInherElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line3.xpm"), wxT("Interface connection"), wxT("umlInterfaceItem"), wxT("udInterElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line2.xpm"), wxT("Bi-directional association"), wxT("umlBiDirectAssocItem"), wxT("udBiAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line5.xpm"), wxT("Uni-directional association"), wxT("umlUniDirectAssocItem"), wxT("udUniAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line7.xpm"), wxT("Basic aggregation"), wxT("umlBasicAggregItem"), wxT("udBaseAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
-	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/res/elements/Line6.xpm"), wxT("Composition aggregation"), wxT("umlCompAggregItem"), wxT("udCompAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Class.xpm"), wxT("Class"), wxT("umlClassItem"), wxT("udClassElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line1.xpm"), wxT("Inheritance connection"), wxT("umlInheritanceItem"), wxT("udInherElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line3.xpm"), wxT("Interface connection"), wxT("umlInterfaceItem"), wxT("udInterElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line2.xpm"), wxT("Bi-directional association"), wxT("umlBiDirectAssocItem"), wxT("udBiAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line5.xpm"), wxT("Uni-directional association"), wxT("umlUniDirectAssocItem"), wxT("udUniAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line7.xpm"), wxT("Basic aggregation"), wxT("umlBasicAggregItem"), wxT("udBaseAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line6.xpm"), wxT("Composition aggregation"), wxT("umlCompAggregItem"), wxT("udCompAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 												
 	m_PluginManager->RegisterDiagram( infoCD );
 	

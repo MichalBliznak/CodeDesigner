@@ -42,11 +42,3 @@ Supported code generators:
 	- Else-If algorithm (C, C++, Python)
 
 
-Distribution content:
----------------------
-
-.		- Application's binary file and shared libraries
-.\res		- Application's artwork
-.\plugins	- Application's plugins (providing various diagrams, code generators, GUI enhacements, ...)
-.\samples	- Sample projects
-

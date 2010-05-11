@@ -17,7 +17,11 @@ dofile('../../../build/premake/scripts/init.lua')
 -- Set the name of your package.
 package.name = "genUml"
 -- Set output directory
-package.bindir = "../../../bin/plugins"
+if( not windows ) then
+	package.bindir = "../../../output/lib/" .. project.name .. "/plugins"
+else
+	package.bindir = "../../../output/bin/plugins"
+end
 -- Set this if you want a different name for your target than the package's name.
 custom_targetName = "genUml";
 -- Set the kind of package you want to create.
@@ -28,12 +32,10 @@ package.files = { matchrecursive( "*.cpp", "*.h" ) }
 -- Set the include paths.
 package.includepaths = { ".", "../../", "../../controls/include" }
 -- Set hardcoded path for loaded shared libraries
-if( not windows ) then
-	if ( target == "cb-gcc" ) then
-		table.insert( package.linkoptions, "-Wl,-rpath,$``ORIGIN/" )
-	else
-		table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/" )
-	end
+if ( target == "cb-gcc" ) then
+	table.insert( package.linkoptions, "-Wl,-rpath,$``ORIGIN/" )
+else
+	table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/" )
 end
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }

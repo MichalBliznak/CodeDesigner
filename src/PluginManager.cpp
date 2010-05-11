@@ -126,7 +126,7 @@ void udPluginManager::LoadPlugins()
 		
 	wxArrayString& arrActivePlugins = m_Settings.GetProperty( wxT("Active plugins") )->AsStringArray();
 	
-	const wxString &sAppPath = wxGetApp().GetPath();
+	//const wxString &sAppPath = wxGetApp().GetPath();
 	wxString ext;
 	
 #if defined (__WXGTK__) || defined (__WXMAC__)
@@ -143,7 +143,8 @@ void udPluginManager::LoadPlugins()
 	wxDynamicLibrary *pDl = NULL;
 	
 	wxArrayString arrPluginNames;
-	wxDir::GetAllFiles( sAppPath + wxT("plugins"), &arrPluginNames, sFileSpec, wxDIR_FILES );
+	//wxDir::GetAllFiles( sAppPath + wxT("plugins"), &arrPluginNames, sFileSpec, wxDIR_FILES );
+	wxDir::GetAllFiles( wxGetApp().GetPluginsPath(), &arrPluginNames, sFileSpec, wxDIR_FILES );
 	
 	// force loading of all available plugins after reset of application settings
 	bool fForceLoad = false;
@@ -292,6 +293,11 @@ udDiagramCanvas* udPluginManager::GetActiveCanvas()
 const wxString& udPluginManager::GetAppPath()
 {
 	return wxGetApp().GetPath();
+}
+
+wxString udPluginManager::GetResourcesPath()
+{
+	return wxGetApp().GetResourcesPath();
 }
 
 wxBitmap udPluginManager::GetArtBitmap(const wxString& name)
