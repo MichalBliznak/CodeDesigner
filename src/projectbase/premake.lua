@@ -24,7 +24,7 @@ package.kind = "dll"
 if( not windows ) then
 	package.bindir = "../../output/lib/" .. project.name
 else
-	package.bindir = "./../output/bin"
+	package.bindir = "../../output"
 end
 -- Set the files to include.
 package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }

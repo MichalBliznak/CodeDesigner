@@ -26,7 +26,7 @@ package.kind = "dll"
 if( not windows ) then
 	package.bindir = "../../output/lib/" .. project.name
 else
-	package.bindir = "../../output/bin"
+	package.bindir = "../../output"
 end
 -- Set the files to include.
 package.files = { matchfiles( "../../src/controls/src/wxShapeFramework/*.cpp", "../../src/controls/src/wxShapeFramework/wxxmlserializer/*.cpp", "../../src/controls/include/wx/wxsf/*.h", "../../src/controls/include/wx/wxxmlserializer/*.h") }

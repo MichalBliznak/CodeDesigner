@@ -1,8 +1,9 @@
-Changes in version 1.1.0.1923 beta (2010-05-09):
+Changes in version 1.1.0.1948 beta (2010-05-11):
 ------------------------------------------------
 - Removed annoying messages occured if application settings or diagram bank
   couldn't be read.
 - Fixed build problem on amd64 platform.
+- Redesigned application's file structure.
 
 Changes in version 1.1.0.1920 beta (2010-05-09):
 ------------------------------------------------
