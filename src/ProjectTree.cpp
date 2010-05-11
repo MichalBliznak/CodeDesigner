@@ -90,7 +90,7 @@ void udProjectTree::BuildFromProject(udProject* project)
 wxTreeItemId udProjectTree::CreateItem(wxTreeItemId parent, udProjectItem* item, int image)
 {
 	wxTreeItemId treeId = AppendItem( parent, item->GetName(), image, image, new udTreeItem(this, item) );
-	m_mapTreeItems[ (unsigned int)item ] = treeId;
+	m_mapTreeItems[ (wxUIntPtr)item ] = treeId;
 	
 	return treeId;
 }
@@ -108,7 +108,7 @@ udProjectItem* udProjectTree::GetSelectedProjectItem()
 
 wxTreeItemId udProjectTree::FindTreeItem(udProjectItem *item)
 {
-	ObjectMap::iterator it = m_mapTreeItems.find( (unsigned int)item );
+	ObjectMap::iterator it = m_mapTreeItems.find( (wxUIntPtr)item );
 	if(  it != m_mapTreeItems.end() )
 	{
 		return it->second;

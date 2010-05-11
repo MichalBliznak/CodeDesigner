@@ -19,8 +19,11 @@ mkdir $out
 echo "Copying application files..."
 cp -R -L ../../bin/* $out
 rm -rf `find $out -type d -name .svn`
+rm -rf `find $out -type f -name *gtk2ud*`
+rm -rf `find $out -type f -name *_d*`
 rm -rf $out/plugins/*diagTest.so
 cp ../../LICENSE.txt $out
+cp ../../changes.txt $out
 cp ../../readme_bin.txt $out
 chmod +x $out/CodeDesigner
 

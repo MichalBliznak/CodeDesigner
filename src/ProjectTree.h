@@ -9,7 +9,7 @@
 #include "Project.h"
 #include "Events.h"
 
-WX_DECLARE_HASH_MAP( unsigned int, wxTreeItemId, wxIntegerHash, wxIntegerEqual, ObjectMap );
+WX_DECLARE_HASH_MAP( wxUIntPtr, wxTreeItemId, wxIntegerHash, wxIntegerEqual, ObjectMap );
 
 class udProjectTree : public wxTreeCtrl
 {
@@ -66,7 +66,7 @@ public:
 	{;}
     virtual ~udTreeItem()
 	{
-		m_pParentTree->m_mapTreeItems.erase( (unsigned int)m_pProjectItem );
+		m_pParentTree->m_mapTreeItems.erase( (wxUIntPtr)m_pProjectItem );
 	}
 
     // public member data accessors
