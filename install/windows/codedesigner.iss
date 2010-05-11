@@ -1,3 +1,13 @@
+[Setup]
+AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
+AppName=CodeDesigner
+AppVerName=CodeDesigner 1.1.0.1920
+ChangesAssociations=true
+DefaultGroupName=CodeDesigner
+DefaultDirName={pf}\CodeDesigner
+OutputBaseFilename=codedesigner-1.1.0.1920
+InfoBeforeFile=C:\Documents and Settings\michal\Plocha\CodeDesigner\trunk\changes.txt
+LicenseFile=C:\Documents and Settings\michal\Plocha\CodeDesigner\trunk\LICENSE.txt
 [Files]
 Source: ..\..\bin\wxmsw28u_shapeframework_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\bin\CodeDesigner.exe; DestDir: {app}; Components: core
@@ -123,6 +133,8 @@ Source: ..\..\..\..\..\..\..\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Compo
 Source: ..\..\..\..\..\..\..\wxWidgets-2.8.10\lib\gcc_dll\wxmsw28u_gcc_custom.dll; DestDir: {app}; Components: core
 Source: ..\..\readme_bin.txt; DestDir: {app}; Components: core
 Source: ..\..\LICENSE.txt; DestDir: {app}; Components: core
+Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: samples
+Source: ..\..\samples\TestClass.cdp; DestDir: {app}\samples; Components: samples
 [Dirs]
 Name: {app}\plugins; Components: core
 Name: {app}\res; Components: core
@@ -132,25 +144,17 @@ Name: {app}\res\project; Components: core
 Name: {app}\plugins\res; Components: umldiagram
 Name: {app}\plugins\res\elements; Components: umldiagram
 Name: {app}\plugins\res\project; Components: umldiagram
+Name: {app}\samples; Components: samples
 [Components]
 Name: core; Description: Main application files; Flags: fixed; Types: custom compact full
 Name: umldiagram; Description: UML diagrams; Types: custom full
 Name: umlgenerator; Description: UML code generators; Types: custom full
+Name: samples; Description: Sample projects; Types: custom full
 [Icons]
 Name: {group}\CodeDesigner; Filename: {app}\CodeDesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\gui\application-icon.ico; Comment: CodeDesigner RAD; IconIndex: 0; Components: core
 Name: {group}\Uninstall CodeDesigner; Filename: {uninstallexe}
 Name: {commondesktop}\CodeDesigner; Filename: {app}\CodeDesigner.exe; Components: core; Tasks: desktopicon\common; IconIndex: 0
 Name: {userdesktop}\CodeDesigner; Filename: {app}\CodeDesigner.exe; Components: core; Tasks: desktopicon\user; IconIndex: 0
-[Setup]
-AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
-AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.0.1920
-ChangesAssociations=true
-DefaultGroupName=CodeDesigner
-DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.0.1920
-InfoBeforeFile=C:\Documents and Settings\michal\Plocha\CodeDesigner\trunk\changes.txt
-LicenseFile=C:\Documents and Settings\michal\Plocha\CodeDesigner\trunk\LICENSE.txt
 [Registry]
 Root: HKCR; Subkey: .cdp; ValueType: string; ValueData: CodeDesignerProjectFile; Flags: uninsdeletevalue
 Root: HKCR; Subkey: CodeDesignerProjectFile; ValueType: string; ValueName: ; ValueData: CodeDesigner project file; Flags: uninsdeletekey
