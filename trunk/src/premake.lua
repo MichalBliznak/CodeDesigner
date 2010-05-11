@@ -49,9 +49,9 @@ package.includepaths = { "controls/include", "." }
 -- Set hardcoded path for loaded shared libraries
 if( not windows ) then
 	if ( target == "cb-gcc" ) then
-		table.insert( package.linkoptions, "-Wl,-rpath,$``ORIGIN/" )
+		table.insert( package.linkoptions, "-Wl,-rpath,$``ORIGIN/../lib/" .. project.name )
 	else
-		table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/" )
+		table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/../lib/" .. project.name )
 	end
 end
 -- Set windows resource file

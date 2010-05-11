@@ -17,7 +17,11 @@ dofile('../../../build/premake/scripts/init.lua')
 -- Set the name of your package.
 package.name = "diagUml"
 -- Set output directory
-package.bindir = "../../../bin/plugins"
+if( not windows ) then
+	package.bindir = "../../../output/lib/" .. project.name .. "/plugins"
+else
+	package.bindir = "../../../output/bin/plugins"
+end
 -- Set this if you want a different name for your target than the package's name.
 custom_targetName = "diagUml";
 -- Set the kind of package you want to create.

@@ -237,7 +237,7 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 
 wxMenu* udClassElementItem::CreateMenu()
 {	
-	const wxString &sAppPath = IPluginManager::Get()->GetAppPath();
+	const wxString &sAppPath = IPluginManager::Get()->GetResourcesPath();
 	
     // create popup menu
 
@@ -344,12 +344,12 @@ wxMenu* udClassElementItem::CreateMenu()
 	// create popup menu	
 	pItem = new wxMenuItem(pPopupMenu, wxID_COPY, wxT("Copy\tCtrl+C"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_COPY, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(pPopupMenu, IDM_DELAYED_CUTELEMENT, wxT("Cut\tCtrl+X"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_CUT, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/editcut.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Append(pItem);
 
 	//pPopupMenu->AppendSeparator();

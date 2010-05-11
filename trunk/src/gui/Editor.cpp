@@ -10,11 +10,11 @@ END_EVENT_TABLE ()
 udCodeEditor::udCodeEditor( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size )
 : _EditorFrame( parent, id, title, pos, size )
 {
-	const wxString &sAppPath = wxGetApp().GetPath();
+	wxString sResPath = wxGetApp().GetResourcesPath();
 	#ifdef __WXMSW__
-	SetIcon(wxIcon(sAppPath + wxT("res/gui/editor-icon.ico"), wxBITMAP_TYPE_ICO));
+	SetIcon(wxIcon(sResPath + wxT("app/gui/editor-icon.ico"), wxBITMAP_TYPE_ICO));
 	#else
-	SetIcon(wxIcon(sAppPath + wxT("res/gui/editor-icon.png")));
+	SetIcon(wxIcon(sResPath + wxT("app/gui/editor-icon.png")));
 	#endif
 }
 

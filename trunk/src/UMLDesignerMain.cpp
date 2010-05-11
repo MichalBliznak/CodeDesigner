@@ -154,9 +154,9 @@ void UMLDesignerFrame::InitializeComponents()
 	PaletteArray *arrCPalette = new PaletteArray();
 	m_mapElementPalettes[udnCOMMON_ITEMS] = arrCPalette;
 
-	arrCPalette->Add(udPaletteItem(udPluginManager::GetNewComponentId(), wxT("res/elements/Bound.xpm"), wxT("Group"), wxT("uddGroupItem"), wxT("udGroupElementItem"), udPaletteItem::pitELEMENT));
-	arrCPalette->Add(udPaletteItem(udPluginManager::GetNewComponentId(), wxT("res/elements/Note.xpm"), wxT("Note"), wxT("uddNoteItem"), wxT("udNoteElementItem"), udPaletteItem::pitELEMENT));
-	arrCPalette->Add(udPaletteItem(udPluginManager::GetNewComponentId(), wxT("res/elements/LineNote.xpm"), wxT("Note connection"), wxT("uddNoteConnItem"), wxT("udNoteConnElementItem"), udPaletteItem::pitCONNECTION));
+	arrCPalette->Add(udPaletteItem(udPluginManager::GetNewComponentId(), wxT("app/elements/Bound.xpm"), wxT("Group"), wxT("uddGroupItem"), wxT("udGroupElementItem"), udPaletteItem::pitELEMENT));
+	arrCPalette->Add(udPaletteItem(udPluginManager::GetNewComponentId(), wxT("app/elements/Note.xpm"), wxT("Note"), wxT("uddNoteItem"), wxT("udNoteElementItem"), udPaletteItem::pitELEMENT));
+	arrCPalette->Add(udPaletteItem(udPluginManager::GetNewComponentId(), wxT("app/elements/LineNote.xpm"), wxT("Note connection"), wxT("uddNoteConnItem"), wxT("udNoteConnElementItem"), udPaletteItem::pitCONNECTION));
 
 	// create GUI components' info
 	m_mapGUIComponents[IDM_VIEW_PROJECT_PANEL] = new udPanelItem(wxT("project_manager"), wxT("Project manager"));
@@ -228,7 +228,8 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	m_nCurrentToolId = IDT_DESIGN_TOOL_ID;
 	
 	udSettings &Settings = wxGetApp().GetSettings();
-	const wxString &sAppPath = wxGetApp().GetPath();
+//	const wxString &sAppPath = wxGetApp().GetPath();
+	wxString sResPath = wxGetApp().GetResourcesPath();
 	
 	// initialize application's components
 	InitializeComponents();
@@ -248,9 +249,9 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	
 	// set application icon
 	#ifdef __WXMSW__
-	SetIcon(wxIcon(sAppPath + wxT("res/gui/application-icon.ico"), wxBITMAP_TYPE_ICO));
+	SetIcon(wxIcon(sResPath + wxT("app/gui/application-icon.ico"), wxBITMAP_TYPE_ICO));
 	#else
-	SetIcon(wxIcon(sAppPath + wxT("res/gui/application-icon.png")));
+	SetIcon(wxIcon(sResPath + wxT("app/gui/application-icon.png")));
 	#endif
 
     m_AUIManager.SetManagedWindow(this);
@@ -448,7 +449,7 @@ void UMLDesignerFrame::CreatePopupMenu()
 	wxMenuItem *pItem;
 	m_pPopupMenu = new wxMenu;
 	
-	const wxString &sAppPath = wxGetApp().GetPath();
+	wxString sResPath = wxGetApp().GetResourcesPath();
 
 	// add 'Create' submenu
 	m_pPopupMenu->Append(wxID_ANY, wxT("Create"), new wxMenu);
@@ -458,23 +459,23 @@ void UMLDesignerFrame::CreatePopupMenu()
 
 	pItem = new wxMenuItem(m_pPopupMenu, IDM_CODE_PREVIEW, wxT("Code preview"));
 	//pItem->SetBitmap(udArt::GetBitmap(wxT("udICON_PREVIEW")));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
 	m_pPopupMenu->Append(pItem);
 
 	m_pPopupMenu->AppendSeparator();
 
 	pItem = new wxMenuItem(m_pPopupMenu, wxID_UNDO, wxT("Undo\tCtrl+Z"));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/undo.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/undo.png"), wxBITMAP_TYPE_ANY));
 	m_pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(m_pPopupMenu, wxID_REDO, wxT("Redo\tCtrl+Y"));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/redo.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/redo.png"), wxBITMAP_TYPE_ANY));
 	m_pPopupMenu->Append(pItem);
 
 	m_pPopupMenu->AppendSeparator();
 
 	pItem = new wxMenuItem(m_pPopupMenu, wxID_PASTE, wxT("Paste\tCtrl+V"));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/editpaste.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/editpaste.png"), wxBITMAP_TYPE_ANY));
 	m_pPopupMenu->Append(pItem);
 
 	m_pPopupMenu->AppendSeparator();
@@ -592,7 +593,7 @@ int UMLDesignerFrame::UpdateCreateSubmenu(wxMenu *submenu, PaletteArray *palette
 
 void UMLDesignerFrame::CreateMainToolbars()
 {
-	const wxString &sAppPath = wxGetApp().GetPath();
+	wxString sResPath = wxGetApp().GetResourcesPath();
 	
     // main toolbar
 	/*#ifdef __WXGTK__*/
@@ -602,19 +603,19 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbMainFrame = new wxToolBar(this, -1, wxDefaultPosition, wxDefaultSize, wxTB_FLAT);
 	#endif*/
 	m_tbMainFrame->SetToolBitmapSize(wxSize(udnIMG_SIZE, udnIMG_SIZE));
-	m_tbMainFrame->AddTool(wxID_NEW, wxT("New"), wxBitmap(sAppPath + wxT("res/gui/filenew.png"), wxBITMAP_TYPE_ANY), wxT("New project"));
-	m_tbMainFrame->AddTool(wxID_OPEN, wxT("Load"), wxBitmap(sAppPath + wxT("res/gui/fileopen.png"), wxBITMAP_TYPE_ANY), wxT("Open project..."));
-	m_tbMainFrame->AddTool(wxID_SAVEAS, wxT("Save as..."), wxBitmap(sAppPath + wxT("res/gui/filesave.png"), wxBITMAP_TYPE_ANY), wxT("Save project as..."));
+	m_tbMainFrame->AddTool(wxID_NEW, wxT("New"), wxBitmap(sResPath + wxT("app/gui/filenew.png"), wxBITMAP_TYPE_ANY), wxT("New project"));
+	m_tbMainFrame->AddTool(wxID_OPEN, wxT("Load"), wxBitmap(sResPath + wxT("app/gui/fileopen.png"), wxBITMAP_TYPE_ANY), wxT("Open project..."));
+	m_tbMainFrame->AddTool(wxID_SAVEAS, wxT("Save as..."), wxBitmap(sResPath + wxT("app/gui/filesave.png"), wxBITMAP_TYPE_ANY), wxT("Save project as..."));
 	m_tbMainFrame->AddSeparator();
-	m_tbMainFrame->AddTool(wxID_PRINT, wxT("Print"), wxBitmap(sAppPath + wxT("res/gui/fileprint.png"), wxBITMAP_TYPE_ANY), wxT("Print active diagram..."));
-	m_tbMainFrame->AddTool(wxID_PREVIEW, wxT("Preview"), wxBitmap(sAppPath + wxT("res/gui/filepreview.png"), wxBITMAP_TYPE_ANY), wxT("Preview active diagram..."));
+	m_tbMainFrame->AddTool(wxID_PRINT, wxT("Print"), wxBitmap(sResPath + wxT("app/gui/fileprint.png"), wxBITMAP_TYPE_ANY), wxT("Print active diagram..."));
+	m_tbMainFrame->AddTool(wxID_PREVIEW, wxT("Preview"), wxBitmap(sResPath + wxT("app/gui/filepreview.png"), wxBITMAP_TYPE_ANY), wxT("Preview active diagram..."));
 	m_tbMainFrame->AddSeparator();
-	m_tbMainFrame->AddTool(wxID_COPY, wxT("Copy"), wxBitmap(sAppPath + wxT("res/gui/editcopy.png"), wxBITMAP_TYPE_ANY), wxT("Copy to clipboard"));
-	m_tbMainFrame->AddTool(wxID_CUT, wxT("Cut"), wxBitmap(sAppPath + wxT("res/gui/editcut.png"), wxBITMAP_TYPE_ANY), wxT("Cut to clipboard"));
-	m_tbMainFrame->AddTool(wxID_PASTE, wxT("Paste"), wxBitmap(sAppPath + wxT("res/gui/editpaste.png"), wxBITMAP_TYPE_ANY), wxT("Paste from clipboard"));
+	m_tbMainFrame->AddTool(wxID_COPY, wxT("Copy"), wxBitmap(sResPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY), wxT("Copy to clipboard"));
+	m_tbMainFrame->AddTool(wxID_CUT, wxT("Cut"), wxBitmap(sResPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY), wxT("Cut to clipboard"));
+	m_tbMainFrame->AddTool(wxID_PASTE, wxT("Paste"), wxBitmap(sResPath + wxT("app/gui/editpaste.png"), wxBITMAP_TYPE_ANY), wxT("Paste from clipboard"));
 	m_tbMainFrame->AddSeparator();
-	m_tbMainFrame->AddTool(wxID_UNDO, wxT("Undo"), wxBitmap(sAppPath + wxT("res/gui/undo.png"), wxBITMAP_TYPE_ANY), wxT("Undo"));
-	m_tbMainFrame->AddTool(wxID_REDO, wxT("Redo"), wxBitmap(sAppPath + wxT("res/gui/redo.png"), wxBITMAP_TYPE_ANY), wxT("Redo"));
+	m_tbMainFrame->AddTool(wxID_UNDO, wxT("Undo"), wxBitmap(sResPath + wxT("app/gui/undo.png"), wxBITMAP_TYPE_ANY), wxT("Undo"));
+	m_tbMainFrame->AddTool(wxID_REDO, wxT("Redo"), wxBitmap(sResPath + wxT("app/gui/redo.png"), wxBITMAP_TYPE_ANY), wxT("Redo"));
 	m_tbMainFrame->Realize();
 
 	// project toolbar
@@ -636,7 +637,7 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbProjectItems->AddTool(IDM_PROJ_VARIABLE, wxT("Variable"), udArt::GetBitmap(wxT("udGenericVariableItem")), wxT("Create user-defined generic variable"));
 	m_tbProjectItems->AddTool(IDM_PROJ_FUNCTION, wxT("Function"), udArt::GetBitmap(wxT("udGenericFunctionItem")), wxT("Create user-defined generic function"));
 	m_tbProjectItems->AddSeparator();
-	m_tbProjectItems->AddTool(IDM_PROJ_SETTINGS, wxT("Project settings"), wxBitmap(sAppPath + wxT("res/gui/configure.png"), wxBITMAP_TYPE_ANY), wxT("Project settings"));
+	m_tbProjectItems->AddTool(IDM_PROJ_SETTINGS, wxT("Project settings"), wxBitmap(sResPath + wxT("app/gui/configure.png"), wxBITMAP_TYPE_ANY), wxT("Project settings"));
 
     m_tbProjectItems->Realize();
 
@@ -666,8 +667,8 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbGenerator = new wxToolBar(this, -1, wxDefaultPosition, wxDefaultSize, wxTB_FLAT);
 	#endif*/
 	m_tbGenerator->SetToolBitmapSize(wxSize(udnIMG_SIZE, udnIMG_SIZE));
-	m_tbGenerator->AddTool(IDM_CODE_PREVIEW, wxT("Code preview"), wxBitmap(sAppPath + wxT("res/gui/spellcheck.png"), wxBITMAP_TYPE_ANY), wxT("Generate code preview for an active chart"));
-	m_tbGenerator->AddTool(IDM_CODE_GENERATE, wxT("Generate"), wxBitmap(sAppPath + wxT("res/gui/actionrun.png"), wxBITMAP_TYPE_ANY), wxT("Generate code for an active project"));
+	m_tbGenerator->AddTool(IDM_CODE_PREVIEW, wxT("Code preview"), wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY), wxT("Generate code preview for an active chart"));
+	m_tbGenerator->AddTool(IDM_CODE_GENERATE, wxT("Generate"), wxBitmap(sResPath + wxT("app/gui/actionrun.png"), wxBITMAP_TYPE_ANY), wxT("Generate code for an active project"));
 	m_tbGenerator->AddSeparator();
 	m_chLanguages = new wxChoice(m_tbGenerator, IDC_CHOICE_LANGUAGES, wxDefaultPosition, wxSize(200, -1), 0, NULL);
 	m_chLanguages->SetToolTip(wxT("Select output programming language"));

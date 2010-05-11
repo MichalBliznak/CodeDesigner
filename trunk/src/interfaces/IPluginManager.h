@@ -86,6 +86,11 @@ public:
 	 */
 	virtual const wxString& GetAppPath() = 0;
 	/**
+	 * \brief Get application's resources path.
+	 * \return String containing application's resources path
+	 */
+	virtual wxString GetResourcesPath() = 0;
+	/**
 	 * \brief Get bitmap stored in art provider.
 	 * \param name Bitmap identifier used during registration of the bitmap in art provider.
 	 * \return Bitmap (can be invalid if used identifier doesn't exist)

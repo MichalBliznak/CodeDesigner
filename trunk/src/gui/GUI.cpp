@@ -13,9 +13,25 @@
 #include "res/gui/Zoom100Dis.xpm"
 #include "res/gui/ZoomAll.xpm"
 #include "res/gui/ZoomAllDis.xpm"
+#include "res/gui/actionrun.xpm"
 #include "res/gui/collapse.xpm"
+#include "res/gui/configure.xpm"
+#include "res/gui/editcopy.xpm"
+#include "res/gui/editcut.xpm"
+#include "res/gui/editpaste.xpm"
+#include "res/gui/exit.xpm"
+#include "res/gui/filenew.xpm"
+#include "res/gui/fileopen.xpm"
+#include "res/gui/filepreview.xpm"
+#include "res/gui/fileprint.xpm"
+#include "res/gui/filesave.xpm"
 #include "res/gui/form_blue.xpm"
+#include "res/gui/helpindex.xpm"
 #include "res/gui/link_editor.xpm"
+#include "res/gui/organisation.xpm"
+#include "res/gui/redo.xpm"
+#include "res/gui/spellcheck.xpm"
+#include "res/gui/undo.xpm"
 #include "res/project/Function.xpm"
 #include "res/project/Variable.xpm"
 #include "res/project/cube_green.xpm"
@@ -33,36 +49,36 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuFileNew;
 	menuFileNew = new wxMenuItem( fileMenu, wxID_NEW, wxString( wxT("&New project") ) + wxT('\t') + wxT("Ctrl+N"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFileNew->SetBitmaps( wxBitmap( wxT("res/gui/filenew.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileNew->SetBitmaps( wxBitmap( filenew_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFileNew->SetBitmap( wxBitmap( wxT("res/gui/filenew.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileNew->SetBitmap( wxBitmap( filenew_xpm ) );
 	#endif
 	fileMenu->Append( menuFileNew );
 	
 	wxMenuItem* menuFileOpen;
 	menuFileOpen = new wxMenuItem( fileMenu, wxID_OPEN, wxString( wxT("&Open project...") ) + wxT('\t') + wxT("Ctrl+O"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFileOpen->SetBitmaps( wxBitmap( wxT("res/gui/fileopen.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileOpen->SetBitmaps( wxBitmap( fileopen_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFileOpen->SetBitmap( wxBitmap( wxT("res/gui/fileopen.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileOpen->SetBitmap( wxBitmap( fileopen_xpm ) );
 	#endif
 	fileMenu->Append( menuFileOpen );
 	
 	wxMenuItem* menuFileSave;
 	menuFileSave = new wxMenuItem( fileMenu, wxID_SAVE, wxString( wxT("Save") ) + wxT('\t') + wxT("CTRL+S"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFileSave->SetBitmaps( wxBitmap( wxT("res/gui/filesave.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileSave->SetBitmaps( wxBitmap( filesave_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFileSave->SetBitmap( wxBitmap( wxT("res/gui/filesave.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileSave->SetBitmap( wxBitmap( filesave_xpm ) );
 	#endif
 	fileMenu->Append( menuFileSave );
 	
 	wxMenuItem* menuFileSaveAs;
 	menuFileSaveAs = new wxMenuItem( fileMenu, wxID_SAVEAS, wxString( wxT("&Save project as...") ) + wxT('\t') + wxT("Ctrl+Shift+S"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFileSaveAs->SetBitmaps( wxBitmap( wxT("res/gui/filesave.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileSaveAs->SetBitmaps( wxBitmap( filesave_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFileSaveAs->SetBitmap( wxBitmap( wxT("res/gui/filesave.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileSaveAs->SetBitmap( wxBitmap( filesave_xpm ) );
 	#endif
 	fileMenu->Append( menuFileSaveAs );
 	
@@ -79,18 +95,18 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuFilePrint;
 	menuFilePrint = new wxMenuItem( fileMenu, wxID_PRINT, wxString( wxT("&Print...") ) + wxT('\t') + wxT("Ctrl+P"), wxT("Print active diagram"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFilePrint->SetBitmaps( wxBitmap( wxT("res/gui/fileprint.png"), wxBITMAP_TYPE_ANY ) );
+	menuFilePrint->SetBitmaps( wxBitmap( fileprint_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFilePrint->SetBitmap( wxBitmap( wxT("res/gui/fileprint.png"), wxBITMAP_TYPE_ANY ) );
+	menuFilePrint->SetBitmap( wxBitmap( fileprint_xpm ) );
 	#endif
 	fileMenu->Append( menuFilePrint );
 	
 	wxMenuItem* menuFilePreview;
 	menuFilePreview = new wxMenuItem( fileMenu, wxID_PREVIEW, wxString( wxT("Preview...") ) + wxT('\t') + wxT("Alt+P"), wxT("Preview active diagram"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFilePreview->SetBitmaps( wxBitmap( wxT("res/gui/filepreview.png"), wxBITMAP_TYPE_ANY ) );
+	menuFilePreview->SetBitmaps( wxBitmap( filepreview_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFilePreview->SetBitmap( wxBitmap( wxT("res/gui/filepreview.png"), wxBITMAP_TYPE_ANY ) );
+	menuFilePreview->SetBitmap( wxBitmap( filepreview_xpm ) );
 	#endif
 	fileMenu->Append( menuFilePreview );
 	
@@ -110,9 +126,9 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuFileQuit;
 	menuFileQuit = new wxMenuItem( fileMenu, wxID_EXIT, wxString( wxT("&Quit") ) + wxT('\t') + wxT("Alt+F4"), wxT("Quit the application"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuFileQuit->SetBitmaps( wxBitmap( wxT("res/gui/exit.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileQuit->SetBitmaps( wxBitmap( exit_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuFileQuit->SetBitmap( wxBitmap( wxT("res/gui/exit.png"), wxBITMAP_TYPE_ANY ) );
+	menuFileQuit->SetBitmap( wxBitmap( exit_xpm ) );
 	#endif
 	fileMenu->Append( menuFileQuit );
 	
@@ -122,18 +138,18 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuEditUndo;
 	menuEditUndo = new wxMenuItem( editMenu, wxID_UNDO, wxString( wxT("&Undo") ) + wxT('\t') + wxT("Ctrl+Z"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuEditUndo->SetBitmaps( wxBitmap( wxT("res/gui/undo.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditUndo->SetBitmaps( wxBitmap( undo_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuEditUndo->SetBitmap( wxBitmap( wxT("res/gui/undo.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditUndo->SetBitmap( wxBitmap( undo_xpm ) );
 	#endif
 	editMenu->Append( menuEditUndo );
 	
 	wxMenuItem* menuEditRedo;
 	menuEditRedo = new wxMenuItem( editMenu, wxID_REDO, wxString( wxT("&Redo") ) + wxT('\t') + wxT("Ctrl+Y"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuEditRedo->SetBitmaps( wxBitmap( wxT("res/gui/redo.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditRedo->SetBitmaps( wxBitmap( redo_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuEditRedo->SetBitmap( wxBitmap( wxT("res/gui/redo.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditRedo->SetBitmap( wxBitmap( redo_xpm ) );
 	#endif
 	editMenu->Append( menuEditRedo );
 	
@@ -143,27 +159,27 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuEditCopy;
 	menuEditCopy = new wxMenuItem( editMenu, wxID_COPY, wxString( wxT("&Copy") ) + wxT('\t') + wxT("Ctrl+C"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuEditCopy->SetBitmaps( wxBitmap( wxT("res/gui/editcopy.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditCopy->SetBitmaps( wxBitmap( editcopy_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuEditCopy->SetBitmap( wxBitmap( wxT("res/gui/editcopy.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditCopy->SetBitmap( wxBitmap( editcopy_xpm ) );
 	#endif
 	editMenu->Append( menuEditCopy );
 	
 	wxMenuItem* menuEditCut;
 	menuEditCut = new wxMenuItem( editMenu, wxID_CUT, wxString( wxT("Cut") ) + wxT('\t') + wxT("Ctrl+X"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuEditCut->SetBitmaps( wxBitmap( wxT("res/gui/editcut.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditCut->SetBitmaps( wxBitmap( editcut_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuEditCut->SetBitmap( wxBitmap( wxT("res/gui/editcut.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditCut->SetBitmap( wxBitmap( editcut_xpm ) );
 	#endif
 	editMenu->Append( menuEditCut );
 	
 	wxMenuItem* menuEditPaste;
 	menuEditPaste = new wxMenuItem( editMenu, wxID_PASTE, wxString( wxT("&Paste") ) + wxT('\t') + wxT("Ctrl+V"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuEditPaste->SetBitmaps( wxBitmap( wxT("res/gui/editpaste.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditPaste->SetBitmaps( wxBitmap( editpaste_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuEditPaste->SetBitmap( wxBitmap( wxT("res/gui/editpaste.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditPaste->SetBitmap( wxBitmap( editpaste_xpm ) );
 	#endif
 	editMenu->Append( menuEditPaste );
 	
@@ -180,9 +196,9 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuEditPreferences;
 	menuEditPreferences = new wxMenuItem( editMenu, IDM_EDIT_PREFERENCES, wxString( wxT("Preferences...") ) + wxT('\t') + wxT("Ctrl+Alt+P"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuEditPreferences->SetBitmaps( wxBitmap( wxT("res/gui/configure.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditPreferences->SetBitmaps( wxBitmap( configure_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuEditPreferences->SetBitmap( wxBitmap( wxT("res/gui/configure.png"), wxBITMAP_TYPE_ANY ) );
+	menuEditPreferences->SetBitmap( wxBitmap( configure_xpm ) );
 	#endif
 	editMenu->Append( menuEditPreferences );
 	
@@ -297,9 +313,9 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuProjSettings;
 	menuProjSettings = new wxMenuItem( projMenu, IDM_PROJ_SETTINGS, wxString( wxT("Settings...") ) + wxT('\t') + wxT("Ctrl+Alt+S"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuProjSettings->SetBitmaps( wxBitmap( wxT("res/gui/configure.png"), wxBITMAP_TYPE_ANY ) );
+	menuProjSettings->SetBitmaps( wxBitmap( configure_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuProjSettings->SetBitmap( wxBitmap( wxT("res/gui/configure.png"), wxBITMAP_TYPE_ANY ) );
+	menuProjSettings->SetBitmap( wxBitmap( configure_xpm ) );
 	#endif
 	projMenu->Append( menuProjSettings );
 	
@@ -327,18 +343,18 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuCodePreview;
 	menuCodePreview = new wxMenuItem( codeGenMenu, IDM_CODE_PREVIEW, wxString( wxT("&Preview") ) + wxT('\t') + wxT("Ctrl+Shift+G"), wxT("Generate code from active diagram"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuCodePreview->SetBitmaps( wxBitmap( wxT("res/gui/spellcheck.png"), wxBITMAP_TYPE_ANY ) );
+	menuCodePreview->SetBitmaps( wxBitmap( spellcheck_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuCodePreview->SetBitmap( wxBitmap( wxT("res/gui/spellcheck.png"), wxBITMAP_TYPE_ANY ) );
+	menuCodePreview->SetBitmap( wxBitmap( spellcheck_xpm ) );
 	#endif
 	codeGenMenu->Append( menuCodePreview );
 	
 	wxMenuItem* menuCodeGenerate;
 	menuCodeGenerate = new wxMenuItem( codeGenMenu, IDM_CODE_GENERATE, wxString( wxT("&Generate") ) + wxT('\t') + wxT("Ctrl+G"), wxT("Generate code for an active chart"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuCodeGenerate->SetBitmaps( wxBitmap( wxT("res/gui/actionrun.png"), wxBITMAP_TYPE_ANY ) );
+	menuCodeGenerate->SetBitmaps( wxBitmap( actionrun_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuCodeGenerate->SetBitmap( wxBitmap( wxT("res/gui/actionrun.png"), wxBITMAP_TYPE_ANY ) );
+	menuCodeGenerate->SetBitmap( wxBitmap( actionrun_xpm ) );
 	#endif
 	codeGenMenu->Append( menuCodeGenerate );
 	
@@ -362,9 +378,9 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxMenuItem* menuHelpAbout;
 	menuHelpAbout = new wxMenuItem( helpMenu, wxID_ABOUT, wxString( wxT("&About...") ) + wxT('\t') + wxT("F1"), wxT("Show info about this application"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
-	menuHelpAbout->SetBitmaps( wxBitmap( wxT("res/gui/helpindex.png"), wxBITMAP_TYPE_ANY ) );
+	menuHelpAbout->SetBitmaps( wxBitmap( helpindex_xpm ) );
 	#elif defined( __WXGTK__ )
-	menuHelpAbout->SetBitmap( wxBitmap( wxT("res/gui/helpindex.png"), wxBITMAP_TYPE_ANY ) );
+	menuHelpAbout->SetBitmap( wxBitmap( helpindex_xpm ) );
 	#endif
 	helpMenu->Append( menuHelpAbout );
 	
@@ -703,7 +719,7 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	m_toolBar->AddTool( IDT_PROJMAN_EXPAND, wxT("Expand/Collapse all"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString ); 
 	m_toolBar->AddSeparator(); 
 	m_toolBar->AddTool( IDT_PROJMAN_SHOWPROPS, wxT("Show properies"), wxBitmap( form_blue_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Inspect properties of selected tree item"), wxEmptyString ); 
-	m_toolBar->AddTool( IDT_PROJMAN_ORGANIZECI, wxT("Organize code items"), wxBitmap( wxT("res/gui/organisation.png"), wxBITMAP_TYPE_ANY ), wxNullBitmap, wxITEM_CHECK, wxT("Organize code items"), wxEmptyString ); 
+	m_toolBar->AddTool( IDT_PROJMAN_ORGANIZECI, wxT("Organize code items"), wxBitmap( organisation_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Organize code items"), wxEmptyString ); 
 	m_toolBar->Realize();
 	
 	mainSizer->Add( m_toolBar, 0, wxEXPAND, 5 );
@@ -780,7 +796,7 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	mainSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	m_toolActions = new wxToolBar( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxTB_FLAT|wxTB_HORIZONTAL ); 
-	m_toolActions->AddTool( IDT_INSTEDITOR_SAVE, wxT("tool"), wxBitmap( wxT("res/gui/filesave.png"), wxBITMAP_TYPE_ANY ), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes (Alt+S)"), wxEmptyString ); 
+	m_toolActions->AddTool( IDT_INSTEDITOR_SAVE, wxT("tool"), wxBitmap( filesave_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes (Alt+S)"), wxEmptyString ); 
 	m_toolActions->AddSeparator(); 
 	m_stCodeItem = new wxStaticText( m_toolActions, wxID_ANY, wxT("Code item:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_stCodeItem->Wrap( -1 );

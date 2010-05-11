@@ -1706,7 +1706,7 @@ void udDiagramItem::GetSpecificCodeItems( wxClassInfo *type, SerializableList& c
 
 wxMenu* udDiagramItem::CreateMenu()
 {
-	const wxString &sAppPath = IPluginManager::Get()->GetAppPath();
+	const wxString &sAppPath = IPluginManager::Get()->GetResourcesPath();
 	
 	// create popup menu
 	wxMenu *pPopupMenu = new wxMenu();
@@ -1715,7 +1715,7 @@ wxMenu* udDiagramItem::CreateMenu()
 
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, IDM_DIAG_SHOWPREVIEW, wxT("Code preview"));
 	//pItem->SetBitmap(udArt::GetBitmap(wxT("udICON_PREVIEW")));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Append(pItem);
 
 	pPopupMenu->AppendSeparator();
@@ -2142,19 +2142,19 @@ void udDiagElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 
 wxMenu* udDiagElementItem::CreateMenu()
 {	
-	const wxString &sAppPath = IPluginManager::Get()->GetAppPath();
+	const wxString &sAppPath = IPluginManager::Get()->GetResourcesPath();
 	
 	// create popup menu	
 	wxMenu *pPopupMenu = new wxMenu();
 	
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, wxID_COPY, wxT("Copy\tCtrl+C"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_COPY, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(pPopupMenu, IDM_DELAYED_CUTELEMENT, wxT("Cut\tCtrl+X"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_CUT, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/editcut.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Append(pItem);
 
 	pPopupMenu->AppendSeparator();
@@ -2401,7 +2401,7 @@ bool udSubDiagramElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
 
 wxMenu* udSubDiagramElementItem::CreateMenu()
 {
-	const wxString &sAppPath = IPluginManager::Get()->GetAppPath();
+	const wxString &sAppPath = IPluginManager::Get()->GetResourcesPath();
 	
     // create popup menu
 	
@@ -2411,7 +2411,7 @@ wxMenu* udSubDiagramElementItem::CreateMenu()
 
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, IDM_DIAG_SHOWPREVIEW, wxT("Code preview"));
 	//pItem->SetBitmap(udArt::GetBitmap(wxT("udICON_PREVIEW")));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Insert(1, pItem);
 
 	pPopupMenu->InsertSeparator(2);

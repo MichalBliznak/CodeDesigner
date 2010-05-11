@@ -174,6 +174,24 @@ wxString UMLDesignerApp::GetSettingsPath() const
 	return udvSETTINGS_DIR;
 }
 
+wxString UMLDesignerApp::GetPluginsPath() const
+{
+	#ifdef __WXMSW__
+	return m_sAppPath + wxT("plugins") + wxFileName::GetPathSeparator();
+	#else
+	return wxStandardPaths::Get().GetPluginsDir() + wxFileName::GetPathSeparator() + wxT("plugins") + wxFileName::GetPathSeparator();
+	#endif
+}
+
+wxString UMLDesignerApp::GetResourcesPath() const
+{
+	#ifdef __WXMSW__
+	return m_sAppPath + wxT("res") + wxFileName::GetPathSeparator();
+	#else
+	return wxStandardPaths::Get().GetResourcesDir() + wxFileName::GetPathSeparator();
+	#endif
+}
+
 udProject* UMLDesignerApp::GetActiveProject()
 {
     return m_pProject;

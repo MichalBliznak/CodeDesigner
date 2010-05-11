@@ -56,10 +56,10 @@ udTestDiagramPlugin::udTestDiagramPlugin(IPluginManager *manager) : IPlugin(mana
 	// diagram info
 	m_infoDiag.SetName( udnTEST_DIAGRAM );
 	m_infoDiag.SetDataClassName( wxT("udTestDiagramItem") );
-	m_infoDiag.SetIcon( wxT("plugins/res/project/UseCaseDiag.xpm") );
+	m_infoDiag.SetIcon( wxT("plugins/project/UseCaseDiag.xpm") );
 	
 	// register diagram components
-	m_infoDiag.AddComponentInfo( udDiagramComponentInfo(  wxT("plugins/res/elements/Actor.xpm"),
+	m_infoDiag.AddComponentInfo( udDiagramComponentInfo(  wxT("plugins/elements/Actor.xpm"),
 												wxT("Test element"),
 												wxT("uddTestElement"),
 												wxT("udTestElementItem"),

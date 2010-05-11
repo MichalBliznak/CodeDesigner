@@ -61,6 +61,7 @@ public:
 	virtual udDiagramCanvas* GetActiveCanvas();
 	virtual udDiagramItem* GetActiveDiagram();
 	virtual const wxString& GetAppPath();
+	virtual wxString GetResourcesPath();
 	virtual wxBitmap GetArtBitmap(const wxString& name);
 	virtual wxFrame* GetMainFrame();
 	virtual IProject* GetProject();

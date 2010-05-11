@@ -17,15 +17,15 @@ mkdir $out
 
 # copy program files
 echo "Copying application files..."
-cp -R -L ../../bin/* $out
+cp -R -L ../../output/* $out
 rm -rf `find $out -type d -name .svn`
 rm -rf `find $out -type f -name *gtk2ud*`
 rm -rf `find $out -type f -name *_d*`
-rm -rf $out/plugins/*diagTest.so
+rm -rf $out/lib/CodeDesigner/plugins/*diagTest.so
 cp ../../LICENSE.txt $out
 cp ../../changes.txt $out
 cp ../../readme_bin.txt $out
-chmod +x $out/CodeDesigner
+chmod +x $out/bin/CodeDesigner
 
 # copy samples
 mkdir $out/samples
@@ -37,16 +37,16 @@ cp ../../src/res/gui/application-icon.png $out/icon.png
 # copy wxWidgets files
 wxprefix=`wx-config --prefix`
 
-cp $wxprefix/lib/libwx_gtk2u_richtext-2.8.so.0 $out
-cp $wxprefix/lib/libwx_gtk2u_aui-2.8.so.0 $out
-cp $wxprefix/lib/libwx_gtk2u_xrc-2.8.so.0 $out
-cp $wxprefix/lib/libwx_gtk2u_qa-2.8.so.0 $out
-cp $wxprefix/lib/libwx_gtk2u_html-2.8.so.0 $out
-cp $wxprefix/lib/libwx_gtk2u_adv-2.8.so.0 $out
-cp $wxprefix/lib/libwx_gtk2u_core-2.8.so.0 $out
-cp $wxprefix/lib/libwx_baseu_xml-2.8.so.0 $out
-cp $wxprefix/lib/libwx_baseu_net-2.8.so.0 $out
-cp $wxprefix/lib/libwx_baseu-2.8.so.0 $out
+cp $wxprefix/lib/libwx_gtk2u_richtext-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_gtk2u_aui-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_gtk2u_xrc-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_gtk2u_qa-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_gtk2u_html-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_gtk2u_adv-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_gtk2u_core-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_baseu_xml-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_baseu_net-2.8.so.0 $out/lib/CodeDesigner
+cp $wxprefix/lib/libwx_baseu-2.8.so.0 $out/lib/CodeDesigner
 
 # create archive
 echo "Creating archive..."
