@@ -18,7 +18,7 @@
 
 // check supported wxWidgets version
 #if wxCHECK_VERSION(2,9,0)
-	#error *** This CodeLite version cannot be build with wxWidgets 2.9 and upper ***
+	#error *** This CodeDesigner version cannot be build with wxWidgets 2.9 and upper ***
 #endif
 
 #include <wx/log.h>
