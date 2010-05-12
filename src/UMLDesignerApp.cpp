@@ -44,7 +44,7 @@ IMPLEMENT_APP(UMLDesignerApp);
 
 bool UMLDesignerApp::OnInit()
 {
-	SetAppName( wxT("CodeDesigner") );
+	SetAppName( wxT("codedesigner") );
 	
 	wxInitAllImageHandlers();
 	

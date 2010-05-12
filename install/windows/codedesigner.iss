@@ -1,13 +1,13 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.0.1948
+AppVerName=CodeDesigner 1.1.1.1951
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.0.1948
-InfoBeforeFile=C:\Documents and Settings\michal\Plocha\CodeDesigner\trunk\changes.txt
-LicenseFile=C:\Documents and Settings\michal\Plocha\CodeDesigner\trunk\LICENSE.txt
+OutputBaseFilename=codedesigner-1.1.1.1951
+InfoBeforeFile=..\..\changes.txt
+LicenseFile=..\..\LICENSE.txt
 [Files]
 Source: ..\..\..\..\..\..\..\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Components: core
 Source: ..\..\..\..\..\..\..\wxWidgets-2.8.10\lib\gcc_dll\wxmsw28u_gcc_custom.dll; DestDir: {app}; Components: core
@@ -16,7 +16,7 @@ Source: ..\..\LICENSE.txt; DestDir: {app}; Components: core
 Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: samples
 Source: ..\..\samples\TestClass.cdp; DestDir: {app}\samples; Components: samples
 Source: ..\..\output\wxmsw28u_shapeframework_cd.dll; DestDir: {app}; Components: core
-Source: ..\..\output\CodeDesigner.exe; DestDir: {app}; Components: core
+Source: ..\..\output\codedesigner.exe; DestDir: {app}; Components: core
 Source: ..\..\output\projectBase.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_propgrid_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_scintilla_cd.dll; DestDir: {app}; Components: core
@@ -166,19 +166,19 @@ Name: umldiagram; Description: UML diagrams; Types: custom full
 Name: umlgenerator; Description: UML code generators; Types: custom full
 Name: samples; Description: Sample projects; Types: custom full
 [Icons]
-Name: {group}\CodeDesigner; Filename: {app}\CodeDesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\gui\application-icon.ico; Comment: CodeDesigner RAD; IconIndex: 0; Components: core
+Name: {group}\CodeDesigner; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\gui\application-icon.ico; Comment: CodeDesigner RAD; IconIndex: 0; Components: core
 Name: {group}\Uninstall CodeDesigner; Filename: {uninstallexe}
-Name: {commondesktop}\CodeDesigner; Filename: {app}\CodeDesigner.exe; Components: core; Tasks: desktopicon\common; IconIndex: 0
-Name: {userdesktop}\CodeDesigner; Filename: {app}\CodeDesigner.exe; Components: core; Tasks: desktopicon\user; IconIndex: 0
+Name: {commondesktop}\CodeDesigner; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\common; IconIndex: 0
+Name: {userdesktop}\CodeDesigner; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\user; IconIndex: 0
 [Registry]
 Root: HKCR; Subkey: .cdp; ValueType: string; ValueData: CodeDesignerProjectFile; Flags: uninsdeletevalue
 Root: HKCR; Subkey: CodeDesignerProjectFile; ValueType: string; ValueName: ; ValueData: CodeDesigner project file; Flags: uninsdeletekey
-Root: HKCR; Subkey: CodeDesignerProjectFile\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\CodeDesigner.exe,0
-Root: HKCR; Subkey: CodeDesignerProjectFile\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\CodeDesigner.exe"" ""%1"""
+Root: HKCR; Subkey: CodeDesignerProjectFile\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\codedesigner.exe,0
+Root: HKCR; Subkey: CodeDesignerProjectFile\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\codedesigner.exe"" ""%1"""
 [Tasks]
 Name: desktopicon; Description: Create a &desktop icon; GroupDescription: Additional icons:; Components: core
 Name: desktopicon\common; Description: For all users; GroupDescription: Additional icons:; Components: core; Flags: exclusive
 Name: desktopicon\user; Description: For the current user only; GroupDescription: Additional icons:; Components: core; Flags: exclusive unchecked
 [Run]
 Filename: {app}\readme_bin.txt; Description: View the README file; Flags: postinstall shellexec skipifsilent
-Filename: {app}\CodeDesigner.exe; Description: Launch application; Flags: postinstall nowait skipifsilent unchecked
+Filename: {app}\codedesigner.exe; Description: Launch application; Flags: postinstall nowait skipifsilent unchecked

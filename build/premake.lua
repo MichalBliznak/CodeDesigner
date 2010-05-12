@@ -1,4 +1,4 @@
-project.name = "CodeDesigner"
+project.name = "codedesigner"
 
 if( not windows ) then
 	project.bindir = "../output/bin"
