@@ -18,7 +18,7 @@ dofile('../build/premake/scripts/init.lua')
 package.name = "CodeDesigner"
 
 -- Set this if you want a different name for your target than the package's name.
-targetName = "CodeDesigner"
+targetName = "codedesigner"
 
 -- Set the kind of package you want to create.
 --		Options: exe | winexe | lib | dll
