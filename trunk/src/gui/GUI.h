@@ -37,7 +37,6 @@
 #include <wx/stattext.h>
 #include <wx/treectrl.h>
 #include <wx/dialog.h>
-#include <wx/animate.h>
 #include <wx/gauge.h>
 #include <wx/choice.h>
 #include <wx/textctrl.h>
@@ -329,7 +328,6 @@ class _ProgressDialog : public wxDialog
 	
 	protected:
 		wxStaticText* m_stLabel;
-		wxAnimationCtrl* m_animCtrl1;
 		wxGauge* m_gaProgress;
 	
 	public:

@@ -955,22 +955,11 @@ _ProgressDialog::_ProgressDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer( wxVERTICAL );
 	
-	wxBoxSizer* bSizer28;
-	bSizer28 = new wxBoxSizer( wxHORIZONTAL );
-	
 	m_stLabel = new wxStaticText( this, wxID_ANY, wxT("Text"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_stLabel->Wrap( -1 );
 	m_stLabel->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString ) );
 	
-	bSizer28->Add( m_stLabel, 1, wxTOP|wxRIGHT|wxLEFT|wxEXPAND, 5 );
-	
-	m_animCtrl1 = new wxAnimationCtrl( this, wxID_ANY, wxNullAnimation, wxDefaultPosition, wxSize( -1,-1 ), wxAC_DEFAULT_STYLE );
-	m_animCtrl1->LoadFile( wxT("res/gui/throbber.gif") );
-	
-	m_animCtrl1->Play();
-	bSizer28->Add( m_animCtrl1, 0, wxALL, 5 );
-	
-	mainSizer->Add( bSizer28, 1, wxEXPAND, 5 );
+	mainSizer->Add( m_stLabel, 1, wxEXPAND|wxALL, 5 );
 	
 	m_gaProgress = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 350,-1 ), wxGA_HORIZONTAL );
 	mainSizer->Add( m_gaProgress, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );

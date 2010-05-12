@@ -45,8 +45,6 @@ bool udGenerator::Initialize()
     {
         if(!m_pAlgorithm->GetParentGenerator()) m_pAlgorithm->SetParentGenerator(this);
     }
-    else
-        return false;
 
     return true;
 }
