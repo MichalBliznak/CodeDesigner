@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.1.1958
+AppVerName=CodeDesigner 1.1.1.1959
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.1.1958
+OutputBaseFilename=codedesigner-1.1.1.1959
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 [Files]
@@ -17,11 +17,11 @@ Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: sampl
 Source: ..\..\samples\TestClass.cdp; DestDir: {app}\samples; Components: samples
 Source: ..\..\output\wxmsw28u_shapeframework_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\codedesigner.exe; DestDir: {app}; Components: core
-Source: ..\..\output\projectBase.dll; DestDir: {app}; Components: core
+Source: ..\..\output\cdprojectbase.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_propgrid_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_scintilla_cd.dll; DestDir: {app}; Components: core
-Source: ..\..\output\plugins\genUml.dll; DestDir: {app}\plugins; Components: umlgenerator; Tasks: 
-Source: ..\..\output\plugins\diagUml.dll; DestDir: {app}\plugins; Components: umldiagram
+Source: ..\..\output\plugins\genuml.dll; DestDir: {app}\plugins; Components: umlgenerator; Tasks: 
+Source: ..\..\output\plugins\diaguml.dll; DestDir: {app}\plugins; Components: umldiagram
 Source: ..\..\output\res\app\elements\Tool.xpm; DestDir: {app}\res\app\elements; Components: core
 Source: ..\..\output\res\app\elements\Bound.xpm; DestDir: {app}\res\app\elements; Components: core
 Source: ..\..\output\res\app\elements\LineNote.xpm; DestDir: {app}\res\app\elements; Components: core
