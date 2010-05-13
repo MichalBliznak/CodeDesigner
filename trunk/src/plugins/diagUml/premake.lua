@@ -23,7 +23,7 @@ else
 	package.bindir = "../../../output/plugins"
 end
 -- Set this if you want a different name for your target than the package's name.
-custom_targetName = "diagUml";
+custom_targetName = "diaguml";
 -- Set the kind of package you want to create.
 --		Options: exe | winexe | lib | dll
 package.kind = "dll"
