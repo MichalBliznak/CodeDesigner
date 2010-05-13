@@ -17,7 +17,7 @@ dofile('../../build/premake/scripts/init.lua')
 -- Set the name of your package.
 package.name = "projectBase"
 -- Set this if you want a different name for your target than the package's name.
-custom_targetName = "projectBase";
+custom_targetName = "cdprojectbase";
 -- Set the kind of package you want to create.
 --		Options: exe | winexe | lib | dll
 package.kind = "dll"
