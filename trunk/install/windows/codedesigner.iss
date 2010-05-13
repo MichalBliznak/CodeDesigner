@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.1.1956
+AppVerName=CodeDesigner 1.1.1.1958
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.1.1956
+OutputBaseFilename=codedesigner-1.1.1.1958
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 [Files]
@@ -166,7 +166,7 @@ Name: umldiagram; Description: UML diagrams; Types: custom full
 Name: umlgenerator; Description: UML code generators; Types: custom full
 Name: samples; Description: Sample projects; Types: custom full
 [Icons]
-Name: {group}\CodeDesigner; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\gui\application-icon.ico; Comment: CodeDesigner RAD; IconIndex: 0; Components: core
+Name: {group}\CodeDesigner; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\app\gui\application-icon.ico; Comment: CodeDesigner RAD; Components: core; IconIndex: 0
 Name: {group}\Uninstall CodeDesigner; Filename: {uninstallexe}
 Name: {commondesktop}\CodeDesigner; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\common; IconIndex: 0
 Name: {userdesktop}\CodeDesigner; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\user; IconIndex: 0
