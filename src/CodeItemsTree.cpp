@@ -43,7 +43,7 @@ wxTreeItemId udCodeItemsTree::CreateTreeItems(udProjectItem* item, wxTreeItemId 
 			treeId = AddRoot( wxT("Reusable code fragments"), nImageIndex, nImageIndex, new udTreeItem(this, item));
 			//EnsureVisible( treeId );
 			//Expand( treeId );
-			m_mapTreeItems[ (unsigned int)item ] = treeId;
+			m_mapTreeItems[ (wxUIntPtr)item ] = treeId;
         }
 		else if( item->IsKindOf( CLASSINFO(udCodePackageItem)) )
 		{

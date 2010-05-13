@@ -27,10 +27,10 @@ void udXS2PG::CleanUp()
 	NameMaps::iterator it;
 	for( it = m_mapMaps.begin(); it != m_mapMaps.end(); ++it )
 	{
-		if( it->second && (arrAlreadyDeleted.Index((int)it->second) == wxNOT_FOUND) )
+		if( it->second && (arrAlreadyDeleted.Index((wxUIntPtr)it->second) == wxNOT_FOUND) )
 		{
 			it->second->clear();
-			arrAlreadyDeleted.Add( (int)it->second );
+			arrAlreadyDeleted.Add( (wxUIntPtr)it->second );
 			delete it->second;
 		}
 	}

@@ -201,9 +201,9 @@ void UMLDesignerFrame::CleanUpComponents()
 	ProjectItemMap::iterator it2;
 	for( it2 = m_mapProjectItems.begin(); it2 != m_mapProjectItems.end(); ++it2 )
 	{
-		if( it2->second && (arrAlreadyDeleted.Index((int)it2->second) == wxNOT_FOUND) )
+		if( it2->second && (arrAlreadyDeleted.Index((wxUIntPtr)it2->second) == wxNOT_FOUND) )
 		{
-			arrAlreadyDeleted.Add( (int)it2->second );
+			arrAlreadyDeleted.Add( (wxUIntPtr)it2->second );
 			delete it2->second;
 		}
 	}
@@ -670,13 +670,14 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbGenerator->AddTool(IDM_CODE_PREVIEW, wxT("Code preview"), wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY), wxT("Generate code preview for an active chart"));
 	m_tbGenerator->AddTool(IDM_CODE_GENERATE, wxT("Generate"), wxBitmap(sResPath + wxT("app/gui/actionrun.png"), wxBITMAP_TYPE_ANY), wxT("Generate code for an active project"));
 	m_tbGenerator->AddSeparator();
-	m_chLanguages = new wxChoice(m_tbGenerator, IDC_CHOICE_LANGUAGES, wxDefaultPosition, wxSize(200, -1), 0, NULL);
+	wxArrayString dummy; // This is just because gcc 4.3 does not like the num at 0 and the cont wxString* at NULL
+	m_chLanguages = new wxChoice(m_tbGenerator, IDC_CHOICE_LANGUAGES, wxDefaultPosition, wxSize(200, -1), dummy);
 	m_chLanguages->SetToolTip(wxT("Select output programming language"));
 	m_tbGenerator->AddControl(m_chLanguages);
-	m_chGenerators = new wxChoice(m_tbGenerator, IDC_CHOICE_GENERATORS, wxDefaultPosition, wxSize(300, -1), 0, NULL);
+	m_chGenerators = new wxChoice(m_tbGenerator, IDC_CHOICE_GENERATORS, wxDefaultPosition, wxSize(300, -1), dummy);
 	m_chGenerators->SetToolTip(wxT("Select generator"));
 	m_tbGenerator->AddControl(m_chGenerators);
-	m_chAlgorithms = new wxChoice(m_tbGenerator, IDC_CHOICE_ALGORITHMS, wxDefaultPosition, wxSize(300, -1), 0, NULL);
+	m_chAlgorithms = new wxChoice(m_tbGenerator, IDC_CHOICE_ALGORITHMS, wxDefaultPosition, wxSize(300, -1), dummy);
 	m_chAlgorithms->SetToolTip(wxT("Select algorithm"));
 	m_tbGenerator->AddControl(m_chAlgorithms);
 	m_tbGenerator->Realize();

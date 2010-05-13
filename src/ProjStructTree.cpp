@@ -212,7 +212,7 @@ wxTreeItemId udProjStructTree::CreateTreeItems(udProjectItem* item, wxTreeItemId
             newItem = AddRoot(item->GetName(), nImageIndex, nImageIndex, new udTreeItem(this, item) );
 			EnsureVisible( newItem );
 			Expand( newItem );
-			m_mapTreeItems[ (unsigned int)item ] = newItem;
+			m_mapTreeItems[ (wxUIntPtr)item ] = newItem;
         }
         else if( item->IsKindOf(CLASSINFO(udPackageItem)) )
         {
