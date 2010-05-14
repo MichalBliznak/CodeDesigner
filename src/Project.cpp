@@ -49,17 +49,17 @@ udRootItem::~udRootItem()
 
 wxMenu* udRootItem::CreateMenu()
 {
-	const wxString &sAppPath = wxGetApp().GetPath();
+	const wxString &sResPath = wxGetApp().GetResourcesPath();
 	
 	// create popup menu
 	wxMenu *pPopupMenu = new wxMenu();
 	
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, IDM_PROJ_PACKAGE, wxT("Create diagram package"), wxT("Create new package and add it to the project root"));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/project/cube_green.xpm"), wxBITMAP_TYPE_XPM));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/project/cube_green.xpm"), wxBITMAP_TYPE_XPM));
 	pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(pPopupMenu, IDM_PROJ_CODEPACKAGE, wxT("Create code package"), wxT("Create new code package and add it to the project root"));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("res/project/cube_yellow.xpm"), wxBITMAP_TYPE_XPM));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/project/cube_yellow.xpm"), wxBITMAP_TYPE_XPM));
 	pPopupMenu->Append(pItem);
 
 	pPopupMenu->AppendSeparator();
