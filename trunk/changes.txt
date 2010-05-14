@@ -1,4 +1,4 @@
-Changes in version 1.1.1 beta (2010-05-12):
+Changes in version 1.1.1 beta (2010-05-14):
 ------------------------------------------------
 - Removed annoying messages occured if application settings or diagram bank
   couldn't be read.
@@ -7,6 +7,7 @@ Changes in version 1.1.1 beta (2010-05-12):
 - Application's executable file names changed to lowercase form (e.g. 'codedesigner'
   instead of 'CodeDesigner').
 - Fixed false warning ('Initialization has failed') occured during code generation.
+- Added splash screen (on option).
 
 Changes in version 1.1.0 beta (2010-05-09):
 ------------------------------------------------
