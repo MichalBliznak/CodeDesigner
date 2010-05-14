@@ -23,6 +23,7 @@
 
 #include <wx/log.h>
 #include <wx/stdpaths.h>
+#include <wx/splash.h>
 
 #include "UMLDesignerApp.h"
 #include "UMLDesignerMain.h"
@@ -71,6 +72,13 @@ bool UMLDesignerApp::OnInit()
 	if( !m_Settings.DeserializeFromXml( udvSETTINGS_PATH ) )
 	{
 		if( wxFileExists( udvSETTINGS_PATH ) ) wxMessageBox( wxT("Application settings couldn't be read so default values will be used."), wxT("CodeDesigner"), wxOK | wxICON_WARNING );
+	}
+	
+	// show splash screen
+	if( m_Settings.GetProperty( wxT("Show splash screen") )->AsBool() )
+	{
+		new wxSplashScreen( wxBitmap( GetResourcesPath() + wxT("app/gui/splash.png"), wxBITMAP_TYPE_PNG ),  wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT, 4000, NULL, wxID_ANY );
+		wxYield();
 	}
 	
     // initialize languages

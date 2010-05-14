@@ -44,8 +44,10 @@ udFrameCategory::udFrameCategory() : udSettingsCategory( wxT("Main frame") )
 {
 	// initialize application settings
 	m_colBackground = udFRAME::GetBcgColour();
+	m_fShowSplash = true;
 	
 	XS_SERIALIZE( m_colBackground, wxT("Background colour") );
+	XS_SERIALIZE( m_fShowSplash, wxT("Show splash screen") );
 }
 
 udFrameCategory::~udFrameCategory()
