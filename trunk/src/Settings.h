@@ -52,6 +52,7 @@ public:
 	
 	// public data members
 	wxColour m_colBackground;
+	bool m_fShowSplash;
 };
 
 class udHiddenGUICategory : public udHiddenCategory
