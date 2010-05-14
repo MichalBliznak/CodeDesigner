@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.1.1959
+AppVerName=CodeDesigner 1.1.1.1972
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.1.1959
+OutputBaseFilename=codedesigner-1.1.1.1972
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 [Files]
@@ -149,6 +149,7 @@ Source: ..\..\output\res\plugins\project\MemberFunction.xpm; DestDir: {app}\res\
 Source: ..\..\output\res\plugins\project\MemberFunction_link.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\SimpleStateChartDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\StateChartDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
+Source: ..\..\output\res\app\gui\splash.png; DestDir: {app}\res\app\gui
 [Dirs]
 Name: {app}\plugins; Components: core
 Name: {app}\res; Components: core
