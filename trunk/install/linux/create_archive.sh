@@ -21,7 +21,7 @@ cp -R -L ../../output/* $out
 rm -rf `find $out -type d -name .svn`
 rm -rf `find $out -type f -name *gtk2ud*`
 rm -rf `find $out -type f -name *_d*`
-rm -rf $out/lib/codedesigner/plugins/*diagTest.so
+rm -rf $out/lib/codedesigner/plugins/*diagtest.so
 cp ../../LICENSE.txt $out
 cp ../../changes.txt $out
 cp ../../readme_bin.txt $out
