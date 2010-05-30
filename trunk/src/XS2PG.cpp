@@ -200,7 +200,7 @@ void udXS2PG::RegisterFriendlyName(const wxString& mapname, const wxString& orig
 	if( !pMap )
 	{
 		pMap = new NameMap();
-		m_mapMaps[wxT("mapname")] = pMap;
+		m_mapMaps[mapname] = pMap;
 	}
 	
 	(*pMap)[origname] = friendlyname;

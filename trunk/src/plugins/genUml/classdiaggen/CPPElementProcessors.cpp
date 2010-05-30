@@ -60,7 +60,15 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 		sBases << pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(*it)->GetName() );
 	}
 	
-	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(element)->GetName() ), sBases );
+	udClassElementItem *pClass = (udClassElementItem*)udPROJECT::GetDiagramElement(element);
+	
+	// write template definition if needed
+	if( pClass->GetIsTemplate() )
+	{
+		pLang->WriteCodeBlocks( wxT("template<typename ") + pClass->GetTemplateName() + wxT(">") );
+	}
+	
+	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( pClass->GetName() ), sBases );
 	
 	pLang->BeginCmd();
 	
@@ -110,7 +118,7 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 {
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-	//udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	udClassElementItem *pClass = (udClassElementItem*)udPROJECT::GetDiagramElement(element);
 	
 	int nAccessType = 0;
 	wxClassInfo *pPrevType;
@@ -136,6 +144,12 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 			
 			// generate non-abstract functions only
 			if( pFcn->GetFunctionModifer() == udLanguage::FM_ABSTRACT ) continue;
+			
+			// write template definition if needed
+			if( pClass->GetIsTemplate() )
+			{
+				pLang->WriteCodeBlocks( wxT("template<typename ") + pClass->GetTemplateName() + wxT(">") );
+			}
 			
 			if( pFcn->GetImplementation() == uddvFUNCTION_USERIMPLEMENTATION )
 			{

@@ -19,6 +19,10 @@ public:
 	uddLabelElement* CreateVariableCtrl( const wxString& content, long parentid );
 	uddLabelElement* CreateFunctionCtrl( const wxString& content, long parentid );
 	
+	void ShowTemplateCtrl(bool show);
+	uddLabelElement* GetTemplateCtrl() {return m_pTemplate;}
+	void UpdateTemplateCtrl( const wxString& txt );
+	
 	// public virtual functions
 	virtual void OnChildDropped(const wxRealPoint& pos, wxSFShapeBase *child);
 
@@ -27,6 +31,7 @@ protected:
 	wxSFFlexGridShape *m_pGrid;
 	wxSFGridShape *m_pVariablesGrid;
 	wxSFGridShape *m_pFunctionsGrid;
+	uddLabelElement *m_pTemplate;
 
     // protected virtual functions
     virtual void DrawNormal(wxDC& dc);

@@ -305,10 +305,11 @@ void udCProjectGenerator::ProcessProject(udProject *src)
 	
 				// construct header name
 				wxString sHeaderName = Settings.GetProperty(wxT("Base file name"))->AsString() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
-				sCIHeaderName = Settings.GetProperty(wxT("Code items file name"))->AsString() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
+				//sCIHeaderName = Settings.GetProperty(wxT("Code items file name"))->AsString() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
 		
 				// Insert header to the implementation file
-				InsertIntoCodemark( wxString::Format( wxT("#include \"%s\""), sHeaderName.c_str() ) << ENDL << wxString::Format( wxT("#include \"%s\""), sCIHeaderName.c_str() ) << ENDL, COMMON_HEADERS_MARK, OutFile );
+				//InsertIntoCodemark( wxString::Format( wxT("#include \"%s\""), sHeaderName.c_str() ) << ENDL << wxString::Format( wxT("#include \"%s\""), sCIHeaderName.c_str() ) << ENDL, COMMON_HEADERS_MARK, OutFile );
+				InsertIntoCodemark( wxString::Format( wxT("#include \"%s\""), sHeaderName.c_str() ) << ENDL, COMMON_HEADERS_MARK, OutFile );
 				
 				////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// generate common definition

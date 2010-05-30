@@ -15,8 +15,7 @@ umlSubStateItem::umlSubStateItem(const umlSubStateItem &obj)
 	m_pSign = (wxSFBitmapShape*)obj.m_pSign->Clone();
 	if( m_pSign )
 	{
-		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pSign, wxT("sign"));
-		AddChild(m_pSign);
+		SF_ADD_COMPONENT( m_pSign, wxT("sign") );
 	}
 
 	DisableUselessProperties();
@@ -56,10 +55,7 @@ void umlSubStateItem::Initialize()
         m_pSign->SetStyle( sfsALWAYS_INSIDE );
         m_pSign->EnableScale(false);
 
-        m_pSign->EnableSerialization(false);
-        XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pSign, wxT("sign"));
-
-        AddChild(m_pSign);
+        SF_ADD_COMPONENT( m_pSign, wxT("sign") );
     }
 }
 

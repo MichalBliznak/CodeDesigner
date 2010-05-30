@@ -14,8 +14,7 @@ uddLineElement::uddLineElement(const uddLineElement &obj)
 	m_pLabel = (uddLabelElement*)obj.m_pLabel->Clone();
 	if( m_pLabel )
 	{
-		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pLabel, wxT("label"));
-		AddChild(m_pLabel);
+		SF_ADD_COMPONENT( m_pLabel, wxT("label") );
 	}
 
 	DisableUselessProperties();
@@ -35,10 +34,7 @@ void uddLineElement::Initiliaze()
 
         m_pLabel->SetLabelType( udLABEL::ltGUARD_CONTENT );
 
-        m_pLabel->EnableSerialization(false);
-        XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pLabel, wxT("label"));
-
-        AddChild(m_pLabel);
+        SF_ADD_COMPONENT( m_pLabel, wxT("label") );
     }
 }
 

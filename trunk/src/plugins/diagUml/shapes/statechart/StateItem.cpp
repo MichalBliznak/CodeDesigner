@@ -20,8 +20,6 @@ umlCompStateItem::umlCompStateItem(const umlCompStateItem &obj)
 	
 	if( m_pGrid && m_pEntryActions && m_pExitActions )
 	{
-		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pGrid, wxT("actions_grid"));
-		
 		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pEntryActions, wxT("entry_actions"));
 		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pExitActions, wxT("exit_actions"));
 		
@@ -29,7 +27,7 @@ umlCompStateItem::umlCompStateItem(const umlCompStateItem &obj)
 		m_pGrid->ClearGrid();
 		m_pGrid->SetDimensions( 2, 1 );
 		
-		AddChild(m_pGrid);
+		SF_ADD_COMPONENT( m_pGrid, wxT("actions_grid") );
 		
 		m_pGrid->AppendToGrid( m_pEntryActions );
 		m_pGrid->AppendToGrid( m_pExitActions );
@@ -93,9 +91,6 @@ void umlCompStateItem::Initialize()
 		
 		m_pGrid->AcceptChild( wxT("All") );
 		
-        m_pGrid->EnableSerialization(false);
-        XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pGrid, wxT("actions_grid"));
-		
 		// initialize entry actions
 	    m_pEntryActions->SetLabelType( udLABEL::ltSTATE_ENTRYACTIONS );
 		m_pEntryActions->SetId( -2 );
@@ -122,7 +117,7 @@ void umlCompStateItem::Initialize()
         m_pExitActions->EnableSerialization(false);
         XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pExitActions, wxT("exit_actions"));
 
-		AddChild(m_pGrid);
+		SF_ADD_COMPONENT( m_pGrid, wxT("actions_grid") );
 		
 		m_pGrid->AppendToGrid(m_pEntryActions);
         m_pGrid->AppendToGrid(m_pExitActions);

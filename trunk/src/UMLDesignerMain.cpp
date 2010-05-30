@@ -1136,7 +1136,10 @@ void UMLDesignerFrame::OnProjectItemChanged(udProjectEvent& event)
 		if( pShape )
 		{
 			pShape->Update();
-			pShape->Refresh();	
+			
+			wxRect rctCompBB;
+			pShape->GetCompleteBoundingBox( rctCompBB, wxSFShapeBase::bbSELF | wxSFShapeBase::bbCHILDREN | wxSFShapeBase::bbSHADOW );
+			GetActiveCanvas()->RefreshCanvas( false, rctCompBB );
 		}
 	}
 	// update content of code item's owners (diagram elements)
@@ -1460,7 +1463,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.1.1.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.1.2.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams and code generation.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -1484,7 +1487,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
     info.SetVersion(version);
     info.SetDescription(desc);
     info.SetCopyright(wxT("2007 - 2010 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic <bliznak@fai.utb.cz>"));
-    info.SetWebSite(wxT("http://www.fai.utb.cz"));
+    info.SetWebSite(wxT("http://codedesigner.sourceforge.net"));
     info.AddDeveloper(wxT("Michal Bližňák"));
 
     wxAboutBox(info);

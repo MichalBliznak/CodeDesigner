@@ -14,8 +14,7 @@ uddCircleElement::uddCircleElement(const uddCircleElement &obj)
 	m_pTitle = (uddLabelElement*)obj.m_pTitle->Clone();
 	if( m_pTitle )
 	{
-		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pTitle, wxT("title"));
-		AddChild(m_pTitle);
+		SF_ADD_COMPONENT( m_pTitle, wxT("title") );
 	}
 
 	DisableUselessProperties();
@@ -39,10 +38,7 @@ void uddCircleElement::Initiliaze()
     m_pTitle = new uddLabelElement();
     if(m_pTitle)
     {
-        m_pTitle->EnableSerialization(false);
-        XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pTitle, wxT("title"));
-
-        AddChild(m_pTitle);
+        SF_ADD_COMPONENT( m_pTitle, wxT("title") );
     }
 }
 

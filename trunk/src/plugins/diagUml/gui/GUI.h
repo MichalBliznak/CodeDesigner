@@ -560,4 +560,41 @@ class _RenameVirtualDialog : public wxDialog
 	
 };
 
+///////////////////////////////////////////////////////////////////////////////
+/// Class _ClassDialog
+///////////////////////////////////////////////////////////////////////////////
+class _ClassDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText1;
+		wxTextCtrl* m_eName;
+		wxCheckBox* m_cbMakeValid;
+		wxStaticText* m_staticText2;
+		wxTextCtrl* m_eDescription;
+		wxNotebook* m_pNotebook;
+		wxPanel* m_pageTempl;
+		wxCheckBox* m_cbTemplate;
+		wxStaticText* m_staticText43;
+		wxTextCtrl* m_txtTemplateName;
+		wxStdDialogButtonSizer* bntSizer;
+		wxButton* bntSizerOK;
+		wxButton* bntSizerCancel;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnNameChange( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnMakeValid( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpdateTemplate( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_ClassDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		~_ClassDialog();
+	
+};
+
 #endif //__GUI__

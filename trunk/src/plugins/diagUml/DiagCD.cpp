@@ -8,6 +8,7 @@
 #include "gui/ClassMemberLinkDialog.h"
 #include "gui/ConstructorDialog.h"
 #include "gui/DestructorDialog.h"
+#include "gui/ClassDialog.h"
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/ClassDiagram.h"
@@ -59,6 +60,12 @@ udClassElementItem::udClassElementItem()
 {
 	AcceptChild(wxT("udMemberDataLinkItem"));
 	AcceptChild(wxT("udMemberFunctionLinkItem"));
+	
+	m_IsTemplate = false;
+	m_TemplateName = wxT("Template");
+	
+	XS_SERIALIZE( m_IsTemplate, wxT("template") );
+	XS_SERIALIZE( m_TemplateName, wxT("template_name") );
 }
 
 // public functions /////////////////////////////////////////////////////////////////
@@ -352,8 +359,8 @@ wxMenu* udClassElementItem::CreateMenu()
 	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY));
 	pPopupMenu->Append(pItem);
 
-	//pPopupMenu->AppendSeparator();
-    //pPopupMenu->Append(IDM_DELAYED_EDITELEMENT, wxT("Edit properties..."), wxT("Edit diagram element"));
+	pPopupMenu->AppendSeparator();
+    pPopupMenu->Append(IDM_DELAYED_EDITELEMENT, wxT("Edit properties..."), wxT("Edit diagram element"));
 	pPopupMenu->AppendSeparator();
     pPopupMenu->Append(IDM_DELAYED_REMOVEELEMENT, wxT("Remove element"), wxT("Remove diagram element"));
 	
@@ -372,30 +379,34 @@ void udClassElementItem::UpdateInnerContent()
 	{
 		pClassShape->ClearVariableCtrls();
 		pClassShape->ClearFunctionCtrls();
-	}
 	
-	// create text controls for member data
-	udMemberDataLinkItem *pVar = (udMemberDataLinkItem*)GetFirstChild( CLASSINFO(udMemberDataLinkItem) );
-	while( pVar )
-	{
-		pOriginal = pVar->GetOriginal();
-		if( pOriginal )
+		// create text controls for member data
+		udMemberDataLinkItem *pVar = (udMemberDataLinkItem*)GetFirstChild( CLASSINFO(udMemberDataLinkItem) );
+		while( pVar )
 		{
-			pClassShape->CreateVariableCtrl( pVar->ToString(udCodeItem::cfFORMAL, pLang), pOriginal->GetId() );
+			pOriginal = pVar->GetOriginal();
+			if( pOriginal )
+			{
+				pClassShape->CreateVariableCtrl( pVar->ToString(udCodeItem::cfFORMAL, pLang), pOriginal->GetId() );
+			}
+			pVar = (udMemberDataLinkItem*)pVar->GetSibbling( CLASSINFO(udMemberDataLinkItem) );
 		}
-		pVar = (udMemberDataLinkItem*)pVar->GetSibbling( CLASSINFO(udMemberDataLinkItem) );
-	}
-	
-	// create text controls for member functions
-	udMemberFunctionLinkItem *pFcn = (udMemberFunctionLinkItem*)GetFirstChild( CLASSINFO(udMemberFunctionLinkItem) );
-	while( pFcn )
-	{
-		pOriginal = pFcn->GetOriginal();
-		if( pOriginal )
+		
+		// create text controls for member functions
+		udMemberFunctionLinkItem *pFcn = (udMemberFunctionLinkItem*)GetFirstChild( CLASSINFO(udMemberFunctionLinkItem) );
+		while( pFcn )
 		{
-			pClassShape->CreateFunctionCtrl( pFcn->ToString(udCodeItem::cfFORMAL, pLang), pOriginal->GetId() );
+			pOriginal = pFcn->GetOriginal();
+			if( pOriginal )
+			{
+				pClassShape->CreateFunctionCtrl( pFcn->ToString(udCodeItem::cfFORMAL, pLang), pOriginal->GetId() );
+			}
+			pFcn = (udMemberFunctionLinkItem*)pFcn->GetSibbling( CLASSINFO(udMemberFunctionLinkItem) );
 		}
-		pFcn = (udMemberFunctionLinkItem*)pFcn->GetSibbling( CLASSINFO(udMemberFunctionLinkItem) );
+		
+		// update template
+		pClassShape->ShowTemplateCtrl( m_IsTemplate );
+		pClassShape->UpdateTemplateCtrl( m_TemplateName );
 	}
 }
 
@@ -451,6 +462,18 @@ void udClassElementItem::OnShapeTextChange(const wxString& txt, udLABEL::TYPE ty
 			SetFunctionString( txt, id - udvID_OFFSET );
 			break;
 			
+		case udLABEL::ltCLASS_TEMPLATE:
+			{
+				// update template ctrl
+				umlClassItem *pClassShape = wxDynamicCast( GetParent(), umlClassItem );
+				if( pClassShape )
+				{
+					SetTemplateName( txt );
+					pClassShape->UpdateTemplateCtrl( txt );
+				}
+			}
+			break;
+			
 		default:
 			break;
 	}
@@ -496,6 +519,28 @@ void udClassElementItem::OnCreateCopy()
 	lstLinks.DeleteContents( true );
 	lstLinks.Clear();
 	
+}
+
+void udClassElementItem::OnEditItem(wxWindow* parent)
+{
+	udClassDialog dlg( parent, IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("class_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetIsTemplate( m_IsTemplate );
+	dlg.SetTemplateName( m_TemplateName );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_IsTemplate = dlg.GetIsTemplate();
+		m_TemplateName = dlg.GetTemplateName();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
 }
 
 // protected function ///////////////////////////////////////////////////////////////

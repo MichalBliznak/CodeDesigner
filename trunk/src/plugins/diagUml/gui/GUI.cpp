@@ -1656,3 +1656,105 @@ _RenameVirtualDialog::~_RenameVirtualDialog()
 	
 	delete m_menuCandidates; 
 }
+
+_ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxSize( 400,430 ), wxDefaultSize );
+	
+	wxBoxSizer* mainSizer;
+	mainSizer = new wxBoxSizer( wxVERTICAL );
+	
+	wxGridBagSizer* controlSizer;
+	controlSizer = new wxGridBagSizer( 0, 0 );
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	controlSizer->SetFlexibleDirection( wxBOTH );
+	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticText1 = new wxStaticText( this, wxID_ANY, wxT("Name (must be valid language identifier);"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1->Wrap( -1 );
+	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	wxBoxSizer* nameSizer;
+	nameSizer = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
+	
+	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
+	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
+	
+	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2->Wrap( -1 );
+	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
+	m_eDescription->SetMinSize( wxSize( 400,100 ) );
+	
+	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
+	
+	m_pNotebook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_pNotebook->SetMinSize( wxSize( -1,200 ) );
+	
+	m_pageTempl = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* advSizer;
+	advSizer = new wxBoxSizer( wxVERTICAL );
+	
+	m_cbTemplate = new wxCheckBox( m_pageTempl, wxID_ANY, wxT("Enable"), wxDefaultPosition, wxDefaultSize, 0 );
+	advSizer->Add( m_cbTemplate, 0, wxALL, 5 );
+	
+	wxBoxSizer* templateSizer;
+	templateSizer = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText43 = new wxStaticText( m_pageTempl, wxID_ANY, wxT("Template name:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText43->Wrap( -1 );
+	templateSizer->Add( m_staticText43, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_txtTemplateName = new wxTextCtrl( m_pageTempl, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	templateSizer->Add( m_txtTemplateName, 1, wxALL, 5 );
+	
+	advSizer->Add( templateSizer, 0, wxEXPAND, 5 );
+	
+	m_pageTempl->SetSizer( advSizer );
+	m_pageTempl->Layout();
+	advSizer->Fit( m_pageTempl );
+	m_pNotebook->AddPage( m_pageTempl, wxT("Template"), true );
+	
+	controlSizer->Add( m_pNotebook, wxGBPosition( 4, 0 ), wxGBSpan( 1, 2 ), wxEXPAND | wxALL, 5 );
+	
+	bntSizer = new wxStdDialogButtonSizer();
+	bntSizerOK = new wxButton( this, wxID_OK );
+	bntSizer->AddButton( bntSizerOK );
+	bntSizerCancel = new wxButton( this, wxID_CANCEL );
+	bntSizer->AddButton( bntSizerCancel );
+	bntSizer->Realize();
+	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
+	
+	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
+	this->SetSizer( mainSizer );
+	this->Layout();
+	mainSizer->Fit( this );
+	
+	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassDialog::OnInit ) );
+	m_eName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _ClassDialog::OnNameChange ), NULL, this );
+	m_cbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ClassDialog::OnMakeValid ), NULL, this );
+	m_txtTemplateName->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ClassDialog::OnUpdateTemplate ), NULL, this );
+	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassDialog::OnOk ), NULL, this );
+}
+
+_ClassDialog::~_ClassDialog()
+{
+	// Disconnect Events
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassDialog::OnInit ) );
+	m_eName->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _ClassDialog::OnNameChange ), NULL, this );
+	m_cbMakeValid->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ClassDialog::OnMakeValid ), NULL, this );
+	m_txtTemplateName->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ClassDialog::OnUpdateTemplate ), NULL, this );
+	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassDialog::OnOk ), NULL, this );
+	
+}
