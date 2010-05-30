@@ -22,8 +22,6 @@ umlClassItem::umlClassItem(const umlClassItem &obj)
 	
 	if( m_pGrid && m_pVariablesGrid && m_pFunctionsGrid )
 	{
-		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pGrid, wxT("main_grid"));
-		
 		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pVariablesGrid, wxT("variables_grid"));
 		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pFunctionsGrid, wxT("functions_grid"));
 		
@@ -31,14 +29,20 @@ umlClassItem::umlClassItem(const umlClassItem &obj)
 		m_pGrid->ClearGrid();
 		m_pGrid->SetDimensions( 2, 1 );
 		
-		AddChild(m_pGrid);
-		
 		m_pGrid->AppendToGrid( m_pVariablesGrid );
 		m_pGrid->AppendToGrid( m_pFunctionsGrid );
 		
 		m_pGrid->Update();
 		
+		SF_ADD_COMPONENT( m_pGrid, wxT("main_grid") );
+		
 		DisableUselessProperties();
+	}
+	
+	m_pTemplate = (uddLabelElement*)obj.m_pTemplate->Clone();
+	if( m_pTemplate )
+	{
+		SF_ADD_COMPONENT( m_pTemplate, wxT("template") );
 	}
 }
 
@@ -95,9 +99,6 @@ void umlClassItem::Initialize()
 		m_pGrid->SetCellSpace( 10 );
 		
 		m_pGrid->AcceptChild( wxT("All") );
-
-        m_pGrid->EnableSerialization(false);
-        XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pGrid, wxT("main_grid"));
 		
 		// initialize variables' grid
 		m_pVariablesGrid->SetId( -2 );
@@ -135,12 +136,33 @@ void umlClassItem::Initialize()
         m_pFunctionsGrid->EnableSerialization(false);
         XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pFunctionsGrid, wxT("functions_grid"));
 		
-		AddChild(m_pGrid);
+		SF_ADD_COMPONENT( m_pGrid, wxT("main_grid") );
 		
 		m_pGrid->AppendToGrid( m_pVariablesGrid );
 		m_pGrid->AppendToGrid( m_pFunctionsGrid );
 		
 		m_pGrid->Update();
+	}
+	
+	m_pTemplate = new uddLabelElement();
+	if( m_pTemplate )
+	{
+		m_pTemplate->SetBorder( wxPen( *wxBLACK, 1, wxDOT ) );
+		m_pTemplate->SetFill( *wxWHITE_BRUSH );
+		
+		ShowTemplateCtrl( false );
+		UpdateTemplateCtrl( wxT("Template") );
+		
+		m_pTemplate->SetHAlign( wxSFShapeBase::halignRIGHT );
+		m_pTemplate->SetVAlign( wxSFShapeBase::valignTOP );
+		m_pTemplate->SetVBorder( -8 );
+		
+		m_pTemplate->SetLabelType( udLABEL::ltCLASS_TEMPLATE );
+		
+		m_pTemplate->RemoveStyle( wxSFShapeBase::sfsALWAYS_INSIDE );
+		m_pTemplate->RemoveStyle( wxSFShapeBase::sfsPARENT_CHANGE );
+		
+		SF_ADD_COMPONENT( m_pTemplate, wxT("template") );
 	}
 }
 
@@ -428,4 +450,26 @@ void umlClassItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* child)
 	
 	// delayed element update (due to unfinished processing of target class shape which will be changed by this event)
 	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement, NULL, udfDELAYED );
+}
+
+void umlClassItem::ShowTemplateCtrl(bool show)
+{
+	if( m_pTemplate )
+	{
+		m_pTemplate->Show( show );
+		m_pTemplate->Activate( show );
+	}
+}
+
+void umlClassItem::UpdateTemplateCtrl( const wxString& txt )
+{
+	if( m_pTemplate )
+	{
+		m_pTemplate->SetText( txt );
+		
+		/*wxRect rctBB = m_pTemplate->GetBoundingBox();
+		if(rctBB.GetWidth() > 20 ) m_pTemplate->SetHBorder( (rctBB.GetWidth() - 20)*-1 );
+		else
+			m_pTemplate->SetHBorder( 0 );*/
+	}
 }

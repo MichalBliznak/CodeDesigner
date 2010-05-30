@@ -29,8 +29,7 @@ uddNoteItem::uddNoteItem(const uddNoteItem &obj)
 	m_pContent = (uddLabelElement*)obj.m_pContent->Clone();
 	if( m_pContent )
 	{
-		XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pContent, wxT("content"));
-		AddChild(m_pContent);
+		SF_ADD_COMPONENT( m_pContent, wxT("content") );
 	}
 }
 
@@ -79,10 +78,7 @@ void uddNoteItem::Initialize()
 		m_pContent->ForceMultiline(true);
 		m_pContent->SetStyle( sfsHOVERING | sfsALWAYS_INSIDE | sfsPROCESS_DEL | sfsSHOW_HANDLES);
 
-        m_pContent->EnableSerialization(false);
-        XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pContent, wxT("content"));
-
-        AddChild(m_pContent);
+        SF_ADD_COMPONENT( m_pContent, wxT("content") );
 	}
 }
 
