@@ -65,7 +65,7 @@ udClassElementItem::udClassElementItem()
 	m_TemplateName = wxT("Template");
 	
 	XS_SERIALIZE( m_IsTemplate, wxT("template") );
-	XS_SERIALIZE( m_TemplateName, wxT("template_name") );
+	XS_SERIALIZE( m_TemplateName, wxT("template_typename") );
 }
 
 // public functions /////////////////////////////////////////////////////////////////
@@ -949,7 +949,14 @@ wxString udMemberFunctionItem::ToString(CODEFORMAT format, udLanguage *lang)
 				{
 					lang->PushCode();
 					
-					lang->ClassMemberFcnDefCmd( GetModifierString(lang), GetDataTypeString(lang), lang->MakeValidIdentifier(m_sScope), lang->MakeValidIdentifier(m_sName), sParameters );
+					// test whether the parent class is a template class
+					udClassElementItem *pClass = wxDynamicCast( IPluginManager::Get()->GetProject()->GetDiagramElement(m_sScope), udClassElementItem );
+					if( pClass && pClass->GetIsTemplate() )
+					{
+						lang->ClassMemberFcnDefCmd( GetModifierString(lang), GetDataTypeString(lang), lang->MakeValidIdentifier(m_sScope) + wxT("<") + pClass->GetTemplateName() + wxT(">"), lang->MakeValidIdentifier(m_sName), sParameters );
+					}
+					else
+						lang->ClassMemberFcnDefCmd( GetModifierString(lang), GetDataTypeString(lang), lang->MakeValidIdentifier(m_sScope), lang->MakeValidIdentifier(m_sName), sParameters );
 					
 					wxString sOut = lang->GetCodeBuffer();
 				
