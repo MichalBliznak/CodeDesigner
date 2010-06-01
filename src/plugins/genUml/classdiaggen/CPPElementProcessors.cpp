@@ -60,15 +60,15 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 		sBases << pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(*it)->GetName() );
 	}
 	
-	udClassElementItem *pClass = (udClassElementItem*)udPROJECT::GetDiagramElement(element);
 	
 	// write template definition if needed
-	if( pClass->GetIsTemplate() )
+	udClassTemplateElementItem *pClassTempl = wxDynamicCast( udPROJECT::GetDiagramElement(element), udClassTemplateElementItem );
+	if( pClassTempl )
 	{
-		pLang->WriteCodeBlocks( wxT("template <typename ") + pClass->GetTemplateName() + wxT(">") );
+		pLang->WriteCodeBlocks( wxT("template <typename ") + pClassTempl->GetTemplateName() + wxT(">") );
 	}
 	
-	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( pClass->GetName() ), sBases );
+	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(element)->GetName() ), sBases );
 	
 	pLang->BeginCmd();
 	
@@ -118,7 +118,6 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 {
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-	udClassElementItem *pClass = (udClassElementItem*)udPROJECT::GetDiagramElement(element);
 	
 	int nAccessType = 0;
 	wxClassInfo *pPrevType;
@@ -146,9 +145,10 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 			if( pFcn->GetFunctionModifer() == udLanguage::FM_ABSTRACT ) continue;
 			
 			// write template definition if needed
-			if( pClass->GetIsTemplate() )
+			udClassTemplateElementItem *pClassTempl = wxDynamicCast( udPROJECT::GetDiagramElement(element), udClassTemplateElementItem );
+			if( pClassTempl )
 			{
-				pLang->WriteCodeBlocks( wxT("template <typename ") + pClass->GetTemplateName() + wxT(">") );
+				pLang->WriteCodeBlocks( wxT("template <typename ") + pClassTempl->GetTemplateName() + wxT(">") );
 			}
 			
 			if( pFcn->GetImplementation() == uddvFUNCTION_USERIMPLEMENTATION )

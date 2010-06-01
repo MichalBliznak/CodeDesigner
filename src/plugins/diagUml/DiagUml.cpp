@@ -119,6 +119,7 @@ bool udUmlDiagramPlugin::OnInit()
 	infoCD.SetIcon( wxT("plugins/project/ClassDiag.xpm") );
 
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Class.xpm"), wxT("Class"), wxT("umlClassItem"), wxT("udClassElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/ClassTempl.xpm"), wxT("Class template"), wxT("umlClassTemplateItem"), wxT("udClassTemplateElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line1.xpm"), wxT("Inheritance connection"), wxT("umlInheritanceItem"), wxT("udInherElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line3.xpm"), wxT("Interface connection"), wxT("umlInterfaceItem"), wxT("udInterElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line2.xpm"), wxT("Bi-directional association"), wxT("umlBiDirectAssocItem"), wxT("udBiAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
@@ -140,6 +141,7 @@ bool udUmlDiagramPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udDecisionElementItem"), wxT("Decision state element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udHistoryElementItem"), wxT("History state element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassElementItem"), wxT("Class element") );
+	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassTemplateElementItem"), wxT("Class template element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udInherElementItem"), wxT("Inheritance element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udInterElementItem"), wxT("Interface element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udBiAssocElementItem"), wxT("Bi-directional association element") );
@@ -165,9 +167,6 @@ bool udUmlDiagramPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udHStateChartDiagramItem"), wxT("Hierarchical State Chart diagram") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassDiagramItem"), wxT("Class diagram") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udTransElementItem"), wxT("Inheritance element") );
-	
-	m_PluginManager->RegisterFriendlyName( wxT("template"), wxT("0"), wxT("False") );
-	m_PluginManager->RegisterFriendlyName( wxT("template"), wxT("1"), wxT("True") );
 	
 	// register event handlers
 	wxWindow *pFrame = m_PluginManager->GetMainFrame();

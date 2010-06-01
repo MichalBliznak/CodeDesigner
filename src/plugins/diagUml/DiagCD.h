@@ -46,20 +46,30 @@ public:
 	virtual void OnTreeItemEndDrag(const wxPoint &pos);
 	virtual void OnTreeTextChange(const wxString& txt);
 	virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
-	virtual void OnEditItem(wxWindow* parent);
-	
-	// member data accessors
-	void SetIsTemplate(bool IsTemplate) {this->m_IsTemplate = IsTemplate;}
-	void SetTemplateName(const wxString& TemplateName) {this->m_TemplateName = TemplateName;}
-	bool GetIsTemplate() const {return m_IsTemplate;}
-	const wxString& GetTemplateName() const {return m_TemplateName;}
 	
 protected:
 	// protected functions
 	void UpdateMembers(const wxString& prevname, const wxString& newname);
+};
+
+class WXDLLIMPEXP_CD udClassTemplateElementItem : public udClassElementItem
+{
+public:
+    XS_DECLARE_CLONABLE_CLASS(udClassTemplateElementItem);
 	
+	udClassTemplateElementItem();
+	
+	// public member data accessors
+	void SetTemplateName(const wxString& TemplateName) {this->m_TemplateName = TemplateName;}
+	const wxString& GetTemplateName() const {return m_TemplateName;}
+	
+	// public virtual functions
+	virtual void UpdateInnerContent();
+	virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
+	virtual void OnEditItem(wxWindow* parent);
+	
+protected:
 	// protected data
-	bool m_IsTemplate;
 	wxString m_TemplateName;
 };
 

@@ -561,9 +561,9 @@ class _RenameVirtualDialog : public wxDialog
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class _ClassDialog
+/// Class _ClassTemplateDialog
 ///////////////////////////////////////////////////////////////////////////////
-class _ClassDialog : public wxDialog 
+class _ClassTemplateDialog : public wxDialog 
 {
 	private:
 	
@@ -575,7 +575,6 @@ class _ClassDialog : public wxDialog
 		wxTextCtrl* m_eDescription;
 		wxNotebook* m_pNotebook;
 		wxPanel* m_pageTempl;
-		wxCheckBox* m_cbTemplate;
 		wxStaticText* m_staticText43;
 		wxTextCtrl* m_txtTemplateName;
 		wxStdDialogButtonSizer* bntSizer;
@@ -586,14 +585,13 @@ class _ClassDialog : public wxDialog
 		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
 		virtual void OnNameChange( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnMakeValid( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnUpdateTemplate( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
 		
-		_ClassDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
-		~_ClassDialog();
+		_ClassTemplateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class template properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		~_ClassTemplateDialog();
 	
 };
 

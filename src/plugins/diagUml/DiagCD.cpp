@@ -8,7 +8,7 @@
 #include "gui/ClassMemberLinkDialog.h"
 #include "gui/ConstructorDialog.h"
 #include "gui/DestructorDialog.h"
-#include "gui/ClassDialog.h"
+#include "gui/ClassTemplDialog.h"
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/ClassDiagram.h"
@@ -60,12 +60,6 @@ udClassElementItem::udClassElementItem()
 {
 	AcceptChild(wxT("udMemberDataLinkItem"));
 	AcceptChild(wxT("udMemberFunctionLinkItem"));
-	
-	m_IsTemplate = false;
-	m_TemplateName = wxT("Template");
-	
-	XS_SERIALIZE( m_IsTemplate, wxT("template") );
-	XS_SERIALIZE( m_TemplateName, wxT("template_typename") );
 }
 
 // public functions /////////////////////////////////////////////////////////////////
@@ -403,10 +397,6 @@ void udClassElementItem::UpdateInnerContent()
 			}
 			pFcn = (udMemberFunctionLinkItem*)pFcn->GetSibbling( CLASSINFO(udMemberFunctionLinkItem) );
 		}
-		
-		// update template
-		pClassShape->ShowTemplateCtrl( m_IsTemplate );
-		pClassShape->UpdateTemplateCtrl( m_TemplateName );
 	}
 }
 
@@ -462,18 +452,6 @@ void udClassElementItem::OnShapeTextChange(const wxString& txt, udLABEL::TYPE ty
 			SetFunctionString( txt, id - udvID_OFFSET );
 			break;
 			
-		case udLABEL::ltCLASS_TEMPLATE:
-			{
-				// update template ctrl
-				umlClassItem *pClassShape = wxDynamicCast( GetParent(), umlClassItem );
-				if( pClassShape )
-				{
-					SetTemplateName( txt );
-					pClassShape->UpdateTemplateCtrl( txt );
-				}
-			}
-			break;
-			
 		default:
 			break;
 	}
@@ -519,28 +497,6 @@ void udClassElementItem::OnCreateCopy()
 	lstLinks.DeleteContents( true );
 	lstLinks.Clear();
 	
-}
-
-void udClassElementItem::OnEditItem(wxWindow* parent)
-{
-	udClassDialog dlg( parent, IPluginManager::Get()->GetSelectedLanguage() );
-	udWindowManager dlgman( dlg, wxT("class_dialog") );
-	
-	dlg.SetCodeName( m_sName );
-	dlg.SetDescription( m_sDescription );
-	dlg.SetIsTemplate( m_IsTemplate );
-	dlg.SetTemplateName( m_TemplateName );
-	
-	if( dlg.ShowModal() == wxID_OK )
-	{
-		m_sDescription = dlg.GetDescription();
-		m_IsTemplate = dlg.GetIsTemplate();
-		m_TemplateName = dlg.GetTemplateName();
-		
-		OnTreeTextChange( dlg.GetCodeName() );
-		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
-	}
 }
 
 // protected function ///////////////////////////////////////////////////////////////
@@ -625,6 +581,75 @@ void udClassElementItem::AssignMemberCopy(udLinkItem* link)
 	else if( link->IsKindOf( CLASSINFO(udMemberFunctionLinkItem) ) || link->IsKindOf( CLASSINFO(udFunctionLinkItem) ) )
 	{
 		AssignCodeItem( new udMemberFunctionLinkItem( pNewItem, nAccess) );
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udClassTemplateElementItem class /////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+XS_IMPLEMENT_CLONABLE_CLASS(udClassTemplateElementItem, udClassElementItem);
+
+udClassTemplateElementItem::udClassTemplateElementItem()
+{	
+	m_TemplateName = wxT("Template");
+	
+	XS_SERIALIZE( m_TemplateName, wxT("template_typename") );
+}
+
+// public virtual functions /////////////////////////////////////////////////////////
+
+void udClassTemplateElementItem::OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id)
+{
+	switch( type )
+	{			
+		case udLABEL::ltCLASS_TEMPLATE:
+			{
+				// update template ctrl
+				umlClassTemplateItem *pClassShape = wxDynamicCast( GetParent(), umlClassTemplateItem );
+				if( pClassShape )
+				{
+					pClassShape->UpdateTemplateCtrl( txt );
+				}
+			}
+			break;
+			
+		default:
+			udClassElementItem::OnShapeTextChange(txt, type, id);
+			break;
+	}
+}
+
+void udClassTemplateElementItem::OnEditItem(wxWindow* parent)
+{
+	udClassTemplateDialog dlg( parent, IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("class_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetTemplateName( m_TemplateName );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_TemplateName = dlg.GetTemplateName();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
+}
+
+void udClassTemplateElementItem::UpdateInnerContent()
+{
+	// clear all text ctrls
+	umlClassTemplateItem *pClassShape = wxDynamicCast( GetParent(), umlClassTemplateItem );
+	if( pClassShape )
+	{
+		udClassElementItem::UpdateInnerContent();
+		
+		// update template
+		pClassShape->UpdateTemplateCtrl( m_TemplateName );
 	}
 }
 
@@ -950,10 +975,10 @@ wxString udMemberFunctionItem::ToString(CODEFORMAT format, udLanguage *lang)
 					lang->PushCode();
 					
 					// test whether the parent class is a template class
-					udClassElementItem *pClass = wxDynamicCast( IPluginManager::Get()->GetProject()->GetDiagramElement(m_sScope), udClassElementItem );
-					if( pClass && pClass->GetIsTemplate() )
+					udClassTemplateElementItem *pClassTempl = wxDynamicCast( IPluginManager::Get()->GetProject()->GetDiagramElement(m_sScope), udClassTemplateElementItem );
+					if( pClassTempl )
 					{
-						lang->ClassMemberFcnDefCmd( GetModifierString(lang), GetDataTypeString(lang), lang->MakeValidIdentifier(m_sScope) + wxT("<") + pClass->GetTemplateName() + wxT(">"), lang->MakeValidIdentifier(m_sName), sParameters );
+						lang->ClassMemberFcnDefCmd( GetModifierString(lang), GetDataTypeString(lang), lang->MakeValidIdentifier(m_sScope) + wxT("<") + pClassTempl->GetTemplateName() + wxT(">"), lang->MakeValidIdentifier(m_sName), sParameters );
 					}
 					else
 						lang->ClassMemberFcnDefCmd( GetModifierString(lang), GetDataTypeString(lang), lang->MakeValidIdentifier(m_sScope), lang->MakeValidIdentifier(m_sName), sParameters );

@@ -1657,7 +1657,7 @@ _RenameVirtualDialog::~_RenameVirtualDialog()
 	delete m_menuCandidates; 
 }
 
-_ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+_ClassTemplateDialog::_ClassTemplateDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 400,430 ), wxDefaultSize );
 	
@@ -1702,9 +1702,6 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	wxBoxSizer* advSizer;
 	advSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_cbTemplate = new wxCheckBox( m_pageTempl, wxID_ANY, wxT("Enable"), wxDefaultPosition, wxDefaultSize, 0 );
-	advSizer->Add( m_cbTemplate, 0, wxALL, 5 );
-	
 	wxBoxSizer* templateSizer;
 	templateSizer = new wxBoxSizer( wxHORIZONTAL );
 	
@@ -1741,20 +1738,18 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	this->Centre( wxBOTH );
 	
 	// Connect Events
-	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassDialog::OnInit ) );
-	m_eName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _ClassDialog::OnNameChange ), NULL, this );
-	m_cbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ClassDialog::OnMakeValid ), NULL, this );
-	m_txtTemplateName->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ClassDialog::OnUpdateTemplate ), NULL, this );
-	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassDialog::OnOk ), NULL, this );
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassTemplateDialog::OnInit ) );
+	m_eName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _ClassTemplateDialog::OnNameChange ), NULL, this );
+	m_cbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ClassTemplateDialog::OnMakeValid ), NULL, this );
+	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassTemplateDialog::OnOk ), NULL, this );
 }
 
-_ClassDialog::~_ClassDialog()
+_ClassTemplateDialog::~_ClassTemplateDialog()
 {
 	// Disconnect Events
-	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassDialog::OnInit ) );
-	m_eName->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _ClassDialog::OnNameChange ), NULL, this );
-	m_cbMakeValid->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ClassDialog::OnMakeValid ), NULL, this );
-	m_txtTemplateName->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ClassDialog::OnUpdateTemplate ), NULL, this );
-	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassDialog::OnOk ), NULL, this );
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassTemplateDialog::OnInit ) );
+	m_eName->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _ClassTemplateDialog::OnNameChange ), NULL, this );
+	m_cbMakeValid->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ClassTemplateDialog::OnMakeValid ), NULL, this );
+	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassTemplateDialog::OnOk ), NULL, this );
 	
 }
