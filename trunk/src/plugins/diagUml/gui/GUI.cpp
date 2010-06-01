@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 12 2010)
+// C++ code generated with wxFormBuilder (version May 27 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -772,9 +772,9 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_eName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _TransitionDialog::OnNameChange ), NULL, this );
 	m_cbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _TransitionDialog::OnMakeValid ), NULL, this );
 	m_chConditions->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _TransitionDialog::OnConditionChange ), NULL, this );
-	this->Connect( IDM_TRANS_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnSelectAllUsed ) );
-	this->Connect( IDM_TRANS_DESELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnDeselectAllUsed ) );
-	this->Connect( IDM_TRANS_REMOVEALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnRemoveAllUsed ) );
+	this->Connect( menuUsedSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnSelectAllUsed ) );
+	this->Connect( menuUsedDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnDeselectAllUsed ) );
+	this->Connect( menuUsedClearAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnRemoveAllUsed ) );
 	m_btnAdd->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _TransitionDialog::OnAdd ), NULL, this );
 	m_btnAdd->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _TransitionDialog::OnUpdateAdd ), NULL, this );
 	m_btnRemove->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _TransitionDialog::OnRemove ), NULL, this );
@@ -783,8 +783,8 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_btnUp->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _TransitionDialog::OnUpdateUp ), NULL, this );
 	m_btnDown->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _TransitionDialog::OnDown ), NULL, this );
 	m_btnDown->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _TransitionDialog::OnUpdateDown ), NULL, this );
-	this->Connect( IDM_TRANS_SELECTALLAV, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnSelectAllAvailable ) );
-	this->Connect( IDM_TRANS_DESELECTALLAV, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnDeselectAllAvailable ) );
+	this->Connect( menuAvailableSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnSelectAllAvailable ) );
+	this->Connect( menuAvailableDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _TransitionDialog::OnDeselectAllAvailable ) );
 	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _TransitionDialog::OnOk ), NULL, this );
 }
 
@@ -1112,12 +1112,12 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _CompStateDialog::OnInit ) );
 	m_eName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _CompStateDialog::OnNameChange ), NULL, this );
 	m_cbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _CompStateDialog::OnMakeValid ), NULL, this );
-	this->Connect( IDM_TRANS_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnSelectAllUsed ) );
-	this->Connect( IDM_TRANS_DESELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnDeselectAllUsed ) );
-	this->Connect( IDM_TRANS_REMOVEALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnRemoveAllUsed ) );
-	this->Connect( IDM_TRANS_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnSelectAllUsed ) );
-	this->Connect( IDM_TRANS_DESELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnDeselectAllUsed ) );
-	this->Connect( IDM_TRANS_REMOVEALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnRemoveAllUsed ) );
+	this->Connect( menuUsedSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnSelectAllUsed ) );
+	this->Connect( menuUsedDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnDeselectAllUsed ) );
+	this->Connect( menuUsedClearAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnRemoveAllUsed ) );
+	this->Connect( menuUsedSelectAllExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnSelectAllUsed ) );
+	this->Connect( menuUsedDeselectAllExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnDeselectAllUsed ) );
+	this->Connect( menuUsedClearAllExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnRemoveAllUsed ) );
 	m_btnAdd->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _CompStateDialog::OnAdd ), NULL, this );
 	m_btnAdd->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _CompStateDialog::OnUpdateAdd ), NULL, this );
 	m_btnRemove->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _CompStateDialog::OnRemove ), NULL, this );
@@ -1126,8 +1126,8 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	m_btnUp->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _CompStateDialog::OnUpdateUp ), NULL, this );
 	m_btnDown->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _CompStateDialog::OnDown ), NULL, this );
 	m_btnDown->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _CompStateDialog::OnUpdateDown ), NULL, this );
-	this->Connect( IDM_TRANS_SELECTALLAV, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnSelectAllAvailable ) );
-	this->Connect( IDM_TRANS_DESELECTALLAV, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnDeselectAllAvailable ) );
+	this->Connect( menuAvailableSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnSelectAllAvailable ) );
+	this->Connect( menuAvailableDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _CompStateDialog::OnDeselectAllAvailable ) );
 	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _CompStateDialog::OnOk ), NULL, this );
 }
 
@@ -1640,8 +1640,8 @@ _RenameVirtualDialog::_RenameVirtualDialog( wxWindow* parent, wxWindowID id, con
 	// Connect Events
 	m_textCtrlName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _RenameVirtualDialog::OnNameChange ), NULL, this );
 	m_chbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _RenameVirtualDialog::OnMakeValid ), NULL, this );
-	this->Connect( IDM_CANDIDATES_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RenameVirtualDialog::OnSelectAll ) );
-	this->Connect( IDM_CANDIDATES_DESELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RenameVirtualDialog::OnDeselectAll ) );
+	this->Connect( menuSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RenameVirtualDialog::OnSelectAll ) );
+	this->Connect( menuDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RenameVirtualDialog::OnDeselectAll ) );
 	buttonSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _RenameVirtualDialog::OnOk ), NULL, this );
 }
 
@@ -1708,7 +1708,7 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	wxBoxSizer* templateSizer;
 	templateSizer = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText43 = new wxStaticText( m_pageTempl, wxID_ANY, wxT("Template name:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText43 = new wxStaticText( m_pageTempl, wxID_ANY, wxT("Typename:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText43->Wrap( -1 );
 	templateSizer->Add( m_staticText43, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	

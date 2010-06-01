@@ -65,7 +65,7 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 	// write template definition if needed
 	if( pClass->GetIsTemplate() )
 	{
-		pLang->WriteCodeBlocks( wxT("template<typename ") + pClass->GetTemplateName() + wxT(">") );
+		pLang->WriteCodeBlocks( wxT("template <typename ") + pClass->GetTemplateName() + wxT(">") );
 	}
 	
 	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( pClass->GetName() ), sBases );
@@ -148,7 +148,7 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 			// write template definition if needed
 			if( pClass->GetIsTemplate() )
 			{
-				pLang->WriteCodeBlocks( wxT("template<typename ") + pClass->GetTemplateName() + wxT(">") );
+				pLang->WriteCodeBlocks( wxT("template <typename ") + pClass->GetTemplateName() + wxT(">") );
 			}
 			
 			if( pFcn->GetImplementation() == uddvFUNCTION_USERIMPLEMENTATION )
