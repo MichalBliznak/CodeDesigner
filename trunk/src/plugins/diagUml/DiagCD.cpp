@@ -607,12 +607,7 @@ void udClassTemplateElementItem::OnShapeTextChange(const wxString& txt, udLABEL:
 	{			
 		case udLABEL::ltCLASS_TEMPLATE:
 			{
-				// update template ctrl
-				umlClassTemplateItem *pClassShape = wxDynamicCast( GetParent(), umlClassTemplateItem );
-				if( pClassShape )
-				{
-					pClassShape->UpdateTemplateCtrl( txt );
-				}
+				m_TemplateName = txt;
 			}
 			break;
 			
