@@ -5,7 +5,7 @@
 #include "projectbase/codegen/Language.h"
 
 #include "../DiagUml.h"
-#include "classdiagram/ClassTemplItem.h"
+#include "classdiagram/ClassItem.h"
 
 class WXDLLIMPEXP_CD umlClassDiagram : public udDiagramCanvas
 {

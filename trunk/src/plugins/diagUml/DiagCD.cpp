@@ -12,6 +12,8 @@
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/ClassDiagram.h"
+#include "shapes/classdiagram/ClassTemplItem.h"
+#include "shapes/classdiagram/TemplateBindItem.h"
 
 #include <wx/wxsf/wxShapeFramework.h>
 
@@ -688,6 +690,50 @@ XS_IMPLEMENT_CLONABLE_CLASS(udInherElementItem, udDiagElementItem);
 /////////////////////////////////////////////////////////////////////////////////////
 
 XS_IMPLEMENT_CLONABLE_CLASS(udInterElementItem, udDiagElementItem);
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udTemplateBindElementItem class //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+XS_IMPLEMENT_CLONABLE_CLASS(udTemplateBindElementItem, udDiagElementItem);
+
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udTemplateBindElementItem::udTemplateBindElementItem()
+{
+	m_BindType = wxT("");
+	
+	XS_SERIALIZE( m_BindType, wxT("bind_type") );
+}
+
+// public functions /////////////////////////////////////////////////////////////////
+
+void udTemplateBindElementItem::SetBindTypeString(const wxString& txt)
+{
+	m_BindType = txt;
+}
+
+// public virtual functions /////////////////////////////////////////////////////////
+
+void udTemplateBindElementItem::OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id)
+{
+	switch( type )
+	{
+		case udLABEL::ltTITLE:
+		{
+			umlTemplateBindItem *pLine = (umlTemplateBindItem*) GetParent();
+			pLine->GetLabel(udLABEL::ltTITLE)->SetText( wxT("<< bind >>") );
+		}
+		break;
+			
+		case udLABEL::ltGUARD_CONTENT:
+			SetBindTypeString(txt);
+			break;
+			
+		default:
+			break;
+	}
+}
 
 /////////////////////////////////////////////////////////////////////////////////////
 // udMemberLinkItem /////////////////////////////////////////////////////////////////

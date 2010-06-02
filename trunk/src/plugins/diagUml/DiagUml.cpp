@@ -126,6 +126,7 @@ bool udUmlDiagramPlugin::OnInit()
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line5.xpm"), wxT("Uni-directional association"), wxT("umlUniDirectAssocItem"), wxT("udUniAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line7.xpm"), wxT("Basic aggregation"), wxT("umlBasicAggregItem"), wxT("udBaseAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line6.xpm"), wxT("Composition aggregation"), wxT("umlCompAggregItem"), wxT("udCompAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line8.xpm"), wxT("Template binding"), wxT("umlTemplateBindItem"), wxT("udTemplateBindElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 												
 	m_PluginManager->RegisterDiagram( infoCD );
 	
