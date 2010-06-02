@@ -1,3 +1,3 @@
-#define udvBUILD_NUMBER 2034
+#define udvBUILD_NUMBER 2041
 #define udvSVN_REVISION wxT("$Rev$")
 

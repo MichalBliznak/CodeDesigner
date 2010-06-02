@@ -109,6 +109,28 @@ public:
     XS_DECLARE_CLONABLE_CLASS(udCompAggregElementItem);
 };
 
+class WXDLLIMPEXP_CD udTemplateBindElementItem : public udDiagElementItem
+{
+public:
+    XS_DECLARE_CLONABLE_CLASS(udTemplateBindElementItem);
+	
+	udTemplateBindElementItem();
+	
+	// data accessors
+	void SetBindType(const wxString& BindType) {this->m_BindType = BindType;}
+	const wxString& GetBindType() const {return m_BindType;}
+	
+	// public functions
+	void SetBindTypeString(const wxString& txt);
+	
+	// public virtual functions
+	virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
+	
+protected:
+	// data members
+	wxString m_BindType;
+};
+
 // code items /////////////////////////////////////////////////////////////////////
 
 class WXDLLIMPEXP_CD udMemberLinkItem : public udCodeLinkItem
