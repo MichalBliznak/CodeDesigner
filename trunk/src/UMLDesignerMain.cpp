@@ -1486,8 +1486,8 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
     info.SetName(wxT("CodeDesigner"));
     info.SetVersion(version);
     info.SetDescription(desc);
-    info.SetCopyright(wxT("2007 - 2010 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic <bliznak@fai.utb.cz>"));
-    info.SetWebSite(wxT("http://codedesigner.sourceforge.net"));
+    info.SetCopyright(wxT("2007 - 2010 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
+    info.SetWebSite(wxT("http://www.codedesigner.org"));
     info.AddDeveloper(wxT("Michal Bližňák"));
 
     wxAboutBox(info);
