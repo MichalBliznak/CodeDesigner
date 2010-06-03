@@ -1,6 +1,7 @@
 #include "ClassDiagram.h"
 #include "classdiagram/InheritanceItem.h"
 #include "classdiagram/InterfaceItem.h"
+#include "classdiagram/TemplateBindItem.h"
 
 IMPLEMENT_DYNAMIC_CLASS(umlClassDiagram, udDiagramCanvas)
 
@@ -29,6 +30,7 @@ void umlClassDiagram::GetBaseClasses(umlClassItem* shape, ShapeList& bases)
 	ShapeList lstAssocs;
 	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlInheritanceItem), wxSFShapeBase::lineSTARTING, lstAssocs );
 	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlInterfaceItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlTemplateBindItem), wxSFShapeBase::lineSTARTING, lstAssocs );
 	
 	for( ShapeList::iterator it = lstAssocs.begin(); it != lstAssocs.end(); ++it )
 	{

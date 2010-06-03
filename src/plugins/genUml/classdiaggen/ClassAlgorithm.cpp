@@ -82,6 +82,19 @@ void udClassAlgorithm::ProcessClass(umlClassItem *shape)
         pLang->SingleLineCommentCmd(wxString::Format(wxT( "!!! WARNING: UNSUPPORTED ELEMENT ('%s') !!!"), ((udProjectItem*)shape->GetUserData())->GetName().c_str()));
         IPluginManager::Get()->Log(wxString::Format(wxT("WARNING: '%s' element is not supported by this algorithm."), ((udProjectItem*)shape->GetUserData())->GetName().c_str()));
     }
+	
+	// process incomming connections
+	ShapeList lstConnections;
+	shape->GetShapeManager()->GetAssignedConnections( shape, CLASSINFO(wxSFLineShape), wxSFShapeBase::lineSTARTING, lstConnections );
+	
+	for( ShapeList::iterator it = lstConnections.begin(); it != lstConnections.end(); ++it )
+	{
+		pProcessor = GetElementProcessor((*it)->GetClassInfo()->GetClassName());
+		if(pProcessor)
+		{
+			pProcessor->ProcessElement(*it);
+		}
+	}
 
     // set the state as processes
     m_lstProcessedElements.Append(shape);

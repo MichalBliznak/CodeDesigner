@@ -26,4 +26,17 @@ protected:
 	void ProcessClassMembers(wxSFShapeBase *element);
 };
 
+class WXDLLIMPEXP_CD udTemplBindElementProcessor : public udElementProcessor
+{
+public:
+    DECLARE_DYNAMIC_CLASS(udTemplBindElementProcessor);
+
+    udTemplBindElementProcessor();
+    udTemplBindElementProcessor(udGenerator *parent);
+    virtual ~udTemplBindElementProcessor();
+
+    // public virtual functions
+    virtual void ProcessElement(wxSFShapeBase *element);
+};
+
 #endif // UDCPPCLASSELEMENTPROCESSORS_H

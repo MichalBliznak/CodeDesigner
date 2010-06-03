@@ -1,5 +1,6 @@
 #include "CPPElementProcessors.h"
 #include "ClassAlgorithm.h"
+#include "../../diagUml/DiagUml.h"
 
 /////////////////////////////////////////////////////////////////////////////////////
 // udCPPClassElementProcessor class /////////////////////////////////////////////////
@@ -53,13 +54,34 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 	ShapeList lstBases;
 	umlClassDiagram::GetBaseClasses( (umlClassItem*)element, lstBases );
 	
+	int nTemplateIndex = 0;
+	
 	wxString sBases;
 	for( ShapeList::iterator it = lstBases.begin(); it != lstBases.end(); ++it )
 	{
 		if( it != lstBases.begin() ) sBases << wxT(", ");
+		
 		sBases << pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(*it)->GetName() );
+		
+		// add template parameter if exists
+		umlClassTemplateItem *pTemplate = wxDynamicCast( *it, umlClassTemplateItem );
+		if( pTemplate )
+		{
+			// find corespondent template binding connection
+			ShapeList lstConnections;
+			element->GetShapeManager()->GetAssignedConnections( element, CLASSINFO(umlTemplateBindItem), wxSFShapeBase::lineSTARTING, lstConnections );
+			if( !lstConnections.IsEmpty() )
+			{
+				// append bind type to the base name
+				udTemplateBindElementItem *pBindElement = wxDynamicCast( udPROJECT::GetDiagramElement( lstConnections.Item(nTemplateIndex)->GetData() ), udTemplateBindElementItem );
+				if( pBindElement )
+				{
+					sBases << wxT("<") << pBindElement->GetBindType() << wxT(">");
+				}
+			}
+			nTemplateIndex++;
+		}
 	}
-	
 	
 	// write template definition if needed
 	udClassTemplateElementItem *pClassTempl = wxDynamicCast( udPROJECT::GetDiagramElement(element), udClassTemplateElementItem );
@@ -200,5 +222,55 @@ void udCPPClassElementProcessor::ProcessClassMembers(wxSFShapeBase* element)
 		}
 		
 		pLang->NewLine();
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udCPPClassElementProcessor class /////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+IMPLEMENT_DYNAMIC_CLASS(udTemplBindElementProcessor, udElementProcessor);
+
+udTemplBindElementProcessor::udTemplBindElementProcessor()
+{
+    m_pParentGenerator = NULL;
+}
+
+udTemplBindElementProcessor::udTemplBindElementProcessor(udGenerator *parent)
+: udElementProcessor(parent)
+{
+}
+
+udTemplBindElementProcessor::~udTemplBindElementProcessor()
+{
+}
+
+void udTemplBindElementProcessor::ProcessElement(wxSFShapeBase *element)
+{	
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	
+	if( pAlg->GetGenMode() == udGenerator::genDEFINITION )
+	{
+		umlTemplateBindItem *pLine = wxDynamicCast( element, umlTemplateBindItem );
+		if( pLine )
+		{
+			// get target class template
+			umlClassTemplateItem *pTemplate = wxDynamicCast( pLine->GetShapeManager()->FindShape( pLine->GetTrgShapeId() ), umlClassTemplateItem );
+			if( pTemplate )
+			{
+				udClassTemplateElementItem *pTemplElement = (udClassTemplateElementItem*) udPROJECT::GetDiagramElement( pTemplate );
+				udTemplateBindElementItem *pBindElement = (udTemplateBindElementItem*) udPROJECT::GetDiagramElement( pLine );
+				
+				udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
+				
+				pLang->WriteCodeBlocks( wxT("template class ") +
+										pLang->MakeValidIdentifier( pTemplElement->GetName() ) +
+										wxT("<") +
+										pBindElement->GetBindType() +
+										wxT(">;") );
+										
+				pLang->NewLine();
+			}
+		}
 	}
 }

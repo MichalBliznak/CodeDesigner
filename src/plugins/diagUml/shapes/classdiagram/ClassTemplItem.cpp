@@ -25,11 +25,17 @@ void umlClassTemplateItem::Initialize()
 {
 	ClearAcceptedChilds();
 	ClearAcceptedConnections();
+	ClearAcceptedSrcNeighbours();
+	ClearAcceptedTrgNeighbours();
 	
 	AcceptChild(wxT("uddDnDElement"));
 	
 	AcceptConnection(wxT("umlTemplateBindItem"));
 	AcceptConnection(wxT("uddNoteConnItem"));
+	
+	AcceptSrcNeighbour(wxT("umlClassItem"));
+	AcceptTrgNeighbour(wxT("uddNoteItem"));
+    AcceptSrcNeighbour(wxT("uddNoteItem"));
 	
 	// set accepted project items (USED INTERNALLY)
 	AcceptChild(wxT("udGenericVariableItem"));
