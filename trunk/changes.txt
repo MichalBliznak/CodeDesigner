@@ -1,7 +1,7 @@
-Changes in version 1.1.2 beta (2010-05-30):
+Changes in version 1.1.2 beta (2010-06-03):
 ------------------------------------------------
 - Fixed redundantly included header file in generated definition module.
-- Added support for class templates.
+- Added support for class templates including class templates specialization.
 
 Changes in version 1.1.1 beta (2010-05-14):
 ------------------------------------------------

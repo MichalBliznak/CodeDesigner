@@ -35,10 +35,12 @@
 #include "shapes/classdiagram/BasicAggregItem.h"
 #include "shapes/classdiagram/BiDirectAssocItem.h"
 #include "shapes/classdiagram/ClassItem.h"
+#include "shapes/classdiagram/ClassTemplItem.h"
 #include "shapes/classdiagram/CompAggregItem.h"
 #include "shapes/classdiagram/InheritanceItem.h"
 #include "shapes/classdiagram/InterfaceItem.h"
 #include "shapes/classdiagram/UniDirectAssocItem.h"
+#include "shapes/classdiagram/TemplateBindItem.h"
 
 #include "shapes/ClassDiagram.h"
 #include "shapes/SimpleStateChartDiagram.h"

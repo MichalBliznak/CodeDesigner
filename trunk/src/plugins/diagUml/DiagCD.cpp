@@ -705,7 +705,24 @@ udTemplateBindElementItem::udTemplateBindElementItem()
 
 void udTemplateBindElementItem::SetBindTypeString(const wxString& txt)
 {
-	m_BindType = txt;
+	wxString sRegex = wxT("^<[\\s]*[a-zA-Z0-9_]*[\\s]*>$");
+	wxRegEx reGuard( sRegex, wxRE_ADVANCED);
+			
+	if( reGuard.Matches( txt ) )
+	{	
+		m_BindType = txt;
+		
+		m_BindType.Replace( wxT("<"), wxT("") );
+		m_BindType.Replace( wxT(">"), wxT("") );
+		m_BindType.Trim().Trim(false);
+	}
+	else
+	{
+		umlTemplateBindItem *pLine = (umlTemplateBindItem*) GetParent();
+		pLine->GetLabel(udLABEL::ltGUARD_CONTENT)->SetText( wxT("<") + m_BindType + wxT(">") );
+		
+		wxMessageBox( wxString::Format( wxT("Bind type '%s' doesn't match the allowed form '%s'."), txt.c_str(), sRegex.c_str() ), wxT("CodeDesigner"), wxOK | wxICON_WARNING );
+	}
 }
 
 // public virtual functions /////////////////////////////////////////////////////////
