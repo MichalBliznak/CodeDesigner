@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.2.2059
+AppVerName=CodeDesigner 1.1.2.2062
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.2.2059
+OutputBaseFilename=codedesigner-1.1.2.2062
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 [Files]
@@ -113,6 +113,7 @@ Source: ..\..\output\res\plugins\elements\UseCase.xpm; DestDir: {app}\res\plugin
 Source: ..\..\output\res\plugins\elements\Actor.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Bound.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Class.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
+Source: ..\..\output\res\plugins\elements\ClassTempl.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Collab.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\CompState.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Decision.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
@@ -130,6 +131,7 @@ Source: ..\..\output\res\plugins\elements\Line4.xpm; DestDir: {app}\res\plugins\
 Source: ..\..\output\res\plugins\elements\Line5.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Line6.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Line7.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
+Source: ..\..\output\res\plugins\elements\Line8.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\State.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\SubState.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\project\UseCaseDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
