@@ -8,6 +8,7 @@ DefaultDirName={pf}\CodeDesigner
 OutputBaseFilename=codedesigner-1.1.2.2062
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
+PrivilegesRequired=none
 [Files]
 Source: ..\..\..\..\..\..\..\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Components: core
 Source: ..\..\..\..\..\..\..\wxWidgets-2.8.10\lib\gcc_dll\wxmsw28u_gcc_custom.dll; DestDir: {app}; Components: core
