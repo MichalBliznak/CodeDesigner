@@ -2088,11 +2088,26 @@ bool udDiagElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
     //pLink->SetName( wxString::Format(wxT("%d"), udProject::OccurenceCount( pLink->GetOrigDiagram() + wxT(":") + pLink->GetOrigElement() ) + 1) );
 	
 	// create new temporary shape carying dragged data
-	wxSFShapeBase *pShape = new uddDnDElement();
+	wxSFShapeBase *pShape;
+	if( cState.ControlDown() )
+	{
+		 // create temporary dragged element
+		pShape = (wxSFShapeBase*)pOrigShape->Clone();
+		pShape->SetId( -1 );
 
-	// assign link item to temporary shape
-	pShape->SetUserData( pLink );
+		/*udLABEL::SetContent( pLink->GetName(), pShape, pOrigShape->GetParentManager(), udLABEL::ltTITLE );
+		// remove original project data and replace it with new link data
+		delete pShape->GetUserData();
+		pShape->SetUserData( pLink );*/
+	}
+	else
+	{
+		pShape = new uddDnDElement();
 
+		// assign link item to temporary shape
+		pShape->SetUserData( pLink );
+	}
+	
 	lstDnD.Append( pShape );
 
 	pCanvas->DoDragDrop( lstDnD, Conv2Point(pShape->GetAbsolutePosition()) );

@@ -1,6 +1,9 @@
 Changes in version 1.1.3 beta (2010-06-12):
 ------------------------------------------------
 - Fixed refresh of diagram components which weren't refreshed correctly in some cases.
+- Fixed crash that could occure during drag&drop operations in Project items tree.
+- Diagram elements can be copied also by dragging from Project items tree (CTRL key must be
+  down during the dragging).
 
 Changes in version 1.1.2 beta (2010-06-03):
 ------------------------------------------------

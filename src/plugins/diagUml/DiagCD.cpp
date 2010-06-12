@@ -405,10 +405,12 @@ void udClassElementItem::UpdateInnerContent()
 void udClassElementItem::OnTreeItemEndDrag(const wxPoint &pos)
 {
 	udCodeLinkItem *pSourceItem = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udCodeLinkItem );
+	if( !pSourceItem ) return;
+	
 	udProjectItem *pPresentItem = udPROJECT::GetProjectItem(this, CLASSINFO(udCodeLinkItem), pSourceItem->GetName());
 	
 	// only one instance of each code item is allowed in class element
-	if( pSourceItem && (!pPresentItem || (pPresentItem == pSourceItem)) )
+	if( !pPresentItem || (pPresentItem == pSourceItem) )
 	{
 		// check also scope of dropped code link
 		if( pSourceItem->GetScope() != GetName() )
@@ -825,10 +827,12 @@ udProjectItem* udMemberLinkItem::GetOriginal()
 void udMemberLinkItem::OnTreeItemEndDrag(const wxPoint &pos)
 {
 	udCodeLinkItem *pSourceItem = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udCodeLinkItem );
+	if( !pSourceItem ) return;
+	
 	udProjectItem *pPresentItem = udPROJECT::GetProjectItem((udProjectItem*)GetParent(), CLASSINFO(udCodeLinkItem), pSourceItem->GetName());
 	
 	// only one instance of each code item is allowed in class element
-	if( pSourceItem && (!pPresentItem || (pPresentItem == pSourceItem)) )
+	if( !pPresentItem || (pPresentItem == pSourceItem) )
 	{
 		// check also scope of dropped code link
 		udProjectItem *pClassElement = (udProjectItem*) GetParent();
