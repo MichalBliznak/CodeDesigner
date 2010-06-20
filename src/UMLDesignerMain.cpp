@@ -50,8 +50,6 @@ WX_DEFINE_OBJARRAY(DiagramsArray);
 
 WX_DEFINE_LIST(ListenerList);
 
-// TODO: allow linking of all (?) diagram component (like sub state)
-// TODO: fix instantiated classes in code items after class renaming
 // TODO: implement CodeLite plugin
 // TODO: implement languages by using XML templates/XSLT(???)
 // TODO: implement class instatiation by using STL containers(?)
