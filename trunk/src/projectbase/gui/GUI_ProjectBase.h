@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 12 2010)
+// C++ code generated with wxFormBuilder (version May 27 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -35,10 +35,14 @@
 #endif //__VISUALC__
 #include <wx/listctrl.h>
 #include <wx/wxScintilla/wxscintilla.h>
+#include <wx/menu.h>
+#include <wx/checklst.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
 #define IDC_TRANSDLG_PROPGRID 1000
+#define IDM_SELECT_ALL 1001
+#define IDM_DESELECT_ALL 1002
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class _DiagramDialog
@@ -324,6 +328,47 @@ class _ElementDialog : public wxDialog
 		
 		_ElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 		~_ElementDialog();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class _UpdateCodeDialog
+///////////////////////////////////////////////////////////////////////////////
+class _UpdateCodeDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText;
+		wxCheckListBox* m_checkListCodeItems;
+		wxMenu* m_menuChecklist;
+		wxStaticText* m_staticText33;
+		wxScintilla* m_scintillaCode;
+		wxButton* m_btnPrev;
+		wxButton* m_btnNext;
+		wxButton* m_btnCancel;
+		wxButton* m_btnUpdate;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnChangeCodeitem( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnSelectAll( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnDeselectAll( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnPrevious( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnNext( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCancel( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpdate( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_UpdateCodeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Update code references"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		~_UpdateCodeDialog();
+		
+		void m_checkListCodeItemsOnContextMenu( wxMouseEvent &event )
+		{
+			m_checkListCodeItems->PopupMenu( m_menuChecklist, event.GetPosition() );
+		}
 	
 };
 

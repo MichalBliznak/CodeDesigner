@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 12 2010)
+// C++ code generated with wxFormBuilder (version May 27 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -98,6 +98,8 @@
 #define IDM_DIAG_REMOVEALL 6045
 #define IDM_DIAG_COPY 6046
 #define IDC_DIAG_MOVE 6047
+#define IDM_SYNCHRO_SELECT_ALL 6048
+#define IDM_SYNCHRO_DESELECT_ALL 6049
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class _MainFrame
@@ -517,6 +519,7 @@ class _SynchronizeDialog : public wxDialog
 	protected:
 		wxStaticText* m_staticText16;
 		wxCheckListBox* m_checkList;
+		wxMenu* menuCheckList;
 		wxStaticText* m_staticText14;
 		wxStaticText* m_staticText15;
 		wxScintilla* m_scintillaModified;
@@ -527,6 +530,8 @@ class _SynchronizeDialog : public wxDialog
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnSelectCodeItem( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnSelectAll( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnDeselectAll( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
 		
 	
@@ -534,6 +539,11 @@ class _SynchronizeDialog : public wxDialog
 		
 		_SynchronizeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Synchronize code"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 		~_SynchronizeDialog();
+		
+		void m_checkListOnContextMenu( wxMouseEvent &event )
+		{
+			m_checkList->PopupMenu( menuCheckList, event.GetPosition() );
+		}
 	
 };
 

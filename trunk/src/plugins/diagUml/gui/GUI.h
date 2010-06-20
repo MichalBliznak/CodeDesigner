@@ -38,6 +38,7 @@
 #include <wx/listbox.h>
 #include <wx/listctrl.h>
 #include <wx/checklst.h>
+#include <wx/statline.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -609,6 +610,7 @@ class _ClassInstanceDialog : public wxDialog
 		wxTextCtrl* m_textParameters;
 		wxStaticText* m_staticText42;
 		wxChoice* m_choiceType;
+		wxStaticLine* m_staticline1;
 		wxStdDialogButtonSizer* m_sdbSizer13;
 		wxButton* m_sdbSizer13OK;
 		

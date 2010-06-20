@@ -81,3 +81,20 @@ void udSynchronizeDialog::OnSelectCodeItem(wxCommandEvent& event)
 		m_scintillaOriginal->SetReadOnly( true );
 	}
 }
+
+void udSynchronizeDialog::OnDeselectAll(wxCommandEvent& event)
+{
+	for( size_t i = 0; i < m_checkList->GetCount(); ++i )
+	{
+		m_checkList->Check( i, false );
+	}
+}
+
+void udSynchronizeDialog::OnSelectAll(wxCommandEvent& event)
+{
+	for( size_t i = 0; i < m_checkList->GetCount(); ++i )
+	{
+		m_checkList->Check( i, true );
+	}
+}
+

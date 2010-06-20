@@ -9,10 +9,6 @@ class udSynchronizeDialog : public _SynchronizeDialog {
 public:
 	udSynchronizeDialog(wxWindow *parent, udLanguage *lang);
 	virtual ~udSynchronizeDialog();
-
-public:
-	virtual void OnOk(wxCommandEvent& event);
-	virtual void OnSelectCodeItem(wxCommandEvent& event);
 	
 protected:
 	int m_nUpdated;
@@ -22,6 +18,11 @@ protected:
 	SerializableList m_lstFunctions;
 	wxArrayString m_arrModified;
 	wxArrayString m_arrOriginal;
+	
+	virtual void OnOk(wxCommandEvent& event);
+	virtual void OnSelectCodeItem(wxCommandEvent& event);
+	virtual void OnDeselectAll(wxCommandEvent& event);
+	virtual void OnSelectAll(wxCommandEvent& event);
 };
 
 #endif // SYNCHRONIZEDIALOG_H
