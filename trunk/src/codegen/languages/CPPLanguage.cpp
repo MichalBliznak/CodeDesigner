@@ -13,6 +13,8 @@ udCPPLanguage::udCPPLanguage()
 {
     m_sName = wxT("C++ Language");
     m_sDescription = wxT("C++ Language command processor.");
+	
+	m_fHasClasses = true;
 
     // initialize lexer
     m_nStcLangType = wxSCI_LEX_CPP;
@@ -143,6 +145,24 @@ void udCPPLanguage::ClassDestructorDefCmd(const wxString& modif, const wxString&
 	Indent();
 	
 	m_sOutBuffer << name << wxT("::~") << name << wxT("()");
+	
+	NewLine();
+}
+
+void udCPPLanguage::ClassInstanceCmd(const wxString& instname, const wxString& classname, const wxString& params, bool dynamic)
+{
+	Indent();
+	
+	if( dynamic )
+	{
+		m_sOutBuffer << classname << wxT(" *") << instname << wxT(" = new ") << classname << wxT("( ") << params << wxT(" );");
+	}
+	else
+	{
+		if( params.IsEmpty() ) m_sOutBuffer << classname  << wxT(" ") << instname <<  wxT(";");
+		else
+			m_sOutBuffer << classname << wxT(" ") << instname << wxT("( ") << params << wxT(" );");
+	}
 	
 	NewLine();
 }

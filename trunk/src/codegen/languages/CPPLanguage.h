@@ -25,6 +25,7 @@ public:
 	virtual void ClassDestructorDefCmd(const wxString& modif, const wxString& name, const wxString& parent);
 	virtual void ClassMemberFcnDeclCmd(const wxString& modif, const wxString& type, const wxString& classname, const wxString& name, const wxString& params);
 	virtual void ClassMemberFcnDefCmd(const wxString& modif, const wxString& type, const wxString& classname, const wxString& name, const wxString& params);
+	virtual void ClassInstanceCmd(const wxString& instname, const wxString& classname, const wxString& params, bool dynamic);
 };
 
 #endif // UDCPPLANGUAGE_H

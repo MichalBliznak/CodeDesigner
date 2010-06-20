@@ -1753,3 +1753,69 @@ _ClassTemplateDialog::~_ClassTemplateDialog()
 	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassTemplateDialog::OnOk ), NULL, this );
 	
 }
+
+_ClassInstanceDialog::_ClassInstanceDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* mainSizer;
+	mainSizer = new wxBoxSizer( wxVERTICAL );
+	
+	wxFlexGridSizer* itemSizer;
+	itemSizer = new wxFlexGridSizer( 3, 2, 0, 0 );
+	itemSizer->AddGrowableCol( 1 );
+	itemSizer->SetFlexibleDirection( wxBOTH );
+	itemSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticText40 = new wxStaticText( this, wxID_ANY, wxT("Instance name:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText40->Wrap( -1 );
+	itemSizer->Add( m_staticText40, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	m_textInstName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 200,-1 ), 0 );
+	m_textInstName->SetMinSize( wxSize( 200,-1 ) );
+	
+	itemSizer->Add( m_textInstName, 0, wxTOP|wxRIGHT|wxLEFT|wxEXPAND, 5 );
+	
+	m_staticText41 = new wxStaticText( this, wxID_ANY, wxT("Parameters:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText41->Wrap( -1 );
+	itemSizer->Add( m_staticText41, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	m_textParameters = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	itemSizer->Add( m_textParameters, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	m_staticText42 = new wxStaticText( this, wxID_ANY, wxT("Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText42->Wrap( -1 );
+	itemSizer->Add( m_staticText42, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxString m_choiceTypeChoices[] = { wxT("Static"), wxT("Dynamic") };
+	int m_choiceTypeNChoices = sizeof( m_choiceTypeChoices ) / sizeof( wxString );
+	m_choiceType = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceTypeNChoices, m_choiceTypeChoices, 0 );
+	m_choiceType->SetSelection( 0 );
+	itemSizer->Add( m_choiceType, 0, wxALL|wxEXPAND, 5 );
+	
+	mainSizer->Add( itemSizer, 1, wxEXPAND, 5 );
+	
+	m_sdbSizer13 = new wxStdDialogButtonSizer();
+	m_sdbSizer13OK = new wxButton( this, wxID_OK );
+	m_sdbSizer13->AddButton( m_sdbSizer13OK );
+	m_sdbSizer13->Realize();
+	mainSizer->Add( m_sdbSizer13, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
+	
+	this->SetSizer( mainSizer );
+	this->Layout();
+	mainSizer->Fit( this );
+	
+	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassInstanceDialog::OnInit ) );
+	m_sdbSizer13OK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassInstanceDialog::OnOk ), NULL, this );
+}
+
+_ClassInstanceDialog::~_ClassInstanceDialog()
+{
+	// Disconnect Events
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _ClassInstanceDialog::OnInit ) );
+	m_sdbSizer13OK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ClassInstanceDialog::OnOk ), NULL, this );
+	
+}

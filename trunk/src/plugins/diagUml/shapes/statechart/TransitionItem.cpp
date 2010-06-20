@@ -2,7 +2,9 @@
 #include "SubStateItem.h"
 #include "projectbase/ProjectBase.h"
 #include "../../gui/AssignAsDialog.h"
+#include "../../gui/ClassInstanceDialog.h"
 #include "../../DiagSCH.h"
+#include "../../DiagCD.h"
 
 XS_IMPLEMENT_CLONABLE_CLASS(umlTransitionItem, uddLineElement);
 
@@ -42,6 +44,7 @@ void umlTransitionItem::Initialize()
 	AcceptChild(wxT("udGenericFunctionItem"));
 	AcceptChild(wxT("udSStateChartDiagramItem"));
 	AcceptChild(wxT("udHStateChartDiagramItem"));
+	AcceptChild(wxT("udClassElementItem"));
 
     // create target arrow
     SetTrgArrow(new wxSFSolidArrow());
@@ -127,12 +130,15 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 	}
 	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) )  )
 	{
-		// check whether a dropped final state belongs to the transition's source substate
-		umlSubStateItem *pSrcShape = wxDynamicCast( GetShapeManager()->FindShape( GetSrcShapeId() ), umlSubStateItem );
-		udFinalElementItem *pFinalElement = wxDynamicCast( pOriginal, udFinalElementItem );
+		// FINAL STATE /////////////////////////////////////////////////////////
 		
-		if( pSrcShape && pFinalElement)
+		udFinalElementItem *pFinalElement = wxDynamicCast( pOriginal, udFinalElementItem );
+		if(pFinalElement)
 		{
+			// check whether a dropped final state belongs to the transition's source substate
+			umlSubStateItem *pSrcShape = wxDynamicCast( GetShapeManager()->FindShape( GetSrcShapeId() ), umlSubStateItem );
+			if( !pSrcShape ) return;
+			
 			udDiagramItem *pSubDiagram = ((udSubDiagramElementItem*) udPROJECT::GetDiagramElement(pSrcShape))->GetSubDiagram();
 			if( !pSubDiagram->GetDiagramManager().Contains( pFinalElement->GetParent() ) )
 			{
@@ -163,9 +169,53 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pCondition, (udProjectItem*)pProject->GetRootItem() );
 			}
 		}
+		
+		// CLASS ITEM //////////////////////////////////////////////////////////
+		
+		udClassElementItem *pClassElement = wxDynamicCast( pOriginal, udClassElementItem );
+		if( pClassElement )
+		{
+			udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+			
+			if( !pLang->HasClasses() )
+			{
+				wxMessageBox( wxT("Selected language doesn't support class instantiation."), wxT("CodeDesigner"), wxOK | wxICON_ERROR );
+				return;
+			}
+
+			// create new condition
+			udActionItem* pAction = (udActionItem*)pProject->CreateProjectItem( wxT("udActionItem"), pProject->GetRootItem()->GetId(), udfUNIQUE_NAME );
+			if( pAction )
+			{
+				pAction->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("instantiate ") + pLink->GetName() ) );
+				pAction->SetInline( true );
+				
+				ClassInstanceDialog dlg( IPluginManager::Get()->GetActiveCanvas() );
+				udWindowManager dlgman( dlg, wxT("class_instance_dialog") );
+				
+				dlg.ShowModal();
+				
+				// construct wrapper's code				
+				pLang->PushCode();
+				pLang->ClassInstanceCmd( pLang->MakeValidIdentifier( dlg.GetInstanceName() ),
+										 pLang->MakeValidIdentifier( pClassElement->GetName() ),
+										 dlg.GetParameters(),
+										 dlg.GetIsDynamic() );
+										 
+				pAction->SetCode( pLang->GetCodeBuffer() );
+				pLang->PopCode();
+				
+				// assign the link to the transition
+				pTransElement->AssignCodeItem( new udActionLinkItem( pAction ) );
+
+				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*)pProject->GetRootItem() );
+			}
+		}
 	}
 	else if( pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) )  )
 	{
+		// STATE CHART DIAGRAM /////////////////////////////////////////////////
+		
 		// create a new function implemented by dropped state chart
 		if( pOriginal->IsKindOf(CLASSINFO(udSStateChartDiagramItem)) || pOriginal->IsKindOf(CLASSINFO(udHStateChartDiagramItem)) )
 		{

@@ -1,7 +1,9 @@
 #include "StateItem.h"
 #include "projectbase/ProjectBase.h"
 #include "../../gui/ActionTypeDialog.h"
+#include "../../gui/ClassInstanceDialog.h"
 #include "../../DiagSCH.h"
+#include "../../DiagCD.h"
 
 XS_IMPLEMENT_CLONABLE_CLASS(umlCompStateItem, umlSimpleStateItem);
 
@@ -67,6 +69,7 @@ void umlCompStateItem::Initialize()
 	AcceptChild(wxT("udGenericFunctionItem"));
 	AcceptChild(wxT("udSStateChartDiagramItem"));
 	AcceptChild(wxT("udHStateChartDiagramItem"));
+	AcceptChild(wxT("udClassElementItem"));
 
     AddStyle(sfsSHOW_SHADOW);
 	
@@ -158,6 +161,8 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 		else
 		{
 			udActionTypeDialog dlg(IPluginManager::Get()->GetMainFrame() );
+			udWindowManager dlgman( dlg, wxT("action_type_dialog") );
+			
 			dlg.ShowModal();
 			
 			nActionType = (udStateActionLinkItem::TYPE)dlg.GetChoice();
@@ -179,6 +184,59 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 			pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, nActionType) );
 		}
 	}
+	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) )  )
+	{
+		// CLASS ITEM //////////////////////////////////////////////////////////
+		
+		udClassElementItem *pClassElement = wxDynamicCast( pOriginal, udClassElementItem );
+		if( pClassElement )
+		{
+			udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+			
+			if( !pLang->HasClasses() )
+			{
+				wxMessageBox( wxT("Selected language doesn't support class instantiation."), wxT("CodeDesigner"), wxOK | wxICON_ERROR );
+				return;
+			}
+			
+			IProject *pProject = IPluginManager::Get()->GetProject();
+			
+			// create new condition
+			udActionItem* pAction = (udActionItem*)pProject->CreateProjectItem( wxT("udActionItem"), pProject->GetRootItem()->GetId(), udfUNIQUE_NAME );
+			if( pAction )
+			{
+				pAction->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("instantiate ") + pLink->GetName() ) );
+				pAction->SetInline( true );
+				
+				ClassInstanceDialog dlg( IPluginManager::Get()->GetActiveCanvas() );
+				udWindowManager dlgman( dlg, wxT("class_instance_dialog") );
+				
+				dlg.ShowModal();
+				
+				udActionTypeDialog dlga(IPluginManager::Get()->GetMainFrame() );
+				udWindowManager dlgaman( dlga, wxT("action_type_dialog") );
+				
+				dlga.ShowModal();
+				
+				udStateActionLinkItem::TYPE nActionType = (udStateActionLinkItem::TYPE)dlga.GetChoice();
+				
+				// construct wrapper's code				
+				pLang->PushCode();
+				pLang->ClassInstanceCmd( pLang->MakeValidIdentifier( dlg.GetInstanceName() ),
+										 pLang->MakeValidIdentifier( pClassElement->GetName() ),
+										 dlg.GetParameters(),
+										 dlg.GetIsDynamic() );
+										 
+				pAction->SetCode( pLang->GetCodeBuffer() );
+				pLang->PopCode();
+				
+				// assign the link to the transition
+				pElement->AssignCodeItem( new udStateActionLinkItem( (udCodeItem*)pAction, nActionType ) );
+
+				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*)pProject->GetRootItem() );
+			}
+		}
+	}
 	else if( pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) ) )
 	{
 		IProject *pProject = IPluginManager::Get()->GetProject();
@@ -195,6 +253,8 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 		else
 		{
 			udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
+			udWindowManager dlgman( dlg, wxT("action_type_dialog") );
+			
 			dlg.ShowModal();
 
 			// create new instance of action function
