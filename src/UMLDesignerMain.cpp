@@ -51,10 +51,10 @@ WX_DEFINE_OBJARRAY(DiagramsArray);
 WX_DEFINE_LIST(ListenerList);
 
 // TODO: allow linking of all (?) diagram component (like sub state)
-// TODO: implement instantiation of classes inside state chart's transition and composite states
+// TODO: fix instantiated classes in code items after class renaming
 // TODO: implement CodeLite plugin
 // TODO: implement languages by using XML templates/XSLT(???)
-// TODO: implement class instatiation by using STL containers
+// TODO: implement class instatiation by using STL containers(?)
 // TODO: design and implement OpenMP diagrams
 // TODO: implement parallel states in HSCH
 // TODO: implement QuantumLeaps code generator

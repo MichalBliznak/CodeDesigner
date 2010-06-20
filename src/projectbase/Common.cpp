@@ -8,6 +8,9 @@ namespace udLABEL
 {
 	void SetContent(const wxString& name, wxSFShapeBase *element, TYPE type)
 	{
+		wxASSERT( element );
+		if( !element ) return;
+		
 		uddLabelElement *pLabel;
 
 		SerializableList lstChildren;
@@ -32,6 +35,10 @@ namespace udLABEL
 	
 	void SetContent(const wxString& name, wxSFShapeBase *element, wxXmlSerializer *manager, TYPE type)
 	{
+		wxASSERT( element );
+		wxASSERT( manager );
+		if( !element || !manager) return;
+		
 		SerializableList lstChildren;
 		element->GetChildrenRecursively( CLASSINFO( uddLabelElement ), lstChildren );
 		SerializableList::compatibility_iterator node = lstChildren.GetFirst();
