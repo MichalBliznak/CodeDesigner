@@ -32,7 +32,8 @@ void udLCSimpleStateProcessor::ProcessElement(wxSFShapeBase *element)
 
 	// create 'case' statement
     pLang->CaseCmd(m_pParentGenerator->MakeIDName(element));
-    pLang->IncIndentation();
+    //pLang->IncIndentation();
+	pLang->BeginCmd();
 
     // process connected transitions
     m_transProcessor.SetParentGenerator(m_pParentGenerator);
@@ -45,7 +46,8 @@ void udLCSimpleStateProcessor::ProcessElement(wxSFShapeBase *element)
 	}*/
 
     pLang->NewLine();
-    pLang->DecIndentation();
+	pLang->EndCmd();
+    //pLang->DecIndentation();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +83,7 @@ void udLCSubStateProcessor::ProcessElement(wxSFShapeBase *element)
 
     // create 'case' statement
     pLang->CaseCmd(m_pParentGenerator->MakeIDName(element));
-    pLang->IncIndentation();
+    //pLang->IncIndentation();
 	pLang->BeginCmd();
     pLang->SingleLineCommentCmd(wxT("call substate function"));
 	
@@ -117,7 +119,7 @@ void udLCSubStateProcessor::ProcessElement(wxSFShapeBase *element)
 
 	pLang->EndCmd();
     pLang->NewLine();
-    pLang->DecIndentation();
+    //pLang->DecIndentation();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -324,7 +326,8 @@ void udLCFinalItemProcessor::ProcessElement(wxSFShapeBase *element)
     //wxSFDiagramManager *pDiagManager = element->GetParentManager();
 
     pLang->CaseCmd(m_pParentGenerator->MakeIDName(element));
-    pLang->IncIndentation();
+    //pLang->IncIndentation();
+	pLang->BeginCmd();
 	if( !pParent )
 	{
 		udFinalElementItem *pFinalElement = (udFinalElementItem*) udPROJECT::GetDiagramElement(element);
@@ -341,5 +344,6 @@ void udLCFinalItemProcessor::ProcessElement(wxSFShapeBase *element)
 		m_transProcessor.ProcessElement(element);
 	}
     pLang->NewLine();
-    pLang->DecIndentation();
+    //pLang->DecIndentation();
+	pLang->EndCmd();
 }

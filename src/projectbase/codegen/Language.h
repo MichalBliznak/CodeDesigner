@@ -91,19 +91,19 @@ public:
 	udLanguage* Clone() { return (udLanguage*)wxCreateDynamicObject( this->GetClassInfo()->GetClassName() ); }
 	
     // public member data accessors
-    void SetIndentation(int depth){m_nIndentation = depth;}
-    void SetIndentString(const wxString& str){m_sIndentStr = str;}
-    void SetNewLineString(const wxString& nl){m_sNewLineStr = nl;}
-    void SetName(const wxString& name){m_sName = name;}
-    void SetDescription(const wxString& desc){m_sDescription = desc;}
+    inline void SetIndentation(int depth){m_nIndentation = depth;}
+    inline void SetIndentString(const wxString& str){m_sIndentStr = str;}
+    inline void SetNewLineString(const wxString& nl){m_sNewLineStr = nl;}
+    inline void SetName(const wxString& name){m_sName = name;}
+    inline void SetDescription(const wxString& desc){m_sDescription = desc;}
 
-    int GetIndentation() const {return m_nIndentation;}
-    long GetStcLanguageType() const {return m_nStcLangType;}
-    const wxString& GetStcLanguageKeywords() const {return m_sStcLangKeywords;}
-    const wxString& GetIndentString() const {return m_sIndentStr;}
-    const wxString& GetNewLineString() const {return m_sNewLineStr;}
-    const wxString& GetName() const {return m_sName;}
-    const wxString& GetDescription() const {return m_sDescription;}
+    inline int GetIndentation() const {return m_nIndentation;}
+    inline long GetStcLanguageType() const {return m_nStcLangType;}
+    inline const wxString& GetStcLanguageKeywords() const {return m_sStcLangKeywords;}
+    inline const wxString& GetIndentString() const {return m_sIndentStr;}
+    inline const wxString& GetNewLineString() const {return m_sNewLineStr;}
+    inline const wxString& GetName() const {return m_sName;}
+    inline const wxString& GetDescription() const {return m_sDescription;}
 
     wxString GetDataTypeString(DATATYPE dt) const;
     wxString GetModifierString(DATAMODIFIER modif) const;
@@ -112,18 +112,19 @@ public:
     udValueType GetValueType(VALUETYPE vt) const;
 	wxString GetExtension(FILEEXTENSION fe) const;
 	
-	bool HasUserDataType() const {return m_fHasUserDataType;}
-	bool HasSeparatedDecl() const {return m_fHasSeparatedDecl;}
+	inline bool HasUserDataType() const {return m_fHasUserDataType;}
+	inline bool HasSeparatedDecl() const {return m_fHasSeparatedDecl;}
+	inline bool HasClasses() const {return m_fHasClasses;}
 	
     // public functions
     void ClearCodeBuffer() {m_sOutBuffer = wxT("");}
-    wxString GetCodeBuffer() {return m_sOutBuffer;}
+    inline wxString GetCodeBuffer() {return m_sOutBuffer;}
 	
 	void PushCode();
 	void PopCode();
 
     void Indent();
-    void IncIndentation(){m_nIndentation++;}
+    inline void IncIndentation(){m_nIndentation++;}
     void DecIndentation(){m_nIndentation--; if(m_nIndentation < 0)m_nIndentation = 0;}
     void NewLine();
 
@@ -193,6 +194,7 @@ public:
 	virtual void ClassDestructorDefCmd(const wxString& modif, const wxString& name, const wxString& parent){;}
 	virtual void ClassMemberFcnDeclCmd(const wxString& modif, const wxString& type, const wxString& classname, const wxString& name, const wxString& params){;}
 	virtual void ClassMemberFcnDefCmd(const wxString& modif, const wxString& type, const wxString& classname, const wxString& name, const wxString& params){;}
+	virtual void ClassInstanceCmd(const wxString& instname, const wxString& classname, const wxString& params, bool dynamic){;}
 	
 
 protected:
@@ -221,6 +223,7 @@ protected:
 	
 	bool m_fHasUserDataType;
 	bool m_fHasSeparatedDecl;
+	bool m_fHasClasses;
 };
 
 WX_DECLARE_HASH_MAP( wxString, udLanguage*, wxStringHash, wxStringEqual, LanguageMap );

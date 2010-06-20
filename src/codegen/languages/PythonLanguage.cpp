@@ -21,6 +21,7 @@ udPythonLanguage::udPythonLanguage()
 								
 	m_fHasUserDataType = false;
 	m_fHasSeparatedDecl = false;
+	m_fHasClasses = true;
 	
 	// initialize access types (keyword's order must corespond with ACCESSTYPE enumeration)
 	m_arrAccessTypes.Add(wxT("public"));
@@ -368,4 +369,14 @@ void udPythonLanguage::ClassDestructorDeclCmd(const wxString& modif, const wxStr
 
 void udPythonLanguage::ClassDestructorDefCmd(const wxString& modif, const wxString& name, const wxString& parent)
 {
+}
+
+void udPythonLanguage::ClassInstanceCmd(const wxString& instname, const wxString& classname, const wxString& params, bool dynamic)
+{
+	Indent();
+	
+	if( dynamic ) m_sOutBuffer << wxT("self.");
+	m_sOutBuffer << instname << wxT(" = ") << classname << wxT("( ") << params << wxT(" )");
+	
+	NewLine();
 }

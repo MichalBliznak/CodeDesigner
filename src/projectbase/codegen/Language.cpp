@@ -34,6 +34,7 @@ udLanguage::udLanguage()
 	
 	m_fHasUserDataType = true;
 	m_fHasSeparatedDecl = true;
+	m_fHasClasses = false;
 }
 
 udLanguage::~udLanguage()

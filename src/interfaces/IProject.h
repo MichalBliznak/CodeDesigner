@@ -219,7 +219,7 @@ public:
 
     // virtual public functions
 	/**
-	 * \brief Create project item's context menu (if needed)
+	 * \brief Create project item's context menu (if needed).
 	 * \return Pointer to item's context menu (the application will delete it after an usage)
 	 */
 	virtual wxMenu* CreateMenu() = 0;

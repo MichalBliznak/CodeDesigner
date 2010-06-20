@@ -595,4 +595,33 @@ class _ClassTemplateDialog : public wxDialog
 	
 };
 
+///////////////////////////////////////////////////////////////////////////////
+/// Class _ClassInstanceDialog
+///////////////////////////////////////////////////////////////////////////////
+class _ClassInstanceDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText40;
+		wxTextCtrl* m_textInstName;
+		wxStaticText* m_staticText41;
+		wxTextCtrl* m_textParameters;
+		wxStaticText* m_staticText42;
+		wxChoice* m_choiceType;
+		wxStdDialogButtonSizer* m_sdbSizer13;
+		wxButton* m_sdbSizer13OK;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_ClassInstanceDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class instance"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		~_ClassInstanceDialog();
+	
+};
+
 #endif //__GUI__
