@@ -1795,6 +1795,9 @@ _ClassInstanceDialog::_ClassInstanceDialog( wxWindow* parent, wxWindowID id, con
 	
 	mainSizer->Add( itemSizer, 1, wxEXPAND, 5 );
 	
+	m_staticline1 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+	mainSizer->Add( m_staticline1, 0, wxEXPAND | wxALL, 5 );
+	
 	m_sdbSizer13 = new wxStdDialogButtonSizer();
 	m_sdbSizer13OK = new wxButton( this, wxID_OK );
 	m_sdbSizer13->AddButton( m_sdbSizer13OK );

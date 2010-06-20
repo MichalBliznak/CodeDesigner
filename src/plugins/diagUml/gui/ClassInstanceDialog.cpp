@@ -4,17 +4,17 @@
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
-ClassInstanceDialog::ClassInstanceDialog(wxWindow *parent) : _ClassInstanceDialog( parent )
+udClassInstanceDialog::udClassInstanceDialog(wxWindow *parent) : _ClassInstanceDialog( parent )
 {
 }
 
-ClassInstanceDialog::~ClassInstanceDialog()
+udClassInstanceDialog::~udClassInstanceDialog()
 {
 }
 
 // virtual functions /////////////////////////////////////////////////////////////////////////
 
-void ClassInstanceDialog::OnInit(wxInitDialogEvent& event)
+void udClassInstanceDialog::OnInit(wxInitDialogEvent& event)
 {
 	m_textInstName->SetValidator( wxGenericValidator( &m_InstanceName ) );
 	m_textParameters->SetValidator( wxGenericValidator( &m_Parameters ) );
@@ -22,7 +22,7 @@ void ClassInstanceDialog::OnInit(wxInitDialogEvent& event)
 	event.Skip();
 }
 
-void ClassInstanceDialog::OnOk(wxCommandEvent& event)
+void udClassInstanceDialog::OnOk(wxCommandEvent& event)
 {
 	TransferDataFromWindow();
 	

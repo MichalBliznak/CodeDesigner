@@ -190,7 +190,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				pAction->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("instantiate ") + pLink->GetName() ) );
 				pAction->SetInline( true );
 				
-				ClassInstanceDialog dlg( IPluginManager::Get()->GetActiveCanvas() );
+				udClassInstanceDialog dlg( IPluginManager::Get()->GetActiveCanvas() );
 				udWindowManager dlgman( dlg, wxT("class_instance_dialog") );
 				
 				dlg.ShowModal();

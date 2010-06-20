@@ -236,6 +236,19 @@ namespace udPROJECT
 			snode = snode->GetNext();
 		}
 	}
+	
+	void FindCodeReferences(const wxString& pattern, SerializableList& references)
+	{
+		SerializableList lstCodeItems;
+		IPluginManager::Get()->GetProject()->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
+		
+		for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
+		{
+			udCodeItem *pItem = (udCodeItem*)*it;
+			
+			if( pItem->GetCode().Contains( pattern + wxT(" ") ) ) references.Append( *it );
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

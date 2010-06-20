@@ -5,6 +5,7 @@
 #include <wx/artprov.h>
 
 #include "projectbase/gui/AccessTypeDialog.h"
+#include "projectbase/gui/UpdateCodeDialog.h"
 #include "gui/ClassMemberLinkDialog.h"
 #include "gui/ConstructorDialog.h"
 #include "gui/DestructorDialog.h"
@@ -531,6 +532,14 @@ void udClassElementItem::UpdateMembers(const wxString& prevname, const wxString&
 		((udCodeLinkItem*) node->GetData())->SetScope( newname );
 		node = node->GetNext();
 	}
+	
+	// update referenced code
+	udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("update_code_dialog") );
+	
+	dlg.SetPattern( prevname );
+	dlg.SetNewPattern( newname );
+	dlg.ShowIfNeeded();
 }
 
 void udClassElementItem::AssignMemberCopy(udLinkItem* link)

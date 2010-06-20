@@ -122,6 +122,12 @@ namespace udPROJECT
 	 * \return Pointer to child project item if exists, otherwise NULL
 	 */
 	WXDLLIMPEXP_CD udProjectItem* GetProjectItem(udProjectItem* parent, wxClassInfo* type, const wxString& name);
+	/**
+	 * \brief Get code items containing given pattern in their code.
+	 * \param patern Searched pattern
+	 * \param references List where matching code items will be stored to
+	 */
+	WXDLLIMPEXP_CD void FindCodeReferences(const wxString& pattern, SerializableList& references);
 };
 
 namespace udFRAME

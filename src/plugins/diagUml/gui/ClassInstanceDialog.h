@@ -3,11 +3,11 @@
 
 #include "GUI.h" // Base class: _ClassInstanceDialog
 
-class ClassInstanceDialog : public _ClassInstanceDialog
+class udClassInstanceDialog : public _ClassInstanceDialog
 {
 public:
-	ClassInstanceDialog(wxWindow *parent);
-	virtual ~ClassInstanceDialog();
+	udClassInstanceDialog(wxWindow *parent);
+	virtual ~udClassInstanceDialog();
 
 	const wxString& GetInstanceName() const {return m_InstanceName;}
 	bool GetIsDynamic() const {return m_IsDynamic;}

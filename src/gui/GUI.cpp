@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 12 2010)
+// C++ code generated with wxFormBuilder (version May 27 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -1442,6 +1442,17 @@ _SynchronizeDialog::_SynchronizeDialog( wxWindow* parent, wxWindowID id, const w
 	m_checkList = new wxCheckListBox( this, wxID_ANY, wxDefaultPosition, wxSize( -1,150 ), m_checkListChoices, 0 );
 	m_checkList->SetMinSize( wxSize( -1,150 ) );
 	
+	menuCheckList = new wxMenu();
+	wxMenuItem* menuSelectAll;
+	menuSelectAll = new wxMenuItem( menuCheckList, IDM_SYNCHRO_SELECT_ALL, wxString( wxT("Select all") ) , wxEmptyString, wxITEM_NORMAL );
+	menuCheckList->Append( menuSelectAll );
+	
+	wxMenuItem* menuDeselectAll;
+	menuDeselectAll = new wxMenuItem( menuCheckList, IDM_SYNCHRO_DESELECT_ALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
+	menuCheckList->Append( menuDeselectAll );
+	
+	m_checkList->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( _SynchronizeDialog::m_checkListOnContextMenu ), NULL, this ); 
+	
 	mainSizer->Add( m_checkList, 0, wxALL|wxEXPAND, 5 );
 	
 	wxFlexGridSizer* compareSizer;
@@ -1558,6 +1569,8 @@ _SynchronizeDialog::_SynchronizeDialog( wxWindow* parent, wxWindowID id, const w
 	
 	// Connect Events
 	m_checkList->Connect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( _SynchronizeDialog::OnSelectCodeItem ), NULL, this );
+	this->Connect( menuSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _SynchronizeDialog::OnSelectAll ) );
+	this->Connect( menuDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _SynchronizeDialog::OnDeselectAll ) );
 	buttonSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _SynchronizeDialog::OnOk ), NULL, this );
 }
 
@@ -1565,8 +1578,11 @@ _SynchronizeDialog::~_SynchronizeDialog()
 {
 	// Disconnect Events
 	m_checkList->Disconnect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( _SynchronizeDialog::OnSelectCodeItem ), NULL, this );
+	this->Disconnect( IDM_SYNCHRO_SELECT_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _SynchronizeDialog::OnSelectAll ) );
+	this->Disconnect( IDM_SYNCHRO_DESELECT_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _SynchronizeDialog::OnDeselectAll ) );
 	buttonSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _SynchronizeDialog::OnOk ), NULL, this );
 	
+	delete menuCheckList; 
 }
 
 _GroupDialog::_GroupDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )

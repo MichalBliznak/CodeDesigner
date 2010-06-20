@@ -6204,6 +6204,41 @@
                         <event name="OnSetFocus"></event>
                         <event name="OnSize"></event>
                         <event name="OnUpdateUI"></event>
+                        <object class="wxMenu" expanded="1">
+                            <property name="label">MyMenu</property>
+                            <property name="name">menuCheckList</property>
+                            <property name="permission">protected</property>
+                            <object class="wxMenuItem" expanded="1">
+                                <property name="bitmap"></property>
+                                <property name="checked">0</property>
+                                <property name="enabled">1</property>
+                                <property name="help"></property>
+                                <property name="id">IDM_SYNCHRO_SELECT_ALL</property>
+                                <property name="kind">wxITEM_NORMAL</property>
+                                <property name="label">Select all</property>
+                                <property name="name">menuSelectAll</property>
+                                <property name="permission">none</property>
+                                <property name="shortcut"></property>
+                                <property name="unchecked_bitmap"></property>
+                                <event name="OnMenuSelection">OnSelectAll</event>
+                                <event name="OnUpdateUI"></event>
+                            </object>
+                            <object class="wxMenuItem" expanded="1">
+                                <property name="bitmap"></property>
+                                <property name="checked">0</property>
+                                <property name="enabled">1</property>
+                                <property name="help"></property>
+                                <property name="id">IDM_SYNCHRO_DESELECT_ALL</property>
+                                <property name="kind">wxITEM_NORMAL</property>
+                                <property name="label">Deselect all</property>
+                                <property name="name">menuDeselectAll</property>
+                                <property name="permission">none</property>
+                                <property name="shortcut"></property>
+                                <property name="unchecked_bitmap"></property>
+                                <event name="OnMenuSelection">OnDeselectAll</event>
+                                <event name="OnUpdateUI"></event>
+                            </object>
+                        </object>
                     </object>
                 </object>
                 <object class="sizeritem" expanded="0">

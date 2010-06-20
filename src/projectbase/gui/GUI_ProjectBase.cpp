@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 12 2010)
+// C++ code generated with wxFormBuilder (version May 27 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -938,4 +938,133 @@ _ElementDialog::~_ElementDialog()
 	m_cbMakeValid->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ElementDialog::OnMakeValid ), NULL, this );
 	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ElementDialog::OnOk ), NULL, this );
 	
+}
+
+_UpdateCodeDialog::_UpdateCodeDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxSize( 400,380 ), wxDefaultSize );
+	
+	wxBoxSizer* mainSizer;
+	mainSizer = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticText = new wxStaticText( this, wxID_ANY, wxT("Reference to '' has been found in:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText->Wrap( -1 );
+	mainSizer->Add( m_staticText, 0, wxALL|wxEXPAND, 5 );
+	
+	wxArrayString m_checkListCodeItemsChoices;
+	m_checkListCodeItems = new wxCheckListBox( this, wxID_ANY, wxDefaultPosition, wxSize( -1,100 ), m_checkListCodeItemsChoices, wxLB_SORT );
+	m_checkListCodeItems->SetMinSize( wxSize( -1,100 ) );
+	
+	m_menuChecklist = new wxMenu();
+	wxMenuItem* menuSelectAll;
+	menuSelectAll = new wxMenuItem( m_menuChecklist, IDM_SELECT_ALL, wxString( wxT("SelectAll") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuChecklist->Append( menuSelectAll );
+	
+	wxMenuItem* menuDeselectAll;
+	menuDeselectAll = new wxMenuItem( m_menuChecklist, IDM_DESELECT_ALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuChecklist->Append( menuDeselectAll );
+	
+	m_checkListCodeItems->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( _UpdateCodeDialog::m_checkListCodeItemsOnContextMenu ), NULL, this ); 
+	
+	mainSizer->Add( m_checkListCodeItems, 0, wxALL|wxEXPAND, 5 );
+	
+	m_staticText33 = new wxStaticText( this, wxID_ANY, wxT("Pattern occurences:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33->Wrap( -1 );
+	mainSizer->Add( m_staticText33, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	wxBoxSizer* previewSizer;
+	previewSizer = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_scintillaCode = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxSize( 280,150 ), 0, wxEmptyString );
+	m_scintillaCode->SetUseTabs( true );
+	m_scintillaCode->SetTabWidth( 4 );
+	m_scintillaCode->SetIndent( 4 );
+	m_scintillaCode->SetTabIndents( true );
+	m_scintillaCode->SetBackSpaceUnIndents( true );
+	m_scintillaCode->SetViewEOL( false );
+	m_scintillaCode->SetViewWhiteSpace( false );
+	m_scintillaCode->SetMarginWidth( 2, 0 );
+	m_scintillaCode->SetIndentationGuides( true );
+	m_scintillaCode->SetMarginType( 1, wxSCI_MARGIN_SYMBOL );
+	m_scintillaCode->SetMarginMask( 1, wxSCI_MASK_FOLDERS );
+	m_scintillaCode->SetMarginWidth( 1, 16);
+	m_scintillaCode->SetMarginSensitive( 1, true );
+	m_scintillaCode->SetProperty( wxT("fold"), wxT("1") );
+	m_scintillaCode->SetFoldFlags( wxSCI_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSCI_FOLDFLAG_LINEAFTER_CONTRACTED );
+	m_scintillaCode->SetMarginType( 0, wxSCI_MARGIN_NUMBER );
+	m_scintillaCode->SetMarginWidth( 0, m_scintillaCode->TextWidth( wxSCI_STYLE_LINENUMBER, wxT("_99999") ) );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDER, wxSCI_MARK_BOXPLUS );
+	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDEROPEN, wxSCI_MARK_BOXMINUS );
+	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDERSUB, wxSCI_MARK_EMPTY );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDEREND, wxSCI_MARK_BOXPLUS );
+	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDEROPENMID, wxSCI_MARK_BOXMINUS );
+	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDERMIDTAIL, wxSCI_MARK_EMPTY );
+	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDERTAIL, wxSCI_MARK_EMPTY );
+	m_scintillaCode->SetSelBackground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHT ) );
+	m_scintillaCode->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	m_scintillaCode->SetMinSize( wxSize( 280,150 ) );
+	
+	previewSizer->Add( m_scintillaCode, 1, wxEXPAND | wxALL, 5 );
+	
+	wxBoxSizer* searchSizer;
+	searchSizer = new wxBoxSizer( wxVERTICAL );
+	
+	m_btnPrev = new wxButton( this, wxID_ANY, wxT("Previous"), wxDefaultPosition, wxDefaultSize, 0 );
+	searchSizer->Add( m_btnPrev, 0, wxALL, 5 );
+	
+	m_btnNext = new wxButton( this, wxID_ANY, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
+	searchSizer->Add( m_btnNext, 0, wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	
+	previewSizer->Add( searchSizer, 0, wxEXPAND, 5 );
+	
+	mainSizer->Add( previewSizer, 1, wxEXPAND, 5 );
+	
+	wxBoxSizer* buttonSizer;
+	buttonSizer = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_btnCancel = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( m_btnCancel, 0, wxALL, 5 );
+	
+	m_btnUpdate = new wxButton( this, wxID_OK, wxT("Update selected"), wxDefaultPosition, wxDefaultSize, 0 );
+	buttonSizer->Add( m_btnUpdate, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
+	
+	mainSizer->Add( buttonSizer, 0, wxALIGN_RIGHT, 5 );
+	
+	this->SetSizer( mainSizer );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _UpdateCodeDialog::OnInit ) );
+	m_checkListCodeItems->Connect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( _UpdateCodeDialog::OnChangeCodeitem ), NULL, this );
+	this->Connect( menuSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _UpdateCodeDialog::OnSelectAll ) );
+	this->Connect( menuDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _UpdateCodeDialog::OnDeselectAll ) );
+	m_btnPrev->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnPrevious ), NULL, this );
+	m_btnNext->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnNext ), NULL, this );
+	m_btnCancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnCancel ), NULL, this );
+	m_btnUpdate->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnUpdate ), NULL, this );
+}
+
+_UpdateCodeDialog::~_UpdateCodeDialog()
+{
+	// Disconnect Events
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _UpdateCodeDialog::OnInit ) );
+	m_checkListCodeItems->Disconnect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( _UpdateCodeDialog::OnChangeCodeitem ), NULL, this );
+	this->Disconnect( IDM_SELECT_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _UpdateCodeDialog::OnSelectAll ) );
+	this->Disconnect( IDM_DESELECT_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _UpdateCodeDialog::OnDeselectAll ) );
+	m_btnPrev->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnPrevious ), NULL, this );
+	m_btnNext->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnNext ), NULL, this );
+	m_btnCancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnCancel ), NULL, this );
+	m_btnUpdate->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _UpdateCodeDialog::OnUpdate ), NULL, this );
+	
+	delete m_menuChecklist; 
 }
