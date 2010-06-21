@@ -534,12 +534,18 @@ void udClassElementItem::UpdateMembers(const wxString& prevname, const wxString&
 	}
 	
 	// update referenced code
-	udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), IPluginManager::Get()->GetSelectedLanguage() );
-	udWindowManager dlgman( dlg, wxT("update_code_dialog") );
+	SerializableList m_References;
+	udPROJECT::FindCodeReferences( prevname, m_References );
 	
-	dlg.SetPattern( prevname );
-	dlg.SetNewPattern( newname );
-	dlg.ShowIfNeeded();
+	if( !m_References.IsEmpty() )
+	{
+		udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), &m_References, IPluginManager::Get()->GetSelectedLanguage() );
+		udWindowManager dlgman( dlg, wxT("update_code_dialog") );
+	
+		dlg.SetPattern( prevname );
+		dlg.SetNewPattern( newname );
+		dlg.ShowModal();
+	}
 }
 
 void udClassElementItem::AssignMemberCopy(udLinkItem* link)

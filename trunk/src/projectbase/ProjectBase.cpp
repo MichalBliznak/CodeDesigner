@@ -30,6 +30,7 @@
 #include "gui/FunctionLinkDialog.h"
 #include "gui/DiagramDialog.h"
 #include "gui/ElementDialog.h"
+#include "gui/UpdateCodeDialog.h"
 
 // codegen
 #include "codegen/Generator.h"
@@ -2151,6 +2152,24 @@ void udDiagElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 			udLABEL::SetContent(utxt, (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE);
 		}
 
+		udLanguage *lang = IPluginManager::Get()->GetSelectedLanguage();
+		wxString previd =  wxT("ID_") + lang->MakeValidIdentifier( m_sName ).Upper();
+		wxString newid =  wxT("ID_") + lang->MakeValidIdentifier( utxt ).Upper();
+		
+		// update referenced code
+		SerializableList m_References;
+		udPROJECT::FindCodeReferences( previd, m_References );
+		
+		if( !m_References.IsEmpty() )
+		{
+			udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), &m_References, lang );
+			udWindowManager dlgman( dlg, wxT("update_code_dialog") );
+		
+			dlg.SetPattern( previd );
+			dlg.SetNewPattern( newid );
+			dlg.ShowModal();
+		}
+	
 		udProjectItem::OnTreeTextChange(utxt);
 	}
 }
