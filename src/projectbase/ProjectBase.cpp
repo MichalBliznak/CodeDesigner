@@ -1953,6 +1953,27 @@ wxString udDiagElementItem::RemoveCallParams(const wxString& txt)
 	return sOut;
 }
 
+void udDiagElementItem::UpdateAffectedCodeItems(const wxString& prevname, const wxString& newname)
+{
+	udLanguage *lang = IPluginManager::Get()->GetSelectedLanguage();
+	wxString previd =  wxT("ID_") + lang->MakeValidIdentifier( prevname ).Upper();
+	wxString newid =  wxT("ID_") + lang->MakeValidIdentifier( newname ).Upper();
+	
+	// update referenced code
+	SerializableList m_References;
+	udPROJECT::FindCodeReferences( previd, m_References );
+	
+	if( !m_References.IsEmpty() )
+	{
+		udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), &m_References, lang );
+		udWindowManager dlgman( dlg, wxT("update_code_dialog") );
+	
+		dlg.SetPattern( previd );
+		dlg.SetNewPattern( newid );
+		dlg.ShowModal();
+	}
+}
+
 // virtual functions ////////////////////////////////////////////////////////////////
 
 void udDiagElementItem::OnActivation()
@@ -2042,7 +2063,9 @@ void udDiagElementItem::OnTreeTextChange(const wxString &txt)
 		}
 		
 		// update code items
-		udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+		UpdateAffectedCodeItems( sPrevName, txt );
+		
+		/*udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
 		wxString sCurrentID = wxT("ID_") + pLang->MakeValidIdentifier( sPrevName ).Upper();
 		wxString sNewID = wxT("ID_") + pLang->MakeValidIdentifier( txt ).Upper();
 
@@ -2061,7 +2084,7 @@ void udDiagElementItem::OnTreeTextChange(const wxString &txt)
 				pCI->SetCode( sBuff );
 			}
 			node = node->GetNext();
-		}
+		}*/
 	}
 }
 
@@ -2151,24 +2174,8 @@ void udDiagElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 		{
 			udLABEL::SetContent(utxt, (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE);
 		}
-
-		udLanguage *lang = IPluginManager::Get()->GetSelectedLanguage();
-		wxString previd =  wxT("ID_") + lang->MakeValidIdentifier( m_sName ).Upper();
-		wxString newid =  wxT("ID_") + lang->MakeValidIdentifier( utxt ).Upper();
 		
-		// update referenced code
-		SerializableList m_References;
-		udPROJECT::FindCodeReferences( previd, m_References );
-		
-		if( !m_References.IsEmpty() )
-		{
-			udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), &m_References, lang );
-			udWindowManager dlgman( dlg, wxT("update_code_dialog") );
-		
-			dlg.SetPattern( previd );
-			dlg.SetNewPattern( newid );
-			dlg.ShowModal();
-		}
+		UpdateAffectedCodeItems( m_sName, utxt );
 	
 		udProjectItem::OnTreeTextChange(utxt);
 	}
