@@ -4,6 +4,8 @@
 
 #include "codegen/Generator.h"
 
+#include <wx/regex.h>
+
 namespace udLABEL
 {
 	void SetContent(const wxString& name, wxSFShapeBase *element, TYPE type)
@@ -242,11 +244,18 @@ namespace udPROJECT
 		SerializableList lstCodeItems;
 		IPluginManager::Get()->GetProject()->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
 		
+		wxRegEx rePattern( wxT("^") + pattern + wxT("[\\s]+|") +
+						   wxT("[\\s]+") + pattern + wxT("[\\s]+|") + 
+						   wxT("[\\s]+") + pattern + wxT("$"), wxRE_ADVANCED );
+		
 		for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
 		{
 			udCodeItem *pItem = (udCodeItem*)*it;
 			
-			if( pItem->GetCode().Contains( pattern + wxT(" ") ) ) references.Append( *it );
+			if( rePattern.Matches( pItem->GetCode() ) )
+			{
+				references.Append( *it );
+			}
 		}
 	}
 }

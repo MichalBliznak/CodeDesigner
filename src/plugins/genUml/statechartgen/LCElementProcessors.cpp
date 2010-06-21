@@ -45,7 +45,7 @@ void udLCSimpleStateProcessor::ProcessElement(wxSFShapeBase *element)
 		pLang->BreakCmd();
 	}*/
 
-    pLang->NewLine();
+    //pLang->NewLine();
 	pLang->EndCmd();
     //pLang->DecIndentation();
 }
@@ -118,7 +118,7 @@ void udLCSubStateProcessor::ProcessElement(wxSFShapeBase *element)
     m_transProcessor.ProcessElement(element);
 
 	pLang->EndCmd();
-    pLang->NewLine();
+    //pLang->NewLine();
     //pLang->DecIndentation();
 }
 
@@ -343,7 +343,7 @@ void udLCFinalItemProcessor::ProcessElement(wxSFShapeBase *element)
 		m_transProcessor.SetParentGenerator(m_pParentGenerator);
 		m_transProcessor.ProcessElement(element);
 	}
-    pLang->NewLine();
+    //pLang->NewLine();
     //pLang->DecIndentation();
 	pLang->EndCmd();
 }

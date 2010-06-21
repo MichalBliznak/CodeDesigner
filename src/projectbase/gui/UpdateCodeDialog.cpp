@@ -1,13 +1,17 @@
 #include "UpdateCodeDialog.h"
-
 #include "../Common.h"
+
+#include <wx/regex.h>
 
 // constructor and destructor ////////////////////////////////////////////////////////////////
 
-udUpdateCodeDialog::udUpdateCodeDialog(wxWindow *parent, udLanguage *lang) : _UpdateCodeDialog( parent )
+udUpdateCodeDialog::udUpdateCodeDialog(wxWindow *parent, SerializableList *references, udLanguage *lang) : _UpdateCodeDialog( parent )
 {
 	wxASSERT( lang );
+	wxASSERT( references );
+	
 	m_Lang = lang;
+	m_References = references;
 }
 
 udUpdateCodeDialog::~udUpdateCodeDialog()
@@ -25,12 +29,12 @@ void udUpdateCodeDialog::OnInit(wxInitDialogEvent& event)
 	udFRAME::InitStyledTextCtrl( m_scintillaCode, m_Lang );
 	
 	// fill checklist
-	for( SerializableList::iterator it = m_References.begin(); it != m_References.end(); ++it )
+	for( SerializableList::iterator it = m_References->begin(); it != m_References->end(); ++it )
 	{
 		udCodeItem *pItem = (udCodeItem*)*it;
 		m_checkListCodeItems->Append( pItem->GetScope() + wxT("::") + pItem->GetName() );
 	}
-	if( !m_References.IsEmpty() )
+	if( !m_References->IsEmpty() )
 	{
 		m_checkListCodeItems->SetSelection( 0 );
 		UpdateCodePreview( 0 );
@@ -53,14 +57,21 @@ void udUpdateCodeDialog::OnUpdate(wxCommandEvent& event)
 	udCodeItem *pItem;
 	wxString sCode;
 	
+	wxRegEx rePattern1( wxT("^") + m_Pattern + wxT("[\\s]+"), wxRE_ADVANCED);
+	wxRegEx rePattern2( wxT("[\\s]+") + m_Pattern + wxT("[\\s]+"), wxRE_ADVANCED);
+	wxRegEx rePattern3( wxT("[\\s]+") + m_Pattern + wxT("$"), wxRE_ADVANCED);
+	
 	for( size_t i = 0; i < m_checkListCodeItems->GetCount(); ++i )
 	{
 		if( m_checkListCodeItems->IsChecked( i ) )
 		{
-			pItem = (udCodeItem*)m_References.Item( i )->GetData();
+			pItem = (udCodeItem*)m_References->Item( i )->GetData();
 			
 			sCode = pItem->GetCode();
-			sCode.Replace( m_Pattern + wxT(" "), m_NewPattern + wxT(" ") );
+			
+			if( rePattern1.Matches( sCode ) ) sCode.Replace( m_Pattern + wxT(" "), m_NewPattern + wxT(" ") );
+			else if( rePattern2.Matches( sCode ) ) sCode.Replace( wxT(" ") + m_Pattern + wxT(" "), wxT(" ") + m_NewPattern + wxT(" ") );
+			else if( rePattern3.Matches( sCode ) ) sCode.Replace( wxT(" ") + m_Pattern, wxT(" ") + m_NewPattern );
 			
 			pItem->SetCode( sCode );
 		}
@@ -73,9 +84,9 @@ void udUpdateCodeDialog::OnUpdate(wxCommandEvent& event)
 
 void udUpdateCodeDialog::UpdateCodePreview(int selection)
 {
-	if( selection > -1 && selection < m_References.GetCount() )
+	if( selection > -1 && selection < m_References->GetCount() )
 	{
-		udCodeItem *pItem = (udCodeItem*)m_References.Item( selection )->GetData();
+		udCodeItem *pItem = (udCodeItem*)m_References->Item( selection )->GetData();
 		
 		// set content
 		m_scintillaCode->SetReadOnly( false );
@@ -116,15 +127,6 @@ void udUpdateCodeDialog::OnPrevious(wxCommandEvent& event)
 	}
 }
 
-void udUpdateCodeDialog::ShowIfNeeded()
-{
-	udPROJECT::FindCodeReferences( m_Pattern, m_References );
-	if( !m_References.IsEmpty() )
-	{
-		ShowModal();
-	}
-}
-
 void udUpdateCodeDialog::OnDeselectAll(wxCommandEvent& event)
 {
 	for( size_t i = 0; i < m_checkListCodeItems->GetCount(); ++i )
@@ -140,4 +142,3 @@ void udUpdateCodeDialog::OnSelectAll(wxCommandEvent& event)
 		m_checkListCodeItems->Check( i, true );
 	}
 }
-
