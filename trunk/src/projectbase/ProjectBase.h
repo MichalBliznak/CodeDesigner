@@ -586,6 +586,7 @@ protected:
 	void RestoreCallParams();
 	
 	bool UpdateSubmenu(wxMenu *submenu, const wxArrayString& items, bool clear);
+	void UpdateAffectedCodeItems(const wxString& prevname, const wxString& newname);
 
 	// protected virtual functions
 	
