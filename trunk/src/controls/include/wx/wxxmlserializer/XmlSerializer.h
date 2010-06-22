@@ -921,7 +921,8 @@ public:
 	
 	// public functions
 	/**
-	 * \brief Convert managed data to wxVariant.
+	 * \brief Convert managed data to wxVariant (supported data types: int, long, bool, double, float,
+	 * wxChar, wxString and wxArrayString).
 	 * \return wxVariant object containing the data
 	 */
 	wxVariant ToVariant()
