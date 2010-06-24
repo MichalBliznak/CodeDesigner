@@ -133,7 +133,27 @@ protected:
 
 // code items /////////////////////////////////////////////////////////////////////
 
-class WXDLLIMPEXP_CD udMemberLinkItem : public udCodeLinkItem
+class udAccessType
+{
+public:
+	udAccessType();
+	udAccessType(udLanguage::ACCESSTYPE at);
+	udAccessType(const udAccessType& obj);
+	
+	wxMenu* CreateAccessMenu();
+	
+	// public member data accessors
+	void SetAccessType(const udLanguage::ACCESSTYPE& at) {m_nAccessType = at;}
+	
+	const udLanguage::ACCESSTYPE& GetAccessType() const {return m_nAccessType;}
+	
+protected:
+	// protected data members
+	udLanguage::ACCESSTYPE m_nAccessType;
+
+};
+
+class WXDLLIMPEXP_CD udMemberLinkItem : public udCodeLinkItem, public udAccessType
 {
 public:
 	XS_DECLARE_CLONABLE_CLASS(udMemberLinkItem);
@@ -143,19 +163,12 @@ public:
 	udMemberLinkItem(const udMemberLinkItem &obj);
     virtual ~udMemberLinkItem();
 	
-	// public member data accessors
-	void SetAccessType(const udLanguage::ACCESSTYPE& at) {m_nAccessType = at;}
-	
-	const udLanguage::ACCESSTYPE& GetAccessType() const {return m_nAccessType;}
+	virtual wxMenu* CreateMenu();
 	
 	virtual void OnEditItem(wxWindow* parent);
 	virtual void OnTreeItemEndDrag(const wxPoint &pos);
 	virtual wxString ToString(udCodeItem::CODEFORMAT format, udLanguage *lang = NULL);
 	virtual udProjectItem* GetOriginal();
-
-protected:
-	// protected data members
-	udLanguage::ACCESSTYPE m_nAccessType;
 };
 
 class WXDLLIMPEXP_CD udMemberDataItem : public udVariableItem

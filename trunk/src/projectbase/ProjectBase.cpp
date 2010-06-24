@@ -196,11 +196,11 @@ void udLinkItem::OnActivation()
     if( pOriginal ) pOriginal->OnActivation();
 }
 
-void udLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
+/*void udLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
 {
     udProjectItem *pOriginal = GetOriginal();
 	if( pOriginal ) pOriginal->OnContextMenu(parent, pos);
-}
+}*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 // udElementLinkItem class //////////////////////////////////////////////////////////
