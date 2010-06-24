@@ -431,3 +431,14 @@ void udUmlDiagramPlugin::OnRefactorVirtualFcn(wxCommandEvent& event)
 		}
 	}
 }
+
+void udUmlDiagramPlugin::OnChangeAccessType(wxCommandEvent& event)
+{
+	udMemberLinkItem *pLink = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udMemberLinkItem );
+	if( pLink )
+	{
+		pLink->SetAccessType( (udLanguage::ACCESSTYPE)(event.GetId() - IDM_CLASS_ACCESSTYPE) );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pLink->GetOriginal() );
+	}
+}

@@ -765,6 +765,47 @@ void udTemplateBindElementItem::OnShapeTextChange(const wxString& txt, udLABEL::
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
+// udAccessType /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udAccessType::udAccessType()
+{
+	m_nAccessType = udLanguage::AT_PUBLIC;
+}
+
+udAccessType::udAccessType(udLanguage::ACCESSTYPE at)
+{
+	m_nAccessType = at;
+}
+
+udAccessType::udAccessType(const udAccessType& obj)
+{
+	m_nAccessType = obj.m_nAccessType;
+}
+
+// public functions /////////////////////////////////////////////////////////////////
+
+wxMenu* udAccessType::CreateAccessMenu()
+{
+	udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+	wxMenu *pMenu = new wxMenu();
+	
+	wxString sAT;
+	int i = 0;
+	
+	while( (sAT = pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE)i )) != wxEmptyString )
+	{
+		pMenu->AppendCheckItem( IDM_CLASS_ACCESSTYPE + i++, sAT );
+	}
+	
+	if( i ) pMenu->Check( IDM_CLASS_ACCESSTYPE + (int)m_nAccessType, true );
+	
+	return pMenu;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
 // udMemberLinkItem /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -772,10 +813,8 @@ XS_IMPLEMENT_CLONABLE_CLASS(udMemberLinkItem, udCodeLinkItem);
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
-udMemberLinkItem::udMemberLinkItem()
+udMemberLinkItem::udMemberLinkItem() : udAccessType()
 {
-	m_nAccessType = udLanguage::AT_PUBLIC;
-	
 	AcceptSibbling(wxT("udMemberDataLinkItem"));
 	AcceptSibbling(wxT("udMemberFunctionLinkItem"));
 	
@@ -783,11 +822,11 @@ udMemberLinkItem::udMemberLinkItem()
 }
 
 udMemberLinkItem::udMemberLinkItem(const udCodeItem *orig, udLanguage::ACCESSTYPE at )
+: udAccessType(at)
 {
 	SetName( orig->GetName() );
 	SetOrigCodeItem( orig->GetName() );
 	SetScope( orig->GetScope() );
-	m_nAccessType = at;
 	
 	AcceptSibbling(wxT("udMemberDataLinkItem"));
 	AcceptSibbling(wxT("udMemberFunctionLinkItem"));
@@ -795,10 +834,8 @@ udMemberLinkItem::udMemberLinkItem(const udCodeItem *orig, udLanguage::ACCESSTYP
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 
-udMemberLinkItem::udMemberLinkItem(const udMemberLinkItem& obj) : udCodeLinkItem(obj)
+udMemberLinkItem::udMemberLinkItem(const udMemberLinkItem& obj) : udCodeLinkItem(obj), udAccessType(obj)
 {
-	m_nAccessType = obj.m_nAccessType;
-	
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 
@@ -807,6 +844,16 @@ udMemberLinkItem::~udMemberLinkItem()
 }
 
 // public virtual functions /////////////////////////////////////////////////////////
+
+wxMenu* udMemberLinkItem::CreateMenu()
+{
+	wxMenu *pMenu = GetOriginal()->CreateMenu();
+	
+	pMenu->Insert(0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
+	pMenu->InsertSeparator(1);
+	
+	return pMenu;
+}
 
 udProjectItem* udMemberLinkItem::GetOriginal()
 {

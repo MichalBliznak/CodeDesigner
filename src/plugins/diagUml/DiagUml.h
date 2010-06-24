@@ -78,6 +78,8 @@ protected:
 	void OnClearCodeItems(wxCommandEvent& event);
 	
 	void OnRefactorVirtualFcn(wxCommandEvent& event);
+	
+	void OnChangeAccessType(wxCommandEvent& event);
 };
 
 #endif //_DIAG_UML_H_

@@ -116,7 +116,7 @@ public:
 	virtual udProjectItem* GetOriginal();
 
     // public virtual functions
-    virtual void OnContextMenu(wxWindow* parent, const wxPoint& pos);
+    /*virtual void OnContextMenu(wxWindow* parent, const wxPoint& pos);*/
     virtual void OnActivation();
 	virtual void OnTreeTextChange(const wxString& txt);
 	

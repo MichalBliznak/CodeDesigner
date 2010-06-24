@@ -30,6 +30,7 @@ long IDM_CLASS_CREATEDESTRUCTOR = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_CREATEVARIABLE = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_CREATEFUNCTION = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_RENAMEVIRTUAL = IPluginManager::Get()->GetNewMenuId();
+long IDM_CLASS_ACCESSTYPE = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
 
 //Define the plugin entry point
 extern "C" WXDLLIMPEXP_CD IPlugin *CreatePlugin(IPluginManager *manager)
@@ -185,6 +186,7 @@ bool udUmlDiagramPlugin::OnInit()
 	pFrame->Connect( IDM_CLASS_CREATEDESTRUCTOR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnCreateDestructor ), NULL, this  );
 	pFrame->Connect( IDM_COMPSTATE_ACTION, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAssignNewStateAction ), NULL, this  );
 	pFrame->Connect( IDM_CLASS_RENAMEVIRTUAL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnRefactorVirtualFcn ), NULL, this  );
+	pFrame->Connect( IDM_CLASS_ACCESSTYPE, IDM_CLASS_ACCESSTYPE + udvMAX_ITEMS - 1, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnChangeAccessType ), NULL, this  );  	
 	
 	m_PluginManager->RegisterEventListener( this );
 	
