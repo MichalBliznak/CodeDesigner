@@ -4,7 +4,7 @@
 #include "GUI_ProjectBase.h" // Base class: _UpdateCodeDialog
 #include "../ProjectBase.h"
 
-class udUpdateCodeDialog : public _UpdateCodeDialog
+class WXDLLIMPEXP_CD udUpdateCodeDialog : public _UpdateCodeDialog
 {
 public:
 	udUpdateCodeDialog(wxWindow *parent, SerializableList *references, udLanguage *lang);
