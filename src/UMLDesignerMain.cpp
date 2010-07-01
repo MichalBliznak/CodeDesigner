@@ -1976,7 +1976,7 @@ void UMLDesignerFrame::OnDiagramKeyDown( wxKeyEvent &event )
 			//SetSelectedProjectItem( NULL );
 			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_SELECTED, wxID_ANY, GetActiveDiagram() );
 			
-			if( GetActiveCanvas() ) GetActiveCanvas()->UpdateVirtualSize();
+			GetActiveCanvas()->UpdateVirtualSize();
         }
         break;
 
