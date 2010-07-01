@@ -1,3 +1,8 @@
+Changes in version 1.1.4 beta (2010-07-01):
+------------------------------------------------
+- Fixed crash occuring when any code item was modified (or properties dialog was closed)
+  without previously opened diagram.
+
 Changes in version 1.1.3 beta (2010-06-24):
 ------------------------------------------------
 - Fixed refresh of diagram components which weren't refreshed correctly in some cases.
