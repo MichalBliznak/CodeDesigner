@@ -53,7 +53,9 @@ WX_DEFINE_LIST(ListenerList);
 // short term todos:
 //------------------
 // TODO: class associations should have access type defined
-// TODO: implement class instatiation (associations) by using STL containers(?)
+// TODO: implement class instantiation (associations) by using STL containers(?)
+// TODO: implement enumerations
+// TODO: implement generic association (for enumerations, ...)
 
 // long term todos:
 //-----------------
