@@ -750,12 +750,12 @@ void udTemplateBindElementItem::OnShapeTextChange(const wxString& txt, udLABEL::
 {
 	switch( type )
 	{
-		case udLABEL::ltTITLE:
+		/*case udLABEL::ltTITLE:
 		{
 			umlTemplateBindItem *pLine = (umlTemplateBindItem*) GetParent();
 			pLine->GetLabel(udLABEL::ltTITLE)->SetText( wxT("<< bind >>") );
 		}
-		break;
+		break;*/
 			
 		case udLABEL::ltGUARD_CONTENT:
 			SetBindTypeString(txt);

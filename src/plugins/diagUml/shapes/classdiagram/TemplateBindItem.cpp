@@ -31,6 +31,7 @@ void umlTemplateBindItem::Initialize()
 	if( pLabel )
 	{
 		pLabel->SetText( wxT("<< bind >>") );
+		pLabel->SetEditType( wxSFEditTextShape::editDISABLED );
 		pLabel->SetRelativePosition(0, -15);
 		pLabel->SetHAlign( halignCENTER );
 		pLabel->RemoveStyle( sfsPOSITION_CHANGE );
