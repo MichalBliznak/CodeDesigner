@@ -1,5 +1,5 @@
-#ifndef UMLENUMITEM_H
-#define UMLENUMITEM_H
+#ifndef _UMLENUMITEM_H_
+#define _UMLENUMITEM_H_
 
 #include "projectbase/shapes/RectElement.h"
 #include "projectbase/ProjectBase.h"
@@ -22,6 +22,7 @@ public:
 
 protected:
 	// protected data members
+	wxSFTextShape *m_pStereotype;
 	wxSFGridShape *m_pElementsGrid;
 
     // protected virtual functions
@@ -37,4 +38,4 @@ private:
 	void DrawSeparators(wxDC& dc);
 };
 
-#endif // UMLENUMITEM_H
+#endif // _UMLENUMITEM_H_
