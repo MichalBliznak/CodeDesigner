@@ -113,7 +113,7 @@ void udClassElementItem::SetFunctionString(const wxString& txt, int id)
 				sFunction = sFunction.BeforeFirst('(');
 				sFunction.Trim().Trim(false);
 				
-				udFunctionItem *pFunction = (udFunctionItem*) IPluginManager::Get()->GetProject()->GetProjectItem( CLASSINFO(udFunctionItem), sFunction );
+				udMemberFunctionItem *pFunction = (udMemberFunctionItem*) IPluginManager::Get()->GetProject()->GetCodeItem( CLASSINFO(udMemberFunctionItem), sFunction, m_sName );
 					
 				// create a link to function and assign it to this transition
 				if( pFunction )
@@ -124,15 +124,16 @@ void udClassElementItem::SetFunctionString(const wxString& txt, int id)
 				}
 				else
 				{
-					if( wxMessageBox( wxString::Format( wxT("Function with name '%s' doesn't exist yet. Would you like to create one?"), sFunction.c_str() ), wxT("CodeDesigner"), wxYES_NO | wxICON_QUESTION  ) == wxYES )
+					if( wxMessageBox( wxString::Format( wxT("Class function member with name '%s' doesn't exist in this scope yet. Would you like to create one?"), sFunction.c_str() ), wxT("CodeDesigner"), wxYES_NO | wxICON_QUESTION  ) == wxYES )
 					{
 						udProjectItem *pRoot =  (udProjectItem*) IPluginManager::Get()->GetProject()->GetRootItem();
 						// create new function
-						udCodeItem* pNewFcn = (udCodeItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udGenericFunctionItem"), pRoot->GetId(), udfUNIQUE_NAME );
+						udMemberFunctionItem* pNewFcn = (udMemberFunctionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udMemberFunctionItem"), pRoot->GetId(), udfUNIQUE_NAME );
 						// create relevant tree item
 						if( pNewFcn )
 						{
 							pNewFcn->SetName( sFunction );
+							pNewFcn->SetScope( m_sName );
 							
 							udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 							dlg.ShowModal();
@@ -179,7 +180,7 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 		else
 		{
 			// set new/modify variable
-			wxString sAccess, sVariable, sRegex = wxT("^[\\+\\-#]\\s[a-zA-Z0-9_\\s]*[:]?[a-zA-Z0-9_\\s]*$");
+			wxString sAccess, sVariable, sRegex = wxT("^[\\+\\-#]\\s[a-zA-Z0-9_\\s]*[:]?[a-zA-Z0-9_\\s=]*$");
 			wxRegEx reGuard( sRegex, wxRE_ADVANCED);
 			
 			if( reGuard.Matches( txt ) )
@@ -198,9 +199,9 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 				if( sVariable.Contains(wxT(":")) ) sVariable = sVariable.BeforeFirst(':');
 				sVariable.Trim().Trim(false);
 				
-				udMemberDataItem *pVariable = (udMemberDataItem*) IPluginManager::Get()->GetProject()->GetProjectItem( CLASSINFO(udMemberDataItem), sVariable );
+				udMemberDataItem *pVariable = (udMemberDataItem*) IPluginManager::Get()->GetProject()->GetCodeItem( CLASSINFO(udMemberDataItem), sVariable, m_sName );
 					
-				// create a link to condition and assign it to this transition
+				// create copy of matched variable and assign it to the class
 				if( pVariable )
 				{
 					AssignCodeItem( new udMemberDataLinkItem(pVariable, nAccessType) );
@@ -209,15 +210,16 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 				}
 				else
 				{
-					if( wxMessageBox( wxString::Format( wxT("Variable with name '%s' doesn't exist yet. Would you like to create one?"), sVariable.c_str() ), wxT("CodeDesigner"), wxYES_NO | wxICON_QUESTION  ) == wxYES )
+					if( wxMessageBox( wxString::Format( wxT("Class data member with name '%s' doesn't exist in this scope yet. Would you like to create one?"), sVariable.c_str() ), wxT("CodeDesigner"), wxYES_NO | wxICON_QUESTION  ) == wxYES )
 					{
 						udProjectItem *pRoot =  (udProjectItem*) IPluginManager::Get()->GetProject()->GetRootItem();
 						// create new condition
-						udCodeItem* pNewVar = (udCodeItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udGenericVariableItem"), pRoot->GetId(), udfUNIQUE_NAME );
+						udMemberDataItem* pNewVar = (udMemberDataItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udMemberDataItem"), pRoot->GetId(), udfUNIQUE_NAME );
 						// create relevant tree item
 						if( pNewVar )
 						{
 							pNewVar->SetName( sVariable );
+							pNewVar->SetScope( m_sName );
 							
 							udAccessTypeDialog dlg(IPluginManager::Get()->GetMainFrame() );
 							dlg.ShowModal();
@@ -986,7 +988,12 @@ wxString udMemberDataItem::ToString(CODEFORMAT format, udLanguage *lang)
 		case cfFORMAL:
 			if( lang && !GetDataTypeString( format, lang ).IsEmpty() )
 			{
-				return m_sName + wxT(" : ") + GetDataTypeString( format, lang );
+				if( !m_sValue.IsEmpty() )
+				{
+					return m_sName + wxT(" : ") + GetDataTypeString( format, lang ) + wxT(" = ") + m_sValue;
+				}
+				else
+					return m_sName + wxT(" : ") + GetDataTypeString( format, lang );
 			}
 			else
 				return m_sName;

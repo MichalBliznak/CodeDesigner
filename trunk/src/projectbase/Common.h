@@ -28,7 +28,8 @@ namespace udLABEL
 		ltASSOC_ROLE2,
 		ltASSOC_MULT1,
 		ltASSOC_MULT2,
-		ltCLASS_TEMPLATE
+		ltCLASS_TEMPLATE,
+		ltENUM_ELEMENT
 	};
 	
 	/**

@@ -180,7 +180,7 @@ void udUmlDiagramPlugin::OnAssignNewEvent(wxCommandEvent& event)
 
 void udUmlDiagramPlugin::OnAssignNewFunction(wxCommandEvent& event)
 {
-udClassElementItem *pParent = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udClassElementItem );
+	udClassElementItem *pParent = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udClassElementItem );
 	
 	if( pParent )
 	{
@@ -273,10 +273,11 @@ void udUmlDiagramPlugin::OnAssignNewVariable(wxCommandEvent& event)
 
 void udUmlDiagramPlugin::OnAssignVariable(wxCommandEvent& event)
 {
-	udDiagElementItem *pElement = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udDiagElementItem );
+	udClassElementItem *pElement = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udClassElementItem );
+	
 	if( pElement )
 	{
-		udProjectItem *pVar;
+		udCodeItem *pVar;
 		SerializableList lstVariables;
 		
 		IPluginManager::Get()->GetProject()->GetItems(CLASSINFO(udMemberDataItem), lstVariables);
@@ -285,10 +286,11 @@ void udUmlDiagramPlugin::OnAssignVariable(wxCommandEvent& event)
 		SerializableList::compatibility_iterator node = lstVariables.GetFirst();
 		while( node )
 		{
-			pVar = (udProjectItem*)node->GetData();
+			pVar = (udCodeItem*) node->GetData();
 			node = node->GetNext();
 			
 			if( udPROJECT::GetProjectItem(pElement, CLASSINFO(udCodeLinkItem), pVar->GetName()) ) lstVariables.DeleteObject(pVar);
+			if( pVar->GetScope() != pElement->GetName() ) lstVariables.DeleteObject(pVar);
 		}
 		
 		node = lstVariables.Item( event.GetId() - IDM_DIAG_ASSIGNVARIABLE );
