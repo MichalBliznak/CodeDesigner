@@ -15,8 +15,13 @@ umlEnumItem::umlEnumItem()
 umlEnumItem::umlEnumItem(const umlEnumItem &obj)
 : uddRectElement(obj)
 {
-	m_pElementsGrid = (wxSFGridShape*)obj.m_pElementsGrid->Clone();
+	m_pStereotype = (wxSFEditTextShape*)obj.m_pStereotype->Clone();
+	if( m_pStereotype )
+	{
+		SF_ADD_COMPONENT( m_pStereotype, wxT("stereotype") );
+	}
 	
+	m_pElementsGrid = (wxSFGridShape*)obj.m_pElementsGrid->Clone();
 	if( m_pElementsGrid )
 	{
 		SF_ADD_COMPONENT( m_pElementsGrid, wxT("elements_grid") );
@@ -56,20 +61,34 @@ void umlEnumItem::Initialize()
     m_pTitle->SetText(wxT("Enum"));
 	m_pTitle->GetFont().SetWeight(wxFONTWEIGHT_BOLD);
 	
+	// create stereotype
+	m_pStereotype = new uddLabelElement();
+	
+	if( m_pStereotype )
+	{
+		m_pStereotype->SetText( wxT("<< enumeration >>") );
+		m_pStereotype->SetHAlign( halignCENTER );
+		m_pStereotype->SetRelativePosition( 0, 20 );
+		m_pStereotype->SetEditType( wxSFEditTextShape::editDISABLED );
+		m_pStereotype->AddStyle( sfsALWAYS_INSIDE );
+		
+		SF_ADD_COMPONENT( m_pStereotype, wxT("stereotype") );
+	}
+	
 	// create grid and managed text fields
 	m_pElementsGrid = new wxSFGridShape();
 	
 	if( m_pElementsGrid )
 	{
 		// set grid
-		m_pElementsGrid->SetRelativePosition( 0, 20 );
+		m_pElementsGrid->SetRelativePosition( 0, 40 );
 		m_pElementsGrid->SetStyle( sfsALWAYS_INSIDE | sfsPROCESS_DEL );
 		m_pElementsGrid->SetDimensions( 1, 1 );
 		
 		m_pElementsGrid->SetFill( *wxTRANSPARENT_BRUSH );
 		m_pElementsGrid->SetBorder( *wxTRANSPARENT_PEN );
 		
-		m_pElementsGrid->SetHAlign( wxSFShapeBase::halignLEFT );
+		m_pElementsGrid->SetHAlign( halignLEFT );
 		m_pElementsGrid->SetHBorder( 0 );
 		m_pElementsGrid->SetVBorder( 5 );
 		m_pElementsGrid->SetCellSpace( 2 );
