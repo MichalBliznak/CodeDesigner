@@ -32,6 +32,10 @@ long IDM_CLASS_CREATEFUNCTION = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_RENAMEVIRTUAL = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_ACCESSTYPE = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
 
+long IDM_ENUM_ADDELEMENT = IPluginManager::Get()->GetNewMenuId();
+long IDM_ENUM_REMOVEELEMENT = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
+long IDM_ENUM_CLEARELEMENTS = IPluginManager::Get()->GetNewMenuId();
+
 //Define the plugin entry point
 extern "C" WXDLLIMPEXP_CD IPlugin *CreatePlugin(IPluginManager *manager)
 {
@@ -121,6 +125,7 @@ bool udUmlDiagramPlugin::OnInit()
 
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Class.xpm"), wxT("Class"), wxT("umlClassItem"), wxT("udClassElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/ClassTempl.xpm"), wxT("Class template"), wxT("umlClassTemplateItem"), wxT("udClassTemplateElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Enum.xpm"), wxT("Enumeration"), wxT("umlEnumItem"), wxT("udEnumElementItem"), udDiagramComponentInfo::pitELEMENT ) );										
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line1.xpm"), wxT("Inheritance connection"), wxT("umlInheritanceItem"), wxT("udInherElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line3.xpm"), wxT("Interface connection"), wxT("umlInterfaceItem"), wxT("udInterElementItem"), udDiagramComponentInfo::pitCONNECTION ) );												
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line2.xpm"), wxT("Bi-directional association"), wxT("umlBiDirectAssocItem"), wxT("udBiAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
@@ -143,6 +148,7 @@ bool udUmlDiagramPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udDecisionElementItem"), wxT("Decision state element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udHistoryElementItem"), wxT("History state element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassElementItem"), wxT("Class element") );
+	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udEnumElementItem"), wxT("Enumeration element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassTemplateElementItem"), wxT("Class template element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udInherElementItem"), wxT("Inheritance element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udInterElementItem"), wxT("Interface element") );

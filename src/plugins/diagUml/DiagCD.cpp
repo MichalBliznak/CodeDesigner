@@ -767,6 +767,89 @@ void udTemplateBindElementItem::OnShapeTextChange(const wxString& txt, udLABEL::
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
+// udEnumElementItem class //////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+XS_IMPLEMENT_CLONABLE_CLASS(udEnumElementItem, udDiagElementItem);
+
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udEnumElementItem::udEnumElementItem()
+{
+	XS_SERIALIZE( m_mapElements, wxT("elements") );
+	XS_SERIALIZE( m_InstanceName, wxT("instance_name") );
+}
+
+udEnumElementItem::udEnumElementItem(const udEnumElementItem& obj) : udDiagElementItem( obj )
+{
+	m_mapElements = obj.m_mapElements;
+	m_InstanceName = obj.m_InstanceName;
+	
+	XS_SERIALIZE( m_mapElements, wxT("elements") );
+	XS_SERIALIZE( m_InstanceName, wxT("instance_name") );
+}
+
+// public functions /////////////////////////////////////////////////////////////////
+
+void udEnumElementItem::AddElement(const wxString& key, const wxString value)
+{
+	m_mapElements[ key ] = value;
+}
+
+void udEnumElementItem::RemoveElement(const wxString& key)
+{
+	m_mapElements.erase( key );
+}
+
+void udEnumElementItem::ClearElements()
+{
+	m_mapElements.clear();
+}
+
+void udEnumElementItem::GetElements(wxArrayString& keys, wxArrayString& values)
+{
+	for( StringMap::iterator it = m_mapElements.begin(); it != m_mapElements.end(); ++ it )
+	{
+		keys.Add( it->first );
+		keys.Add( it->second );
+	}
+}
+
+// public virtual functions /////////////////////////////////////////////////////////
+
+wxMenu* udEnumElementItem::CreateMenu()
+{
+	int nIndex = 0;
+	
+	wxMenu *pMenu = udDiagElementItem::CreateMenu();
+	
+	pMenu->Insert(nIndex++, IDM_ENUM_ADDELEMENT, wxT("Add element"));
+
+	if( !m_mapElements.empty() )
+	{
+		int nRemoveIndex = 0;
+		wxMenu *pRemoveMenu = new wxMenu();
+		
+		for( StringMap::iterator it = m_mapElements.begin(); it != m_mapElements.end(); ++ it )
+		{
+			pRemoveMenu->Append( IDM_ENUM_REMOVEELEMENT + nRemoveIndex++, it->first );
+		}
+		
+		pMenu->Insert(nIndex++, wxID_ANY, wxT("Remove element"), pRemoveMenu);
+	}
+	
+	pMenu->InsertSeparator(nIndex++);
+	pMenu->Insert(nIndex++, IDM_ENUM_CLEARELEMENTS, wxT("Clear all elements"));
+	pMenu->InsertSeparator(nIndex++);
+	
+	return pMenu;
+}
+
+void udEnumElementItem::UpdateInnerContent()
+{
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
 // udAccessType /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
