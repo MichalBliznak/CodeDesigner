@@ -131,6 +131,30 @@ protected:
 	wxString m_BindType;
 };
 
+class WXDLLIMPEXP_CD udEnumElementItem : public udDiagElementItem
+{
+public:
+	XS_DECLARE_CLONABLE_CLASS(udEnumElementItem);
+	
+	udEnumElementItem();
+	udEnumElementItem(const udEnumElementItem& obj);
+	
+	void AddElement(const wxString& key, const wxString value);
+	void RemoveElement(const wxString& key);
+	void ClearElements();
+	void GetElements(wxArrayString &keys, wxArrayString &values);
+	
+	void SetInstanceName(const wxString& InstanceName) {this->m_InstanceName = InstanceName;}
+	const wxString& GetInstanceName() const {return m_InstanceName;}
+	
+	virtual wxMenu* CreateMenu();
+	virtual void UpdateInnerContent();
+	
+protected:
+	StringMap m_mapElements;
+	wxString m_InstanceName;
+};
+
 // code items /////////////////////////////////////////////////////////////////////
 
 class udAccessType

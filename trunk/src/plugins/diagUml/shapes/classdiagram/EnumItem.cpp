@@ -57,9 +57,9 @@ void umlEnumItem::Initialize()
 	
     AddStyle(sfsSHOW_SHADOW);
 
-    // initialize shape's components
-    m_pTitle->SetText(wxT("Enum"));
+    // update title
 	m_pTitle->GetFont().SetWeight(wxFONTWEIGHT_BOLD);
+	m_pTitle->SetVBorder( 20 );
 	
 	// create stereotype
 	m_pStereotype = new uddLabelElement();
@@ -68,7 +68,9 @@ void umlEnumItem::Initialize()
 	{
 		m_pStereotype->SetText( wxT("<< enumeration >>") );
 		m_pStereotype->SetHAlign( halignCENTER );
-		m_pStereotype->SetRelativePosition( 0, 20 );
+		m_pStereotype->SetVAlign( valignTOP );
+		m_pStereotype->SetHBorder( 5 );
+		m_pStereotype->SetVBorder( 5 );
 		m_pStereotype->SetEditType( wxSFEditTextShape::editDISABLED );
 		m_pStereotype->AddStyle( sfsALWAYS_INSIDE );
 		
