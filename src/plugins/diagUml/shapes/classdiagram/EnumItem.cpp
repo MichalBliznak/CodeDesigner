@@ -66,7 +66,7 @@ void umlEnumItem::Initialize()
 	
 	if( m_pStereotype )
 	{
-		m_pStereotype->SetLabelType( udLABEL::ltENUM_STEREOTYPE );
+		m_pStereotype->SetLabelType( udLABEL::ltSTEREOTYPE );
 		m_pStereotype->SetText( wxT("<< enumeration >>") );
 		m_pStereotype->SetHAlign( halignCENTER );
 		m_pStereotype->SetVAlign( valignTOP );

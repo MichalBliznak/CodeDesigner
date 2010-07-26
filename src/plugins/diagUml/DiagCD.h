@@ -156,6 +156,12 @@ protected:
 	wxString m_InstanceName;
 };
 
+class WXDLLIMPEXP_CD udIncludeAssocElementItem : public udDiagElementItem
+{
+public:
+    XS_DECLARE_CLONABLE_CLASS(udIncludeAssocElementItem);
+};
+
 // code items /////////////////////////////////////////////////////////////////////
 
 class udAccessType

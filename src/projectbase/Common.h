@@ -30,7 +30,7 @@ namespace udLABEL
 		ltASSOC_MULT2,
 		ltCLASS_TEMPLATE,
 		ltENUM_ELEMENT,
-		ltENUM_STEREOTYPE
+		ltSTEREOTYPE
 	};
 	
 	/**
