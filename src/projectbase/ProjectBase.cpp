@@ -2144,7 +2144,8 @@ bool udDiagElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
 
 void udDiagElementItem::OnTreeItemEndDrag(const wxPoint &pos)
 {
-	udCodeLinkItem *pSourceItem = wxDynamicCast(IPluginManager::Get()->GetSelectedProjectItem(), udCodeLinkItem );
+	udProjectItem *pSourceItem = IPluginManager::Get()->GetSelectedProjectItem();
+	//udCodeLinkItem *pSourceItem = wxDynamicCast(IPluginManager::Get()->GetSelectedProjectItem(), udCodeLinkItem );
 	
 	if( pSourceItem && IsChildAccepted(pSourceItem->GetClassInfo()->GetClassName()) )
 	{

@@ -22,7 +22,7 @@ public:
 
 protected:
 	// protected data members
-	wxSFEditTextShape *m_pStereotype;
+	uddLabelElement *m_pStereotype;
 	wxSFGridShape *m_pElementsGrid;
 
     // protected virtual functions

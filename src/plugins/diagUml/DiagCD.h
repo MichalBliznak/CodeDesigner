@@ -138,20 +138,21 @@ public:
 	
 	udEnumElementItem();
 	udEnumElementItem(const udEnumElementItem& obj);
+	virtual ~udEnumElementItem();
 	
-	void AddElement(const wxString& key, const wxString value);
-	void RemoveElement(const wxString& key);
-	void ClearElements();
-	void GetElements(wxArrayString &keys, wxArrayString &values);
+	void SetElementString(const wxString& element, int id);
+	void AddElementString(const wxString& element);
+	bool CheckElementString(const wxString& element, wxString& key, wxString& val);
 	
 	void SetInstanceName(const wxString& InstanceName) {this->m_InstanceName = InstanceName;}
 	const wxString& GetInstanceName() const {return m_InstanceName;}
 	
 	virtual wxMenu* CreateMenu();
 	virtual void UpdateInnerContent();
+	virtual void OnEditItem(wxWindow* parent);
+	virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
 	
 protected:
-	StringMap m_mapElements;
 	wxString m_InstanceName;
 };
 
@@ -284,6 +285,28 @@ public:
 	// public virtual functions
 	virtual wxString ToString(CODEFORMAT format, udLanguage *lang = NULL);
 	virtual void OnEditItem(wxWindow* parent);
+};
+
+class WXDLLIMPEXP_CD udEnumValueItem : public udCodeItem
+{
+public:
+	XS_DECLARE_CLONABLE_CLASS(udEnumValueItem);
+	
+	udEnumValueItem();
+	udEnumValueItem(const udEnumValueItem &obj);
+	virtual ~udEnumValueItem();
+	
+	void SetValue(const wxString& Value) {this->m_Value = Value;}
+	const wxString& GetValue() const {return m_Value;}
+	
+	// public virtual functions
+	virtual wxString ToString(CODEFORMAT format, udLanguage *lang = NULL);
+	virtual void OnTreeTextChange(const wxString& txt);
+	virtual bool OnTreeItemBeginDrag(const wxPoint &pos);
+	virtual void OnEditItem(wxWindow* parent);
+	
+protected:
+	wxString m_Value;
 };
 
 #endif //_DIAG_CD_H_

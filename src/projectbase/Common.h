@@ -29,7 +29,8 @@ namespace udLABEL
 		ltASSOC_MULT1,
 		ltASSOC_MULT2,
 		ltCLASS_TEMPLATE,
-		ltENUM_ELEMENT
+		ltENUM_ELEMENT,
+		ltENUM_STEREOTYPE
 	};
 	
 	/**

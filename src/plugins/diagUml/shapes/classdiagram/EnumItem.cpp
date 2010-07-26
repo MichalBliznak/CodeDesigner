@@ -15,7 +15,7 @@ umlEnumItem::umlEnumItem()
 umlEnumItem::umlEnumItem(const umlEnumItem &obj)
 : uddRectElement(obj)
 {
-	m_pStereotype = (wxSFEditTextShape*)obj.m_pStereotype->Clone();
+	m_pStereotype = (uddLabelElement*)obj.m_pStereotype->Clone();
 	if( m_pStereotype )
 	{
 		SF_ADD_COMPONENT( m_pStereotype, wxT("stereotype") );
@@ -53,7 +53,7 @@ void umlEnumItem::Initialize()
     AcceptSrcNeighbour(wxT("uddNoteItem"));
 	
 	// set accepted project items (USED INTERNALLY)
-	AcceptChild(wxT("udEnumElementItem"));
+	/*AcceptChild(wxT("udEnumValueItem"));*/
 	
     AddStyle(sfsSHOW_SHADOW);
 
@@ -66,6 +66,7 @@ void umlEnumItem::Initialize()
 	
 	if( m_pStereotype )
 	{
+		m_pStereotype->SetLabelType( udLABEL::ltENUM_STEREOTYPE );
 		m_pStereotype->SetText( wxT("<< enumeration >>") );
 		m_pStereotype->SetHAlign( halignCENTER );
 		m_pStereotype->SetVAlign( valignTOP );
@@ -77,7 +78,7 @@ void umlEnumItem::Initialize()
 		SF_ADD_COMPONENT( m_pStereotype, wxT("stereotype") );
 	}
 	
-	// create grid and managed text fields
+	// create grid 
 	m_pElementsGrid = new wxSFGridShape();
 	
 	if( m_pElementsGrid )
@@ -91,7 +92,7 @@ void umlEnumItem::Initialize()
 		m_pElementsGrid->SetBorder( *wxTRANSPARENT_PEN );
 		
 		m_pElementsGrid->SetHAlign( halignLEFT );
-		m_pElementsGrid->SetHBorder( 0 );
+		m_pElementsGrid->SetHBorder( 5 );
 		m_pElementsGrid->SetVBorder( 5 );
 		m_pElementsGrid->SetCellSpace( 2 );
 		
@@ -173,7 +174,7 @@ void umlEnumItem::DrawSeparators(wxDC& dc)
 void umlEnumItem::ClearElementCtrls()
 {
 	SerializableList::compatibility_iterator node;
-	while( node = m_pElementsGrid->GetFirstChildNode() )
+	while( (node = m_pElementsGrid->GetFirstChildNode()) )
 	{
 		GetParentManager()->RemoveItem( node->GetData() );
 	}

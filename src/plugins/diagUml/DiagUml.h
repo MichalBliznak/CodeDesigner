@@ -80,6 +80,8 @@ protected:
 	void OnRefactorVirtualFcn(wxCommandEvent& event);
 	
 	void OnChangeAccessType(wxCommandEvent& event);
+	
+	void OnAddEnumElement(wxCommandEvent& event);
 };
 
 #endif //_DIAG_UML_H_

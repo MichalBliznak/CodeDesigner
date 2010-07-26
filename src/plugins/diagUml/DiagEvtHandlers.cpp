@@ -377,7 +377,10 @@ void udUmlDiagramPlugin::OnClearCodeItems(wxCommandEvent& event)
 		{
 			pElement->ClearCodeItems( CLASSINFO(udEventItem) );
 			pElement->ClearCodeItems( CLASSINFO(udConditionItem) );
-			
+		}
+		else if( event.GetId() == IDM_ENUM_CLEARELEMENTS )
+		{
+			pElement->ClearCodeItems( CLASSINFO(udEnumValueItem) );
 		}
 		
 		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement );
@@ -442,5 +445,21 @@ void udUmlDiagramPlugin::OnChangeAccessType(wxCommandEvent& event)
 		pLink->SetAccessType( (udLanguage::ACCESSTYPE)(event.GetId() - IDM_CLASS_ACCESSTYPE) );
 		
 		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pLink->GetOriginal() );
+	}
+}
+
+void udUmlDiagramPlugin::OnAddEnumElement(wxCommandEvent& event)
+{
+	udEnumElementItem *pEnum = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udEnumElementItem );
+	if( pEnum )
+	{
+		wxTextEntryDialog dlg( IPluginManager::Get()->GetMainFrame(), wxT("Enumeration element:"), wxT("Enter new enumeration element") );
+		
+		if( dlg.ShowModal() == wxID_OK )
+		{
+			pEnum->AddElementString( dlg.GetValue() );
+			
+			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
+		}
 	}
 }
