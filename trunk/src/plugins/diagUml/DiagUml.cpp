@@ -134,6 +134,7 @@ bool udUmlDiagramPlugin::OnInit()
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line7.xpm"), wxT("Basic aggregation"), wxT("umlBasicAggregItem"), wxT("udBaseAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line6.xpm"), wxT("Composition aggregation"), wxT("umlCompAggregItem"), wxT("udCompAggregElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line8.xpm"), wxT("Template binding"), wxT("umlTemplateBindItem"), wxT("udTemplateBindElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
+	infoCD.AddComponentInfo( udDiagramComponentInfo( wxT("plugins/elements/Line9.xpm"), wxT("Include association"), wxT("umlIncludeAssocItem"), wxT("udIncludeAssocElementItem"), udDiagramComponentInfo::pitCONNECTION ) );
 												
 	m_PluginManager->RegisterDiagram( infoCD );
 	
@@ -151,6 +152,7 @@ bool udUmlDiagramPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassElementItem"), wxT("Class element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udEnumElementItem"), wxT("Enumeration element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udEnumValueItem"), wxT("Enumeration value") );
+	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udIncludeAssocElementItem"), wxT("Include association element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassTemplateElementItem"), wxT("Class template element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udInherElementItem"), wxT("Inheritance element") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udInterElementItem"), wxT("Interface element") );

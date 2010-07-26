@@ -56,6 +56,7 @@ void umlClassItem::Initialize()
 	AcceptConnection(wxT("umlBasicAggregItem"));
 	AcceptConnection(wxT("umlCompAggregItem"));
 	AcceptConnection(wxT("umlTemplateBindItem"));
+	AcceptConnection(wxT("umlIncludeAssocItem"));
 	
 	// set accepted project items (USED INTERNALLY)
 	AcceptChild(wxT("udGenericVariableItem"));
