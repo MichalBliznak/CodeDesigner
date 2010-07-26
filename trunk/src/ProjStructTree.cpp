@@ -225,7 +225,8 @@ wxTreeItemId udProjStructTree::CreateTreeItems(udProjectItem* item, wxTreeItemId
 			
 			CreateDiagramItems(item, newItem);
         }
-        else if( item->IsKindOf(CLASSINFO(udCodeLinkItem)) )
+        else if( item->IsKindOf(CLASSINFO(udCodeLinkItem)) || 
+				 item->IsKindOf(CLASSINFO(udCodeItem)) )
 		{
 			newItem = CreateItem( parent, item, nImageIndex );
 		}

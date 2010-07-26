@@ -10,11 +10,14 @@
 #include "gui/ConstructorDialog.h"
 #include "gui/DestructorDialog.h"
 #include "gui/ClassTemplDialog.h"
+#include "gui/EnumElementDialog.h"
+#include "gui/EnumDialog.h"
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/ClassDiagram.h"
 #include "shapes/classdiagram/ClassTemplItem.h"
 #include "shapes/classdiagram/TemplateBindItem.h"
+#include "shapes/classdiagram/EnumItem.h"
 
 #include <wx/wxsf/wxShapeFramework.h>
 
@@ -776,43 +779,56 @@ XS_IMPLEMENT_CLONABLE_CLASS(udEnumElementItem, udDiagElementItem);
 
 udEnumElementItem::udEnumElementItem()
 {
-	XS_SERIALIZE( m_mapElements, wxT("elements") );
+	AcceptChild( wxT("udEnumValueItem") );
+	
 	XS_SERIALIZE( m_InstanceName, wxT("instance_name") );
 }
 
 udEnumElementItem::udEnumElementItem(const udEnumElementItem& obj) : udDiagElementItem( obj )
 {
-	m_mapElements = obj.m_mapElements;
 	m_InstanceName = obj.m_InstanceName;
 	
-	XS_SERIALIZE( m_mapElements, wxT("elements") );
 	XS_SERIALIZE( m_InstanceName, wxT("instance_name") );
+}
+
+udEnumElementItem::~udEnumElementItem()
+{
 }
 
 // public functions /////////////////////////////////////////////////////////////////
 
-void udEnumElementItem::AddElement(const wxString& key, const wxString value)
+void udEnumElementItem::AddElementString(const wxString& element)
 {
-	m_mapElements[ key ] = value;
-}
-
-void udEnumElementItem::RemoveElement(const wxString& key)
-{
-	m_mapElements.erase( key );
-}
-
-void udEnumElementItem::ClearElements()
-{
-	m_mapElements.clear();
-}
-
-void udEnumElementItem::GetElements(wxArrayString& keys, wxArrayString& values)
-{
-	for( StringMap::iterator it = m_mapElements.begin(); it != m_mapElements.end(); ++ it )
+	wxString key, val;
+	
+	if( CheckElementString( element, key, val ) )
 	{
-		keys.Add( it->first );
-		keys.Add( it->second );
+		udEnumValueItem *pEnumVal = new udEnumValueItem();
+		pEnumVal->SetName( key );
+		pEnumVal->SetValue( val );
+		
+		AssignCodeItem( pEnumVal );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
 	}
+}
+
+void udEnumElementItem::SetElementString(const wxString& element, int id)
+{
+	wxString key, val;
+	
+	if( CheckElementString( element, key, val ) )
+	{
+		// find element with given id
+		udEnumValueItem *pElement = wxDynamicCast( GetChildrenList().Item( id )->GetData(), udEnumValueItem );
+		if( pElement )
+		{
+			pElement->SetName( key );
+			pElement->SetValue( val );
+		}
+	}
+	
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this, NULL, udfDELAYED );
 }
 
 // public virtual functions /////////////////////////////////////////////////////////
@@ -825,17 +841,24 @@ wxMenu* udEnumElementItem::CreateMenu()
 	
 	pMenu->Insert(nIndex++, IDM_ENUM_ADDELEMENT, wxT("Add element"));
 
-	if( !m_mapElements.empty() )
+	if( HasChildren() )
 	{
-		int nRemoveIndex = 0;
-		wxMenu *pRemoveMenu = new wxMenu();
-		
-		for( StringMap::iterator it = m_mapElements.begin(); it != m_mapElements.end(); ++ it )
+		int nId = 0;
+		wxMenu *pEditSubMenu = new wxMenu();
+		// insert assigned enumeration elements
+		SerializableList::compatibility_iterator node = GetFirstChildNode();
+		while(node)
 		{
-			pRemoveMenu->Append( IDM_ENUM_REMOVEELEMENT + nRemoveIndex++, it->first );
+			wxMenuItem *pItem = new wxMenuItem(pEditSubMenu, IDM_DELAYED_EDITCODE + nId++, ((udProjectItem*)node->GetData())->GetName());
+			pItem->SetBitmap(IPluginManager::Get()->GetArtBitmap(node->GetData()->GetClassInfo()->GetClassName()));
+			pEditSubMenu->Append(pItem);
+		
+			if( nId > udvMAX_ITEMS ) break;
+		
+			node = node->GetNext();
 		}
 		
-		pMenu->Insert(nIndex++, wxID_ANY, wxT("Remove element"), pRemoveMenu);
+		pMenu->Insert(nIndex++, wxID_ANY, wxT("Edit"), pEditSubMenu);
 	}
 	
 	pMenu->InsertSeparator(nIndex++);
@@ -845,8 +868,90 @@ wxMenu* udEnumElementItem::CreateMenu()
 	return pMenu;
 }
 
+void udEnumElementItem::OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id)
+{
+	switch( type )
+	{
+		case udLABEL::ltENUM_ELEMENT:
+			SetElementString( txt, id - udvID_OFFSET );
+			break;
+			
+		default:
+			udDiagElementItem::OnShapeTextChange( txt, type, id );
+	}
+}
+
 void udEnumElementItem::UpdateInnerContent()
 {
+	// clear all text ctrls
+	umlEnumItem *pEnumShape = wxDynamicCast( GetParent(), umlEnumItem );
+	if( pEnumShape )
+	{
+		udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+		
+		pEnumShape->ClearElementCtrls();
+	
+		// create text controls for enumeration elements
+		int nId = 0;
+		udEnumValueItem *pEnum = (udEnumValueItem*)GetFirstChild( CLASSINFO(udEnumValueItem) );
+		while( pEnum )
+		{
+			pEnumShape->CreateElementCtrl( pEnum->ToString(udCodeItem::cfFORMAL, pLang), nId++ );
+			
+			pEnum = (udEnumValueItem*)pEnum->GetSibbling( CLASSINFO(udEnumValueItem) );
+		}
+	}
+}
+
+void udEnumElementItem::OnEditItem(wxWindow* parent)
+{
+	udEnumDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("enum_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetInstanceName( m_InstanceName );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_InstanceName = dlg.GetInstanceName();
+		m_sDescription = dlg.GetDescription();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
+}
+
+// protected functions //////////////////////////////////////////////////////////////
+
+bool udEnumElementItem::CheckElementString(const wxString& element, wxString& key, wxString& val)
+{
+	wxString sRegex = wxT("^[a-zA-Z]+[a-zA-Z0-9_\\s]*=?[a-zA-Z0-9_\\s]*$");
+	wxRegEx reGuard( sRegex, wxRE_ADVANCED);
+			
+	if( reGuard.Matches( element ) )
+	{	
+		if( element.Contains( wxT("=") ) )
+		{
+			key = element.BeforeFirst( '=' );
+			key.Trim().Trim(false);
+			
+			val = element.AfterFirst( '=' );
+			val.Trim().Trim(false);
+		}
+		else
+		{
+			key = element;
+			key.Trim().Trim(false);
+		}
+		return true;
+	}
+	else
+	{
+		wxMessageBox( wxString::Format( wxT("Element '%s' doesn't match the allowed form '%s'."), element.c_str(), sRegex.c_str() ), wxT("CodeDesigner"), wxOK | wxICON_WARNING );
+		return false;
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1509,4 +1614,94 @@ void udDestructorFunctionItem::OnEditItem(wxWindow* parent)
 	if( pDiag ) IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pDiag );
 	
 	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udEnumValueItem //////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+XS_IMPLEMENT_CLONABLE_CLASS(udEnumValueItem, udCodeItem);
+
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udEnumValueItem::udEnumValueItem()
+{
+	AcceptSibbling( wxT("udEnumValueItem") );
+	
+	m_sDescription = wxT("Enumeration element's description...");
+	
+	XS_SERIALIZE( m_Value, wxT("value") );
+}
+
+udEnumValueItem::udEnumValueItem(const udEnumValueItem &obj) : udCodeItem(obj)
+{
+	m_Value = obj.m_Value;
+
+	XS_SERIALIZE( m_Value, wxT("value") );
+}
+
+udEnumValueItem::~udEnumValueItem()
+{
+}
+
+// virtual functions ////////////////////////////////////////////////////////////////
+
+wxString udEnumValueItem::ToString(CODEFORMAT format, udLanguage *lang)
+{	
+	switch(format)
+	{
+		case cfFORMAL:
+		case cfDECLARATION:
+			{
+				if( m_Value.IsEmpty() ) return m_sName;
+				else
+					return m_sName + wxT(" = ") + m_Value;
+			}
+		
+		default:
+			return m_sName;
+			break;
+	}
+}
+
+void udEnumValueItem::OnTreeTextChange(const wxString& txt)
+{
+	udEnumElementItem *pEnum = wxDynamicCast( GetParent(), udEnumElementItem );
+	if( pEnum )
+	{
+		wxString key, val;
+		if( pEnum->CheckElementString( txt, key, val ) )
+		{
+			udProjectItem::OnTreeTextChange( key );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pEnum, NULL, udfDELAYED );
+		}
+	}
+}
+
+void udEnumValueItem::OnEditItem(wxWindow* parent)
+{	
+	udEnumElementDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("enum_value_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetValue( m_Value );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_Value = dlg.GetValue();
+		m_sDescription = dlg.GetDescription();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+	}
+}
+
+bool udEnumValueItem::OnTreeItemBeginDrag(const wxPoint& pos)
+{
+	// if a shift key is pressed down then re-arrange it by a DnD operation built-in in a tree control
+	wxMouseState cState = wxGetMouseState();
+	if( cState.ShiftDown() ) return false;
+	else
+		return true;
 }
