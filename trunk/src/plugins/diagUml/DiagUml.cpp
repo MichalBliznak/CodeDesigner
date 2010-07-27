@@ -17,11 +17,11 @@ static udUmlDiagramPlugin *thePlugin = NULL;
 long IDM_TRANS_CREATECONDITION = IPluginManager::Get()->GetNewMenuId();
 long IDM_TRANS_CREATEEVENT = IPluginManager::Get()->GetNewMenuId();
 long IDM_TRANS_CREATEACTION = IPluginManager::Get()->GetNewMenuId();
-long IDM_TRANS_ASSIGNGUARD = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
+long IDM_TRANS_ASSIGNGUARD = IPluginManager::Get()->GetNewMenuId();
 long IDM_TRANS_ASSIGNACTION = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
 long IDM_DIAG_ASSIGNVARIABLE = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
 long IDM_DIAG_ASSIGNFUNCTION = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
-long IDM_DIAG_CLEARCONDITIONS = IPluginManager::Get()->GetNewMenuId();
+long IDM_DIAG_CLEARCONDITIONS = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
 long IDM_DIAG_CLEARACTIONS = IPluginManager::Get()->GetNewMenuId();
 long IDM_ENUM_CLEARELEMENTS = IPluginManager::Get()->GetNewMenuId();
 long IDM_COMPSTATE_ACTION = IPluginManager::Get()->GetNewMenuId();
@@ -31,10 +31,9 @@ long IDM_CLASS_CREATEDESTRUCTOR = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_CREATEVARIABLE = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_CREATEFUNCTION = IPluginManager::Get()->GetNewMenuId();
 long IDM_CLASS_RENAMEVIRTUAL = IPluginManager::Get()->GetNewMenuId();
-long IDM_CLASS_ACCESSTYPE = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
+/*long IDM_CLASS_ACCESSTYPE = IPluginManager::Get()->GetNewMenuId();*/
 
-long IDM_ENUM_ADDELEMENT = IPluginManager::Get()->GetNewMenuId();
-long IDM_ENUM_REMOVEELEMENT = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
+long IDM_ENUM_ADDELEMENT = IPluginManager::Get()->GetNewMenuId(udvMAX_ITEMS);
 
 //Define the plugin entry point
 extern "C" WXDLLIMPEXP_CD IPlugin *CreatePlugin(IPluginManager *manager)
@@ -196,7 +195,7 @@ bool udUmlDiagramPlugin::OnInit()
 	pFrame->Connect( IDM_CLASS_CREATEDESTRUCTOR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnCreateDestructor ), NULL, this  );
 	pFrame->Connect( IDM_COMPSTATE_ACTION, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAssignNewStateAction ), NULL, this  );
 	pFrame->Connect( IDM_CLASS_RENAMEVIRTUAL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnRefactorVirtualFcn ), NULL, this  );
-	pFrame->Connect( IDM_CLASS_ACCESSTYPE, IDM_CLASS_ACCESSTYPE + udvMAX_ITEMS - 1, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnChangeAccessType ), NULL, this  );  	
+	pFrame->Connect( IDM_CODE_ACCESSTYPE, IDM_CODE_ACCESSTYPE + udvMAX_ITEMS - 1, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnChangeAccessType ), NULL, this  );  	
 	pFrame->Connect( IDM_ENUM_ADDELEMENT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAddEnumElement ), NULL, this );
 	
 	m_PluginManager->RegisterEventListener( this );
@@ -231,6 +230,8 @@ int udUmlDiagramPlugin::OnExit()
 	pFrame->Disconnect( IDM_CLASS_CREATEDESTRUCTOR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnCreateDestructor ), NULL, this  );
 	pFrame->Disconnect( IDM_COMPSTATE_ACTION, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAssignNewStateAction ), NULL, this  );
 	pFrame->Disconnect( IDM_CLASS_RENAMEVIRTUAL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnRefactorVirtualFcn ), NULL, this  );
+	pFrame->Disconnect( IDM_CODE_ACCESSTYPE, IDM_CODE_ACCESSTYPE + udvMAX_ITEMS - 1, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnChangeAccessType ), NULL, this  );
+	pFrame->Disconnect( IDM_ENUM_ADDELEMENT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAddEnumElement ), NULL, this );
 
 	m_PluginManager->UnregisterEventListener( this );
 	

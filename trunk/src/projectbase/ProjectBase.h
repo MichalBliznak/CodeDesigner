@@ -184,6 +184,28 @@ protected:
 
 ////////////////////////////////////////////////////////////////////////////////
 
+class udAccessType
+{
+public:
+	udAccessType();
+	udAccessType(udLanguage::ACCESSTYPE at);
+	udAccessType(const udAccessType& obj);
+	
+	wxMenu* CreateAccessMenu();
+	
+	// public member data accessors
+	void SetAccessType(const udLanguage::ACCESSTYPE& at) {m_nAccessType = at;}
+	
+	const udLanguage::ACCESSTYPE& GetAccessType() const {return m_nAccessType;}
+	
+protected:
+	// protected data members
+	udLanguage::ACCESSTYPE m_nAccessType;
+
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
 class WXDLLIMPEXP_CD udCodeItem : public udProjectItem
 {
 public:
@@ -235,7 +257,7 @@ protected:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class WXDLLIMPEXP_CD udCodeLinkItem : public udLinkItem
+class WXDLLIMPEXP_CD udCodeLinkItem : public udLinkItem, public udAccessType
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udCodeLinkItem);
@@ -543,7 +565,7 @@ protected:
 
 // diagram elements ///////////////////////////////////////////////////////////////
 
-class WXDLLIMPEXP_CD udDiagElementItem : public udProjectItem
+class WXDLLIMPEXP_CD udDiagElementItem : public udProjectItem, public udAccessType
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udDiagElementItem);

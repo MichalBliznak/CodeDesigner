@@ -160,31 +160,18 @@ class WXDLLIMPEXP_CD udIncludeAssocElementItem : public udDiagElementItem
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udIncludeAssocElementItem);
+	
+	udIncludeAssocElementItem();
+	udIncludeAssocElementItem(const udIncludeAssocElementItem &obj);
+    virtual ~udIncludeAssocElementItem();
+	
+	virtual wxMenu* CreateMenu();
+	virtual void OnEditItem(wxWindow* parent);
 };
 
 // code items /////////////////////////////////////////////////////////////////////
 
-class udAccessType
-{
-public:
-	udAccessType();
-	udAccessType(udLanguage::ACCESSTYPE at);
-	udAccessType(const udAccessType& obj);
-	
-	wxMenu* CreateAccessMenu();
-	
-	// public member data accessors
-	void SetAccessType(const udLanguage::ACCESSTYPE& at) {m_nAccessType = at;}
-	
-	const udLanguage::ACCESSTYPE& GetAccessType() const {return m_nAccessType;}
-	
-protected:
-	// protected data members
-	udLanguage::ACCESSTYPE m_nAccessType;
-
-};
-
-class WXDLLIMPEXP_CD udMemberLinkItem : public udCodeLinkItem, public udAccessType
+class WXDLLIMPEXP_CD udMemberLinkItem : public udCodeLinkItem
 {
 public:
 	XS_DECLARE_CLONABLE_CLASS(udMemberLinkItem);

@@ -74,6 +74,7 @@ void umlEnumItem::Initialize()
 		m_pStereotype->SetVBorder( 5 );
 		m_pStereotype->SetEditType( wxSFEditTextShape::editDISABLED );
 		m_pStereotype->AddStyle( sfsALWAYS_INSIDE );
+		m_pStereotype->RemoveStyle( sfsPOSITION_CHANGE );
 		
 		SF_ADD_COMPONENT( m_pStereotype, wxT("stereotype") );
 	}
