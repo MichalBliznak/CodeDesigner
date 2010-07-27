@@ -41,6 +41,8 @@
 #include "shapes/classdiagram/InterfaceItem.h"
 #include "shapes/classdiagram/UniDirectAssocItem.h"
 #include "shapes/classdiagram/TemplateBindItem.h"
+#include "shapes/classdiagram/EnumItem.h"
+#include "shapes/classdiagram/IncludeAssocItem.h"
 
 #include "shapes/ClassDiagram.h"
 #include "shapes/SimpleStateChartDiagram.h"

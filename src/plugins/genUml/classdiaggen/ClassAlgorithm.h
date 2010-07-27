@@ -26,8 +26,6 @@ protected:
 	
 	// protected functions
     virtual bool Initialize();
-	
-	void ProcessClass(umlClassItem *shape);
 };
 
 #endif // UDCLASSALGORITHM_H

@@ -325,3 +325,24 @@ void udCLanguage::TypedefCmd(const wxString& type, const wxString& decl)
 	NewLine();
 }
 
+
+void udCLanguage::EnumCmd(const wxString& name, const wxArrayString& values, const wxString& instname)
+{
+	Indent();
+	
+	m_sOutBuffer << wxT("enum ") << name << wxT(" ");
+	BeginCmd();
+	for( size_t i = 0; i < values.GetCount(); ++i )
+	{
+		WriteCodeBlocks( values[i] );
+	}
+	EndCmd();
+	m_sOutBuffer.Trim();
+	
+	if( !instname.IsEmpty() ) m_sOutBuffer << wxT(" ") << instname;
+	
+	m_sOutBuffer << wxT(";");
+	
+	NewLine();
+	
+}
