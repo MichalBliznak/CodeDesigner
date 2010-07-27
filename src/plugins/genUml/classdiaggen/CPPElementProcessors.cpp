@@ -59,9 +59,9 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 			break;
 	}
 	
-	// process incomming connections
+	// process template bindings
 	ShapeList lstConnections;
-	element->GetShapeManager()->GetAssignedConnections( element, CLASSINFO(wxSFLineShape), wxSFShapeBase::lineSTARTING, lstConnections );
+	element->GetShapeManager()->GetAssignedConnections( element, CLASSINFO(umlTemplateBindItem), wxSFShapeBase::lineSTARTING, lstConnections );
 	
 	for( ShapeList::iterator it = lstConnections.begin(); it != lstConnections.end(); ++it )
 	{
@@ -79,7 +79,7 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 {
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-	//udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
 	// get base classes if exists
 	ShapeList lstBases;
@@ -130,6 +130,7 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 	wxClassInfo *pPrevType;
 	
 	SerializableList lstMembers;
+	ShapeList lstAssocs;
 	
 	while( pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE) nAccessType ) != wxEmptyString )
 	{
@@ -137,8 +138,18 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 		pLang->IncIndentation();
 		
 		lstMembers.Clear();
+		lstAssocs.Clear();
 		pPrevType = NULL;
 		
+		// process associations
+		umlClassDiagram::GetClassAssociations( (umlClassItem*) element, CLASSINFO(wxSFLineShape), wxSFLineShape::lineSTARTING, (udLanguage::ACCESSTYPE) nAccessType, lstAssocs );
+		for( ShapeList::iterator it = lstAssocs.begin(); it != lstAssocs.end(); ++it )
+		{
+			udElementProcessor *pProcessor = pAlg->GetElementProcessor( (*it)->GetClassInfo()->GetClassName() );
+			if( pProcessor ) pProcessor->ProcessElement( *it );
+		}
+		
+		// process class members
 		umlClassDiagram::GetClassMembers( (umlClassItem*) element, CLASSINFO(udMemberDataLinkItem), (udLanguage::ACCESSTYPE) nAccessType, lstMembers);
 		umlClassDiagram::GetClassMembers( (umlClassItem*) element, CLASSINFO(udMemberFunctionLinkItem), (udLanguage::ACCESSTYPE) nAccessType, lstMembers);
 		for( SerializableList::iterator it = lstMembers.begin(); it != lstMembers.end(); ++it )
@@ -330,6 +341,9 @@ void udEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 {	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
+	/*// check whether the enum is already processed
+    if( pAlg->GetProcessedElements().IndexOf(element) != wxNOT_FOUND ) return;*/
+	
 	if( pAlg->GetGenMode() == udGenerator::genDECLARATION )
 	{
 		udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
@@ -346,10 +360,57 @@ void udEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 			}
 			
 			// write enumeration code
-			pLang->SingleLineCommentCmd( wxT("Enumeration '") + pEnum->GetName() + wxT("'") );
+			//pLang->SingleLineCommentCmd( wxT("Enumeration '") + pEnum->GetName() + wxT("'") );
 			
 			pLang->EnumCmd( pLang->MakeValidIdentifier( pEnum->GetName() ), arrValues, pLang->MakeValidIdentifier( pEnum->GetInstanceName() ) );
 			pLang->NewLine();
 		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udIncludeAssocProcessor class ////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+IMPLEMENT_DYNAMIC_CLASS(udIncludeAssocProcessor, udElementProcessor);
+
+udIncludeAssocProcessor::udIncludeAssocProcessor()
+{
+	m_pParentGenerator = NULL;
+}
+
+udIncludeAssocProcessor::udIncludeAssocProcessor(udGenerator* parent)
+: udElementProcessor(parent)
+{
+}
+
+udIncludeAssocProcessor::~udIncludeAssocProcessor()
+{
+}
+
+void udIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
+{
+	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	
+	udProjectItem *pAssoc = udPROJECT::GetDiagramElement( element );
+	
+	pLang->SingleLineCommentCmd( pAssoc->GetName() );
+	
+	// get target element
+	wxSFLineShape *pConnection = wxDynamicCast( element, wxSFLineShape );
+	if( pConnection )
+	{
+		wxSFShapeBase *pTrgShape = pConnection->GetShapeManager()->FindShape( pConnection->GetTrgShapeId() );
+		if( pTrgShape )
+		{
+			udElementProcessor *pProcessor = pAlg->GetElementProcessor( pTrgShape->GetClassInfo()->GetClassName() ); 
+			if( pProcessor )
+			{
+				pProcessor->ProcessElement( pTrgShape );
+				/*pAlg->GetProcessedElements().Append( pTrgShape );*/
+			}
+		}
+	}
+}
+
