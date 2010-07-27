@@ -334,7 +334,9 @@ void udCLanguage::EnumCmd(const wxString& name, const wxArrayString& values, con
 	BeginCmd();
 	for( size_t i = 0; i < values.GetCount(); ++i )
 	{
-		WriteCodeBlocks( values[i] );
+		if( i < values.GetCount()-1 ) WriteCodeBlocks( values[i] + wxT(",") );
+		else
+			WriteCodeBlocks( values[i] );
 	}
 	EndCmd();
 	m_sOutBuffer.Trim();
