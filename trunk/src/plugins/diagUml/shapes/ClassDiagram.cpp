@@ -58,3 +58,18 @@ void umlClassDiagram::GetClassMembers(umlClassItem* shape, wxClassInfo* type, ud
 		}
 	}
 }
+
+void umlClassDiagram::GetClassAssociations(umlClassItem* shape, wxClassInfo* type, wxSFLineShape::CONNECTMODE direction, udLanguage::ACCESSTYPE at, ShapeList& assocs)
+{
+	wxASSERT(shape);
+	
+	ShapeList lstAssocs;
+	
+	shape->GetShapeManager()->GetAssignedConnections( shape, type, direction, lstAssocs );
+	
+	for( ShapeList::iterator it = lstAssocs.begin(); it != lstAssocs.end(); ++it )
+	{
+		udDiagElementItem *pAssocElement = udPROJECT::GetDiagramElement( *it );
+		if( pAssocElement && (pAssocElement->GetAccessType() == at) ) assocs.Append( *it );
+	}
+}

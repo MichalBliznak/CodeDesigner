@@ -52,4 +52,17 @@ public:
     virtual void ProcessElement(wxSFShapeBase *element);
 };
 
+class WXDLLIMPEXP_CD udIncludeAssocProcessor : public udElementProcessor
+{
+public:
+    DECLARE_DYNAMIC_CLASS(udIncludeAssocProcessor);
+
+    udIncludeAssocProcessor();
+    udIncludeAssocProcessor(udGenerator *parent);
+    virtual ~udIncludeAssocProcessor();
+
+    // public virtual functions
+    virtual void ProcessElement(wxSFShapeBase *element);
+};
+
 #endif // UDCPPCLASSELEMENTPROCESSORS_H
