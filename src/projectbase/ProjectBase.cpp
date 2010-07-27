@@ -315,6 +315,47 @@ udProjectItem* udDiagramLinkItem::GetOriginal()
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
+// udAccessType /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udAccessType::udAccessType()
+{
+	m_nAccessType = udLanguage::AT_PUBLIC;
+}
+
+udAccessType::udAccessType(udLanguage::ACCESSTYPE at)
+{
+	m_nAccessType = at;
+}
+
+udAccessType::udAccessType(const udAccessType& obj)
+{
+	m_nAccessType = obj.m_nAccessType;
+}
+
+// public functions /////////////////////////////////////////////////////////////////
+
+wxMenu* udAccessType::CreateAccessMenu()
+{
+	udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+	wxMenu *pMenu = new wxMenu();
+	
+	wxString sAT;
+	int i = 0;
+	
+	while( (sAT = pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE)i )) != wxEmptyString )
+	{
+		pMenu->AppendCheckItem( IDM_CODE_ACCESSTYPE + i++, sAT );
+	}
+	
+	if( i ) pMenu->Check( IDM_CODE_ACCESSTYPE + (int)m_nAccessType, true );
+	
+	return pMenu;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
 // udCodeLinkItem class /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -322,7 +363,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udCodeLinkItem, udLinkItem);
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
-udCodeLinkItem::udCodeLinkItem()
+udCodeLinkItem::udCodeLinkItem() : udAccessType()
 {
 	m_sName = wxT("Code item link");
     m_sOriginalCodeItem = wxT("");
@@ -333,7 +374,7 @@ udCodeLinkItem::udCodeLinkItem()
 	XS_SERIALIZE(m_sScope, wxT("scope"));
 }
 
-udCodeLinkItem::udCodeLinkItem(const udCodeItem *orig)
+udCodeLinkItem::udCodeLinkItem(const udCodeItem *orig) : udAccessType()
 {
 	m_sName = orig->GetName();
 	m_sOriginalCodeItem = orig->GetName();
@@ -344,7 +385,7 @@ udCodeLinkItem::udCodeLinkItem(const udCodeItem *orig)
 	XS_SERIALIZE(m_sScope, wxT("scope"));
 }
 
-udCodeLinkItem::udCodeLinkItem(const udCodeLinkItem &obj) : udLinkItem( obj )
+udCodeLinkItem::udCodeLinkItem(const udCodeLinkItem &obj) : udLinkItem( obj ), udAccessType( obj )
 {
     m_sOriginalCodeItem = obj.m_sOriginalCodeItem;
 	m_sScope = obj.m_sScope;
@@ -498,8 +539,7 @@ udCodeItem::udCodeItem()
 	XS_SERIALIZE( m_sScope, wxT("scope") );
 }
 
-udCodeItem::udCodeItem(const udCodeItem &obj)
-: udProjectItem(obj)
+udCodeItem::udCodeItem(const udCodeItem &obj) : udProjectItem(obj)
 {	
 	m_sCode = obj.m_sCode;
 	m_fInline = obj.m_fInline;
@@ -1740,7 +1780,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udDiagElementItem, udProjectItem);
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
-udDiagElementItem::udDiagElementItem() : udProjectItem()
+udDiagElementItem::udDiagElementItem() : udProjectItem(), udAccessType()
 {
 	SetId( 0 );
 	
@@ -1748,7 +1788,8 @@ udDiagElementItem::udDiagElementItem() : udProjectItem()
 	m_sDescription = wxT("Diagram element's description...");
 }
 
-udDiagElementItem::udDiagElementItem(const udDiagElementItem &obj) : udProjectItem(obj)
+udDiagElementItem::udDiagElementItem(const udDiagElementItem &obj)
+: udProjectItem(obj), udAccessType(obj)
 {
 }
 

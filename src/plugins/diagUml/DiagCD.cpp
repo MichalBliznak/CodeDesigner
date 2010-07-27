@@ -6,6 +6,7 @@
 
 #include "projectbase/gui/AccessTypeDialog.h"
 #include "projectbase/gui/UpdateCodeDialog.h"
+#include "projectbase/gui/ScopedElementDialog.h"
 #include "gui/ClassMemberLinkDialog.h"
 #include "gui/ConstructorDialog.h"
 #include "gui/DestructorDialog.h"
@@ -960,45 +961,52 @@ bool udEnumElementItem::CheckElementString(const wxString& element, wxString& ke
 
 XS_IMPLEMENT_CLONABLE_CLASS(udIncludeAssocElementItem, udDiagElementItem);
 
-/////////////////////////////////////////////////////////////////////////////////////
-// udAccessType /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////
-
 // constructor and destructor ///////////////////////////////////////////////////////
 
-udAccessType::udAccessType()
+udIncludeAssocElementItem::udIncludeAssocElementItem()
 {
-	m_nAccessType = udLanguage::AT_PUBLIC;
+	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 
-udAccessType::udAccessType(udLanguage::ACCESSTYPE at)
+udIncludeAssocElementItem::udIncludeAssocElementItem(const udIncludeAssocElementItem& obj)
+: udDiagElementItem( obj )
 {
-	m_nAccessType = at;
+	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 
-udAccessType::udAccessType(const udAccessType& obj)
+udIncludeAssocElementItem::~udIncludeAssocElementItem()
 {
-	m_nAccessType = obj.m_nAccessType;
 }
 
-// public functions /////////////////////////////////////////////////////////////////
+// public virtual functions /////////////////////////////////////////////////////////
 
-wxMenu* udAccessType::CreateAccessMenu()
+wxMenu* udIncludeAssocElementItem::CreateMenu()
 {
-	udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
-	wxMenu *pMenu = new wxMenu();
+	wxMenu *pMenu = udDiagElementItem::CreateMenu();
 	
-	wxString sAT;
-	int i = 0;
-	
-	while( (sAT = pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE)i )) != wxEmptyString )
-	{
-		pMenu->AppendCheckItem( IDM_CLASS_ACCESSTYPE + i++, sAT );
-	}
-	
-	if( i ) pMenu->Check( IDM_CLASS_ACCESSTYPE + (int)m_nAccessType, true );
+	pMenu->Insert( 0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
 	
 	return pMenu;
+}
+
+void udIncludeAssocElementItem::OnEditItem(wxWindow* parent)
+{
+	udScopedElementDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("scoped_element_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetAccessType( (int)m_nAccessType );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_nAccessType = (udLanguage::ACCESSTYPE)dlg.GetAccessType();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1009,7 +1017,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udMemberLinkItem, udCodeLinkItem);
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
-udMemberLinkItem::udMemberLinkItem() : udAccessType()
+udMemberLinkItem::udMemberLinkItem()
 {
 	AcceptSibbling(wxT("udMemberDataLinkItem"));
 	AcceptSibbling(wxT("udMemberFunctionLinkItem"));
@@ -1018,11 +1026,11 @@ udMemberLinkItem::udMemberLinkItem() : udAccessType()
 }
 
 udMemberLinkItem::udMemberLinkItem(const udCodeItem *orig, udLanguage::ACCESSTYPE at )
-: udAccessType(at)
 {
 	SetName( orig->GetName() );
 	SetOrigCodeItem( orig->GetName() );
 	SetScope( orig->GetScope() );
+	SetAccessType( at );
 	
 	AcceptSibbling(wxT("udMemberDataLinkItem"));
 	AcceptSibbling(wxT("udMemberFunctionLinkItem"));
@@ -1030,7 +1038,7 @@ udMemberLinkItem::udMemberLinkItem(const udCodeItem *orig, udLanguage::ACCESSTYP
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 
-udMemberLinkItem::udMemberLinkItem(const udMemberLinkItem& obj) : udCodeLinkItem(obj), udAccessType(obj)
+udMemberLinkItem::udMemberLinkItem(const udMemberLinkItem& obj) : udCodeLinkItem(obj)
 {
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
@@ -1636,12 +1644,18 @@ udEnumValueItem::udEnumValueItem()
 	
 	m_sDescription = wxT("Enumeration element's description...");
 	
+	RemoveProperty( GetProperty( wxT("code") ) );
+	RemoveProperty( GetProperty( wxT("scope") ) );
+	
 	XS_SERIALIZE( m_Value, wxT("value") );
 }
 
 udEnumValueItem::udEnumValueItem(const udEnumValueItem &obj) : udCodeItem(obj)
 {
 	m_Value = obj.m_Value;
+	
+	RemoveProperty( GetProperty( wxT("code") ) );
+	RemoveProperty( GetProperty( wxT("scope") ) );
 
 	XS_SERIALIZE( m_Value, wxT("value") );
 }

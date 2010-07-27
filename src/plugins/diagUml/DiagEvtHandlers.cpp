@@ -3,6 +3,7 @@
 #include "gui/RenameVirtualDialog.h"
 #include "projectbase/gui/AccessTypeDialog.h"
 #include "DiagIds.h"
+#include "Ids.h"
 
 void udUmlDiagramPlugin::OnAssignAction(wxCommandEvent& event)
 {
@@ -439,12 +440,21 @@ void udUmlDiagramPlugin::OnRefactorVirtualFcn(wxCommandEvent& event)
 
 void udUmlDiagramPlugin::OnChangeAccessType(wxCommandEvent& event)
 {
-	udMemberLinkItem *pLink = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udMemberLinkItem );
+	// set access type to code link
+	udCodeLinkItem *pLink = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udCodeLinkItem );
 	if( pLink )
 	{
-		pLink->SetAccessType( (udLanguage::ACCESSTYPE)(event.GetId() - IDM_CLASS_ACCESSTYPE) );
+		pLink->SetAccessType( (udLanguage::ACCESSTYPE)(event.GetId() - IDM_CODE_ACCESSTYPE) );
 		
 		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pLink->GetOriginal() );
+	}
+	// .. or to diagram element
+	udDiagElementItem *pElement= wxDynamicCast(  IPluginManager::Get()->GetSelectedProjectItem(), udDiagElementItem );
+	if( pElement )
+	{
+		pElement->SetAccessType( (udLanguage::ACCESSTYPE)(event.GetId() - IDM_CODE_ACCESSTYPE) );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement );
 	}
 }
 
