@@ -26,19 +26,30 @@ void udClassAlgorithm::ProcessAlgorithm(udDiagramItem *src)
    // test "prerequisites"
     wxASSERT(m_pParentGenerator);
     if(!m_pParentGenerator)return;
+	
+	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 
-    wxASSERT(m_pParentGenerator->GetActiveLanguage());
-    if(!m_pParentGenerator->GetActiveLanguage())return;
+    wxASSERT(pLang);
+    if(!pLang)return;
 	
 	wxSFDiagramManager *pDiagManager = &src->GetDiagramManager();
 	
-	// get class elements
-    ShapeList lstClasses;
-    pDiagManager->GetShapes(CLASSINFO(umlClassItem), lstClasses);
+	ShapeList lstElements;
+    pDiagManager->GetShapes(CLASSINFO(umlClassItem), lstElements);
+    pDiagManager->GetShapes(CLASSINFO(umlEnumItem), lstElements);
 	
-	for( ShapeList::iterator it = lstClasses.begin(); it != lstClasses.end(); ++it )
+	for( ShapeList::iterator it = lstElements.begin(); it != lstElements.end(); ++it )
 	{
-		ProcessClass( (umlClassItem*)*it );
+		udElementProcessor *pProcessor = GetElementProcessor( (*it)->GetClassInfo()->GetClassName() );
+		if(pProcessor)
+		{
+			pProcessor->ProcessElement( *it );
+		}
+		else
+		{
+			pLang->SingleLineCommentCmd(wxString::Format(wxT( "!!! WARNING: UNSUPPORTED ELEMENT ('%s') !!!"), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+			IPluginManager::Get()->Log(wxString::Format(wxT("WARNING: '%s' element is not supported by this algorithm."), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+		}
 	}
 }
 
@@ -49,54 +60,4 @@ bool udClassAlgorithm::Initialize()
 	m_lstProcessedElements.Clear();
 	
     return true;
-}
-
-void udClassAlgorithm::ProcessClass(umlClassItem *shape)
-{
-	wxASSERT(shape);
-	if(!shape) return;
-	
-	// check whether the class is already processed
-    if( m_lstProcessedElements.IndexOf(shape) != wxNOT_FOUND )return;
-	
-	// process child classes recursivelly
-	ShapeList lstBases;
-	umlClassDiagram::GetBaseClasses( shape, lstBases );
-
-	for( ShapeList::iterator it = lstBases.begin(); it != lstBases.end(); ++it )
-	{
-		ProcessClass( (umlClassItem*)*it );
-	}
-	
-    //wxSFDiagramManager *pDiagManager = shape->GetShapeManager();
-    udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-
-    // process given element
-    udElementProcessor *pProcessor = GetElementProcessor(shape->GetClassInfo()->GetClassName());
-    if(pProcessor)
-    {
-        pProcessor->ProcessElement(shape);
-    }
-    else
-    {
-        pLang->SingleLineCommentCmd(wxString::Format(wxT( "!!! WARNING: UNSUPPORTED ELEMENT ('%s') !!!"), ((udProjectItem*)shape->GetUserData())->GetName().c_str()));
-        IPluginManager::Get()->Log(wxString::Format(wxT("WARNING: '%s' element is not supported by this algorithm."), ((udProjectItem*)shape->GetUserData())->GetName().c_str()));
-    }
-	
-	// process incomming connections
-	ShapeList lstConnections;
-	shape->GetShapeManager()->GetAssignedConnections( shape, CLASSINFO(wxSFLineShape), wxSFShapeBase::lineSTARTING, lstConnections );
-	
-	for( ShapeList::iterator it = lstConnections.begin(); it != lstConnections.end(); ++it )
-	{
-		pProcessor = GetElementProcessor((*it)->GetClassInfo()->GetClassName());
-		if(pProcessor)
-		{
-			pProcessor->ProcessElement(*it);
-		}
-	}
-
-    // set the state as processes
-    m_lstProcessedElements.Append(shape);
-
 }

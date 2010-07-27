@@ -39,4 +39,17 @@ public:
     virtual void ProcessElement(wxSFShapeBase *element);
 };
 
+class WXDLLIMPEXP_CD udEnumElementProcessor : public udElementProcessor
+{
+public:
+    DECLARE_DYNAMIC_CLASS(udEnumElementProcessor);
+
+    udEnumElementProcessor();
+    udEnumElementProcessor(udGenerator *parent);
+    virtual ~udEnumElementProcessor();
+
+    // public virtual functions
+    virtual void ProcessElement(wxSFShapeBase *element);
+};
+
 #endif // UDCPPCLASSELEMENTPROCESSORS_H

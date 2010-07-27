@@ -26,10 +26,25 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 {	
     // check existing parent generator
     wxASSERT(m_pParentGenerator);
-    if(!m_pParentGenerator)return;
-
+    if(!m_pParentGenerator) return;
+	
+	wxASSERT(element);
+	if(!element) return;
+	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
+	// check whether the class is already processed
+    if( pAlg->GetProcessedElements().IndexOf(element) != wxNOT_FOUND ) return;
+	
+	// process child classes recursivelly first
+	ShapeList lstBases;
+	umlClassDiagram::GetBaseClasses( (umlClassItem*)element, lstBases );
+
+	for( ShapeList::iterator it = lstBases.begin(); it != lstBases.end(); ++it )
+	{
+		ProcessElement( *it );
+	}
+
 	switch( pAlg->GetGenMode() )
 	{
 		case udGenerator::genDECLARATION:
@@ -43,6 +58,22 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 		default:
 			break;
 	}
+	
+	// process incomming connections
+	ShapeList lstConnections;
+	element->GetShapeManager()->GetAssignedConnections( element, CLASSINFO(wxSFLineShape), wxSFShapeBase::lineSTARTING, lstConnections );
+	
+	for( ShapeList::iterator it = lstConnections.begin(); it != lstConnections.end(); ++it )
+	{
+		udElementProcessor *pProcessor = pAlg->GetElementProcessor((*it)->GetClassInfo()->GetClassName());
+		if(pProcessor)
+		{
+			pProcessor->ProcessElement(*it);
+		}
+	}
+
+    // set the state as processes
+	pAlg->GetProcessedElements().Append(element);
 }
 
 void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
@@ -226,7 +257,7 @@ void udCPPClassElementProcessor::ProcessClassMembers(wxSFShapeBase* element)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-// udCPPClassElementProcessor class /////////////////////////////////////////////////
+// udTemplBindElementProcessor class ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
 IMPLEMENT_DYNAMIC_CLASS(udTemplBindElementProcessor, udElementProcessor);
@@ -271,6 +302,54 @@ void udTemplBindElementProcessor::ProcessElement(wxSFShapeBase *element)
 										
 				pLang->NewLine();
 			}
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udEnumElementProcessor class /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+IMPLEMENT_DYNAMIC_CLASS(udEnumElementProcessor, udElementProcessor);
+
+udEnumElementProcessor::udEnumElementProcessor()
+{
+    m_pParentGenerator = NULL;
+}
+
+udEnumElementProcessor::udEnumElementProcessor(udGenerator *parent)
+: udElementProcessor(parent)
+{
+}
+
+udEnumElementProcessor::~udEnumElementProcessor()
+{
+}
+
+void udEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
+{	
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	
+	if( pAlg->GetGenMode() == udGenerator::genDECLARATION )
+	{
+		udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
+		udEnumElementItem *pEnum = wxDynamicCast( element->GetUserData(), udEnumElementItem );
+		if( pEnum )
+		{
+			// get enumeration values
+			wxArrayString arrValues;
+			SerializableList::compatibility_iterator node = pEnum->GetFirstChildNode();
+			while( node )
+			{
+				arrValues.Add( ((udCodeItem*)node->GetData())->ToString(udCodeItem::cfDECLARATION, pLang) );
+				node = node->GetNext();
+			}
+			
+			// write enumeration code
+			pLang->SingleLineCommentCmd( wxT("Enumeration '") + pEnum->GetName() + wxT("'") );
+			
+			pLang->EnumCmd( pLang->MakeValidIdentifier( pEnum->GetName() ), arrValues, pLang->MakeValidIdentifier( pEnum->GetInstanceName() ) );
+			pLang->NewLine();
 		}
 	}
 }

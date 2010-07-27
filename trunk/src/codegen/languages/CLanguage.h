@@ -67,6 +67,8 @@ public:
 
     virtual void SingleLineCommentCmd(const wxString& msg);
     virtual void MultiLineCommentCmd(const wxString& msg);
+	
+	virtual void EnumCmd(const wxString& name, const wxArrayString& values, const wxString& instname);
 };
 
 #endif // UDCLANGUAGE_H

@@ -10,6 +10,7 @@ udCPPClassAlgorithm::udCPPClassAlgorithm()
 	m_mapElementProcessors[wxT("umlClassItem")] = new udCPPClassElementProcessor();
 	m_mapElementProcessors[wxT("umlClassTemplateItem")] = new udCPPClassElementProcessor();
 	m_mapElementProcessors[wxT("umlTemplateBindItem")] = new udTemplBindElementProcessor();
+	m_mapElementProcessors[wxT("umlEnumItem")] = new udEnumElementProcessor();
 
     m_sName = wxT("CPP class algorithm");
 
@@ -22,6 +23,7 @@ udCPPClassAlgorithm::udCPPClassAlgorithm(udGenerator *parent) : udClassAlgorithm
 	m_mapElementProcessors[wxT("umlClassItem")] = new udCPPClassElementProcessor(parent);
 	m_mapElementProcessors[wxT("umlClassTemplateItem")] = new udCPPClassElementProcessor(parent);
 	m_mapElementProcessors[wxT("umlTemplateBindItem")] = new udTemplBindElementProcessor(parent);
+	m_mapElementProcessors[wxT("umlEnumItem")] = new udEnumElementProcessor(parent);
 
     m_sName = wxT("CPP class algorithm");
 
