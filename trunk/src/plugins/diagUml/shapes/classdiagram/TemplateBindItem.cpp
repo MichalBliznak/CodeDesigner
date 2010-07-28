@@ -21,6 +21,8 @@ void umlTemplateBindItem::Initialize()
     // initialize shape	
 
 	AcceptConnection(wxT("uddNoteConnItem"));
+	AcceptSrcNeighbour(wxT("All"));
+    AcceptTrgNeighbour(wxT("All"));
 
 	m_Pen = wxPen( *wxBLACK, 1, wxDOT );
 	
