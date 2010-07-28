@@ -52,6 +52,7 @@ WX_DEFINE_LIST(ListenerList);
 
 // short term todos:
 //------------------
+// BUG: diagram element links should allow user to create connections starting from them.
 // TODO: class associations should have access type defined
 // TODO: implement class instantiation (associations) by using STL containers(?)
 // TODO: implement enumerations
