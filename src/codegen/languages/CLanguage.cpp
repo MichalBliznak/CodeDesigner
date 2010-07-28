@@ -330,21 +330,23 @@ void udCLanguage::EnumCmd(const wxString& name, const wxArrayString& values, con
 {
 	Indent();
 	
-	m_sOutBuffer << wxT("enum ") << name << wxT(" ");
-	BeginCmd();
+	m_sOutBuffer << wxT("enum ") << name << wxT(" {");
+	
+    IncIndentation();
+    NewLine();
+	
 	for( size_t i = 0; i < values.GetCount(); ++i )
 	{
 		if( i < values.GetCount()-1 ) WriteCodeBlocks( values[i] + wxT(",") );
 		else
 			WriteCodeBlocks( values[i] );
 	}
+	
 	EndCmd();
 	m_sOutBuffer.Trim();
 	
 	if( !instname.IsEmpty() ) m_sOutBuffer << wxT(" ") << instname;
-	
 	m_sOutBuffer << wxT(";");
 	
-	NewLine();
-	
+	NewLine();	
 }

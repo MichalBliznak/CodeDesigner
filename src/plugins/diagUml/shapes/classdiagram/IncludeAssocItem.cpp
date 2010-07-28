@@ -21,6 +21,8 @@ void umlIncludeAssocItem::Initialize()
     // initialize shape	
 
 	AcceptConnection(wxT("uddNoteConnItem"));
+	AcceptSrcNeighbour(wxT("All"));
+    AcceptTrgNeighbour(wxT("All"));
 
 	m_Pen = wxPen( *wxBLACK, 1, wxSHORT_DASH );
 	
@@ -32,7 +34,7 @@ void umlIncludeAssocItem::Initialize()
 	{
 		pLabel->SetText( wxT("<< includes >>") );
 		pLabel->SetEditType( wxSFEditTextShape::editDISABLED );
-		pLabel->SetRelativePosition(0, -15);
+		pLabel->SetRelativePosition(0, 0);
 		pLabel->SetHAlign( halignCENTER );
 		pLabel->RemoveStyle( sfsPOSITION_CHANGE );
 	}

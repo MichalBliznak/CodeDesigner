@@ -35,8 +35,34 @@ void udClassAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 	wxSFDiagramManager *pDiagManager = &src->GetDiagramManager();
 	
 	ShapeList lstElements;
+	ShapeList lstAssocs;
+	
+	// generate stand-alone enumerations
+	pDiagManager->GetShapes(CLASSINFO(umlEnumItem), lstElements);
+	
+	for( ShapeList::iterator it = lstElements.begin(); it != lstElements.end(); ++it )
+	{
+		lstAssocs.Clear();
+		
+		pDiagManager->GetAssignedConnections( *it, CLASSINFO(wxSFLineShape), wxSFLineShape::lineENDING, lstAssocs );
+		if( lstAssocs.IsEmpty() )
+		{
+			udElementProcessor *pProcessor = GetElementProcessor( (*it)->GetClassInfo()->GetClassName() );
+			if(pProcessor)
+			{
+				pProcessor->ProcessElement( *it );
+			}
+			else
+			{
+				pLang->SingleLineCommentCmd(wxString::Format(wxT( "!!! WARNING: UNSUPPORTED ELEMENT ('%s') !!!"), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+				IPluginManager::Get()->Log(wxString::Format(wxT("WARNING: '%s' element is not supported by this algorithm."), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+			}
+		}
+	}
+	
+	// generate classes
+	lstElements.Clear();
     pDiagManager->GetShapes(CLASSINFO(umlClassItem), lstElements);
-    pDiagManager->GetShapes(CLASSINFO(umlEnumItem), lstElements);
 	
 	for( ShapeList::iterator it = lstElements.begin(); it != lstElements.end(); ++it )
 	{
