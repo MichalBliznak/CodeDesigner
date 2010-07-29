@@ -119,6 +119,7 @@ public:
     /*virtual void OnContextMenu(wxWindow* parent, const wxPoint& pos);*/
     virtual void OnActivation();
 	virtual void OnTreeTextChange(const wxString& txt);
+	virtual void OnEditItem(wxWindow* parent);
 	
 protected:
 
@@ -151,6 +152,7 @@ public:
 	// public virtual functions
     virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
     virtual void OnSelection();
+	virtual void OnContextMenu(wxWindow* parent, const wxPoint& pos);
 	
 protected:
     // protected data members
@@ -568,6 +570,8 @@ protected:
 class WXDLLIMPEXP_CD udDiagElementItem : public udProjectItem, public udAccessType
 {
 public:
+	friend class udElementLinkItem;
+	
     XS_DECLARE_CLONABLE_CLASS(udDiagElementItem);
 
     udDiagElementItem();

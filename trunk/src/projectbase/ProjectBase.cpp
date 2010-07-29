@@ -196,6 +196,11 @@ void udLinkItem::OnActivation()
     if( pOriginal ) pOriginal->OnActivation();
 }
 
+void udLinkItem::OnEditItem(wxWindow* parent)
+{
+	// do nothing
+}
+
 /*void udLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
 {
     udProjectItem *pOriginal = GetOriginal();
@@ -263,6 +268,55 @@ void udElementLinkItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 {
 	if( type == udLABEL::ltTITLE) udLABEL::SetContent( m_sName, (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE );
 }
+
+void udElementLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
+{
+	udDiagElementItem *pOrig = wxDynamicCast( GetOriginal(), udDiagElementItem );
+	
+	if( !pOrig ) return;
+	
+	// re-create this menu due to possible updates
+	wxMenu *pPopupMenu = pOrig->CreateMenu();
+	
+	// update element's context menu
+	if( pPopupMenu && parent )
+	{
+		wxSFShapeBase *pShape = wxDynamicCast( GetParent(), wxSFShapeBase );
+		if( pShape &&
+			parent->IsKindOf( CLASSINFO(udDiagramCanvas) ) &&
+			!pShape->GetAcceptedConnections().IsEmpty() )
+		{
+			wxMenu *pSubmenu;
+
+			int nCreateID = pPopupMenu->FindItem( wxT("Create") );
+			if( nCreateID == wxNOT_FOUND )
+			{
+				// create new "Create" submenu
+				pSubmenu =  new wxMenu();
+				
+				pPopupMenu->Insert( 0, wxID_ANY, wxT("Create"), pSubmenu );
+				pPopupMenu->InsertSeparator( 1 );
+			}
+			else
+				pSubmenu = pPopupMenu->FindItem( nCreateID )->GetSubMenu();
+				
+			if( pSubmenu->GetMenuItemCount() ) pSubmenu->AppendSeparator();
+			
+			pOrig->UpdateSubmenu(pSubmenu, pShape->GetAcceptedConnections(), udfDONT_CLEAR_CONTENT);
+		}
+		else
+		{
+			pPopupMenu->Insert(0, IDM_DIAG_NAVIGATETO, wxT("Navigate to element"), wxT("Scroll the diagram so the element will be in its center"));
+			pPopupMenu->InsertSeparator(1);
+		}
+		
+		parent->PopupMenu(pPopupMenu, pos);
+	}
+	
+	delete pPopupMenu;
+}
+
+// public functions /////////////////////////////////////////////////////////////////
 
 void udElementLinkItem::UpdateLabels(const wxString &diagram, const wxString& element)
 {
@@ -2093,12 +2147,12 @@ void udDiagElementItem::OnTreeTextChange(const wxString &txt)
 		SerializableList lstLinks;
 		udElementLinkItem *pLink;
 
-		IPluginManager::Get()->GetProject()->GetElementLinks( wxT(""), m_sName, lstLinks );
+		IPluginManager::Get()->GetProject()->GetElementLinks( wxT(""), sPrevName, lstLinks );
 		SerializableList::compatibility_iterator node = lstLinks.GetFirst();
 		while( node )
 		{
 			pLink = (udElementLinkItem*)node->GetData();
-			pLink->UpdateLabels( pLink->GetOrigDiagram(), sPrevName);
+			pLink->UpdateLabels( pLink->GetOrigDiagram(), m_sName );
 
 			node = node->GetNext();
 		}
@@ -2209,7 +2263,7 @@ void udDiagElementItem::OnTreeItemEndDrag(const wxPoint &pos)
 
 void udDiagElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE type, int id)
 {
-	if( type == udLABEL::ltTITLE)
+	if( m_sName != txt && type == udLABEL::ltTITLE )
 	{
 		wxString utxt = IPluginManager::Get()->GetProject()->MakeUniqueName(txt);
 		if( utxt != txt )
@@ -2217,9 +2271,10 @@ void udDiagElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 			udLABEL::SetContent(utxt, (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE);
 		}
 		
-		UpdateAffectedCodeItems( m_sName, utxt );
+		/*// update code contents
+		UpdateAffectedCodeItems( m_sName, utxt );*/
 	
-		udProjectItem::OnTreeTextChange(utxt);
+		udDiagElementItem::OnTreeTextChange(utxt);
 	}
 }
 
@@ -2441,7 +2496,7 @@ void udSubDiagramElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TY
 bool udSubDiagramElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
 {
 	// if a shift key is pressed down then cancel the operation
-	wxMouseState cState = wxGetMouseState();
+	/*wxMouseState cState = wxGetMouseState();
 	if( cState.ShiftDown() ) return true;
 	
     wxASSERT(GetParent());
@@ -2475,9 +2530,9 @@ bool udSubDiagramElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
     pCanvas->DoDragDrop( lstDnD, Conv2Point(pShape->GetAbsolutePosition()) );
 
     // delete temporary dragged element
-    delete pShape;
+    delete pShape;*/
 	
-	return true;
+	return udDiagElementItem::OnTreeItemBeginDrag( pos );
 }
 
 // protected functions //////////////////////////////////////////////////////////////
