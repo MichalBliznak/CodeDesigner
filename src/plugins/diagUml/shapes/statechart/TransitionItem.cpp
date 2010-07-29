@@ -211,6 +211,14 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*)pProject->GetRootItem() );
 			}
 		}
+		
+		// SUBDIAGRAM ITEM //////////////////////////////////////////////////////////
+		
+		udSubDiagramElementItem *pSubElement = wxDynamicCast( pOriginal, udSubDiagramElementItem );
+		if( pSubElement )
+		{
+			// not implemented yet
+		}
 	}
 	else if( pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) )  )
 	{
