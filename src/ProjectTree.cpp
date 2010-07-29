@@ -250,14 +250,16 @@ void udProjectTree::OnSelectionChanged(wxTreeEvent& event)
 
 void udProjectTree::OnBeginLabelEdit(wxTreeEvent &event)
 {
-    /*wxTreeItemId treeId = event.GetItem();
+	// do not edit element links manualy
+
+    wxTreeItemId treeId = event.GetItem();
     if(treeId.IsOk())
     {
         udTreeItem* itemData = (udTreeItem*)GetItemData(treeId);
-        if( itemData && itemData->GetProjectItem() && itemData->GetProjectItem()->IsKindOf(CLASSINFO(udLinkItem)) ) event.Veto();
-    }*/
-	
-	event.Skip();
+        if( itemData && itemData->GetProjectItem() && itemData->GetProjectItem()->IsKindOf(CLASSINFO(udElementLinkItem)) ) event.Veto();
+		else
+			event.Skip();
+    }
 }
 
 void udProjectTree::OnEndLabelEdit(wxTreeEvent &event)
