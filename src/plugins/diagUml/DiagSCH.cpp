@@ -462,16 +462,51 @@ void udTransElementItem::GetActions(SerializableList& actions, bool original)
 	GetCodeItems( CLASSINFO(udActionItem), actions, original );
 }
 
-wxString udTransElementItem::GetActionAsString( udProjectItem *action, udCodeItem::CODEFORMAT format, udLanguage *lang)
+wxString udTransElementItem::GetActionAsString( udProjectItem *action, udCodeItem::CODEFORMAT format, udLanguage *lang, bool codemarks)
 {
-	if( action->IsKindOf(CLASSINFO(udCodeItem)) ) return ((udCodeItem*)action)->ToString( format, lang);
+	wxString sCode;
+	udCodeItem *pCode = NULL;
+	
+	if( action->IsKindOf(CLASSINFO(udCodeItem)) )
+	{
+		sCode = ((udCodeItem*)action)->ToString( format, lang);
+		pCode = (udCodeItem*)action;
+	}
+	else if( action->IsKindOf(CLASSINFO(udCodeLinkItem)) )
+	{
+		sCode = ((udCodeLinkItem*)action)->ToString( format, lang);
+		pCode = (udCodeItem*)((udCodeLinkItem*)action)->GetOriginal();
+	}
+	
+	if( lang && codemarks && pCode->IsInline() )
+	{
+		lang->PushCode();
+		int nIndent = lang->GetIndentation();
+		lang->SetIndentation(0);
+		
+		lang->SingleLineCommentCmd( udGenerator::GetBeginCodeMark( pCode ) );
+		lang->WriteCodeBlocks( sCode );
+		lang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pCode ) );
+		
+		wxString sOut = lang->GetCodeBuffer();
+		
+		lang->PopCode();
+		lang->SetIndentation(nIndent);
+		
+		return sOut;
+	}
+	else
+		return sCode;
+	
+	
+	/*if( action->IsKindOf(CLASSINFO(udCodeItem)) ) return ((udCodeItem*)action)->ToString( format, lang);
 	else
 		if( action->IsKindOf(CLASSINFO(udCodeLinkItem)) ) return ((udCodeLinkItem*)action)->ToString( format, lang);
 	else
-		return wxEmptyString;
+		return wxEmptyString;*/
 }
 
-void udTransElementItem::GetActionsAsStrings(udCodeItem::CODEFORMAT format, udLanguage *lang, wxArrayString& actions)
+void udTransElementItem::GetActionsAsStrings(udCodeItem::CODEFORMAT format, udLanguage *lang, bool codemarks, wxArrayString& actions)
 {
 	wxString sAction;
 	SerializableList lstActions;
@@ -480,7 +515,7 @@ void udTransElementItem::GetActionsAsStrings(udCodeItem::CODEFORMAT format, udLa
 	
 	for( SerializableList::iterator it = lstActions.begin(); it != lstActions.end(); ++it )
 	{
-		sAction = GetActionAsString( (udProjectItem*)*it, format, lang);
+		sAction = GetActionAsString( (udProjectItem*)*it, format, lang, codemarks);
 		if( !sAction.IsEmpty() ) actions.Add( sAction );
 	}
 }
@@ -498,7 +533,7 @@ wxString udTransElementItem::GetActionsString()
 	{
 		pAction = (udProjectItem*) node->GetData();
 		
-		sActs << GetActionAsString( pAction, udCodeItem::cfFORMAL, NULL );
+		sActs << GetActionAsString( pAction, udCodeItem::cfFORMAL, NULL, udfNO_CODEMARKS );
 		
 		node = node->GetNext();
 		

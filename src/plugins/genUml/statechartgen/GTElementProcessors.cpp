@@ -43,10 +43,9 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
     // process all states transition
 	bool fIndent, fJump;
 
-	//SerializableList lstActs;
 	wxString sCond;
 	wxArrayString arrActions;
-	SerializableList lstActions;
+	/*SerializableList lstActions;*/
 
 	wxSFShapeBase *pTrgShape;
     wxSFLineShape *pTrans = NULL;
@@ -68,12 +67,12 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
 		// get current condition and actions
 		arrActions.Clear();
-		lstActions.Clear();
+		/*lstActions.Clear();*/
 		
 		sCond = pTransElement->GetConditionAsString( udCodeItem::cfCALL, pLang );
 		
-		pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, arrActions );
-		pTransElement->GetActions( lstActions, udfORIGINAL );
+		pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, udfCODEMARKS, arrActions );
+		/*pTransElement->GetActions( lstActions, udfORIGINAL );*/
 
 		fIndent = true;
 		fJump = true;
@@ -114,16 +113,16 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
         if( fIndent )pLang->BeginCmd();
 
-		if( !lstActions.IsEmpty() )
+		if( !arrActions.IsEmpty() )
 		{
 			pLang->SingleLineCommentCmd(wxString::Format(wxT("Actions of transition ID: %s"), m_pParentGenerator->MakeIDName(pTransElement).c_str()));
 			
-			/*for( size_t i = 0; i < arrActions.GetCount(); i++ )
+			for( size_t i = 0; i < arrActions.GetCount(); i++ )
 			{
 				pLang->WriteCodeBlocks( arrActions[i] );
-			}*/
+			}
 			
-			size_t i = 0;
+			/*size_t i = 0;
 			for( SerializableList::iterator it = lstActions.begin(); it != lstActions.end(); ++it, ++i )
 			{
 				udActionItem *pAct = (udActionItem*) *it;
@@ -136,8 +135,7 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
 				}
 				else
 					pLang->WriteCodeBlocks( arrActions[i] );
-					/*pLang->WriteCodeBlocks( pAct->ToString(  udCodeItem::cfCALL, pLang) );*/
-			}
+			}*/
 		}
 
 		if( fJump )
