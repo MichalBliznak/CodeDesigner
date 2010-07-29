@@ -32,7 +32,7 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 	//SerializableList lstActs;
 	wxString sCond;
 	wxArrayString arrActions;
-	SerializableList lstActions;
+	/*SerializableList lstActions;*/
 
     wxSFLineShape *pTrans = NULL;
 	wxSFShapeBase *pTrgShape = NULL;
@@ -74,11 +74,11 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
 		// get current condition and actions
 		arrActions.Clear();
-		lstActions.Clear();
+		/*lstActions.Clear();*/
 		
 		sCond = pTransElement->GetConditionAsString( udCodeItem::cfCALL, pLang );
-		pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, arrActions );
-		pTransElement->GetActions( lstActions, udfORIGINAL );
+		pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, udfCODEMARKS, arrActions );
+		/*pTransElement->GetActions( lstActions, udfORIGINAL );*/
 
 		fIndent = true;
 
@@ -107,7 +107,7 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
         pLang->SingleLineCommentCmd(wxString::Format(wxT("Transition ID: %s"), m_pParentGenerator->MakeIDName(pTransElement).c_str()));
 
-		/*if( !arrActions.IsEmpty() )
+		if( !arrActions.IsEmpty() )
 		{
 			pLang->SingleLineCommentCmd(wxT("Actions:"));
 			
@@ -115,9 +115,9 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 			{
 				pLang->WriteCodeBlocks( arrActions[i] );
 			}
-		}*/
+		}
 		
-		if( !lstActions.IsEmpty() )
+		/*if( !lstActions.IsEmpty() )
 		{
 			pLang->SingleLineCommentCmd(wxT("Actions:"));
 		
@@ -134,9 +134,8 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 				}
 				else
 					pLang->WriteCodeBlocks( arrActions[i] );
-					/*pLang->WriteCodeBlocks( pAct->ToString(  udCodeItem::cfCALL, pLang) );*/
 			}
-		}
+		}*/
 		
 		// set state variable to target emlement
 		pTrgShape = pDiagManager->FindShape(((wxSFLineShape*)pTrans)->GetTrgShapeId());

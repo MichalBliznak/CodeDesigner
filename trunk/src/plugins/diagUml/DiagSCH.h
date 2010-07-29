@@ -7,7 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #define udfORIGINAL true
+#define udfCODEMARKS true
 #define udfLINK false
+#define udfNO_CODEMARKS false
 #define udnSIMPLE_STATE_CHART wxT("Simple State Chart")
 #define udnSTATE_CHART wxT("State Chart")
 #define udnCLASS_DIAGRAM wxT("Class Diagram")
@@ -244,8 +246,8 @@ public:
 	void GetActions(SerializableList& actions, bool original = false);
 	
 	wxString GetConditionAsString(udCodeItem::CODEFORMAT format, udLanguage *lang);
-	wxString GetActionAsString( udProjectItem *action, udCodeItem::CODEFORMAT format, udLanguage *lang);
-	void GetActionsAsStrings(udCodeItem::CODEFORMAT format, udLanguage *lang, wxArrayString& actions);
+	wxString GetActionAsString( udProjectItem *action, udCodeItem::CODEFORMAT format, udLanguage *lang, bool codemarks);
+	void GetActionsAsStrings(udCodeItem::CODEFORMAT format, udLanguage *lang, bool codemarks, wxArrayString& actions);
 	
 	void CopyActionItems(udTransElementItem *source);
 
