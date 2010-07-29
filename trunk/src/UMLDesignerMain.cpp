@@ -52,7 +52,6 @@ WX_DEFINE_LIST(ListenerList);
 
 // short term todos:
 //------------------
-// TODO: dropping of submachine onto transition/comp. state will create a wrapper calling its implementation
 // TODO: class associations should have access type defined
 // TODO: implement class instantiation (associations) by using STL containers(?)
 // TODO: implement enumerations
