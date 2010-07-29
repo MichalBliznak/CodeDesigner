@@ -45,7 +45,7 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
 	//SerializableList lstActs;
 	wxString sCond;
-	//wxArrayString arrActions;
+	wxArrayString arrActions;
 	SerializableList lstActions;
 
 	wxSFShapeBase *pTrgShape;
@@ -67,11 +67,12 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
         pTransElement = (udTransElementItem*)pTrans->GetUserData();
 
 		// get current condition and actions
-		//arrActions.Clear();
+		arrActions.Clear();
 		lstActions.Clear();
 		
 		sCond = pTransElement->GetConditionAsString( udCodeItem::cfCALL, pLang );
-		//pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, arrActions );
+		
+		pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, arrActions );
 		pTransElement->GetActions( lstActions, udfORIGINAL );
 
 		fIndent = true;
@@ -115,14 +116,15 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
 		if( !lstActions.IsEmpty() )
 		{
-			
 			pLang->SingleLineCommentCmd(wxString::Format(wxT("Actions of transition ID: %s"), m_pParentGenerator->MakeIDName(pTransElement).c_str()));
 			
 			/*for( size_t i = 0; i < arrActions.GetCount(); i++ )
 			{
 				pLang->WriteCodeBlocks( arrActions[i] );
 			}*/
-			for( SerializableList::iterator it = lstActions.begin(); it != lstActions.end(); ++it )
+			
+			size_t i = 0;
+			for( SerializableList::iterator it = lstActions.begin(); it != lstActions.end(); ++it, ++i )
 			{
 				udActionItem *pAct = (udActionItem*) *it;
 				
@@ -133,7 +135,8 @@ void udGTTransitionProcessor::ProcessElement(wxSFShapeBase *element)
 					pLang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pAct ) );
 				}
 				else
-					pLang->WriteCodeBlocks( pAct->ToString(  udCodeItem::cfCALL, pLang) );
+					pLang->WriteCodeBlocks( arrActions[i] );
+					/*pLang->WriteCodeBlocks( pAct->ToString(  udCodeItem::cfCALL, pLang) );*/
 			}
 		}
 
