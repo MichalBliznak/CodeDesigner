@@ -45,7 +45,8 @@ void umlTransitionItem::Initialize()
 	AcceptChild(wxT("udSStateChartDiagramItem"));
 	AcceptChild(wxT("udHStateChartDiagramItem"));
 	AcceptChild(wxT("udClassElementItem"));
-
+	AcceptChild(wxT("udSCHSubDiagramElementItem"));
+	
     // create target arrow
     SetTrgArrow(new wxSFSolidArrow());
 	EnablePropertySerialization(wxT("target_arrow"), false);
@@ -128,7 +129,8 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			pTransElement->AssignCodeItem( new udActionLinkItem((udCodeItem*)pNewAct) );
 		}
 	}
-	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) )  )
+	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) ) ||
+			 pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) ) )
 	{
 		// FINAL STATE /////////////////////////////////////////////////////////
 		
@@ -212,20 +214,10 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			}
 		}
 		
-		// SUBDIAGRAM ITEM //////////////////////////////////////////////////////////
+		// DIAGRAM AND SUBDIAGRAM ITEM //////////////////////////////////////////////////////////
 		
-		udSubDiagramElementItem *pSubElement = wxDynamicCast( pOriginal, udSubDiagramElementItem );
-		if( pSubElement )
-		{
-			// not implemented yet
-		}
-	}
-	else if( pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) )  )
-	{
-		// STATE CHART DIAGRAM /////////////////////////////////////////////////
-		
-		// create a new function implemented by dropped state chart
-		if( pOriginal->IsKindOf(CLASSINFO(udSStateChartDiagramItem)) || pOriginal->IsKindOf(CLASSINFO(udHStateChartDiagramItem)) )
+		if( pOriginal->IsKindOf(CLASSINFO(udDiagramItem)) ||
+			pOriginal->IsKindOf(CLASSINFO(udSubDiagramElementItem)) )
 		{
 			// find diagram wrapper if exists, otherwise create a new one
 			udCodeItem *pWrapper = (udCodeItem*)pProject->GetProjectItem( CLASSINFO(udCodeItem), pOriginal->GetName() + wxT("_Wrapper") );

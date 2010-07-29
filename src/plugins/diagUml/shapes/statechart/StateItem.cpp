@@ -70,7 +70,8 @@ void umlCompStateItem::Initialize()
 	AcceptChild(wxT("udSStateChartDiagramItem"));
 	AcceptChild(wxT("udHStateChartDiagramItem"));
 	AcceptChild(wxT("udClassElementItem"));
-
+	AcceptChild(wxT("udSCHSubDiagramElementItem"));
+	
     AddStyle(sfsSHOW_SHADOW);
 	
 	m_pGrid = new wxSFGridShape();
@@ -184,7 +185,8 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 			pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, nActionType) );
 		}
 	}
-	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) )  )
+	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) ) ||
+			 pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) ) )
 	{
 		// CLASS ITEM //////////////////////////////////////////////////////////
 		
@@ -236,39 +238,43 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*)pProject->GetRootItem() );
 			}
 		}
-	}
-	else if( pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) ) )
-	{
-		IProject *pProject = IPluginManager::Get()->GetProject();
 		
-		// find diagram wrapper if exists, otherwise create a new one
-		udCodeItem *pWrapper = (udCodeItem*)pProject->GetProjectItem( CLASSINFO(udActionItem), pOriginal->GetName() + wxT("_Wrapper") );
-		if( pWrapper )
+		// SUBDIAGRAM ITEM //////////////////////////////////////////////////////////
+		
+		if( pOriginal->IsKindOf(CLASSINFO(udDiagramItem)) ||
+			pOriginal->IsKindOf(CLASSINFO(udSubDiagramElementItem)) )
 		{
-			udActionTypeDialog dlg(IPluginManager::Get()->GetMainFrame() );
-			dlg.ShowModal();
+			IProject *pProject = IPluginManager::Get()->GetProject();
+		
+			// find diagram wrapper if exists, otherwise create a new one
+			udCodeItem *pWrapper = (udCodeItem*)pProject->GetProjectItem( CLASSINFO(udActionItem), pOriginal->GetName() + wxT("_Wrapper") );
+			if( pWrapper )
+			{
+				udActionTypeDialog dlg(IPluginManager::Get()->GetMainFrame() );
+				dlg.ShowModal();
 
-			pElement->AssignCodeItem( new udStateActionLinkItem( pWrapper, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
-		}
-		else
-		{
-			udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
-			udWindowManager dlgman( dlg, wxT("action_type_dialog") );
-			
-			dlg.ShowModal();
-
-			// create new instance of action function
-			udActionItem *pNewAct = new udActionItem();
-			pNewAct->SetName( pOriginal->GetName() + wxT("_Wrapper") );
-			pNewAct->SetRetValDataType( udLanguage::DT_USERDEFINED );
-			pNewAct->SetUserRetValDataType( wxT("STATE_T") );
-			pNewAct->SetImplementation( pOriginal->GetName() );
-					
-			pProject->AddItem( (xsSerializable*)NULL, pNewAct );
+				pElement->AssignCodeItem( new udStateActionLinkItem( pWrapper, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
+			}
+			else
+			{
+				udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
+				udWindowManager dlgman( dlg, wxT("action_type_dialog") );
 				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pProject->GetRootItem() );
+				dlg.ShowModal();
 
-			pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
+				// create new instance of action function
+				udActionItem *pNewAct = new udActionItem();
+				pNewAct->SetName( pOriginal->GetName() + wxT("_Wrapper") );
+				pNewAct->SetRetValDataType( udLanguage::DT_USERDEFINED );
+				pNewAct->SetUserRetValDataType( wxT("STATE_T") );
+				pNewAct->SetImplementation( pOriginal->GetName() );
+						
+				pProject->AddItem( (xsSerializable*)NULL, pNewAct );
+					
+				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pProject->GetRootItem() );
+
+				pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
+			}
 		}
 	}
 		
