@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.1.3.2126
+AppVerName=CodeDesigner 1.1.4.2258 Beta (SVN: 75)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.1.3.2126
+OutputBaseFilename=codedesigner-1.1.4.2258
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
@@ -133,8 +133,11 @@ Source: ..\..\output\res\plugins\elements\Line5.xpm; DestDir: {app}\res\plugins\
 Source: ..\..\output\res\plugins\elements\Line6.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Line7.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\Line8.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
+Source: ..\..\output\res\plugins\elements\Line9.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\State.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\elements\SubState.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
+Source: ..\..\output\res\plugins\elements\Enum.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
+Source: ..\..\output\res\plugins\elements\ClassTempl.xpm; DestDir: {app}\res\plugins\elements; Components: umldiagram
 Source: ..\..\output\res\plugins\project\UseCaseDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\Action.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\Action_link.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
@@ -152,6 +155,7 @@ Source: ..\..\output\res\plugins\project\MemberFunction.xpm; DestDir: {app}\res\
 Source: ..\..\output\res\plugins\project\MemberFunction_link.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\SimpleStateChartDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\StateChartDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
+Source: ..\..\output\res\plugins\project\EnumVal.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\app\gui\splash.png; DestDir: {app}\res\app\gui
 [Dirs]
 Name: {app}\plugins; Components: core
