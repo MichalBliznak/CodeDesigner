@@ -4,7 +4,7 @@
 #include "GUI_ProjectBase.h" // Base class: _ScopedElementDialog
 #include "projectbase/codegen/Language.h"
 
-class udScopedElementDialog : public _ScopedElementDialog {
+class WXDLLIMPEXP_CD udScopedElementDialog : public _ScopedElementDialog {
 
 public:
 	udScopedElementDialog(wxWindow *parent, udLanguage *lang);

@@ -186,7 +186,7 @@ protected:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class udAccessType
+class WXDLLIMPEXP_CD udAccessType
 {
 public:
 	udAccessType();
