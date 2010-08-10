@@ -1045,7 +1045,19 @@ wxString udParamItem::ToString(CODEFORMAT format, udLanguage* lang)
 	switch( format )
 	{
 		case udCodeItem::cfFORMAL:
-			return udVariableItem::ToString( format, lang );
+			if( lang )
+			{
+				wxString sType = GetDataTypeString( format, lang );
+				if( !sType.IsEmpty() )
+				{
+					return m_sName + wxT(" : ") + sType;
+				}
+				else
+					return m_sName;
+			}
+			else
+				return m_sName;
+				// return udVariableItem::ToString( format, lang );
 				
 		case udCodeItem::cfDECLARATION:
 			if( lang )
