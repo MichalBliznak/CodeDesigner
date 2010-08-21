@@ -198,10 +198,12 @@ void udCProjectGenerator::ProcessProject(udProject *src)
 			else
 			{
 				// construct output file path
-				OutFile = wxFileName( pDiagram->GetOutputFile() + m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
+				//OutFile = wxFileName( pDiagram->GetOutputFile() + m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
+				OutFile = GetFullCodePath( pDiagram->GetOutputFile(), m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
 						
 				// construct header file path
-				HeaderFile = wxFileName( pDiagram->GetOutputFile() + m_pOutLang->GetExtension(udLanguage::FE_DECL) );
+				//HeaderFile = wxFileName( pDiagram->GetOutputFile() + m_pOutLang->GetExtension(udLanguage::FE_DECL) );
+				HeaderFile = GetFullCodePath( pDiagram->GetOutputFile(), m_pOutLang->GetExtension(udLanguage::FE_DECL) );
 			}
 			
 			Log( wxString::Format( wxT("Output files: %s, %s."), OutFile.GetFullPath().c_str(), HeaderFile.GetFullPath().c_str() ) );
@@ -304,7 +306,13 @@ void udCProjectGenerator::ProcessProject(udProject *src)
 					ClearCodemark( COMMON_HEADERS_MARK, OutFile );
 	
 				// construct header name
-				wxString sHeaderName = Settings.GetProperty(wxT("Base file name"))->AsString() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
+				wxString sHeaderName;
+				if( pDiagram->GetOutputFile() == wxT("<default>") )
+				{
+					sHeaderName = Settings.GetProperty(wxT("Base file name"))->AsString() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
+				}
+				else
+					sHeaderName = pDiagram->GetOutputFile() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
 				//sCIHeaderName = Settings.GetProperty(wxT("Code items file name"))->AsString() + m_pOutLang->GetExtension(udLanguage::FE_DECL);
 		
 				// Insert header to the implementation file

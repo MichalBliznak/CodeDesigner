@@ -57,6 +57,15 @@ namespace udLABEL
 	 * \return Label's content
 	 */
 	WXDLLIMPEXP_CD wxString GetContent(wxSFShapeBase *element, TYPE type);
+	
+	/**
+	 * \brief Get quantity parameters from associations.
+	 * \param element Pointer to diagram component owning the label
+	 * \param type Label type
+	 * \param min Pointer to variable where minimal amount will be stored to
+	 * \param max Pointer to variable where maximal amount will be stored to
+	 */
+	WXDLLIMPEXP_CD void GetQuantity(wxSFShapeBase *element, TYPE type, long *min, long *max);
 };
 
 namespace udPROJECT

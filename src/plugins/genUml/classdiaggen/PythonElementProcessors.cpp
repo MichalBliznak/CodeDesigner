@@ -5,29 +5,47 @@
 // udPythonClassElementProcessor class //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_DYNAMIC_CLASS(udPythonClassElementProcessor, udElementProcessor);
+IMPLEMENT_DYNAMIC_CLASS(udPyClassElementProcessor, udElementProcessor);
 
-udPythonClassElementProcessor::udPythonClassElementProcessor()
+udPyClassElementProcessor::udPyClassElementProcessor()
 {
     m_pParentGenerator = NULL;
 }
 
-udPythonClassElementProcessor::udPythonClassElementProcessor(udGenerator *parent)
+udPyClassElementProcessor::udPyClassElementProcessor(udGenerator *parent)
 : udElementProcessor(parent)
 {
 }
 
-udPythonClassElementProcessor::~udPythonClassElementProcessor()
+udPyClassElementProcessor::~udPyClassElementProcessor()
 {
 }
 
-void udPythonClassElementProcessor::ProcessElement(wxSFShapeBase *element)
+void udPyClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 {	
     // check existing parent generator
     wxASSERT(m_pParentGenerator);
     if(!m_pParentGenerator)return;
+	
+	wxASSERT(element);
+	if(!element) return;
 
+	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement( element );
+	if( !pClass->IsGenerated() ) return;
+	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	
+	// check whether the class is already processed
+    if( pAlg->GetProcessedElements().IndexOf(element) != wxNOT_FOUND ) return;
+	
+	// process child classes recursivelly first
+	ShapeList lstBases;
+	umlClassDiagram::GetBaseClasses( (umlClassItem*)element, lstBases );
+
+	for( ShapeList::iterator it = lstBases.begin(); it != lstBases.end(); ++it )
+	{
+		ProcessElement( *it );
+	}
 	
 	switch( pAlg->GetGenMode() )
 	{
@@ -38,12 +56,15 @@ void udPythonClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 		default:
 			break;
 	}
+	
+	// set the state as processes
+	pAlg->GetProcessedElements().Append(element);
 }
 
-void udPythonClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
+void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 {
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-	//udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
 	// get base classes if exists
 	ShapeList lstBases;
@@ -67,13 +88,24 @@ void udPythonClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* elemen
 	wxString sOut;
 	
 	SerializableList lstMembers;
+	ShapeList lstAssocs;
 	
 	// declare class data members
 	while( pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE) nAccessType ) != wxEmptyString )
 	{
 		lstMembers.Clear();
+		lstAssocs.Clear();
 		pPrevType = NULL;
 		
+		// process associations
+		umlClassDiagram::GetClassAssociations( (umlClassItem*) element, CLASSINFO(wxSFLineShape), wxSFLineShape::lineSTARTING, (udLanguage::ACCESSTYPE) nAccessType, lstAssocs );
+		for( ShapeList::iterator it = lstAssocs.begin(); it != lstAssocs.end(); ++it )
+		{
+			udElementProcessor *pProcessor = pAlg->GetElementProcessor( (*it)->GetClassInfo()->GetClassName() );
+			if( pProcessor ) pProcessor->ProcessElement( *it );
+		}
+		
+		// process data members
 		umlClassDiagram::GetClassMembers( (umlClassItem*) element, CLASSINFO(udMemberDataLinkItem), (udLanguage::ACCESSTYPE) nAccessType, lstMembers);
 		
 		if( !lstMembers.IsEmpty() )
@@ -101,7 +133,7 @@ void udPythonClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* elemen
 	}
 	
 	// declare class functions members
-	 nAccessType = 0;
+	nAccessType = 0;
 	 
 	while( pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE) nAccessType ) != wxEmptyString )
 	{		
@@ -153,4 +185,101 @@ void udPythonClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* elemen
 	pLang->EndCmd();
 	
 	pLang->NewLine();	
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udPyEnumElementProcessor class ///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+IMPLEMENT_DYNAMIC_CLASS(udPyEnumElementProcessor, udElementProcessor);
+
+udPyEnumElementProcessor::udPyEnumElementProcessor()
+{
+    m_pParentGenerator = NULL;
+}
+
+udPyEnumElementProcessor::udPyEnumElementProcessor(udGenerator *parent)
+: udElementProcessor(parent)
+{
+}
+
+udPyEnumElementProcessor::~udPyEnumElementProcessor()
+{
+}
+
+void udPyEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
+{	
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	
+	/*// check whether the enum is already processed
+    if( pAlg->GetProcessedElements().IndexOf(element) != wxNOT_FOUND ) return;*/
+	
+	if( pAlg->GetGenMode() == udGenerator::genDEFINITION )
+	{
+		udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
+		udEnumElementItem *pEnum = wxDynamicCast( element->GetUserData(), udEnumElementItem );
+		if( pEnum )
+		{
+			// get enumeration values
+			wxArrayString arrValues;
+			SerializableList::compatibility_iterator node = pEnum->GetFirstChildNode();
+			while( node )
+			{
+				arrValues.Add( ((udCodeItem*)node->GetData())->ToString(udCodeItem::cfDECLARATION, pLang) );
+				node = node->GetNext();
+			}
+			
+			// write enumeration code
+			//pLang->SingleLineCommentCmd( wxT("Enumeration '") + pEnum->GetName() + wxT("'") );
+			
+			pLang->EnumCmd( pLang->MakeValidIdentifier( pEnum->GetName() ), arrValues, pLang->MakeValidIdentifier( pEnum->GetInstanceName() ) );
+			pLang->NewLine();
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// udPyIncludeAssocProcessor class //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+IMPLEMENT_DYNAMIC_CLASS(udPyIncludeAssocProcessor, udElementProcessor);
+
+udPyIncludeAssocProcessor::udPyIncludeAssocProcessor()
+{
+	m_pParentGenerator = NULL;
+}
+
+udPyIncludeAssocProcessor::udPyIncludeAssocProcessor(udGenerator* parent)
+: udElementProcessor(parent)
+{
+}
+
+udPyIncludeAssocProcessor::~udPyIncludeAssocProcessor()
+{
+}
+
+void udPyIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
+{
+	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
+	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
+	
+	udProjectItem *pAssoc = udPROJECT::GetDiagramElement( element );
+	
+	pLang->SingleLineCommentCmd( pAssoc->GetName() );
+	
+	// get target element
+	wxSFLineShape *pConnection = wxDynamicCast( element, wxSFLineShape );
+	if( pConnection )
+	{
+		wxSFShapeBase *pTrgShape = pConnection->GetShapeManager()->FindShape( pConnection->GetTrgShapeId() );
+		if( pTrgShape )
+		{
+			udElementProcessor *pProcessor = pAlg->GetElementProcessor( pTrgShape->GetClassInfo()->GetClassName() ); 
+			if( pProcessor )
+			{
+				pProcessor->ProcessElement( pTrgShape );
+				/*pAlg->GetProcessedElements().Append( pTrgShape );*/
+			}
+		}
+	}
 }

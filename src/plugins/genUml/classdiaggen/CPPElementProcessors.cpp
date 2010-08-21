@@ -31,6 +31,9 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 	wxASSERT(element);
 	if(!element) return;
 	
+	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement( element );
+	if( !pClass->IsGenerated() ) return;
+	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
 	// check whether the class is already processed
@@ -271,23 +274,23 @@ void udCPPClassElementProcessor::ProcessClassMembers(wxSFShapeBase* element)
 // udTemplBindElementProcessor class ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_DYNAMIC_CLASS(udTemplBindElementProcessor, udElementProcessor);
+IMPLEMENT_DYNAMIC_CLASS(udCPPTemplBindElementProcessor, udElementProcessor);
 
-udTemplBindElementProcessor::udTemplBindElementProcessor()
+udCPPTemplBindElementProcessor::udCPPTemplBindElementProcessor()
 {
     m_pParentGenerator = NULL;
 }
 
-udTemplBindElementProcessor::udTemplBindElementProcessor(udGenerator *parent)
+udCPPTemplBindElementProcessor::udCPPTemplBindElementProcessor(udGenerator *parent)
 : udElementProcessor(parent)
 {
 }
 
-udTemplBindElementProcessor::~udTemplBindElementProcessor()
+udCPPTemplBindElementProcessor::~udCPPTemplBindElementProcessor()
 {
 }
 
-void udTemplBindElementProcessor::ProcessElement(wxSFShapeBase *element)
+void udCPPTemplBindElementProcessor::ProcessElement(wxSFShapeBase *element)
 {	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
@@ -321,23 +324,23 @@ void udTemplBindElementProcessor::ProcessElement(wxSFShapeBase *element)
 // udEnumElementProcessor class /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_DYNAMIC_CLASS(udEnumElementProcessor, udElementProcessor);
+IMPLEMENT_DYNAMIC_CLASS(udCPPEnumElementProcessor, udElementProcessor);
 
-udEnumElementProcessor::udEnumElementProcessor()
+udCPPEnumElementProcessor::udCPPEnumElementProcessor()
 {
     m_pParentGenerator = NULL;
 }
 
-udEnumElementProcessor::udEnumElementProcessor(udGenerator *parent)
+udCPPEnumElementProcessor::udCPPEnumElementProcessor(udGenerator *parent)
 : udElementProcessor(parent)
 {
 }
 
-udEnumElementProcessor::~udEnumElementProcessor()
+udCPPEnumElementProcessor::~udCPPEnumElementProcessor()
 {
 }
 
-void udEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
+void udCPPEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 {	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
@@ -372,23 +375,23 @@ void udEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 // udIncludeAssocProcessor class ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-IMPLEMENT_DYNAMIC_CLASS(udIncludeAssocProcessor, udElementProcessor);
+IMPLEMENT_DYNAMIC_CLASS(udCPPIncludeAssocProcessor, udElementProcessor);
 
-udIncludeAssocProcessor::udIncludeAssocProcessor()
+udCPPIncludeAssocProcessor::udCPPIncludeAssocProcessor()
 {
 	m_pParentGenerator = NULL;
 }
 
-udIncludeAssocProcessor::udIncludeAssocProcessor(udGenerator* parent)
+udCPPIncludeAssocProcessor::udCPPIncludeAssocProcessor(udGenerator* parent)
 : udElementProcessor(parent)
 {
 }
 
-udIncludeAssocProcessor::~udIncludeAssocProcessor()
+udCPPIncludeAssocProcessor::~udCPPIncludeAssocProcessor()
 {
 }
 
-void udIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
+void udCPPIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
 {
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
@@ -413,4 +416,3 @@ void udIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
 		}
 	}
 }
-

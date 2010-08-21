@@ -142,7 +142,7 @@ void udPythonProjectGenerator::ProcessProject(udProject *src)
 			else
 			{
 				// construct output file path
-				OutFile = wxFileName( pDiagram->GetOutputFile() + m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
+				OutFile = GetFullCodePath( pDiagram->GetOutputFile(), m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
 			}
 			
 			Log( wxString::Format( wxT("Output file: %s."), OutFile.GetFullPath().c_str() ) );

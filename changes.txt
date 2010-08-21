@@ -1,6 +1,13 @@
-Changes in version 1.1.5 beta (2010-09-10):
+Changes in version 1.2.0 beta (2010-09-19):
 ------------------------------------------------
 - Data type of function parameters is now displayed in diagrams.
+- Added support for Enumeration and Include Association to Python code generator.
+- Added partial support for Basic Aggregation and Composition Aggregation to Class Diagram
+  code generator (for both C++ and Python languages).
+- Added ability to enable/disable code generation for specific classes (useful for 'built-in'
+  base classes which shouldn't be generated).
+- Fixed code generation to per-diagram-specified output file names.
+- Fixed modification of class constructor's code via properties dialog.
 
 Changes in version 1.1.4 beta (2010-07-29):
 ------------------------------------------------

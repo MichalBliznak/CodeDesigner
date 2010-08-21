@@ -13,6 +13,7 @@
 #include "gui/ClassTemplDialog.h"
 #include "gui/EnumElementDialog.h"
 #include "gui/EnumDialog.h"
+#include "gui/ClassDialog.h"
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/ClassDiagram.h"
@@ -65,8 +66,19 @@ XS_IMPLEMENT_CLONABLE_CLASS(udClassElementItem, udDiagElementItem);
 
 udClassElementItem::udClassElementItem()
 {
+	m_Generate = true;
+	
 	AcceptChild(wxT("udMemberDataLinkItem"));
 	AcceptChild(wxT("udMemberFunctionLinkItem"));
+	
+	XS_SERIALIZE(m_Generate, wxT("generate_code"));
+}
+
+udClassElementItem::udClassElementItem(const udClassElementItem& obj)
+{
+	m_Generate = obj.m_Generate;
+	
+	XS_SERIALIZE(m_Generate, wxT("generate_code"));
 }
 
 // public functions /////////////////////////////////////////////////////////////////
@@ -507,7 +519,26 @@ void udClassElementItem::OnCreateCopy()
 	// remove old code links
 	lstLinks.DeleteContents( true );
 	lstLinks.Clear();
+}
+
+void udClassElementItem::OnEditItem(wxWindow* parent)
+{
+	udClassDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("class_dialog") );
 	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetGenerate( m_Generate );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_Generate = dlg.GetGenerate();
+		m_sDescription = dlg.GetDescription();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
 }
 
 // protected function ///////////////////////////////////////////////////////////////
@@ -691,11 +722,107 @@ XS_IMPLEMENT_CLONABLE_CLASS(udUniAssocElementItem, udDiagElementItem);
 
 XS_IMPLEMENT_CLONABLE_CLASS(udBaseAggregElementItem, udDiagElementItem);
 
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udBaseAggregElementItem::udBaseAggregElementItem()
+{
+	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+}
+
+udBaseAggregElementItem::udBaseAggregElementItem(const udBaseAggregElementItem& obj)
+: udDiagElementItem( obj )
+{
+	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+}
+
+udBaseAggregElementItem::~udBaseAggregElementItem()
+{
+	udScopedElementDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("scoped_element_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetAccessType( (int)m_nAccessType );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_nAccessType = (udLanguage::ACCESSTYPE)dlg.GetAccessType();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
+}
+
+// public virtual functions /////////////////////////////////////////////////////////
+
+wxMenu* udBaseAggregElementItem::CreateMenu()
+{
+	wxMenu *pMenu = udDiagElementItem::CreateMenu();
+	
+	pMenu->Insert( 0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
+	
+	return pMenu;
+}
+
+void udBaseAggregElementItem::OnEditItem(wxWindow* parent)
+{
+	udScopedElementDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("scoped_element_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetAccessType( (int)m_nAccessType );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_nAccessType = (udLanguage::ACCESSTYPE)dlg.GetAccessType();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
+}
+
 /////////////////////////////////////////////////////////////////////////////////////
 // udCompAggregElementItem class ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
 XS_IMPLEMENT_CLONABLE_CLASS(udCompAggregElementItem, udDiagElementItem);
+
+// constructor and destructor ///////////////////////////////////////////////////////
+
+udCompAggregElementItem::udCompAggregElementItem()
+{
+	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+}
+
+udCompAggregElementItem::udCompAggregElementItem(const udCompAggregElementItem& obj)
+: udDiagElementItem( obj )
+{
+	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+}
+
+udCompAggregElementItem::~udCompAggregElementItem()
+{
+}
+
+// public virtual functions /////////////////////////////////////////////////////////
+
+wxMenu* udCompAggregElementItem::CreateMenu()
+{
+	wxMenu *pMenu = udDiagElementItem::CreateMenu();
+	
+	pMenu->Insert( 0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
+	
+	return pMenu;
+}
+
+void udCompAggregElementItem::OnEditItem(wxWindow* parent)
+{
+}
 
 /////////////////////////////////////////////////////////////////////////////////////
 // udInherElementItem class /////////////////////////////////////////////////////////

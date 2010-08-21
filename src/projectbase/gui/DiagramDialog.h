@@ -44,6 +44,7 @@ protected:
 	virtual void OnMakeValid( wxCommandEvent& event );
 	virtual void OnGeneratorChange( wxCommandEvent& event );
 	virtual void OnOk( wxCommandEvent& event );
+	virtual void OnReset(wxCommandEvent& event);
 
 };
 #endif // __diagramdialog__
