@@ -380,3 +380,39 @@ void udPythonLanguage::ClassInstanceCmd(const wxString& instname, const wxString
 	
 	NewLine();
 }
+
+void udPythonLanguage::EnumCmd(const wxString& name, const wxArrayString& values, const wxString& instname)
+{
+	ClassDeclCmd( name, wxT("") );
+	
+	BeginCmd();
+	
+	int nVal = 0;
+	wxString sPar, sVal;
+	
+	for( size_t i = 0; i < values.GetCount(); ++i )
+	{
+		if( values[i].Contains( wxT("=") ) )
+		{
+			sPar = values[i].BeforeFirst('=').Trim().Trim(false);
+			sVal = values[i].AfterLast('=').Trim().Trim(false);
+			
+			long nNewVal;
+			if( sVal.ToLong( &nNewVal ) ) nVal = nNewVal + 1;
+		}
+		else
+		{
+			sPar = values[i];
+			sVal.Printf( wxT("%d"), nVal++ );
+		}
+		
+		if( i < values.GetCount()-1 ) WriteCodeBlocks( sPar + wxT(" = " ) + sVal + wxT(",") );
+		else
+			WriteCodeBlocks( sPar + wxT(" = " ) + sVal );
+	}
+	
+	EndCmd();
+	
+	//if( !instname.IsEmpty() ) ClassInstanceCmd( instname, name, wxT(""), false );
+	//NewLine();	
+}

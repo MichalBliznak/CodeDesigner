@@ -82,6 +82,47 @@ namespace udLABEL
 
 		return wxT("");
 	}
+	
+	void GetQuantity(wxSFShapeBase* element, TYPE type, long* min, long* max)
+	{
+		wxString sContent = GetContent(element, type);
+		if( !sContent.IsEmpty() )
+		{
+			sContent.Replace( wxT(" "), wxT("") );
+			
+			wxRegEx regPattern;
+			
+			// 1
+			regPattern.Compile( wxT("^[0-9]*$"), wxRE_ADVANCED );
+			if( regPattern.Matches( sContent ) )
+			{
+				sContent.ToLong( min );
+				*max = *min;
+				return;
+			}
+			
+			// 1..2
+			regPattern.Compile( wxT("^[0-9]*..[0-9]*$"), wxRE_ADVANCED );
+			if( regPattern.Matches( sContent ) )
+			{
+				sContent.BeforeFirst('.').ToLong( min );
+				sContent.AfterLast('.').ToLong( max );
+				return;
+			}
+			
+			// 0..*
+			regPattern.Compile( wxT("^[0-9]*..\\*$"), wxRE_ADVANCED );
+			if( regPattern.Matches( sContent ) )
+			{
+				sContent.BeforeFirst('.').ToLong( min );
+				*max = -1;
+				return;
+			}
+			
+			*min = -1;
+			*max = -1;
+		}
+	}
 }
 	
 ////////////////////////////////////////////////////////////////////////////////

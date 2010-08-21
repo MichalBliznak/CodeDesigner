@@ -26,40 +26,40 @@ protected:
 	void ProcessClassMembers(wxSFShapeBase *element);
 };
 
-class WXDLLIMPEXP_CD udTemplBindElementProcessor : public udElementProcessor
+class WXDLLIMPEXP_CD udCPPTemplBindElementProcessor : public udElementProcessor
 {
 public:
-    DECLARE_DYNAMIC_CLASS(udTemplBindElementProcessor);
+    DECLARE_DYNAMIC_CLASS(udCPPTemplBindElementProcessor);
 
-    udTemplBindElementProcessor();
-    udTemplBindElementProcessor(udGenerator *parent);
-    virtual ~udTemplBindElementProcessor();
+    udCPPTemplBindElementProcessor();
+    udCPPTemplBindElementProcessor(udGenerator *parent);
+    virtual ~udCPPTemplBindElementProcessor();
 
     // public virtual functions
     virtual void ProcessElement(wxSFShapeBase *element);
 };
 
-class WXDLLIMPEXP_CD udEnumElementProcessor : public udElementProcessor
+class WXDLLIMPEXP_CD udCPPEnumElementProcessor : public udElementProcessor
 {
 public:
-    DECLARE_DYNAMIC_CLASS(udEnumElementProcessor);
+    DECLARE_DYNAMIC_CLASS(udCPPEnumElementProcessor);
 
-    udEnumElementProcessor();
-    udEnumElementProcessor(udGenerator *parent);
-    virtual ~udEnumElementProcessor();
+    udCPPEnumElementProcessor();
+    udCPPEnumElementProcessor(udGenerator *parent);
+    virtual ~udCPPEnumElementProcessor();
 
     // public virtual functions
     virtual void ProcessElement(wxSFShapeBase *element);
 };
 
-class WXDLLIMPEXP_CD udIncludeAssocProcessor : public udElementProcessor
+class WXDLLIMPEXP_CD udCPPIncludeAssocProcessor : public udElementProcessor
 {
 public:
-    DECLARE_DYNAMIC_CLASS(udIncludeAssocProcessor);
+    DECLARE_DYNAMIC_CLASS(udCPPIncludeAssocProcessor);
 
-    udIncludeAssocProcessor();
-    udIncludeAssocProcessor(udGenerator *parent);
-    virtual ~udIncludeAssocProcessor();
+    udCPPIncludeAssocProcessor();
+    udCPPIncludeAssocProcessor(udGenerator *parent);
+    virtual ~udCPPIncludeAssocProcessor();
 
     // public virtual functions
     virtual void ProcessElement(wxSFShapeBase *element);

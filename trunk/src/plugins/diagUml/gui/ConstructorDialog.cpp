@@ -153,6 +153,7 @@ void udConstructorDialog::OnOk(wxCommandEvent& event)
 		// ... and via direct functions
 		if( m_chImplementation->GetSelection() > -1) m_Implementation = m_chImplementation->GetStringSelection();
 		if( m_chFcnModifier->GetSelection() > -1 ) m_FcnModifier = (udLanguage::FCNMODIFIER) m_chFcnModifier->GetSelection();
+		m_Code = m_sciEditor->GetText();
 
 		wxString sConsName;
 		m_pFcnItem->GetUsedConstructors().clear();

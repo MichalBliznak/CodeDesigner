@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version May 27 2010)
+// C++ code generated with wxFormBuilder (version Jul 31 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -22,9 +22,9 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/filepicker.h>
+#include <wx/button.h>
 #include <wx/choice.h>
 #include <wx/notebook.h>
-#include <wx/button.h>
 #include <wx/gbsizer.h>
 #include <wx/dialog.h>
 #include <wx/statbox.h>
@@ -64,6 +64,7 @@ class _DiagramDialog : public wxDialog
 		wxPanel* m_pageGen;
 		wxStaticText* m_staticText14;
 		wxFilePickerCtrl* m_fpOutputFile;
+		wxButton* m_btnReset;
 		wxStaticText* m_staticText15;
 		wxStaticText* m_staticText16;
 		wxChoice* m_chGenerator;
@@ -76,8 +77,8 @@ class _DiagramDialog : public wxDialog
 		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
 		virtual void OnNameChange( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnMakeValid( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnReset( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnGeneratorChange( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnAlgorithmChange( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
 		
 	

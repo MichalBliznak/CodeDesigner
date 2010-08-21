@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version May 27 2010)
+// C++ code generated with wxFormBuilder (version Jul 31 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -693,6 +693,40 @@ class _EnumDialog : public wxDialog
 		
 		_EnumDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Enumeration properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 		~_EnumDialog();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class _ClassDialog
+///////////////////////////////////////////////////////////////////////////////
+class _ClassDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText1;
+		wxTextCtrl* m_eName;
+		wxCheckBox* m_cbMakeValid;
+		wxStaticText* m_staticText2;
+		wxTextCtrl* m_eDescription;
+		wxNotebook* m_pNotebook;
+		wxPanel* m_pageAdv;
+		wxCheckBox* m_chbGenerate;
+		wxStdDialogButtonSizer* bntSizer;
+		wxButton* bntSizerOK;
+		wxButton* bntSizerCancel;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnNameChange( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnMakeValid( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_ClassDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		~_ClassDialog();
 	
 };
 

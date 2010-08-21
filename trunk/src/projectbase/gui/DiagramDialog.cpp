@@ -114,3 +114,9 @@ void udDiagramDialog::OnGeneratorChange(wxCommandEvent& event)
 		delete pGen;
 	}
 }
+
+void udDiagramDialog::OnReset(wxCommandEvent& event)
+{
+	m_fpOutputFile->SetPath( wxT("<default>") );
+}
+

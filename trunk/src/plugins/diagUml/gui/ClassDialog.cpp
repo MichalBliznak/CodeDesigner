@@ -1,40 +1,40 @@
-#include <wx/valgen.h>
+#include "ClassDialog.h"
 
 #include "projectbase/ProjectBase.h"
 
-#include "EnumDialog.h"
+#include <wx/valgen.h>
 
-// constructor and destructor ////////////////////////////////////////////////////////////////
+// constructor and destructor //////////////////////////////////////////////////
 
-udEnumDialog::udEnumDialog(wxWindow *parent, udLanguage *lang) : _EnumDialog( parent )
+udClassDialog::udClassDialog(wxWindow *parent, udLanguage *lang) : _ClassDialog(parent)
 {
 	m_pLang = lang;
 }
 
-udEnumDialog::~udEnumDialog()
+udClassDialog::~udClassDialog()
 {
 }
 
-// virtual functions /////////////////////////////////////////////////////////////////////////
+// virtual functions ///////////////////////////////////////////////////////////
 
-void udEnumDialog::OnInit(wxInitDialogEvent& event)
+void udClassDialog::OnInit(wxInitDialogEvent& event)
 {
 	// set validators
 	m_eName->SetValidator(wxGenericValidator(&m_Name));
 	m_eDescription->SetValidator(wxGenericValidator(&m_Description));
-	m_eInstName->SetValidator(wxGenericValidator(&m_InstanceName));
+	m_chbGenerate->SetValidator(wxGenericValidator(&m_Generate));
 	
 	// use validators to transfer a data
 	TransferDataToWindow();
 	m_pageAdv->TransferDataToWindow();
 }
 
-void udEnumDialog::OnMakeValid(wxCommandEvent& event)
+void udClassDialog::OnMakeValid(wxCommandEvent& event)
 {
 	OnNameChange( event );
 }
 
-void udEnumDialog::OnNameChange(wxCommandEvent& event)
+void udClassDialog::OnNameChange(wxCommandEvent& event)
 {
 	if( ( m_Name != m_eName->GetValue() ) && m_cbMakeValid->GetValue() && m_pLang)
 	{
@@ -47,7 +47,7 @@ void udEnumDialog::OnNameChange(wxCommandEvent& event)
 	}
 }
 
-void udEnumDialog::OnOk(wxCommandEvent& event)
+void udClassDialog::OnOk(wxCommandEvent& event)
 {
 	if( m_eName->GetValue() == wxT("") )
 	{

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version May 27 2010)
+// C++ code generated with wxFormBuilder (version Jul 31 2010)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -68,12 +68,20 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* genSizer;
 	genSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText14 = new wxStaticText( m_pageGen, wxID_ANY, wxT("Output file (absolute, without extension):"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_staticText14 = new wxStaticText( m_pageGen, wxID_ANY, wxT("Output file (without extension):"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	m_staticText14->Wrap( -1 );
 	genSizer->Add( m_staticText14, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
 	
+	wxBoxSizer* fileSizer;
+	fileSizer = new wxBoxSizer( wxHORIZONTAL );
+	
 	m_fpOutputFile = new wxFilePickerCtrl( m_pageGen, wxID_ANY, wxEmptyString, wxT("Select an output file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_SAVE|wxFLP_USE_TEXTCTRL );
-	genSizer->Add( m_fpOutputFile, 0, wxALL|wxEXPAND, 5 );
+	fileSizer->Add( m_fpOutputFile, 1, wxALL, 5 );
+	
+	m_btnReset = new wxButton( m_pageGen, wxID_ANY, wxT("Reset"), wxDefaultPosition, wxDefaultSize, 0 );
+	fileSizer->Add( m_btnReset, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
+	
+	genSizer->Add( fileSizer, 0, wxEXPAND, 5 );
 	
 	wxFlexGridSizer* fgSizer6;
 	fgSizer6 = new wxFlexGridSizer( 2, 2, 0, 0 );
@@ -129,8 +137,8 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _DiagramDialog::OnInit ) );
 	m_eName->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _DiagramDialog::OnNameChange ), NULL, this );
 	m_cbMakeValid->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _DiagramDialog::OnMakeValid ), NULL, this );
+	m_btnReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _DiagramDialog::OnReset ), NULL, this );
 	m_chGenerator->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _DiagramDialog::OnGeneratorChange ), NULL, this );
-	m_chAlgorithm->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _DiagramDialog::OnAlgorithmChange ), NULL, this );
 	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _DiagramDialog::OnOk ), NULL, this );
 }
 
@@ -140,8 +148,8 @@ _DiagramDialog::~_DiagramDialog()
 	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _DiagramDialog::OnInit ) );
 	m_eName->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( _DiagramDialog::OnNameChange ), NULL, this );
 	m_cbMakeValid->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _DiagramDialog::OnMakeValid ), NULL, this );
+	m_btnReset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _DiagramDialog::OnReset ), NULL, this );
 	m_chGenerator->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _DiagramDialog::OnGeneratorChange ), NULL, this );
-	m_chAlgorithm->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _DiagramDialog::OnAlgorithmChange ), NULL, this );
 	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _DiagramDialog::OnOk ), NULL, this );
 	
 }

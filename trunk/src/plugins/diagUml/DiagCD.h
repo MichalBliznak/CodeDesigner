@@ -31,12 +31,16 @@ public:
     XS_DECLARE_CLONABLE_CLASS(udClassElementItem);
 	
 	udClassElementItem();
+	udClassElementItem(const udClassElementItem& obj);
 	
 	// public functions
 	void SetVariableString(const wxString& txt, int id);
 	void SetFunctionString(const wxString& txt, int id);
 	
 	void AssignMemberCopy(udLinkItem *link);
+	
+	void EnableGeneration(bool enab){m_Generate = enab;}
+	bool IsGenerated(){return m_Generate;}
 	
 	// public virtual functions
 	virtual wxMenu* CreateMenu();
@@ -46,8 +50,11 @@ public:
 	virtual void OnTreeItemEndDrag(const wxPoint &pos);
 	virtual void OnTreeTextChange(const wxString& txt);
 	virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
+	virtual void OnEditItem(wxWindow* parent);
 	
 protected:
+	bool m_Generate;
+	
 	// protected functions
 	void UpdateMembers(const wxString& prevname, const wxString& newname);
 };
@@ -101,12 +108,26 @@ class WXDLLIMPEXP_CD udBaseAggregElementItem : public udDiagElementItem
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udBaseAggregElementItem);
+	
+	udBaseAggregElementItem();
+	udBaseAggregElementItem(const udBaseAggregElementItem &obj);
+    virtual ~udBaseAggregElementItem();
+	
+	virtual wxMenu* CreateMenu();
+	virtual void OnEditItem(wxWindow* parent);
 };
 
 class WXDLLIMPEXP_CD udCompAggregElementItem : public udDiagElementItem
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udCompAggregElementItem);
+	
+	udCompAggregElementItem();
+	udCompAggregElementItem(const udCompAggregElementItem &obj);
+    virtual ~udCompAggregElementItem();
+	
+	virtual wxMenu* CreateMenu();
+	virtual void OnEditItem(wxWindow* parent);
 };
 
 class WXDLLIMPEXP_CD udTemplateBindElementItem : public udDiagElementItem

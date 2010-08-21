@@ -76,6 +76,8 @@ public:
 	virtual void ClassMemberFcnDeclCmd(const wxString& modif, const wxString& type, const wxString& classname, const wxString& name, const wxString& params);
 	virtual void ClassMemberFcnDefCmd(const wxString& modif, const wxString& type, const wxString& classname, const wxString& name, const wxString& params);
 	virtual void ClassInstanceCmd(const wxString& instname, const wxString& classname, const wxString& params, bool dynamic);
+	
+	virtual void EnumCmd(const wxString& name, const wxArrayString& values, const wxString& instname);
 };
 
 #endif // UDPYTHONLANGUAGE_H

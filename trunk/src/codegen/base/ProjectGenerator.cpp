@@ -382,15 +382,22 @@ wxFileName udProjectGenerator::GetFullCodePath(const wxString& name, const wxStr
 	udProjectSettings& Settings = udProject::Get()->GetSettings();
 	
 	wxString sPath;
-	wxFileName fnOutDir;
+	wxFileName fnOutDir, fnOutFile;
+	
 	fnOutDir.SetPath( Settings.GetProperty(wxT("Output directory"))->ToString() );
+	fnOutFile.SetPath( name );
 	
-	if( fnOutDir.IsRelative() )
+	if( fnOutFile.IsRelative() )
 	{
-		sPath = udProject::Get()->GetProjectDirectory() + wxFileName::GetPathSeparators();
+		if( fnOutDir.IsRelative() )
+		{
+			sPath = udProject::Get()->GetProjectDirectory() + wxFileName::GetPathSeparators();
+		}
+		
+		sPath += fnOutDir.GetPath() + wxFileName::GetPathSeparators() + name + ext;
 	}
-	
-	sPath += fnOutDir.GetPath() + wxFileName::GetPathSeparators() + name + ext;
+	else
+		sPath += name + ext;
 	
 	return wxFileName( sPath );
 }
