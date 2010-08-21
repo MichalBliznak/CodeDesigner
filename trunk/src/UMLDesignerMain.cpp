@@ -52,8 +52,7 @@ WX_DEFINE_LIST(ListenerList);
 
 // short term todos:
 //------------------
-// TODO: class associations should have access type defined
-// TODO: implement class instantiation (associations) by using STL containers(?)
+// TODO: allow users to used base classes also from different class diagram
 
 // long term todos:
 //-----------------
@@ -62,6 +61,7 @@ WX_DEFINE_LIST(ListenerList);
 // TODO: design and implement OpenMP diagrams
 // TODO: implement parallel states in HSCH
 // TODO: implement QuantumLeaps code generator
+// TODO: implement doxygen comments
 
 // global static objects
 bool UMLDesignerFrame::m_fDispatchEvents = true;
