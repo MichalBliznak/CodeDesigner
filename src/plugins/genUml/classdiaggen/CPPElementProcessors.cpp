@@ -31,8 +31,8 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 	wxASSERT(element);
 	if(!element) return;
 	
-	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement( element );
-	if( !pClass->IsGenerated() ) return;
+	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement( element, udfOMIT_LINKS );
+	if( !pClass || !pClass->IsGenerated() ) return;
 	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
@@ -350,7 +350,7 @@ void udCPPEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 	if( pAlg->GetGenMode() == udGenerator::genDECLARATION )
 	{
 		udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-		udEnumElementItem *pEnum = wxDynamicCast( element->GetUserData(), udEnumElementItem );
+		udEnumElementItem *pEnum = (udEnumElementItem*) udPROJECT::GetDiagramElement( element, udfOMIT_LINKS );
 		if( pEnum )
 		{
 			// get enumeration values
@@ -411,7 +411,6 @@ void udCPPIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
 			if( pProcessor )
 			{
 				pProcessor->ProcessElement( pTrgShape );
-				/*pAlg->GetProcessedElements().Append( pTrgShape );*/
 			}
 		}
 	}

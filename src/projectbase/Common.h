@@ -12,6 +12,8 @@ class udDiagElementItem;
 class udGenerator;
 class udProjectItem;
 
+#define udfOMIT_LINKS true
+
 namespace udLABEL
 {
 	enum TYPE
@@ -71,6 +73,12 @@ namespace udLABEL
 namespace udPROJECT
 {
 	/**
+	 * \brief Get parent diagram item of given project item if exists.
+	 * \param element Project item assigned to some shape
+	 * \return Pointer to parent diagram item if exists, otherwise NULL
+	 */
+	WXDLLIMPEXP_CD udDiagramItem* GetParentDiagram(udProjectItem *element);
+	/**
 	 * \brief Get diagram component which is a base parent of given shape object (typicaly used
 	 * if the parent of editable label should be found). Note that returned shape don't has to be
 	 * a direct parent.
@@ -101,9 +109,10 @@ namespace udPROJECT
 	 * \brief Get diagram element owned by given diagram component. Note that if given component is a link
 	 * component, then original diagram element will be returned.
 	 * \param shape Diagram component owning the diagram element 
+	 * \param omitlinks If TRUE then NULL value will be returned for link elements
 	 * \return Pointer to diagram component
 	 */
-	WXDLLIMPEXP_CD udDiagElementItem* GetDiagramElement(wxSFShapeBase *shape);
+	WXDLLIMPEXP_CD udDiagElementItem* GetDiagramElement(wxSFShapeBase *shape, bool omitlinks = false);
 	/**
 	 * \brief Get all diagram elements of given type from specified diagram.
 	 * \param diagram Pointer to diagram item

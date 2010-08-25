@@ -318,6 +318,7 @@ void udGTSubStateProcessor::ProcessElement(wxSFShapeBase *element)
 	if( pSubElement->GetSubDiagram()->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
 	{
 		wxString sRetVar = sFcnCall.BeforeFirst('(').MakeLower().Trim(false) + wxT("_retval");
+		//wxString sRetVar = pLang->MakeValidIdentifier( udLABEL::GetContent(element, udLABEL::ltTITLE) + wxT("_retval") );
 		
 		if( !pLang->Delimiter().IsEmpty() ) sFcnCall.Replace( pLang->Delimiter(), wxT("") );
 		if( pFcn ) pLang->VariableDeclAssignCmd( pFcn->GetDataTypeString(pLang), sRetVar, sFcnCall.Trim().Trim(false) );

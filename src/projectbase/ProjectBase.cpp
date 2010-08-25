@@ -160,6 +160,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udLinkItem, udProjectItem);
 
 udLinkItem::udLinkItem()
 {
+	m_sDescription = wxT("Link description...");
 }
 
 udLinkItem::udLinkItem(const udLinkItem &obj) : udProjectItem( obj )
@@ -192,13 +193,47 @@ udProjectItem* udLinkItem::GetOriginal()
 
 void udLinkItem::OnActivation()
 {
-    udProjectItem *pOriginal = GetOriginal();
-    if( pOriginal ) pOriginal->OnActivation();
+    /*udProjectItem *pOriginal = GetOriginal();
+    if( pOriginal ) pOriginal->OnActivation();*/
+	
+	udDiagramItem *pDiag = udPROJECT::GetParentDiagram(this);
+	
+    if( pDiag )
+	{
+		if( !pDiag->GetDiagramPage() )
+		{
+			pDiag->ShowDiagramPage();
+		}
+		else
+			this->OnEditItem( pDiag->GetDiagramPage() );
+			
+		if( IPluginManager::Get()->IsProjManLinked() ) pDiag->GetDiagramPage()->ScrollToShape((wxSFShapeBase*)GetParent());
+	}
+	
+    OnSelection();
 }
 
 void udLinkItem::OnEditItem(wxWindow* parent)
 {
-	// do nothing
+	/*udProjectItem *pOriginal = GetOriginal();
+    if( pOriginal ) pOriginal->OnEditItem(parent);*/
+	
+	udElementDialog dlg( parent, IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("element_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	
+	dlg.SetTitle( wxT("Link properties") );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+	}
+	
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
 }
 
 /*void udLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
@@ -272,46 +307,63 @@ void udElementLinkItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 void udElementLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
 {
 	udDiagElementItem *pOrig = wxDynamicCast( GetOriginal(), udDiagElementItem );
-	
 	if( !pOrig ) return;
 	
-	// re-create this menu due to possible updates
-	wxMenu *pPopupMenu = pOrig->CreateMenu();
+	/*// re-create this menu due to possible updates
+	wxMenu *pPopupMenu = pOrig->CreateMenu();*/
 	
-	// update element's context menu
-	if( pPopupMenu && parent )
-	{
-		wxSFShapeBase *pShape = wxDynamicCast( GetParent(), wxSFShapeBase );
-		if( pShape &&
-			parent->IsKindOf( CLASSINFO(udDiagramCanvas) ) &&
-			!pShape->GetAcceptedConnections().IsEmpty() )
-		{
-			wxMenu *pSubmenu;
+	const wxString &sAppPath = IPluginManager::Get()->GetResourcesPath();
+	
+	// create popup menu	
+	wxMenu *pPopupMenu = new wxMenu();
+	
+	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, wxID_COPY, wxT("Copy\tCtrl+C"));
+	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_COPY, wxART_MENU));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
+	pPopupMenu->Append(pItem);
 
-			int nCreateID = pPopupMenu->FindItem( wxT("Create") );
-			if( nCreateID == wxNOT_FOUND )
-			{
-				// create new "Create" submenu
-				pSubmenu =  new wxMenu();
-				
-				pPopupMenu->Insert( 0, wxID_ANY, wxT("Create"), pSubmenu );
-				pPopupMenu->InsertSeparator( 1 );
-			}
-			else
-				pSubmenu = pPopupMenu->FindItem( nCreateID )->GetSubMenu();
-				
-			if( pSubmenu->GetMenuItemCount() ) pSubmenu->AppendSeparator();
+	pItem = new wxMenuItem(pPopupMenu, IDM_DELAYED_CUTELEMENT, wxT("Cut\tCtrl+X"));
+	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_CUT, wxART_MENU));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY));
+	pPopupMenu->Append(pItem);
+
+	pPopupMenu->AppendSeparator();
+    pPopupMenu->Append(IDM_DELAYED_EDITELEMENT, wxT("Edit properties..."), wxT("Edit diagram element"));
+
+	pPopupMenu->AppendSeparator();
+    pPopupMenu->Append(IDM_DELAYED_REMOVEELEMENT, wxT("Remove element"), wxT("Remove diagram element"));
+	
+	// update element's context menu in accordance to original element
+	wxSFShapeBase *pShape = wxDynamicCast( GetParent(), wxSFShapeBase );
+	if( pShape &&
+		parent->IsKindOf( CLASSINFO(udDiagramCanvas) ) &&
+		!pShape->GetAcceptedConnections().IsEmpty() )
+	{
+		wxMenu *pSubmenu;
+
+		int nCreateID = pPopupMenu->FindItem( wxT("Create") );
+		if( nCreateID == wxNOT_FOUND )
+		{
+			// create new "Create" submenu
+			pSubmenu =  new wxMenu();
 			
-			pOrig->UpdateSubmenu(pSubmenu, pShape->GetAcceptedConnections(), udfDONT_CLEAR_CONTENT);
+			pPopupMenu->Insert( 0, wxID_ANY, wxT("Create"), pSubmenu );
+			pPopupMenu->InsertSeparator( 1 );
 		}
 		else
-		{
-			pPopupMenu->Insert(0, IDM_DIAG_NAVIGATETO, wxT("Navigate to element"), wxT("Scroll the diagram so the element will be in its center"));
-			pPopupMenu->InsertSeparator(1);
-		}
+			pSubmenu = pPopupMenu->FindItem( nCreateID )->GetSubMenu();
+			
+		if( pSubmenu->GetMenuItemCount() ) pSubmenu->AppendSeparator();
 		
-		parent->PopupMenu(pPopupMenu, pos);
+		pOrig->UpdateSubmenu(pSubmenu, pShape->GetAcceptedConnections(), udfDONT_CLEAR_CONTENT);
 	}
+	else
+	{
+		pPopupMenu->Insert(0, IDM_DIAG_NAVIGATETO, wxT("Navigate to element"), wxT("Scroll the diagram so the element will be in its center"));
+		pPopupMenu->InsertSeparator(1);
+	}
+	
+	parent->PopupMenu(pPopupMenu, pos);
 	
 	delete pPopupMenu;
 }
@@ -1865,18 +1917,6 @@ udDiagElementItem::~udDiagElementItem()
 
 // public functions ////////////////////////////////////////////////////////////////
 
-udDiagramItem* udDiagElementItem::GetParentDiagram()
-{
-    wxSFShapeBase *pParentShape = wxDynamicCast( GetParent(), wxSFShapeBase );
-    if( pParentShape )
-    {
-        udDiagramManager *pManager = wxDynamicCast( pParentShape->GetParentManager(), udDiagramManager );
-        if( pManager ) return (udDiagramItem*) pManager->GetParentProjItem();
-    }
-
-    return NULL;
-}
-
 /*long udDiagElementItem::GetFreeId()
 {
 	long nId = 0;
@@ -2085,7 +2125,7 @@ void udDiagElementItem::UpdateAffectedCodeItems(const wxString& prevname, const 
 
 void udDiagElementItem::OnActivation()
 {
-	udDiagramItem *pDiag = GetParentDiagram();
+	udDiagramItem *pDiag = udPROJECT::GetParentDiagram(this);
 	
     if( pDiag )
 	{
@@ -2197,7 +2237,7 @@ void udDiagElementItem::OnTreeTextChange(const wxString &txt)
 
 bool udDiagElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
 {
-	// if a shift key is pressed down then cancel the operation
+	// if only SHIFT key is pressed down then cancel the operation
 	wxMouseState cState = wxGetMouseState();
 	if( cState.ShiftDown() ) return true;
 	
@@ -2215,22 +2255,40 @@ bool udDiagElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
 
     pLink->SetOrigElement( GetName() );
     pLink->SetOrigDiagram( ((udDiagramManager*)pOrigShape->GetParentManager())->GetParentProjItem()->GetName() );
-	pLink->SetName( GetName() );
+	
+	if( cState.AltDown() && cState.ControlDown() )
+	{
+		// make 'link' name
+		pLink->SetName( pLink->GetOrigDiagram() + wxT(":") + pLink->GetOrigElement() );
+	}
+	else
+		// make standard name
+		pLink->SetName( GetName() );
     //pLink->SetName( wxString::Format(wxT("%d"), udProject::OccurenceCount( pLink->GetOrigDiagram() + wxT(":") + pLink->GetOrigElement() ) + 1) );
 	
 	// create new temporary shape carying dragged data
 	wxSFShapeBase *pShape;
-	if( cState.ControlDown() )
+	// CTRL = make copy
+	
+	// ALT = make link
+	if( cState.AltDown() && cState.ControlDown() )
 	{
-		 // create temporary dragged element
+		// create temporary dragged element
 		pShape = (wxSFShapeBase*)pOrigShape->Clone();
 		pShape->SetId( -1 );
 
-		/*udLABEL::SetContent( pLink->GetName(), pShape, pOrigShape->GetParentManager(), udLABEL::ltTITLE );
+		udLABEL::SetContent( pLink->GetName(), pShape, pOrigShape->GetParentManager(), udLABEL::ltTITLE );
 		// remove original project data and replace it with new link data
 		delete pShape->GetUserData();
-		pShape->SetUserData( pLink );*/
+		pShape->SetUserData( pLink );
 	}
+	else if( cState.ControlDown() )
+	{
+		// create temporary dragged element
+		pShape = (wxSFShapeBase*)pOrigShape->Clone();
+		pShape->SetId( -1 );
+	}
+	// otherwise drop element
 	else
 	{
 		pShape = new uddDnDElement();
@@ -2480,7 +2538,7 @@ void udSubDiagramElementItem::OnActivation()
 
 void udSubDiagramElementItem::OnCreate()
 {
-	udDiagramItem *pParent = GetParentDiagram();
+	udDiagramItem *pParent = udPROJECT::GetParentDiagram(this);
 	if( pParent )
 	{
 		//m_pSubDiagram->SetDiagram( (udDiagramItem*) wxCreateDynamicObject( pParent->GetClassInfo()->GetClassName() ) );
@@ -2503,48 +2561,6 @@ void udSubDiagramElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TY
 
 	// create also name of encapsulated diagram
 	m_pSubDiagram->OnTreeTextChange(m_sName);
-}
-
-bool udSubDiagramElementItem::OnTreeItemBeginDrag(const wxPoint &pos)
-{
-	// if a shift key is pressed down then cancel the operation
-	/*wxMouseState cState = wxGetMouseState();
-	if( cState.ShiftDown() ) return true;
-	
-    wxASSERT(GetParent());
-    if( !GetParent() )return true;
-
-    udDiagramCanvas *pCanvas = IPluginManager::Get()->GetActiveCanvas();
-    if( !pCanvas )return true;
-
-    ShapeList lstDnD;
-    wxSFShapeBase *pOrigShape = (wxSFShapeBase*)GetParent();
-
-    // drop new subdiagram as a linked diagram element
-    udElementLinkItem *pLink = new udElementLinkItem();
-
-    pLink->SetOrigElement( GetName() );
-    pLink->SetOrigDiagram( ((udDiagramManager*)pOrigShape->GetParentManager())->GetParentProjItem()->GetName() );
-    //pLink->SetName( wxString::Format(wxT("%d"), udProject::OccurenceCount( pLink->GetOrigDiagram() + wxT(":") + pLink->GetOrigElement() ) + 1) );
-    pLink->SetName( pLink->GetOrigDiagram() + wxT(":") + pLink->GetOrigElement() );
-
-    // create temporary dragged element
-    wxSFShapeBase *pShape = (wxSFShapeBase*)pOrigShape->Clone();
-    pShape->SetId( -1 );
-
-    udLABEL::SetContent( pLink->GetName(), pShape, pOrigShape->GetParentManager(), udLABEL::ltTITLE );
-    // remove original project data and replace it with new link data
-    delete pShape->GetUserData();
-    pShape->SetUserData( pLink );
-
-    lstDnD.Append( pShape );
-
-    pCanvas->DoDragDrop( lstDnD, Conv2Point(pShape->GetAbsolutePosition()) );
-
-    // delete temporary dragged element
-    delete pShape;*/
-	
-	return udDiagElementItem::OnTreeItemBeginDrag( pos );
 }
 
 // protected functions //////////////////////////////////////////////////////////////
