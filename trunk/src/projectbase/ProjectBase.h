@@ -577,9 +577,6 @@ public:
     udDiagElementItem();
 	udDiagElementItem(const udDiagElementItem &obj);
     virtual ~udDiagElementItem();
-
-    // public functions
-    udDiagramItem* GetParentDiagram();
 	
 	// code items handling
 	void AssignCodeItem(udProjectItem *item);
@@ -630,6 +627,8 @@ public:
     udSubDiagramElementItem();
 	udSubDiagramElementItem(const udSubDiagramElementItem &obj);
     virtual ~udSubDiagramElementItem();
+	
+	udDiagramItem* GetSubDiagram(){return m_pSubDiagram;}
 
 	virtual wxMenu* CreateMenu();
 
@@ -637,9 +636,6 @@ public:
     virtual void OnActivation();
 	virtual void OnTreeTextChange(const wxString& txt);
 	virtual void OnShapeTextChange(const wxString& txt, udLABEL::TYPE type, int id);
-	virtual bool OnTreeItemBeginDrag(const wxPoint& pos);
-
-    udDiagramItem* GetSubDiagram(){return m_pSubDiagram;}
 
 protected:
     udDiagramItem* m_pSubDiagram;

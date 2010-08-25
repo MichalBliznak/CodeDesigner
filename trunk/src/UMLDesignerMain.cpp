@@ -1053,7 +1053,7 @@ bool UMLDesignerFrame::CanRemove(udProjectItem *item)
     {
         // check whether there exist links to this item
         SerializableList lstLinks;
-        udProject::Get()->GetElementLinks(pElement->GetParentDiagram()->GetName(), pElement->GetName(), lstLinks);
+        udProject::Get()->GetElementLinks(udPROJECT::GetParentDiagram(pElement)->GetName(), pElement->GetName(), lstLinks);
         if( lstLinks.GetCount() > 0 )
         {
             if( wxMessageBox(wxString::Format(wxT("Element '%s' is linked by other elements. Do you realy want to remove it?"), item->GetName().c_str()), wxT("CodeDesigner"), wxYES_NO | wxICON_WARNING ) == wxNO )
@@ -1718,13 +1718,12 @@ void UMLDesignerFrame::OnShowDiagram( wxCommandEvent &event )
 
 void UMLDesignerFrame::OnNavigateTo( wxCommandEvent &event )
 {
-	udDiagElementItem *pProjItem = wxDynamicCast( GetSelectedProjectItem(), udDiagElementItem );
+	udProjectItem *pProjItem = GetSelectedProjectItem();
 	
 	if( pProjItem )
 	{
-		udDiagramItem *pDiag = pProjItem->GetParentDiagram();
+		udDiagramItem *pDiag = udPROJECT::GetParentDiagram( pProjItem );
 		
-		//if( !pDiag->GetDiagramPage() ) pDiag->ShowDiagramPage();
 		pDiag->ShowDiagramPage();
 		pDiag->GetDiagramPage()->ScrollToShape( (wxSFShapeBase*)pProjItem->GetParent() );
 	}
@@ -2040,7 +2039,7 @@ void UMLDesignerFrame::OnDropShapes( wxSFShapeDropEvent& event )
 {
     ShapeList lstElements = event.GetDroppedShapes();
 	
-	// remove non-element shapes from a list of droppped shapes
+	// remove non-element shapes from a list of dropped shapes
 	ShapeList::compatibility_iterator node = lstElements.GetFirst();
 	while( node )
 	{

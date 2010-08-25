@@ -30,8 +30,8 @@ void udPyClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 	wxASSERT(element);
 	if(!element) return;
 
-	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement( element );
-	if( !pClass->IsGenerated() ) return;
+	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement( element, udfOMIT_LINKS );
+	if( !pClass || !pClass->IsGenerated() ) return;
 	
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
@@ -217,7 +217,7 @@ void udPyEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 	if( pAlg->GetGenMode() == udGenerator::genDEFINITION )
 	{
 		udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
-		udEnumElementItem *pEnum = wxDynamicCast( element->GetUserData(), udEnumElementItem );
+		udEnumElementItem *pEnum = (udEnumElementItem*) udPROJECT::GetDiagramElement( element, udfOMIT_LINKS );
 		if( pEnum )
 		{
 			// get enumeration values
@@ -230,8 +230,6 @@ void udPyEnumElementProcessor::ProcessElement(wxSFShapeBase *element)
 			}
 			
 			// write enumeration code
-			//pLang->SingleLineCommentCmd( wxT("Enumeration '") + pEnum->GetName() + wxT("'") );
-			
 			pLang->EnumCmd( pLang->MakeValidIdentifier( pEnum->GetName() ), arrValues, pLang->MakeValidIdentifier( pEnum->GetInstanceName() ) );
 			pLang->NewLine();
 		}

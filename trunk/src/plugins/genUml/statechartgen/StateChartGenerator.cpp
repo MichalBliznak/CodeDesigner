@@ -239,7 +239,7 @@ bool udStateChartGenerator::GenerateDefinition(udDiagramItem* src)
 		ShapeList::compatibility_iterator node = lstSubStates.GetFirst();
 		while(node)
 		{
-			pSubElement = (udSubDiagramElementItem*) udPROJECT::GetDiagramElement( node->GetData() );
+			pSubElement = (udSubDiagramElementItem*) udPROJECT::GetDiagramElement( node->GetData(), udfOMIT_LINKS );
 			if(pSubElement)
 			{
 				if( !_Generate(pSubElement->GetSubDiagram()) )

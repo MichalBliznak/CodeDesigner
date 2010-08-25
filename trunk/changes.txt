@@ -1,4 +1,4 @@
-Changes in version 1.2.0 beta (2010-09-19):
+Changes in version 1.2.0 beta (2010-09-24):
 ------------------------------------------------
 - Data type of function parameters is now displayed in diagrams.
 - Added support for Enumeration and Include Association to Python code generator.
@@ -8,6 +8,10 @@ Changes in version 1.2.0 beta (2010-09-19):
   base classes which shouldn't be generated).
 - Fixed code generation to per-diagram-specified output file names.
 - Fixed modification of class constructor's code via properties dialog.
+- Added ability to create diagram element links in diagrams. For example, thanks to this feature
+  classes located in one diagram can be used as a bases in a second one, etc. The links
+  can be created via dragging from Project items tree if CTRL+ALT is pressed down.
+  
 
 Changes in version 1.1.4 beta (2010-07-29):
 ------------------------------------------------

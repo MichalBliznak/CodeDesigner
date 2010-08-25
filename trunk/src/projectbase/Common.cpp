@@ -129,6 +129,22 @@ namespace udLABEL
 
 namespace udPROJECT
 {
+	udDiagramItem* GetParentDiagram(udProjectItem *element)
+	{
+		wxASSERT(element);
+		
+		if( element )
+		{
+			wxSFShapeBase *pParentShape = wxDynamicCast( element->GetParent(), wxSFShapeBase );
+			if( pParentShape )
+			{
+				udDiagramManager *pManager = wxDynamicCast( pParentShape->GetParentManager(), udDiagramManager );
+				if( pManager ) return (udDiagramItem*) pManager->GetParentProjItem();
+			}
+		}
+		return NULL;
+	}
+	
 	wxSFShapeBase* GetParentElement(wxSFShapeBase *child)
 	{
 		wxSFShapeBase *pParent = child;
@@ -136,7 +152,6 @@ namespace udPROJECT
 		{
 			pParent = pParent->GetParentShape();
 		}
-
 		return pParent;
 	}
 	
@@ -171,14 +186,16 @@ namespace udPROJECT
 		return NULL;
 	}
 	
-	udDiagElementItem* GetDiagramElement(wxSFShapeBase *shape)
+	udDiagElementItem* GetDiagramElement(wxSFShapeBase *shape, bool omitlinks)
 	{
 		if( !shape ) return NULL;
 
 		udProjectItem *pElement = wxDynamicCast( shape->GetUserData(), udProjectItem );
 		if( pElement && pElement->IsKindOf( CLASSINFO( udElementLinkItem ) ) )
 		{
-			return (udDiagElementItem*)((udElementLinkItem*)pElement)->GetOriginal();
+			if( !omitlinks ) return (udDiagElementItem*)((udElementLinkItem*)pElement)->GetOriginal();
+			else
+				return NULL;
 		}
 		return (udDiagElementItem*)pElement;
 	}
