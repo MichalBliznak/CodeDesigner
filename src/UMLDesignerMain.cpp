@@ -52,7 +52,6 @@ WX_DEFINE_LIST(ListenerList);
 
 // short term todos:
 //------------------
-// TODO: allow users to used base classes also from different class diagram
 
 // long term todos:
 //-----------------
