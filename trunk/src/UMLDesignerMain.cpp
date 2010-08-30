@@ -53,7 +53,7 @@ WX_DEFINE_LIST(ListenerList);
 // short term todos:
 //------------------
 // TODO: implement doxygen comments
-// TODO: implement re-arrangement of elements in diagram
+// TODO: implement re-arrangement of elements in diagram for code generation (???)
 
 // long term todos:
 //-----------------
