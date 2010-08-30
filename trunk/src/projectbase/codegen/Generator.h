@@ -20,6 +20,28 @@ class udProjectItem;
 class udDiagramItem;
 class udCodeItem;
 
+class WXDLLIMPEXP_CD udCommentDialect : public wxObject
+{
+public:
+	virtual wxString MakeComment(const udProjectItem *obj, const udLanguage *lang);
+};
+
+WX_DECLARE_HASH_MAP( wxString, udCommentDialect*, wxStringHash, wxStringEqual, DialectMap );
+
+class WXDLLIMPEXP_CD udCommentProcessor : public wxObject
+{
+public:
+	virtual wxString MakeComment(const udProjectItem *obj, const udLanguage *lang);
+	
+	void RegisterDialect(const wxString& langtype, udCommentDialect *dialect);
+	void UnregisterDialect(const wxString& langtype);
+	
+protected:
+	DialectMap m_mapDialect;
+};
+
+WX_DECLARE_HASH_MAP( wxString, udCommentProcessor*, wxStringHash, wxStringEqual, CommentMap );
+
 class WXDLLIMPEXP_CD udGenerator : public wxObject
 {
 public:
@@ -60,9 +82,6 @@ public:
     // public functions
     bool Generate(udDiagramItem *src, bool recursive);
 
-    void ClearMark(const wxString& name);
-    void ClearAllMarks();
-    void InsertIntoMark(const wxString& mark, const wxString& content);
 	static wxString GetBeginCodeMark(const udCodeItem *item);
 	static wxString GetEndCodeMark(const udCodeItem *item);
 	
@@ -71,10 +90,16 @@ public:
     wxString MakeIDName(wxSFShapeBase *element);
     wxString MakeIDName(udProjectItem *element);
     wxString MakeValidIdentifier(const wxString& name);
+	
+	static void RegisterCommentProcessor(const wxString& type, udCommentProcessor *processor);
+	static void UnregisterCommentProcessor(const wxString& type);
+	static wxString GetComment(const udProjectItem *obj);
+	static void CleanCommentProcessor();
 
 protected:
     // protected data members
     AlgorithmMap m_mapAlgorithms;
+	static CommentMap m_mapComments;
 
     udLanguage *m_pOutLang;
     udAlgorithm *m_pAlgorithm;

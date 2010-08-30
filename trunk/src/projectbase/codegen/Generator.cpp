@@ -211,3 +211,27 @@ wxString udGenerator::GetEndCodeMark(const udCodeItem *item)
 {
 	return wxString::Format( wxT("['%s::%s' end]"), item->GetScope().c_str(), item->GetName().c_str() );
 }
+
+// code comments ///////////////////////////////////////////////////////////////
+
+void udGenerator::CleanCommentProcessor()
+{
+}
+
+wxString udGenerator::GetComment(const udProjectItem* obj)
+{
+	return wxEmptyString;
+}
+
+void udGenerator::RegisterCommentProcessor(const wxString& type, udCommentProcessor* processor)
+{
+}
+
+void udGenerator::UnregisterCommentProcessor(const wxString& type)
+{
+}
+
+wxString udCommentDialect::MakeComment(const udProjectItem* obj, const udLanguage* lang)
+{
+	return wxEmptyString;
+}

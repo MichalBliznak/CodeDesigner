@@ -90,6 +90,8 @@ public:
 	virtual void UnregisterCodePackage(const wxString& classname);
 	virtual void RegisterCodeGenerator(const udGeneratorInfo& info);
 	virtual void UnregisterCodeGenerator(const udGeneratorInfo& info);
+	virtual void RegisterCommentProcessor(const wxString& type, udCommentProcessor *processor);
+	virtual void UnregisterCommentProcessor(const wxString& type);
 
 	virtual void ConnectDiagramEvents(udDiagramCanvas *diagram, bool enable);
 	virtual void EnableInternalEvents(bool enable);

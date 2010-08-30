@@ -52,6 +52,7 @@ WX_DEFINE_LIST(ListenerList);
 
 // short term todos:
 //------------------
+// TODO: implement doxygen comments
 
 // long term todos:
 //-----------------
@@ -60,7 +61,6 @@ WX_DEFINE_LIST(ListenerList);
 // TODO: design and implement OpenMP diagrams
 // TODO: implement parallel states in HSCH
 // TODO: implement QuantumLeaps code generator
-// TODO: implement doxygen comments
 
 // global static objects
 bool UMLDesignerFrame::m_fDispatchEvents = true;
@@ -432,6 +432,9 @@ UMLDesignerFrame::~UMLDesignerFrame()
 	
 	// clean-up artwork
 	udArt::CleanUp();
+	
+	// clean-up code generator
+	udGenerator::CleanCommentProcessor();
 }
 
 // gui creation /////////////////////////////////////////////////////////////////////

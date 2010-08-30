@@ -11,7 +11,8 @@ Changes in version 1.2.0 beta (2010-09-24):
 - Added ability to create diagram element links in diagrams. For example, thanks to this feature
   classes located in one diagram can be used as a bases in a second one, etc. The links
   can be created via dragging from Project items tree if CTRL+ALT is pressed down.
-  
+- Fixed improper order of generated base class constructor's parameters.
+- Fixed generation of value type sign with user-defined data types.
 
 Changes in version 1.1.4 beta (2010-07-29):
 ------------------------------------------------
