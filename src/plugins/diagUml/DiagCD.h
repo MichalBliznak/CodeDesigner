@@ -284,7 +284,7 @@ protected:
 	StringMap m_mapCallParams;
 	
 	// protected functions
-	wxString GetUpdatedCallParams(const wxString& cons);
+	wxString GetUpdatedCallParams(const wxString& baseclass, const wxString& cons);
 };
 
 class WXDLLIMPEXP_CD udDestructorFunctionItem : public udMemberFunctionItem

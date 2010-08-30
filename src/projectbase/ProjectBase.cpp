@@ -1041,7 +1041,7 @@ wxString udVariableItem::GetDataTypeString(CODEFORMAT format, udLanguage *lang)
 			
 			return sDataType.Trim(false);
 		}
-		else if( lang->HasUserDataType() ) return m_sUserDataType;
+		else if( lang->HasUserDataType() ) return m_sUserDataType + lang->GetValueType( m_nValueType ).Sign();;
 	}
 	
 	return wxEmptyString;

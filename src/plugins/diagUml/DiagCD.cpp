@@ -1548,7 +1548,7 @@ wxString udConstructorFunctionItem::ToString(CODEFORMAT format, udLanguage *lang
 	{
 		arrBases.Add( it->first );
 		
-		arrBasesParams.Add( GetUpdatedCallParams( it->second ) );
+		arrBasesParams.Add( GetUpdatedCallParams( it->first, it->second ) );
 	}
 	
 	switch(format)
@@ -1632,9 +1632,29 @@ void udConstructorFunctionItem::OnEditItem(wxWindow* parent)
 
 // protected functions //////////////////////////////////////////////////////////////
 
-wxString udConstructorFunctionItem::GetUpdatedCallParams(const wxString& cons)
+wxString udConstructorFunctionItem::GetUpdatedCallParams(const wxString& baseclass, const wxString& cons)
 {
 	wxString sOut;
+	
+	udConstructorFunctionItem *pBaseCons = (udConstructorFunctionItem*) IPluginManager::Get()->GetProject()->GetCodeItem( CLASSINFO(udConstructorFunctionItem), cons, baseclass );
+	
+	if( pBaseCons )
+	{
+		udParamItem *pPar = (udParamItem*) pBaseCons->GetFirstChild( CLASSINFO(udParamItem) );
+		while(pPar)
+		{
+			StringMap::iterator it = m_mapCallParams.find( cons + wxT(":") + pPar->GetName() );
+			if( it != m_mapCallParams.end() )
+			{
+				if( !sOut.IsEmpty() ) sOut << wxT(", ");
+				sOut << it->second;
+			}
+			
+			pPar = (udParamItem*) pPar->GetSibbling( CLASSINFO(udParamItem) );
+		}
+	}
+	
+	/*wxString sOut;
 	wxString sConsName;
 	
 	for( StringMap::iterator it = m_mapCallParams.begin(); it != m_mapCallParams.end(); ++it )
@@ -1647,7 +1667,7 @@ wxString udConstructorFunctionItem::GetUpdatedCallParams(const wxString& cons)
 			if( !sOut.IsEmpty() ) sOut << wxT(", ");
 			sOut << it->second;
 		}
-	}
+	}*/
 	
 	return sOut;
 }

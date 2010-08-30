@@ -18,6 +18,7 @@ class IProject;
 class udSettings;
 class udSettingsCategory;
 class GeneratorsArray;
+class udCommentProcessor;
 
 /**
  * \class IPluginManager
@@ -260,6 +261,18 @@ public:
 	 * \sa udGeneratorInfo
 	 */
 	virtual void UnregisterCodeGenerator(const udGeneratorInfo& info) = 0;
+	
+	/**
+	 * \brief Register comment processor for given project item type.
+	 * \param type Project item typw (class name)
+	 * \param processor Pointer to registered comment processor
+	 */
+	virtual void RegisterCommentProcessor(const wxString& type, udCommentProcessor *processor) = 0;
+	/**
+	 * \brief Unregister comment processor for given project item type.
+	 * \param type Project item typw (class name)
+	 */
+	virtual void UnregisterCommentProcessor(const wxString& type) = 0;
 	
 	/**
 	 * \brief Connect/Disconnect diagram events.

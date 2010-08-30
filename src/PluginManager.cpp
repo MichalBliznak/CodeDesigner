@@ -455,3 +455,14 @@ void udPluginManager::AppendPluginsSettings(udSettings& projsettings)
 		}
 	}
 }
+
+void udPluginManager::RegisterCommentProcessor(const wxString& type, udCommentProcessor* processor)
+{
+	udGenerator::RegisterCommentProcessor( type, processor );
+}
+
+void udPluginManager::UnregisterCommentProcessor(const wxString& type)
+{
+	udGenerator::UnregisterCommentProcessor( type );
+}
+
