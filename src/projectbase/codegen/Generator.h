@@ -93,7 +93,7 @@ public:
 	
 	static void RegisterCommentProcessor(const wxString& type, udCommentProcessor *processor);
 	static void UnregisterCommentProcessor(const wxString& type);
-	static wxString GetComment(const udProjectItem *obj);
+	static wxString GetComment(const udProjectItem *obj, const udLanguage *lang);
 	static void CleanCommentProcessor();
 
 protected:
