@@ -2,6 +2,7 @@
 #include "ProjectBase.h"
 
 unsigned long udGenerator::m_nIDCounter = 0;
+CommentMap udGenerator::m_mapComments;
 
 udGenerator::udGenerator()
 {
@@ -216,22 +217,95 @@ wxString udGenerator::GetEndCodeMark(const udCodeItem *item)
 
 void udGenerator::CleanCommentProcessor()
 {
+	for( CommentMap::iterator it = m_mapComments.begin(); it != m_mapComments.end(); ++it )
+	{
+		delete it->second;
+	}
+	m_mapComments.clear();
 }
 
-wxString udGenerator::GetComment(const udProjectItem* obj)
+wxString udGenerator::GetComment(const udProjectItem* obj, const udLanguage *lang)
 {
+	wxASSERT( obj );
+	
+	if( obj )
+	{
+		udCommentProcessor *pProcessor = m_mapComments[ obj->GetClassInfo()->GetClassName() ];
+		if( pProcessor )
+		{
+			return pProcessor->MakeComment( obj, lang );
+		}
+	}
+	
 	return wxEmptyString;
 }
 
 void udGenerator::RegisterCommentProcessor(const wxString& type, udCommentProcessor* processor)
 {
+	wxASSERT( processor );
+	
+	if( processor )
+	{
+		UnregisterCommentProcessor( type );
+		m_mapComments[type] = processor;
+	}
 }
 
 void udGenerator::UnregisterCommentProcessor(const wxString& type)
 {
+	if( m_mapComments.find( type ) != m_mapComments.end() )
+	{
+		delete m_mapComments[ type ];
+		m_mapComments.erase( type );
+	}
+}
+
+wxString udCommentProcessor::MakeComment(const udProjectItem* obj, const udLanguage* lang)
+{
+	wxASSERT( obj );
+	wxASSERT( lang );
+	
+	if( obj && lang )
+	{
+		udCommentDialect *pDialect = m_mapDialect[ lang->GetClassInfo()->GetClassName() ];
+		if( pDialect )
+		{
+			return pDialect->MakeComment( obj, lang );
+		}
+	}
+	
+	return wxEmptyString;
+}
+
+void udCommentProcessor::RegisterDialect(const wxString& langtype, udCommentDialect* dialect)
+{
+	wxASSERT( dialect );
+	
+	if( dialect )
+	{
+		UnregisterDialect( langtype );
+		m_mapDialect[ langtype ] = dialect;
+	}
+}
+
+void udCommentProcessor::UnregisterDialect(const wxString& langtype)
+{
+	if( m_mapDialect.find( langtype ) != m_mapDialect.end() )
+	{
+		delete m_mapDialect[ langtype ];
+		m_mapDialect.erase( langtype );
+	}
 }
 
 wxString udCommentDialect::MakeComment(const udProjectItem* obj, const udLanguage* lang)
 {
+	wxASSERT( obj );
+	wxASSERT( lang );
+	
+	if( obj && lang )
+	{
+		return this->MakeComment( obj, lang );
+	}
+	
 	return wxEmptyString;
 }
