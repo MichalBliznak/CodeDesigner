@@ -159,6 +159,9 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 		{
 			if( pPrevType && ((*it)->GetClassInfo() != pPrevType) ) pLang->NewLine();
 			
+			// generate comment
+			pLang->WriteCodeBlocks( udGenerator::GetComment( ((udCodeLinkItem*)*it)->GetOriginal(), pLang ) );
+			// generate function decl
 			pLang->WriteCodeBlocks( ((udCodeLinkItem*)*it)->ToString( udCodeItem::cfDECLARATION, pLang ) );
 			
 			pPrevType = (*it)->GetClassInfo();

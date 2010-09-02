@@ -12,8 +12,8 @@ public:
     virtual ~udCPPLanguage();
 
     // public virtual functions
-    virtual wxString True(){return wxT("true");}
-    virtual wxString False(){return wxT("false");}
+    virtual wxString True() const {return wxT("true");}
+    virtual wxString False() const {return wxT("false");}
 	
 	virtual wxString ImplExt(){return wxT(".cpp");}
 	virtual wxString DeclExt(){return wxT(".h");}

@@ -131,23 +131,23 @@ public:
 	void WriteCodeBlocks(const wxString& code);
 
     // public virtual functions
-    virtual wxString MakeValidIdentifier(const wxString& name){return name;}
+    virtual wxString MakeValidIdentifier(const wxString& name) const {return name;}
 
-    virtual wxString NullValue(){return wxT("");}
-    virtual wxString NullPointer(){return wxT("");}
-    virtual wxString True(){return wxT("");}
-    virtual wxString False(){return wxT("");}
-    virtual wxString Delimiter(){return wxT("");}
-    virtual wxString This(){return wxT("");}
-	virtual wxString Dummy(){return wxT("");}
+    virtual wxString NullValue() const {return wxT("");}
+    virtual wxString NullPointer() const {return wxT("");}
+    virtual wxString True() const {return wxT("");}
+    virtual wxString False() const {return wxT("");}
+    virtual wxString Delimiter() const {return wxT("");}
+    virtual wxString This() const {return wxT("");}
+	virtual wxString Dummy() const {return wxT("");}
 
-    virtual wxString And(){return wxT("");}
-    virtual wxString Or(){return wxT("");}
-    virtual wxString Not(){return wxT("");}
-    virtual wxString Equal(){return wxT("");}
-    virtual wxString NotEqual(){return wxT("");}
-    virtual wxString Less(){return wxT("");}
-    virtual wxString More(){return wxT("");}
+    virtual wxString And() const {return wxT("");}
+    virtual wxString Or() const {return wxT("");}
+    virtual wxString Not() const {return wxT("");}
+    virtual wxString Equal() const {return wxT("");}
+    virtual wxString NotEqual() const {return wxT("");}
+    virtual wxString Less() const {return wxT("");}
+    virtual wxString More() const {return wxT("");}
 
     virtual wxString GetCommented(const wxString& txt){return wxT("");}
 

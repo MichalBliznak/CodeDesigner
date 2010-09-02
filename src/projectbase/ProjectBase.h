@@ -24,6 +24,7 @@
 #include "shapes/RoundRectElement.h"
 
 #include "codegen/Language.h"
+#include "codegen/CommentProcessors.h"
 
 BEGIN_DECLARE_EVENT_TYPES()
 	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_ITEM_ADDED, wxID_ANY )

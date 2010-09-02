@@ -1,4 +1,5 @@
 #include "codegen/Generator.h"
+#include "codegen/CommentProcessors.h"
 #include "ProjectBase.h"
 
 unsigned long udGenerator::m_nIDCounter = 0;
@@ -213,9 +214,17 @@ wxString udGenerator::GetEndCodeMark(const udCodeItem *item)
 	return wxString::Format( wxT("['%s::%s' end]"), item->GetScope().c_str(), item->GetName().c_str() );
 }
 
+void udGenerator::InitAllStdCommentProcessors()
+{
+	// TODO: implement 'InitAllStdCommentProcessors'
+	
+	RegisterCommentProcessor( wxT("udGenericFunctionItem"), new udFunctionComment() );
+	RegisterCommentProcessor( wxT("udGenericVariableItem"), new udVariableComment() );
+}
+
 // code comments ///////////////////////////////////////////////////////////////
 
-void udGenerator::CleanCommentProcessor()
+void udGenerator::CleanCommentProcessors()
 {
 	for( CommentMap::iterator it = m_mapComments.begin(); it != m_mapComments.end(); ++it )
 	{
@@ -224,16 +233,22 @@ void udGenerator::CleanCommentProcessor()
 	m_mapComments.clear();
 }
 
-wxString udGenerator::GetComment(const udProjectItem* obj, const udLanguage *lang)
+wxString udGenerator::GetComment(const udProjectItem* obj, udLanguage *lang)
 {
 	wxASSERT( obj );
 	
 	if( obj )
 	{
-		udCommentProcessor *pProcessor = m_mapComments[ obj->GetClassInfo()->GetClassName() ];
-		if( pProcessor )
+		// check whether code comments are enabled
+		udSettings &Settings = IPluginManager::Get()->GetProjectSettings();
+		if( Settings.GetProperty( wxT("Generate code descriptions") )->AsBool() )
 		{
-			return pProcessor->MakeComment( obj, lang );
+			// find appropriate comment processor and make a comment
+			udCommentProcessor *pProcessor = m_mapComments[ obj->GetClassInfo()->GetClassName() ];
+			if( pProcessor )
+			{
+				return pProcessor->MakeComment( obj, lang );
+			}
 		}
 	}
 	
@@ -260,7 +275,7 @@ void udGenerator::UnregisterCommentProcessor(const wxString& type)
 	}
 }
 
-wxString udCommentProcessor::MakeComment(const udProjectItem* obj, const udLanguage* lang)
+wxString udCommentProcessor::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
 	wxASSERT( lang );
@@ -297,15 +312,3 @@ void udCommentProcessor::UnregisterDialect(const wxString& langtype)
 	}
 }
 
-wxString udCommentDialect::MakeComment(const udProjectItem* obj, const udLanguage* lang)
-{
-	wxASSERT( obj );
-	wxASSERT( lang );
-	
-	if( obj && lang )
-	{
-		return this->MakeComment( obj, lang );
-	}
-	
-	return wxEmptyString;
-}

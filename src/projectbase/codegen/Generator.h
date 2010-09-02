@@ -23,7 +23,7 @@ class udCodeItem;
 class WXDLLIMPEXP_CD udCommentDialect : public wxObject
 {
 public:
-	virtual wxString MakeComment(const udProjectItem *obj, const udLanguage *lang);
+	virtual wxString MakeComment(const udProjectItem *obj, udLanguage *lang) = 0;
 };
 
 WX_DECLARE_HASH_MAP( wxString, udCommentDialect*, wxStringHash, wxStringEqual, DialectMap );
@@ -31,7 +31,7 @@ WX_DECLARE_HASH_MAP( wxString, udCommentDialect*, wxStringHash, wxStringEqual, D
 class WXDLLIMPEXP_CD udCommentProcessor : public wxObject
 {
 public:
-	virtual wxString MakeComment(const udProjectItem *obj, const udLanguage *lang);
+	virtual wxString MakeComment(const udProjectItem *obj, udLanguage *lang);
 	
 	void RegisterDialect(const wxString& langtype, udCommentDialect *dialect);
 	void UnregisterDialect(const wxString& langtype);
@@ -93,8 +93,9 @@ public:
 	
 	static void RegisterCommentProcessor(const wxString& type, udCommentProcessor *processor);
 	static void UnregisterCommentProcessor(const wxString& type);
-	static wxString GetComment(const udProjectItem *obj, const udLanguage *lang);
-	static void CleanCommentProcessor();
+	static wxString GetComment(const udProjectItem *obj, udLanguage *lang);
+	static void CleanCommentProcessors();
+	static void InitAllStdCommentProcessors();
 
 protected:
     // protected data members

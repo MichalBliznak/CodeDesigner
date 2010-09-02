@@ -124,6 +124,9 @@ bool udStateChartGenerator::GenerateCommonDeclaration()
 				udFunctionItem *pFcn = (udFunctionItem*) pCodeItem;
 				if( pFcn->GetImplementation() == uddvFUNCTION_USERIMPLEMENTATION )
 				{
+					// generate comment if exists
+					m_pOutLang->WriteCodeBlocks( GetComment( pFcn, m_pOutLang ) );
+					// generate function decl
 					m_pOutLang->WriteCodeBlocks( pCodeItem->ToString( udCodeItem::cfDECLARATION, m_pOutLang) );
 				}
 			}
@@ -203,11 +206,17 @@ bool udStateChartGenerator::GenerateDeclaration(udDiagramItem* src)
 		// generate IDs (if suitable)
 		if( m_pOutLang->HasSeparatedDecl() ) GenerateIDs( src );
 		
-		udFunctionItem *pFcn =IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( src );
+		udFunctionItem *pFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( src );
 		if( pFcn )
 		{
 			// class member functions are declared at other place (in the class declaration)
-			if( !pFcn->IsKindOf(CLASSINFO(udMemberFunctionItem)) || !m_pOutLang->HasSeparatedDecl() ) m_pOutLang->WriteCodeBlocks( pFcn->ToString( udCodeItem::cfDECLARATION, m_pOutLang) );
+			if( !pFcn->IsKindOf(CLASSINFO(udMemberFunctionItem)) || !m_pOutLang->HasSeparatedDecl() )
+			{
+				// generate comment if exists
+				m_pOutLang->WriteCodeBlocks( GetComment( pFcn, m_pOutLang ) );
+				// generate function decl
+				m_pOutLang->WriteCodeBlocks( pFcn->ToString( udCodeItem::cfDECLARATION, m_pOutLang) );
+			}
 		}
 		else
 		{
