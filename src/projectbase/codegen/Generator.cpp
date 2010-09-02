@@ -3,6 +3,8 @@
 #include "ProjectBase.h"
 
 unsigned long udGenerator::m_nIDCounter = 0;
+bool udGenerator::m_fComments = false;
+
 CommentMap udGenerator::m_mapComments;
 
 udGenerator::udGenerator()
@@ -47,6 +49,10 @@ bool udGenerator::Initialize()
     {
         if(!m_pAlgorithm->GetParentGenerator()) m_pAlgorithm->SetParentGenerator(this);
     }
+	
+	// check whether code comments are enabled
+	udSettings &Settings = IPluginManager::Get()->GetProjectSettings();
+	m_fComments = Settings.GetProperty( wxT("Generate code descriptions") )->AsBool();
 
     return true;
 }
@@ -239,9 +245,7 @@ wxString udGenerator::GetComment(const udProjectItem* obj, udLanguage *lang)
 	
 	if( obj )
 	{
-		// check whether code comments are enabled
-		udSettings &Settings = IPluginManager::Get()->GetProjectSettings();
-		if( Settings.GetProperty( wxT("Generate code descriptions") )->AsBool() )
+		if( m_fComments )
 		{
 			// find appropriate comment processor and make a comment
 			udCommentProcessor *pProcessor = m_mapComments[ obj->GetClassInfo()->GetClassName() ];
