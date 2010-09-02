@@ -66,7 +66,7 @@ udCLanguage::~udCLanguage()
 {
 }
 
-wxString udCLanguage::MakeValidIdentifier(const wxString& name)
+wxString udCLanguage::MakeValidIdentifier(const wxString& name) const
 {
     wxChar zn;
     wxString out;
@@ -224,21 +224,25 @@ void udCLanguage::InfiniteLoopCmd()
 
 void udCLanguage::MultiLineCommentCmd(const wxString& msg)
 {
+	bool fFirstLine = true;
+	
     wxStringTokenizer tkz(msg, wxT("\n"));
 
     Indent();
     m_sOutBuffer << wxT("/*");
-    NewLine();
 
     while ( tkz.HasMoreTokens() )
     {
         Indent();
-        m_sOutBuffer << wxT(" ") << tkz.GetNextToken();
+		if( !fFirstLine ) m_sOutBuffer << wxT(" *");
+		else
+			fFirstLine = false;
+        m_sOutBuffer << tkz.GetNextToken();
         NewLine();
     }
 
     Indent();
-    m_sOutBuffer << wxT("*/");
+    m_sOutBuffer << wxT(" */");
     NewLine();
 }
 

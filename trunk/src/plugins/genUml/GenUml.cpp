@@ -71,7 +71,13 @@ int udUmlGeneratorPlugin::OnExit()
 	m_PluginManager->UnregisterFriendlyName( wxT("classname"), wxT("udElifAlgorithm") );
 	m_PluginManager->UnregisterFriendlyName( wxT("classname"), wxT("udCPPClassAlgorithm") );
 	m_PluginManager->UnregisterFriendlyName( wxT("classname"), wxT("udPythonClassAlgorithm") );
-
+	
+	// unregister comment processors
+	m_PluginManager->UnregisterCommentProcessor( wxT("udActionItem") );
+	m_PluginManager->UnregisterCommentProcessor( wxT("udConditionItem") );
+	m_PluginManager->UnregisterCommentProcessor( wxT("udMemberFunctionItem") );
+	m_PluginManager->UnregisterCommentProcessor( wxT("udMemberDataItem") );
+	m_PluginManager->UnregisterCommentProcessor( wxT("udConstructorFunctionItem") );
 
 	return 0;
 }
@@ -92,6 +98,14 @@ bool udUmlGeneratorPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udElifAlgorithm"), wxT("Else-If algorithm") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udCPPClassAlgorithm"), wxT("Class algorithm for C++") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udPythonClassAlgorithm"), wxT("Class algorithm for Python") );
+	
+	// register comment processors
+	m_PluginManager->RegisterCommentProcessor( wxT("udActionItem"), new udFunctionComment() );
+	m_PluginManager->RegisterCommentProcessor( wxT("udConditionItem"), new udFunctionComment() );
+	m_PluginManager->RegisterCommentProcessor( wxT("udMemberFunctionItem"), new udFunctionComment() );
+	m_PluginManager->RegisterCommentProcessor( wxT("udMemberDataItem"), new udVariableComment() );
+	m_PluginManager->RegisterCommentProcessor( wxT("udConstructorFunctionItem"), new udFunctionComment() );
+	
 	
 	// register plugin settings
 	m_PluginManager->RegisterSettings( new udStateChartCategory(), IPluginManager::settingsPROJECT );

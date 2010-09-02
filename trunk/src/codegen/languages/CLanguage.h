@@ -12,24 +12,24 @@ public:
     virtual ~udCLanguage();
 
     // public virtual functions
-    virtual wxString MakeValidIdentifier(const wxString& name);
+    virtual wxString MakeValidIdentifier(const wxString& name) const;
 
-    virtual wxString NullValue(){return wxT("0");}
-    virtual wxString NullPointer(){return wxT("NULL");}
-    virtual wxString True(){return wxT("1");}
-    virtual wxString False(){return wxT("0");}
-	virtual wxString Delimiter(){return wxT(";");}
-	virtual wxString Dummy(){return wxT("// dummy code");}
-	virtual wxString ImplExt(){return wxT(".c");}
-	virtual wxString DeclExt(){return wxT(".h");}
+    virtual wxString NullValue() const {return wxT("0");}
+    virtual wxString NullPointer() const {return wxT("NULL");}
+    virtual wxString True() const {return wxT("1");}
+    virtual wxString False() const {return wxT("0");}
+	virtual wxString Delimiter() const {return wxT(";");}
+	virtual wxString Dummy() const {return wxT("// dummy code");}
+	virtual wxString ImplExt() const {return wxT(".c");}
+	virtual wxString DeclExt() const {return wxT(".h");}
 
-    virtual wxString And(){return wxT("&&");}
-    virtual wxString Or(){return wxT("||");}
-    virtual wxString Not(){return wxT("!");}
-    virtual wxString Equal(){return wxT("==");}
-    virtual wxString NotEqual(){return wxT("!=");}
-    virtual wxString Less(){return wxT("<");}
-    virtual wxString More(){return wxT(">");}
+    virtual wxString And() const {return wxT("&&");}
+    virtual wxString Or() const {return wxT("||");}
+    virtual wxString Not() const {return wxT("!");}
+    virtual wxString Equal() const {return wxT("==");}
+    virtual wxString NotEqual() const {return wxT("!=");}
+    virtual wxString Less() const {return wxT("<");}
+    virtual wxString More() const {return wxT(">");}
 
     virtual wxString GetCommented(const wxString& txt);
 	

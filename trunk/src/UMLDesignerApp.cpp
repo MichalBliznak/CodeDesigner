@@ -90,6 +90,9 @@ bool UMLDesignerApp::OnInit()
     m_mapProjGenerators[wxT("udCLanguage")] = new udCProjectGenerator();
     m_mapProjGenerators[wxT("udCPPLanguage")] = new udCProjectGenerator();
     m_mapProjGenerators[wxT("udPythonLanguage")] = new udPythonProjectGenerator();
+	
+	// initialize common comment generators
+	udGenerator::InitAllStdCommentProcessors();
 		
 	// initialize projects
 	m_pProject = new udProject();

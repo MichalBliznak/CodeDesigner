@@ -37,7 +37,7 @@ udPythonLanguage::~udPythonLanguage()
 {
 }
 
-wxString udPythonLanguage::MakeValidIdentifier(const wxString& name)
+wxString udPythonLanguage::MakeValidIdentifier(const wxString& name) const
 {
     wxChar zn;
     wxString out;

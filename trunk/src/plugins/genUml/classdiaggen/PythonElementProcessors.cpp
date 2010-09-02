@@ -118,6 +118,9 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				
 				pVar = (udVariableItem*)((udCodeLinkItem*)*it)->GetOriginal();
 				
+				// generate comment
+				pLang->WriteCodeBlocks( udGenerator::GetComment( pVar, pLang ) );
+				// generate variable
 				sOut = pVar->ToString( udCodeItem::cfDECLARATION, pLang );
 				if( nAccessType != udLanguage::AT_PUBLIC ) sOut.Replace( pLang->MakeValidIdentifier(pVar->GetName()), wxT("__") + pLang->MakeValidIdentifier(pVar->GetName()) );
 				if( pVar->GetDataModifer() != udLanguage::DM_STATIC ) sOut = wxT("self.") + sOut;
@@ -152,6 +155,9 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				
 				pFcn = (udFunctionItem*)((udCodeLinkItem*)*it)->GetOriginal();
 				
+				// generate comment
+				pLang->WriteCodeBlocks( udGenerator::GetComment( pFcn, pLang ) );
+				// generate function
 				sOut = pFcn->ToString( udCodeItem::cfDECLARATION, pLang );
 				if( nAccessType != udLanguage::AT_PUBLIC ) sOut.Replace( pLang->MakeValidIdentifier(pFcn->GetName()), wxT("__") + pLang->MakeValidIdentifier(pFcn->GetName()) );
 				

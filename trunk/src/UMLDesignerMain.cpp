@@ -435,7 +435,7 @@ UMLDesignerFrame::~UMLDesignerFrame()
 	udArt::CleanUp();
 	
 	// clean-up code generator
-	udGenerator::CleanCommentProcessor();
+	udGenerator::CleanCommentProcessors();
 }
 
 // gui creation /////////////////////////////////////////////////////////////////////
