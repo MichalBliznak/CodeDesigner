@@ -118,6 +118,7 @@ protected:
 	GENMODE m_nMode;
 	
 	bool m_fRecursive;
+	static bool m_fComments;
 	static unsigned long m_nIDCounter;
 
     // protected functions

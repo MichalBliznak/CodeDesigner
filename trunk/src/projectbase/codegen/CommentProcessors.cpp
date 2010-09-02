@@ -45,9 +45,9 @@ wxString udFunctionCDialect::MakeComment(const udProjectItem* obj, udLanguage* l
 			}
 			
 			// generate 'return' section
-			if( pFcn->GetRetValDataType() == udLanguage::DT_USERDEFINED && !pFcn->GetUserRetValDataType().IsEmpty() )
+			if( pFcn->GetRetValDataType() == udLanguage::DT_USERDEFINED )
 			{
-				sComment << wxT(" \\return ") << lang->GetValueType( pFcn->GetRetValType() ).Name() << wxT(" of type ") << pFcn->GetUserRetValDataType();
+				if( !pFcn->GetUserRetValDataType().IsEmpty() ) sComment << wxT(" \\return ") << lang->GetValueType( pFcn->GetRetValType() ).Name() << wxT(" of type ") << pFcn->GetUserRetValDataType();
 			}
 			else if( pFcn->GetRetValDataType() != udLanguage::DT_VOID )
 			{
