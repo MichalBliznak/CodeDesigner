@@ -160,6 +160,9 @@ int UMLDesignerApp::OnExit()
     }
     m_mapProjGenerators.clear();
 	
+	// clean-up code generator
+	udGenerator::CleanCommentProcessors();
+	
 	// store settings
 	m_Settings.SerializeToXml( udvSETTINGS_PATH );
 	m_Settings.RemoveAll();
