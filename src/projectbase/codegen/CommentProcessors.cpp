@@ -5,18 +5,16 @@
 
 udFunctionComment::udFunctionComment()
 {
-	RegisterDialect( wxT("udCLanguage"), new udFunctionCDialect() );
-	RegisterDialect( wxT("udCPPLanguage"), new udFunctionCDialect() );
-	RegisterDialect( wxT("udPythonLanguage"), new udFunctionPythonDialect() );
+	RegisterDialect( wxT("udCLanguage"), new udCDialect() );
+	RegisterDialect( wxT("udCPPLanguage"), new udCDialect() );
+	RegisterDialect( wxT("udPythonLanguage"), new udPythonDialect() );
 }
 
-wxString udFunctionCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
+wxString udFunctionComment::udCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
 	wxASSERT( lang );
-	
-	wxString sOut;
-	
+
 	if( obj && lang )
 	{
 		// generate doxygen comments for given function
@@ -24,10 +22,6 @@ wxString udFunctionCDialect::MakeComment(const udProjectItem* obj, udLanguage* l
 		if( pFcn )
 		{
 			wxString sComment;
-			
-			int nIndent = lang->GetIndentation();
-			lang->SetIndentation( 0 );
-			lang->PushCode();
 			
 			sComment << wxT("!") << ENDL;
 			// generate 'brief' section
@@ -56,18 +50,14 @@ wxString udFunctionCDialect::MakeComment(const udProjectItem* obj, udLanguage* l
 			
 			sComment << ENDL;
 			
-			lang->MultiLineCommentCmd( sComment );
-			sOut = lang->GetCodeBuffer();
-			
-			lang->PopCode();
-			lang->SetIndentation( nIndent );
+			return WrapComment( sComment, lang );
 		}
 	}
 	
-	return sOut;
+	return wxEmptyString;
 }
 
-wxString udFunctionPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
+wxString udFunctionComment::udPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
 	wxASSERT( lang );
@@ -82,10 +72,6 @@ wxString udFunctionPythonDialect::MakeComment(const udProjectItem* obj, udLangua
 		{
 			wxString sComment;
 			
-			int nIndent = lang->GetIndentation();
-			lang->SetIndentation( 0 );
-			lang->PushCode();
-			
 			// generate 'brief' section
 			sComment << pFcn->GetDescription() << ENDL;
 			
@@ -95,75 +81,66 @@ wxString udFunctionPythonDialect::MakeComment(const udProjectItem* obj, udLangua
 			{
 				udParamItem *pPar = (udParamItem*) it->GetData();
 				
-				sComment << wxT("  Parameter:") << lang->MakeValidIdentifier( pPar->GetName() ) << wxT(" ") << pPar->GetDescription() << ENDL;
+				sComment << wxT("  Param: ") << lang->MakeValidIdentifier( pPar->GetName() ) << wxT(" - ") << pPar->GetDescription() << ENDL;
 				
 				it = it->GetNext();
 			}
 			
 			sComment << ENDL;
 			
-			lang->MultiLineCommentCmd( sComment );
-			sOut = lang->GetCodeBuffer();
-			
-			lang->PopCode();
-			lang->SetIndentation( nIndent );
+			return WrapComment( sComment, lang );
 		}
 	}
 	
-	return sOut;
+	return wxEmptyString;
 }
 
 // variable comments ///////////////////////////////////////////////////////////
 
 udVariableComment::udVariableComment()
 {
-	RegisterDialect( wxT("udCLanguage"), new udVariableCDialect() );
-	RegisterDialect( wxT("udCPPLanguage"), new udVariableCDialect() );
-	RegisterDialect( wxT("udPythonLanguage"), new udVariablePythonDialect() );
+	RegisterDialect( wxT("udCLanguage"), new udCDialect() );
+	RegisterDialect( wxT("udCPPLanguage"), new udCDialect() );
+	RegisterDialect( wxT("udPythonLanguage"), new udPythonDialect() );
 }
 
-wxString udVariableCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
+wxString udVariableComment::udCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
-	wxASSERT( lang );
-
-	wxString sOut;
 	
-	if( obj && lang )
+	if( obj )
 	{
-		int nIndent = lang->GetIndentation();
-		lang->SetIndentation( 0 );
-		lang->PushCode();
-		
-		lang->MultiLineCommentCmd( wxT("! \\brief ") + obj->GetDescription() );
-		sOut = lang->GetCodeBuffer();
-		
-		lang->PopCode();
-		lang->SetIndentation( nIndent );
+		return WrapComment( wxT("! \\brief ") + obj->GetDescription(), lang );
 	}
-	
-	return sOut;
+	else
+		return wxEmptyString;
 }
 
-wxString udVariablePythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
+wxString udVariableComment::udPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
-	wxASSERT( lang );
 
-	wxString sOut;
-	
-	if( obj && lang )
+	if( obj )
 	{
-		int nIndent = lang->GetIndentation();
-		lang->SetIndentation( 0 );
-		lang->PushCode();
-		
-		lang->MultiLineCommentCmd( obj->GetDescription() );
-		sOut = lang->GetCodeBuffer();
-		
-		lang->PopCode();
-		lang->SetIndentation( nIndent );
+		return WrapComment( obj->GetDescription(), lang );
 	}
-	
-	return sOut;
+	else
+		return wxEmptyString;
+}
+
+// class comments //////////////////////////////////////////////////////////////
+
+udClassComment::udClassComment()
+{
+	RegisterDialect( wxT("udCLanguage"), new udCDialect() );
+	RegisterDialect( wxT("udCPPLanguage"), new udCDialect() );
+	RegisterDialect( wxT("udPythonLanguage"), new udPythonDialect() );
+}
+
+wxString udClassComment::udCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
+{
+}
+
+wxString udClassComment::udPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
+{
 }
