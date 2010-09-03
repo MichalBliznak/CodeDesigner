@@ -139,8 +139,24 @@ udClassComment::udClassComment()
 
 wxString udClassComment::udCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
+	wxASSERT( obj );
+	
+	if( obj )
+	{
+		return WrapComment( wxT("! \\brief ") + obj->GetDescription(), lang );
+	}
+	else
+		return wxEmptyString;
 }
 
 wxString udClassComment::udPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
+	wxASSERT( obj );
+
+	if( obj )
+	{
+		return WrapComment( obj->GetDescription(), lang );
+	}
+	else
+		return wxEmptyString;
 }

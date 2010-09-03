@@ -34,6 +34,8 @@ WX_DECLARE_HASH_MAP( wxString, udCommentDialect*, wxStringHash, wxStringEqual, D
 class WXDLLIMPEXP_CD udCommentProcessor : public wxObject
 {
 public:
+	virtual ~udCommentProcessor();
+	
 	virtual wxString MakeComment(const udProjectItem *obj, udLanguage *lang);
 	
 	void RegisterDialect(const wxString& langtype, udCommentDialect *dialect);

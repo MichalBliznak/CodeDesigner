@@ -77,9 +77,14 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 		sBases << pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(*it)->GetName() );
 	}
 	
-	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(element)->GetName() ), sBases );
+	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement(element);
+	// generate class declaration
+	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( pClass->GetName() ), sBases );
 	
 	pLang->BeginCmd();
+	
+	//generate comment if requested
+	pLang->WriteCodeBlocks( udGenerator::GetComment( pClass, pLang) );
 	
 	int nAccessType = 0;
 	wxClassInfo *pPrevType;
@@ -155,14 +160,15 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				
 				pFcn = (udFunctionItem*)((udCodeLinkItem*)*it)->GetOriginal();
 				
-				// generate comment
-				pLang->WriteCodeBlocks( udGenerator::GetComment( pFcn, pLang ) );
 				// generate function
 				sOut = pFcn->ToString( udCodeItem::cfDECLARATION, pLang );
 				if( nAccessType != udLanguage::AT_PUBLIC ) sOut.Replace( pLang->MakeValidIdentifier(pFcn->GetName()), wxT("__") + pLang->MakeValidIdentifier(pFcn->GetName()) );
 				
 				pLang->WriteCodeBlocks( sOut );
 				pLang->BeginCmd();
+				// generate comment
+				pLang->WriteCodeBlocks( udGenerator::GetComment( pFcn, pLang ) );
+				
 				if( pFcn->GetImplementation() == uddvFUNCTION_USERIMPLEMENTATION )
 				{
 					if( pFcn->GetCode().IsEmpty() ) pLang->WriteCodeBlocks( pLang->Dummy() );
