@@ -279,6 +279,15 @@ void udGenerator::UnregisterCommentProcessor(const wxString& type)
 	}
 }
 
+udCommentProcessor::~udCommentProcessor()
+{
+	for( DialectMap::iterator it = m_mapDialect.begin(); it != m_mapDialect.end(); ++it )
+	{
+		delete it->second;
+	}
+	m_mapDialect.clear();
+}
+
 wxString udCommentProcessor::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );

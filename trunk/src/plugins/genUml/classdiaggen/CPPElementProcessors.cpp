@@ -117,14 +117,20 @@ void udCPPClassElementProcessor::ProcessClassDeclaration(wxSFShapeBase* element)
 		}
 	}
 	
+	udClassElementItem *pClass = (udClassElementItem*) udPROJECT::GetDiagramElement(element);
+	
+	//generate comment if requested
+	pLang->WriteCodeBlocks( udGenerator::GetComment( pClass, pLang) );
+	
 	// write template definition if needed
-	udClassTemplateElementItem *pClassTempl = wxDynamicCast( udPROJECT::GetDiagramElement(element), udClassTemplateElementItem );
+	udClassTemplateElementItem *pClassTempl = wxDynamicCast( pClass, udClassTemplateElementItem );
 	if( pClassTempl )
 	{
 		pLang->WriteCodeBlocks( wxT("template <typename ") + pClassTempl->GetTemplateName() + wxT(">") );
 	}
 	
-	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( udPROJECT::GetDiagramElement(element)->GetName() ), sBases );
+	// generate class declaration
+	pLang->ClassDeclCmd( pLang->MakeValidIdentifier( pClass->GetName() ), sBases );
 	
 	pLang->BeginCmd();
 	

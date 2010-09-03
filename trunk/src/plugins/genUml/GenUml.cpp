@@ -78,6 +78,8 @@ int udUmlGeneratorPlugin::OnExit()
 	m_PluginManager->UnregisterCommentProcessor( wxT("udMemberFunctionItem") );
 	m_PluginManager->UnregisterCommentProcessor( wxT("udMemberDataItem") );
 	m_PluginManager->UnregisterCommentProcessor( wxT("udConstructorFunctionItem") );
+	m_PluginManager->UnregisterCommentProcessor( wxT("udClassElementItem") );
+	m_PluginManager->UnregisterCommentProcessor( wxT("udClassTemplateElementItem") );
 
 	return 0;
 }
@@ -105,6 +107,8 @@ bool udUmlGeneratorPlugin::OnInit()
 	m_PluginManager->RegisterCommentProcessor( wxT("udMemberFunctionItem"), new udFunctionComment() );
 	m_PluginManager->RegisterCommentProcessor( wxT("udMemberDataItem"), new udVariableComment() );
 	m_PluginManager->RegisterCommentProcessor( wxT("udConstructorFunctionItem"), new udFunctionComment() );
+	m_PluginManager->RegisterCommentProcessor( wxT("udClassElementItem"), new udClassComment() );
+	m_PluginManager->RegisterCommentProcessor( wxT("udClassTemplateElementItem"), new udClassComment() );
 	
 	
 	// register plugin settings
