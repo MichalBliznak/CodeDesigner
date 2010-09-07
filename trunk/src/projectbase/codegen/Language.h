@@ -129,6 +129,8 @@ public:
     void NewLine();
 
 	void WriteCodeBlocks(const wxString& code);
+	
+	wxString GetCommented(const wxString& txt);
 
     // public virtual functions
     virtual wxString MakeValidIdentifier(const wxString& name) const {return name;}
@@ -148,8 +150,6 @@ public:
     virtual wxString NotEqual() const {return wxT("");}
     virtual wxString Less() const {return wxT("");}
     virtual wxString More() const {return wxT("");}
-
-    virtual wxString GetCommented(const wxString& txt){return wxT("");}
 
 	virtual void IncludeCmd(const wxString& header){;}
 	virtual void DefineCmd(const wxString& macro, const wxString& content){;}

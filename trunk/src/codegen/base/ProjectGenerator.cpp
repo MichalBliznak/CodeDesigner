@@ -56,7 +56,13 @@ wxString udProjectGenerator::BeginMark(const wxString& mark)
 	// wrap the code mark into comment
 	if( m_pOutLang )
 	{
-		return m_pOutLang->GetCommented( sFullMark );
+		m_pOutLang->PushCode();
+		m_pOutLang->SingleLineCommentCmd( sFullMark );
+		
+		wxString sOut = m_pOutLang->GetCodeBuffer();
+		m_pOutLang->PopCode();
+		
+		return sOut.Trim().Trim( false );
 	}
 	else
 		return sFullMark;
@@ -70,7 +76,13 @@ wxString udProjectGenerator::EndMark(const wxString& mark)
 	// wrap the code mark into comment
 	if( m_pOutLang )
 	{
-		return m_pOutLang->GetCommented( sFullMark );
+		m_pOutLang->PushCode();
+		m_pOutLang->SingleLineCommentCmd( sFullMark );
+		
+		wxString sOut = m_pOutLang->GetCodeBuffer();
+		m_pOutLang->PopCode();
+		
+		return sOut.Trim().Trim( false );
 	}
 	else
 		return sFullMark;

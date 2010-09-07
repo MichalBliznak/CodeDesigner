@@ -324,25 +324,3 @@ void udCommentProcessor::UnregisterDialect(const wxString& langtype)
 		m_mapDialect.erase( langtype );
 	}
 }
-
-wxString udCommentDialect::WrapComment(const wxString& txt, udLanguage* lang)
-{
-	wxASSERT( lang );
-
-	wxString sOut;
-	
-	if( lang )
-	{
-		int nIndent = lang->GetIndentation();
-		lang->SetIndentation( 0 );
-		lang->PushCode();
-		
-		lang->MultiLineCommentCmd( txt );
-		sOut = lang->GetCodeBuffer();
-		
-		lang->PopCode();
-		lang->SetIndentation( nIndent );
-	}
-	
-	return sOut;
-}

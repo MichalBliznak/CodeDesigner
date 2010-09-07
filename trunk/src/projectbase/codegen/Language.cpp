@@ -142,3 +142,18 @@ void udLanguage::WriteCodeBlocks(const wxString& code)
 	}
 }
 
+wxString udLanguage::GetCommented(const wxString& txt)
+{	
+	int nCurrIndent = GetIndentation();
+	SetIndentation( 0 );
+	PushCode();
+	
+	this->MultiLineCommentCmd( txt );
+	
+	wxString sOut = GetCodeBuffer();
+	
+	PopCode();
+	SetIndentation( nCurrIndent );
+	
+	return sOut;
+}
