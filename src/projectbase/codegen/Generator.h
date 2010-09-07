@@ -24,9 +24,6 @@ class WXDLLIMPEXP_CD udCommentDialect : public wxObject
 {
 public:
 	virtual wxString MakeComment(const udProjectItem *obj, udLanguage *lang) = 0;
-	
-protected:
-	wxString WrapComment(const wxString& txt, udLanguage *lang);
 };
 
 WX_DECLARE_HASH_MAP( wxString, udCommentDialect*, wxStringHash, wxStringEqual, DialectMap );

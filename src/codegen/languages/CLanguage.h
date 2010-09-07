@@ -30,8 +30,6 @@ public:
     virtual wxString NotEqual() const {return wxT("!=");}
     virtual wxString Less() const {return wxT("<");}
     virtual wxString More() const {return wxT(">");}
-
-    virtual wxString GetCommented(const wxString& txt);
 	
 	virtual void IncludeCmd(const wxString& header);
 	virtual void DefineCmd(const wxString& macro, const wxString& content);

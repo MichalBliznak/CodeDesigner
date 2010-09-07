@@ -831,7 +831,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udVariableItem, udCodeItem);
 udVariableItem::udVariableItem()
 {
 	m_sName = wxT("Variable");
-	m_sDescription = wxT("Variable's descritpion...");
+	m_sDescription = wxT("Variable's description...");
 	
 	/*AcceptSibbling(wxT("udFunctionItem"));
 	AcceptSibbling(wxT("udVariableItem"));

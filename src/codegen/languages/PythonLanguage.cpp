@@ -179,7 +179,7 @@ void udPythonLanguage::InfiniteLoopCmd()
 
 void udPythonLanguage::MultiLineCommentCmd(const wxString& msg)
 {
-    wxStringTokenizer tkz(msg, wxT("\n"));
+    wxStringTokenizer tkz(msg, wxT("\n"), wxTOKEN_RET_EMPTY);
 
     Indent();
     m_sOutBuffer << wxT("\"\"\" ");
@@ -187,9 +187,9 @@ void udPythonLanguage::MultiLineCommentCmd(const wxString& msg)
     while ( tkz.HasMoreTokens() )
     {
         Indent();
-        m_sOutBuffer << wxT(" ") << tkz.GetNextToken();
+        m_sOutBuffer << tkz.GetNextToken();
 
-        if(tkz.HasMoreTokens())NewLine();
+        if(tkz.HasMoreTokens()) NewLine();
     }
 
     m_sOutBuffer << wxT(" \"\"\"");
@@ -241,11 +241,6 @@ void udPythonLanguage::VariableDeclCmd(const wxString& type, const wxString& nam
 void udPythonLanguage::WhileCmd(const wxString& cond)
 {
     DoCmd(cond);
-}
-
-wxString udPythonLanguage::GetCommented(const wxString& txt)
-{
-    return wxString::Format(wxT("\"\"\" %s \"\"\""), txt.c_str());
 }
 
 void udPythonLanguage::DefineCmd(const wxString& macro, const wxString& content)

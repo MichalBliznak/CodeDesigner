@@ -48,9 +48,7 @@ wxString udFunctionComment::udCDialect::MakeComment(const udProjectItem* obj, ud
 				sComment << wxT(" \\return ") << lang->GetValueType( pFcn->GetRetValType() ).Name() << wxT(" of type ") << lang->GetDataTypeString( pFcn->GetRetValDataType() );
 			}
 			
-			sComment << ENDL;
-			
-			return WrapComment( sComment, lang );
+			return lang->GetCommented( sComment );
 		}
 	}
 	
@@ -86,9 +84,7 @@ wxString udFunctionComment::udPythonDialect::MakeComment(const udProjectItem* ob
 				it = it->GetNext();
 			}
 			
-			sComment << ENDL;
-			
-			return WrapComment( sComment, lang );
+			return lang->GetCommented( sComment );
 		}
 	}
 	
@@ -107,10 +103,11 @@ udVariableComment::udVariableComment()
 wxString udVariableComment::udCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
+	wxASSERT( lang );
 	
-	if( obj )
+	if( obj && lang )
 	{
-		return WrapComment( wxT("! \\brief ") + obj->GetDescription(), lang );
+		return lang->GetCommented( wxT("! \\brief ") + obj->GetDescription() + wxT(" ") );
 	}
 	else
 		return wxEmptyString;
@@ -119,10 +116,11 @@ wxString udVariableComment::udCDialect::MakeComment(const udProjectItem* obj, ud
 wxString udVariableComment::udPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
+	wxASSERT( lang );
 
-	if( obj )
+	if( obj && lang )
 	{
-		return WrapComment( obj->GetDescription(), lang );
+		return lang->GetCommented( wxT(" ") + obj->GetDescription() + wxT(" ") );
 	}
 	else
 		return wxEmptyString;
@@ -140,10 +138,11 @@ udClassComment::udClassComment()
 wxString udClassComment::udCDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
+	wxASSERT( lang );
 	
-	if( obj )
+	if( obj && lang )
 	{
-		return WrapComment( wxT("! \\brief ") + obj->GetDescription(), lang );
+		return lang->GetCommented( wxT("! \\brief ") + obj->GetDescription() + wxT(" ") );
 	}
 	else
 		return wxEmptyString;
@@ -152,10 +151,11 @@ wxString udClassComment::udCDialect::MakeComment(const udProjectItem* obj, udLan
 wxString udClassComment::udPythonDialect::MakeComment(const udProjectItem* obj, udLanguage* lang)
 {
 	wxASSERT( obj );
+	wxASSERT( lang );
 
-	if( obj )
+	if( obj && lang)
 	{
-		return WrapComment( obj->GetDescription(), lang );
+		return lang->GetCommented( wxT(" ") + obj->GetDescription() + wxT(" ") );
 	}
 	else
 		return wxEmptyString;

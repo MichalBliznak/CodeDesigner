@@ -226,7 +226,7 @@ void udCLanguage::MultiLineCommentCmd(const wxString& msg)
 {
 	bool fFirstLine = true;
 	
-    wxStringTokenizer tkz(msg, wxT("\n"));
+    wxStringTokenizer tkz(msg, wxT("\n"), wxTOKEN_RET_EMPTY);
 
     Indent();
     m_sOutBuffer << wxT("/*");
@@ -301,11 +301,6 @@ void udCLanguage::VariableDeclCmd(const wxString& type, const wxString& name)
 void udCLanguage::WhileCmd(const wxString& cond)
 {
     DoCmd(cond);
-}
-
-wxString udCLanguage::GetCommented(const wxString& txt)
-{
-    return wxString::Format(wxT("/* %s */"), txt.c_str());
 }
 
 void udCLanguage::DefineCmd(const wxString& macro, const wxString& content)
