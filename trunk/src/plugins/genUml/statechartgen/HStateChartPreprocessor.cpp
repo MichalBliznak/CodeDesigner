@@ -41,6 +41,7 @@ void udHStateChartPreprocessor::ReconnectInputs(udDiagramItem* diag)
 	
 	ShapeList lstStates, lstInitTrans;
 	diag->GetDiagramManager().GetShapes( CLASSINFO( umlCompStateItem ), lstStates );
+	diag->GetDiagramManager().GetShapes( CLASSINFO( umlSimpleStateItem ), lstStates );
 	
 	// find all transition starting in initial state located in the hierarchical states and reconnect them
 	// to those ones.
@@ -89,6 +90,7 @@ void udHStateChartPreprocessor::ReconnectOutputs(udDiagramItem* diag)
 	// get all hierarchical states in given diagram (use BFS algorithm so we will obtain
 	// all states in one level grouped together).
 	diag->GetDiagramManager().GetShapes( CLASSINFO( umlCompStateItem ), lstStates, xsSerializable::searchBFS );
+	diag->GetDiagramManager().GetShapes( CLASSINFO( umlSimpleStateItem ), lstStates, xsSerializable::searchBFS );
 	
 	// create copies of transition staring in the hierarchical state and connect them to all 
 	// (next level) child states. we must process states from the top level to the bottom level.
@@ -106,6 +108,7 @@ void udHStateChartPreprocessor::ReconnectOutputs(udDiagramItem* diag)
 		lstFinals.Clear();
 		
 		pState->GetChildShapes( CLASSINFO( umlCompStateItem ), lstChildren, sfNORECURSIVE );
+		pState->GetChildShapes( CLASSINFO( umlSimpleStateItem ), lstChildren, sfNORECURSIVE );
 		pState->GetChildShapes( CLASSINFO( umlFinalItem ), lstFinals, sfNORECURSIVE );
 		
 		ShapeList::compatibility_iterator tnode = lstOutTrans.GetFirst();
