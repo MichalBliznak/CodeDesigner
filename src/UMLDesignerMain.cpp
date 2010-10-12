@@ -2195,7 +2195,9 @@ void UMLDesignerFrame::OnStandardOpp( wxCommandEvent &event )
             case wxID_UNDO:
             {
                 // do not update the project tree view during following operations
+				#if ! wxCHECK_VERSION(2,8,11) 
                 wxWindowUpdateLocker noUpdate(GetProjectTree());
+				#endif
 
 				udProject::Get()->CloseAllSubdiagrams( GetActiveDiagram() );
 				
@@ -2226,7 +2228,9 @@ void UMLDesignerFrame::OnStandardOpp( wxCommandEvent &event )
             case wxID_REDO:
             {
                 // do not update the project tree view during following operations
+				#if ! wxCHECK_VERSION(2,8,11) 
                 wxWindowUpdateLocker noUpdate(GetProjectTree());
+				#endif
 
 				udProject::Get()->CloseAllSubdiagrams( GetActiveDiagram() );
 				
@@ -2256,7 +2260,9 @@ void UMLDesignerFrame::OnStandardOpp( wxCommandEvent &event )
             case wxID_COPY:
             {
                 // do not update the project tree view during following operations
+				#if ! wxCHECK_VERSION(2,8,11) 
                 wxWindowUpdateLocker noUpdate(GetProjectTree());
+				#endif
 
                 canvas->Copy();
             }
@@ -2265,7 +2271,9 @@ void UMLDesignerFrame::OnStandardOpp( wxCommandEvent &event )
             case wxID_CUT:
             {
                 // do not update the project tree view during following operations
+				#if ! wxCHECK_VERSION(2,8,11) 
                 wxWindowUpdateLocker noUpdate(GetProjectTree());
+				#endif
 
                 canvas->Cut();
 				
@@ -2289,7 +2297,9 @@ void UMLDesignerFrame::OnStandardOpp( wxCommandEvent &event )
             case wxID_PASTE:
             {
                 // do not update the project tree view during following operations
+				#if ! wxCHECK_VERSION(2,8,11) 
                 wxWindowUpdateLocker noUpdate(GetProjectTree());
+				#endif
 
 				canvas->Paste();
 				udProject::Get()->CheckElementLinks();
