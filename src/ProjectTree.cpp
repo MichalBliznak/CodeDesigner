@@ -139,6 +139,8 @@ void udProjectTree::UpdateItem(udProjectItem* item)
 	wxTreeItemId treeId = FindTreeItem( item );
 	if( treeId.IsOk() )
 	{
+		Collapse( treeId );
+		
 		// update tree item's label
 		if( !item->IsKindOf( CLASSINFO(udRootItem) ) )
 		{
@@ -155,6 +157,8 @@ void udProjectTree::UpdateItem(udProjectItem* item)
 			this->CreateTreeItems( (udProjectItem*)node->GetData(), treeId );
 			node = node->GetNext();
 		}
+		
+		Expand( treeId );
 	}
 }
 
