@@ -56,7 +56,8 @@ void udDiagramCanvas::InitializeCanvas()
 	{
 		AddStyle( wxSFShapeCanvas::sfsGRID_USE );
 		AddStyle( wxSFShapeCanvas::sfsGRID_SHOW );
-		SetGridLineMult(10);
+		SetGridLineMult( 10 );
+		SetGridStyle( wxSHORT_DASH );
 	}
 	else
 	{
