@@ -1,4 +1,4 @@
-Changes in version 1.2.1 beta (2010-10-12):
+Changes in version 1.2.1 beta (2010-12-16):
 ------------------------------------------------
 - Fixed typo in default variable code item's description.
 - Fixed code generation of event transition leading from composite state which includes simple
