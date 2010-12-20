@@ -255,7 +255,7 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	#ifdef __WXMSW__
 	SetIcon(wxIcon(sResPath + wxT("app/gui/application-icon.ico"), wxBITMAP_TYPE_ICO));
 	#else
-	SetIcon(wxIcon(sResPath + wxT("app/gui/application-icon.png")));
+	SetIcon(wxIcon(sResPath + wxT("app/gui/application-icon.png"), wxBITMAP_TYPE_PNG));
 	#endif
 
     m_AUIManager.SetManagedWindow(this);
