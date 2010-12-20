@@ -14,7 +14,7 @@ udCodeEditor::udCodeEditor( wxWindow* parent, wxWindowID id, const wxString& tit
 	#ifdef __WXMSW__
 	SetIcon(wxIcon(sResPath + wxT("app/gui/editor-icon.ico"), wxBITMAP_TYPE_ICO));
 	#else
-	SetIcon(wxIcon(sResPath + wxT("app/gui/editor-icon.png")));
+	SetIcon(wxIcon(sResPath + wxT("app/gui/editor-icon.png"), wxBITMAP_TYPE_PNG));
 	#endif
 }
 
