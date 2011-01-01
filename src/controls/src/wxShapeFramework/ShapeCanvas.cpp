@@ -2538,51 +2538,25 @@ void wxSFShapeCanvas::DeleteAllTextCtrls()
 void wxSFShapeCanvas::MoveShapesFromNegatives()
 {
 	wxASSERT(m_pManager);
-	if(!m_pManager)return;
+	if( m_pManager ) m_pManager->MoveShapesFromNegatives();
+}
 
-	wxSFShapeBase *pShape;
-	wxRealPoint shapePos;
-	double minx = 0, miny = 0;
-
-	// find the maximal negative position value
-    ShapeList shapes;
-    m_pManager->GetShapes(CLASSINFO(wxSFShapeBase), shapes);
-
-	ShapeList::compatibility_iterator node = shapes.GetFirst();
-	while(node)
+void wxSFShapeCanvas::CenterShapes()
+{
+	wxRect rctBB = GetTotalBoundingBox();
+	wxRect rctPrevBB = rctBB;
+	
+	rctBB = rctBB.CenterIn( wxRect( wxPoint(0, 0), GetSize() ) );
+	
+	double nDx = rctBB.GetLeft() - rctPrevBB.GetLeft();
+	double nDy = rctBB.GetTop() - rctPrevBB.GetTop();
+	
+	for( ShapeList::iterator it = m_lstCurrentShapes.begin(); it != m_lstCurrentShapes.end(); ++it )
 	{
-		shapePos = node->GetData()->GetAbsolutePosition();
-
-		if(node == shapes.GetFirst())
-		{
-			minx = shapePos.x;
-			miny = shapePos.y;
-		}
-		else
-		{
-            if(shapePos.x < minx)minx = shapePos.x;
-            if(shapePos.y < miny)miny = shapePos.y;
-		}
-
-		node = node->GetNext();
+		(*it)->MoveBy( nDx, nDy );
 	}
-
-	// move all parents shape so they (and their children) will be located in the positive values only
-	if((minx < 0) || (miny < 0))
-	{
-		node = m_lstCurrentShapes.GetFirst();
-		while(node)
-		{
-			pShape = node->GetData();
-
-			if(pShape->GetParentShape() == NULL)
-			{
-				if(minx < 0)pShape->MoveBy(abs((int)minx), 0);
-				if(miny < 0)pShape->MoveBy(0, abs((int)miny));
-			}
-			node = node->GetNext();
-		}
-	}
+	
+	MoveShapesFromNegatives();
 }
 
 void wxSFShapeCanvas::AlignSelected(HALIGN halign, VALIGN valign)
