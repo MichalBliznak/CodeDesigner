@@ -129,6 +129,7 @@ BEGIN_EVENT_TABLE(UMLDesignerFrame, _MainFrame)
     EVT_TOOL_RANGE(wxID_CUT, wxID_PASTE, UMLDesignerFrame::OnStandardOpp)
     EVT_TOOL_RANGE(IDT_PALETTE_MIN_TOOL_ID, IDT_PALETTE_MAX_TOOL_ID, UMLDesignerFrame::OnPalettes)
     EVT_TOOL_RANGE(IDT_ALIGN_LEFT, IDT_ALIGN_CENTER, UMLDesignerFrame::OnAlignSelected)
+    EVT_TOOL_RANGE(IDT_ALIGN_CIRCLE, IDT_ALIGN_HTREE, UMLDesignerFrame::OnAutolayout)
 
     EVT_CHOICE(IDC_CHOICE_LANGUAGES, UMLDesignerFrame::OnLanguageChoice)
     EVT_CHOICE(IDC_CHOICE_GENERATORS, UMLDesignerFrame::OnGeneratorChoice)
@@ -140,6 +141,7 @@ BEGIN_EVENT_TABLE(UMLDesignerFrame, _MainFrame)
     EVT_UPDATE_UI_RANGE(wxID_UNDO, wxID_REDO, UMLDesignerFrame::OnUpdateStandardOpp)
     EVT_UPDATE_UI_RANGE(wxID_CUT, wxID_PASTE, UMLDesignerFrame::OnUpdateStandardOpp)
     EVT_UPDATE_UI_RANGE(IDT_ALIGN_LEFT, IDT_ALIGN_CENTER, UMLDesignerFrame::OnUpdateAlignSelected)
+    EVT_UPDATE_UI_RANGE(IDT_ALIGN_CIRCLE, IDT_ALIGN_HTREE, UMLDesignerFrame::OnUpdateCanvasActivated)
     EVT_UPDATE_UI_RANGE(IDT_PALETTE_MIN_TOOL_ID, IDT_PALETTE_MAX_TOOL_ID, UMLDesignerFrame::OnUpdatePalettes)
 	EVT_UPDATE_UI_RANGE(IDM_VIEW_MIN_PLUGINPANE_ID, IDM_VIEW_MIN_PLUGINPANE_ID + udvMAX_ITEMS, UMLDesignerFrame::OnUpdateToggleGUI)
 	
@@ -223,6 +225,35 @@ void UMLDesignerFrame::CleanUpComponents()
 	}
 }
 
+void UMLDesignerFrame::InitializeLayoutAlgorithms()
+{
+	wxSFAutoLayout layout;
+	
+	// "Mesh" algorithm
+	wxSFLayoutMesh *pMeshAlg = wxDynamicCast( layout.GetAlgorithm( wxT("Mesh") ), wxSFLayoutMesh );
+	if( pMeshAlg )
+	{
+		pMeshAlg->SetHSpace( 50 );
+		pMeshAlg->SetVSpace( 50 );
+	}
+	
+	// "Horizontal Tree" algorithm
+	wxSFLayoutHorizontalTree *pHTAlg = wxDynamicCast( layout.GetAlgorithm( wxT("Horizontal Tree") ), wxSFLayoutHorizontalTree );
+	if( pHTAlg )
+	{
+		pHTAlg->SetHSpace( 50 );
+		pHTAlg->SetVSpace( 50 );
+	}
+	
+	// "Vertical Tree" algorithm
+	wxSFLayoutVerticalTree *pVTAlg = wxDynamicCast( layout.GetAlgorithm( wxT("Vertical Tree") ), wxSFLayoutVerticalTree );
+	if( pVTAlg )
+	{
+		pVTAlg->SetHSpace( 50 );
+		pVTAlg->SetVSpace( 50 );
+	}
+}
+
 UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
     : _MainFrame(frame)
 {
@@ -237,6 +268,7 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	
 	// initialize application's components
 	InitializeComponents();
+	InitializeLayoutAlgorithms();
 	
 	// initialize artwork
 	udArt::Initialize();
@@ -432,6 +464,9 @@ UMLDesignerFrame::~UMLDesignerFrame()
 	
 	// clean-up artwork
 	udArt::CleanUp();
+	
+	// clean-up layouting algorithms
+	wxSFAutoLayout::CleanUp();
 }
 
 // gui creation /////////////////////////////////////////////////////////////////////
@@ -661,6 +696,11 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbDesign->AddTool(IDT_ALIGN_BOTTOM, wxT("Align bottom"), udArt::GetBitmap(wxT("udICON_ALIGNBOTTOM")), wxT("Align selected items to the bottom"));
 	m_tbDesign->AddTool(IDT_ALIGN_CENTER, wxT("Align center"), udArt::GetBitmap(wxT("udICON_ALIGNCENTER")), wxT("Align selected items to the center"));
 	m_tbDesign->AddTool(IDT_ALIGN_MIDDLE, wxT("Align middle"), udArt::GetBitmap(wxT("udICON_ALIGNMIDDLE")), wxT("Align selected items to the middle"));
+	m_tbDesign->AddSeparator();
+	m_tbDesign->AddTool(IDT_ALIGN_CIRCLE, wxT("Align into circle"), udArt::GetBitmap(wxT("udICON_ALIGNCIRCLE")), wxT("Align selected items into circle"));
+	m_tbDesign->AddTool(IDT_ALIGN_MESH, wxT("Align into mesh"), udArt::GetBitmap(wxT("udICON_ALIGNMESH")), wxT("Align selected items into mesh"));
+	m_tbDesign->AddTool(IDT_ALIGN_VTREE, wxT("Align into vertical tree"), udArt::GetBitmap(wxT("udICON_ALIGNVTREE")), wxT("Align selected items into vertical tree"));
+	m_tbDesign->AddTool(IDT_ALIGN_HTREE, wxT("Align into horizontal tree"), udArt::GetBitmap(wxT("udICON_ALIGNHTREE")), wxT("Align selected items into horizontal tree"));
 	m_tbDesign->Realize();
 
 	// generator toolbar
@@ -1472,7 +1512,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.2.1.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.3.0.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams and code generation.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -2160,6 +2200,54 @@ void UMLDesignerFrame::OnAlignSelected( wxCommandEvent &event )
     }
 }
 
+void UMLDesignerFrame::OnAutolayout( wxCommandEvent &event )
+{
+    udDiagramCanvas* canvas = GetActiveCanvas();
+
+    if(canvas)
+    {
+		wxString sAlgName;
+		
+        switch(event.GetId())
+        {
+			case IDT_ALIGN_CIRCLE:
+				sAlgName = wxT("Circle");
+				break;
+				
+			case IDT_ALIGN_MESH:
+				sAlgName = wxT("Mesh");
+				break;
+				
+			case IDT_ALIGN_VTREE:
+				sAlgName = wxT("Vertical Tree");
+				break;
+				
+			case IDT_ALIGN_HTREE:
+				sAlgName = wxT("Horizontal Tree");
+				break;
+		}
+		
+		wxSFAutoLayout layout;
+		
+		ShapeList lstSelection;
+		canvas->GetSelectedShapes( lstSelection );
+		
+		if( lstSelection.IsEmpty() )
+		{
+			layout.Layout( canvas, sAlgName );
+		}
+		else
+		{
+			layout.Layout( lstSelection, sAlgName );
+			canvas->MoveShapesFromNegatives();
+			canvas->UpdateMultieditSize();
+			canvas->Refresh( false );
+		}
+		
+		SaveDiagramState( GetActiveDiagram() );
+	}
+}
+
 void UMLDesignerFrame::OnGrid( wxCommandEvent &event )
 {
     udDiagramCanvas *pCanvas = GetActiveCanvas();
@@ -2797,4 +2885,3 @@ udGeneratorInfo* UMLDesignerFrame::FindGeneratorInfoByName(const wxString& name)
 	}
 	return NULL;
 }
-
