@@ -47,6 +47,11 @@ void udArt::Initialize()
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignBottom.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNBOTTOM")] = m_Index++; 
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignCenter.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNCENTER")] = m_Index++; 
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignMiddle.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNMIDDLE")] = m_Index++; 
+	
+	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignCircle.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNCIRCLE")] = m_Index++; 
+	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignMesh.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNMESH")] = m_Index++; 
+	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignVTree.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNVTREE")] = m_Index++; 
+	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/AlignHTree.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_ALIGNHTREE")] = m_Index++; 
 	//m_lstImages->Add(wxBitmap(sPath + wxT("gui/GenAll.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udICON_GENALL")] = m_Index++; 
 	
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/gui/filenew.png"), wxBITMAP_TYPE_PNG)); m_mapImageIndexes[wxT("udICON_FILENEW")] = m_Index++; 

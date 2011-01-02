@@ -288,6 +288,7 @@ class UMLDesignerFrame: public _MainFrame
         void OnStandardOpp( wxCommandEvent &event );
         void OnPalettes( wxCommandEvent &event );
         void OnAlignSelected( wxCommandEvent &event );
+        void OnAutolayout( wxCommandEvent &event );
         void OnGrid( wxCommandEvent &event );
         void OnRemoveElement( wxCommandEvent &event );
 		void OnRecentFile( wxCommandEvent &event );
@@ -310,6 +311,7 @@ class UMLDesignerFrame: public _MainFrame
 		void OnProjectTaskRemove(udProjectEvent& event);
 
 		void InitializeComponents();
+		void InitializeLayoutAlgorithms();
 		void CleanUpComponents();
 
     DECLARE_EVENT_TABLE()
