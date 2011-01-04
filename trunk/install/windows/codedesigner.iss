@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.2.0.2339 Beta (SVN: 91)
+AppVerName=CodeDesigner 1.3.0.2399 Beta (SVN: 106)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.2.0.2339
+OutputBaseFilename=codedesigner-1.3.0.2399
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
@@ -36,6 +36,10 @@ Source: ..\..\output\res\app\gui\AlignLeft.xpm; DestDir: {app}\res\app\gui; Comp
 Source: ..\..\output\res\app\gui\AlignMiddle.xpm; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\AlignRight.xpm; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\AlignTop.xpm; DestDir: {app}\res\app\gui; Components: core
+Source: ..\..\output\res\app\gui\AlignCircle.xpm; DestDir: {app}\res\app\gui; Components: core
+Source: ..\..\output\res\app\gui\AlignMesh.xpm; DestDir: {app}\res\app\gui; Components: core
+Source: ..\..\output\res\app\gui\AlignHTree.xpm; DestDir: {app}\res\app\gui; Components: core
+Source: ..\..\output\res\app\gui\AlignVTree.xpm; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\application-icon.ico; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\application-icon.png; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\collapse.xpm; DestDir: {app}\res\app\gui; Components: core
@@ -190,4 +194,5 @@ Name: desktopicon\user; Description: For the current user only; GroupDescription
 [Run]
 Filename: {app}\readme_bin.txt; Description: View the README file; Flags: postinstall shellexec skipifsilent
 Filename: {app}\codedesigner.exe; Description: Launch application; Flags: postinstall nowait skipifsilent unchecked
+
 
