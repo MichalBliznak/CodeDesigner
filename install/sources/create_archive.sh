@@ -46,6 +46,7 @@ cp ../../samples/*.* $out/samples
 # create archive
 echo "Creating archive..."
 tar -cvzf codedesigner_src-$1.tgz $out
+zip -r codedesigner_src-$1.zip $out
 
 # remove temporary dir
 rm -rf $out
