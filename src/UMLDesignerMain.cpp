@@ -2538,6 +2538,8 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
             pProjGen->Generate( udProject::Get() );
 			
 			EnableInternalEvents( true );
+			
+			event.Skip();
         }
         else
             wxMessageBox(wxT("Unable to create the project generator for selected language."), wxT("CodeDesigner"), wxOK | wxICON_ERROR);

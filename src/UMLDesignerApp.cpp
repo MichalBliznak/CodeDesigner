@@ -122,20 +122,40 @@ bool UMLDesignerApp::OnInit()
 	SetTopWindow(m_pMainFrame);
 
     //m_pMainFrame->SetIcon(wxIcon(wx_xpm));
-    m_pMainFrame->Show();
 	
-	// should some project to be opened now?
-	if( argc == 2 )
+	bool fSilent = false;
+	// should some project to be opened or generated now?
+	if( argc == 2 && wxFileExists( wxString( argv[1] ) ) )
 	{
 		m_pMainFrame->OpenProjectFile( wxString( argv[1] ) );
 	}
+	else if( argc == 3 &&  wxString( argv[1]) == wxT("-g") && wxFileExists( wxString( argv[2] ) ) )
+	{
+		m_pMainFrame->OpenProjectFile( wxString( argv[2] ) );
+		
+		wxCommandEvent e( wxEVT_COMMAND_MENU_SELECTED, IDM_CODE_GENERATE );
+		m_pMainFrame->ProcessEvent( e );
+		
+		fSilent = true;
+	}
 	else if( argc > 2 )
 	{
-		wxPrintf(wxT("CodeDesigner's usage:\n    CodeDesigner [project]\n    project - path to a project file to be opened by CodeDesigner\n\n"));
+		wxPrintf(wxT("CodeDesigner's usage:\n    CodeDesigner [-g][project]\n    g - generate opened project immediately\n    project - path to a project file to be opened by CodeDesigner\n\n"));
 		fflush(stdout);
 	}
-
-    return true;
+	
+	if( !fSilent )
+	{
+		m_pMainFrame->Show();
+	}
+	else
+	{
+		// quit application immediately
+		wxCommandEvent e( wxEVT_COMMAND_MENU_SELECTED, wxID_EXIT );
+		m_pMainFrame->AddPendingEvent( e );
+	}
+	
+	return true;
 }
 
 int UMLDesignerApp::OnExit()
