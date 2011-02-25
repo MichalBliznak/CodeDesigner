@@ -37,15 +37,6 @@
 
 using namespace wxSFCommonFcn;
 
-DEFINE_EVENT_TYPE( wxEVT_CD_ITEM_ADDED )
-DEFINE_EVENT_TYPE( wxEVT_CD_ITEM_REMOVED )
-DEFINE_EVENT_TYPE( wxEVT_CD_ITEM_CHANGED )
-DEFINE_EVENT_TYPE( wxEVT_CD_ITEM_SELECTED )
-DEFINE_EVENT_TYPE( wxEVT_CD_TASK_REMOVE )
-/*DEFINE_EVENT_TYPE( wxEVT_CD_ELEMENT_ADDED )
-DEFINE_EVENT_TYPE( wxEVT_CD_ELEMENT_REMOVED )
-DEFINE_EVENT_TYPE( wxEVT_CD_ELEMENT_CHANGED )*/
-
 IPluginManager *IPluginManager::m_PluginManager = NULL;
 
 ////////////////////////////////////////////////////////////////////////////////

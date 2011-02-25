@@ -134,7 +134,7 @@ bool UMLDesignerApp::OnInit()
 		m_pMainFrame->OpenProjectFile( wxString( argv[2] ) );
 		
 		wxCommandEvent e( wxEVT_COMMAND_MENU_SELECTED, IDM_CODE_GENERATE );
-		m_pMainFrame->ProcessEvent( e );
+		m_pMainFrame->AddPendingEvent( e );
 		
 		fSilent = true;
 	}

@@ -1,10 +1,9 @@
 #ifndef __EditorPanel__
 #define __EditorPanel__
 
-#include "projectbase/codegen/Language.h"
+#include "projectbase/ProjectBase.h"
 
 #include "gui/GUI.h"
-#include "Events.h"
 
 class udCodeEditorPanel : public _EditorPanel
 {

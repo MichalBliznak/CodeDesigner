@@ -22,6 +22,7 @@ dopackage( "../src/projectbase" )
 dopackage( "../src/plugins/diagTest" )
 dopackage( "../src/plugins/diagUml" )
 dopackage( "../src/plugins/genUml" )
+dopackage( "../src/plugins/codelite" )
 dopackage( "../src" )
 
 function CreateSymlink( pathToLink, symLink )
