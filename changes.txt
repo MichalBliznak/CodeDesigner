@@ -1,9 +1,10 @@
-Changes in version 1.3.1 beta (2011-02-24):
+Changes in version 1.4.0 beta (2011-02-25):
 ------------------------------------------------
 - Fixed Horizontal/Vertical tree layout algorithm.
 - CodeDesigner can be run with "-g" parameter followed by path to existing CodeLite project which
   will cause immediate loading and generation of the project in "silent mode" (CodeDesigner will
   exit after the code generation without showing its window).
+- Implemented CodeLite integration plugin.
 
 Changes in version 1.3.0 beta (2011-01-02):
 ------------------------------------------------

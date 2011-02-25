@@ -7,7 +7,7 @@
 
 #include "Ids.h"
 #include "Project.h"
-#include "Events.h"
+#include "projectbase/Events.h"
 
 WX_DECLARE_HASH_MAP( wxUIntPtr, wxTreeItemId, wxIntegerHash, wxIntegerEqual, ObjectMap );
 

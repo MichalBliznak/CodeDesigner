@@ -43,7 +43,6 @@
 #include "gui/ManagePluginsDialog.h"
 #include "gui/SynchronizeDialog.h"
 #include "gui/TabArt.h"
-#include "Events.h"
 #include "projectbase/shapes/DnDElement.h"
 
 WX_DEFINE_OBJARRAY(DiagramsArray);
@@ -55,7 +54,6 @@ WX_DEFINE_LIST(ListenerList);
 
 // long term todos:
 //-----------------
-// TODO: implement CodeLite plugin
 // TODO: implement languages by using XML templates/XSLT(???)
 // TODO: design and implement OpenMP diagrams
 // TODO: implement parallel states in HSCH
@@ -1512,7 +1510,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.3.1.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.4.0.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams and code generation.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -2494,6 +2492,9 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
         udProjectGenerator *pProjGen = wxGetApp().GetProjectGenerators()[pLang->GetClassInfo()->GetClassName()];
         if(pProjGen)
         {
+			// send event
+			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_PROJECT_BEFORE_GENERATION, wxID_ANY );
+			
 			// synchronize code if requested
 			udSettings& Settings = wxGetApp().GetSettings();
 			
@@ -2539,7 +2540,7 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
 			
 			EnableInternalEvents( true );
 			
-			event.Skip();
+			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_PROJECT_AFTER_GENERATION, wxID_ANY );
         }
         else
             wxMessageBox(wxT("Unable to create the project generator for selected language."), wxT("CodeDesigner"), wxOK | wxICON_ERROR);
