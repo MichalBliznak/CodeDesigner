@@ -14,10 +14,23 @@
 #include <wx/event.h>
 #include <wx/dnd.h>
 
-#include "Project.h"
 #include "interfaces/Defs.h"
 
 class udProjectEvent;
+class udProjectItem;
+
+BEGIN_DECLARE_EVENT_TYPES()
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_ITEM_ADDED, wxID_ANY )
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_ITEM_REMOVED, wxID_ANY )
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_ITEM_CHANGED, wxID_ANY )
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_ITEM_SELECTED, wxID_ANY )
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_TASK_REMOVE, wxID_ANY )
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_PROJECT_BEFORE_GENERATION, wxID_ANY )
+	DECLARE_EXPORTED_EVENT_TYPE( WXDLLIMPEXP_CD, wxEVT_CD_PROJECT_AFTER_GENERATION, wxID_ANY )
+	/*DECLARE_EVENT_TYPE( wxEVT_CD_ELEMENT_ADDED, 8773 )
+	DECLARE_EVENT_TYPE( wxEVT_CD_ELEMENT_REMOVED, 8774 )
+	DECLARE_EVENT_TYPE( wxEVT_CD_ELEMENT_CHANGED, 8775 )*/
+END_DECLARE_EVENT_TYPES()
 
 typedef void (wxEvtHandler::*udProjectEventFunction)(udProjectEvent&);
 
@@ -58,8 +71,22 @@ typedef void (wxEvtHandler::*udProjectEventFunction)(udProjectEvent&);
 	                           (wxObjectEventFunction)(wxEventFunction) wxStaticCastEvent( udProjectEventFunction, &fn ), \
 	                           (wxObject *) NULL \
 	                         ),
+							 
+#define EVT_CD_PROJECT_BEFORE_GENERATION(id, fn) \
+	DECLARE_EVENT_TABLE_ENTRY( \
+	                           wxEVT_CD_PROJECT_BEFORE_GENERATION, id, wxID_ANY, \
+	                           (wxObjectEventFunction)(wxEventFunction) wxStaticCastEvent( udProjectEventFunction, &fn ), \
+	                           (wxObject *) NULL \
+	                         ),
+							 
+#define EVT_CD_PROJECT_AFTER_GENERATION(id, fn) \
+	DECLARE_EVENT_TABLE_ENTRY( \
+	                           wxEVT_CD_PROJECT_AFTER_GENERATION, id, wxID_ANY, \
+	                           (wxObjectEventFunction)(wxEventFunction) wxStaticCastEvent( udProjectEventFunction, &fn ), \
+	                           (wxObject *) NULL \
+	                         ),
 
-class udProjectEvent : public wxEvent
+class WXDLLIMPEXP_CD udProjectEvent : public wxEvent
 {
 public:
 	udProjectEvent(wxEventType cmdType = wxEVT_NULL, int id = 0, udProjectItem *item = NULL, udProjectItem *parent = NULL);
