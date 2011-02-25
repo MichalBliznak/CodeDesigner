@@ -137,7 +137,10 @@ void udCodeLitePlugin::OnProjectGenerated(udProjectEvent& event)
 {
 	if( m_Client->IsConnected() )
 	{
-		m_Client->GetConnection()->Execute( wxT("RETAG WORKSPACE") );
+		if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Re-tag CodeLite workspace") )->AsBool() )
+		{
+			m_Client->GetConnection()->Execute( wxT("RETAG WORKSPACE") );
+		}
 	}
 }
 
@@ -145,7 +148,6 @@ void udCodeLitePlugin::OnReconnect(wxCommandEvent& event)
 {	
 	StartClient();
 	LogClientStatus();
-	
 }
 
 void udCodeLitePlugin::OnTimer(wxTimerEvent& event)
@@ -174,10 +176,12 @@ udCodeLiteSettingsCategory::udCodeLiteSettingsCategory() : udSettingsCategory( w
 {
 	m_sPort = uddvDEFAULT_PORT_VALUE;
 	m_fKeepAlive = uddvDEFAULT_KEEP_ALIVE;
+	m_fRetagWorkspace = uddvDEFAULT_RETAG_WORKSPACE;
 	
 	// serialize class member (always, if needed)
 	XS_SERIALIZE( m_sPort, wxT("Communication port") );
 	XS_SERIALIZE( m_fKeepAlive, wxT("Keep connection alive") );
+	XS_SERIALIZE( m_fRetagWorkspace, wxT("Re-tag CodeLite workspace") );
 }
 
 udCodeLiteSettingsCategory::udCodeLiteSettingsCategory(const udCodeLiteSettingsCategory& obj) : udSettingsCategory( obj )
@@ -185,9 +189,12 @@ udCodeLiteSettingsCategory::udCodeLiteSettingsCategory(const udCodeLiteSettingsC
 	SetName( wxT("CodeLite") );
 	
 	m_sPort = obj.m_sPort;
+	m_fKeepAlive = obj.m_fKeepAlive;
+	m_fRetagWorkspace = obj.m_fRetagWorkspace;
 
 	XS_SERIALIZE( m_sPort, wxT("Communication port") );
 	XS_SERIALIZE( m_fKeepAlive, wxT("Keep connection alive") );
+	XS_SERIALIZE( m_fRetagWorkspace, wxT("Re-tag CodeLite workspace") );
 }
 
 udCodeLiteSettingsCategory::~udCodeLiteSettingsCategory()
