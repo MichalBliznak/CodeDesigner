@@ -35,6 +35,13 @@ public:
 		logALL = 255
 	};
 	
+	enum RUNMODE
+	{
+		runSTANDARD,
+		runWITHPROJECT,
+		runSILENT
+	};
+	
     // public functions
     virtual bool OnInit();
     virtual int OnExit();
@@ -44,6 +51,7 @@ public:
 	wxString GetPluginsPath() const;
 	wxString GetResourcesPath() const;
     UMLDesignerFrame* GetMainFrame(){return m_pMainFrame;}
+	RUNMODE GetRunMode() { return m_nRunMode; }
 
     udProject* GetActiveProject();
     udLanguage* GetLanguage(int index);
@@ -69,6 +77,7 @@ protected:
     ProjectGeneratorMap m_mapProjGenerators;
 	static int m_nLogMask;
 	wxString  m_sAppPath;
+	RUNMODE m_nRunMode;
 	
 	udAppSettings m_Settings;
 	udDiagramBank m_DiagBank;

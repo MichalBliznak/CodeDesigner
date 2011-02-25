@@ -45,6 +45,24 @@ IMPLEMENT_APP(UMLDesignerApp);
 
 bool UMLDesignerApp::OnInit()
 {
+	// process command line parameters
+	m_nRunMode = runSTANDARD;
+	
+	// should some project to be opened or generated now?
+	if( argc == 2 && wxFileExists( wxString( argv[1] ) ) )
+	{
+		m_nRunMode = runWITHPROJECT;
+	}
+	else if( argc == 3 && wxString( argv[1]) == wxT("-g") && wxFileExists( wxString( argv[2] ) ) )
+	{
+		m_nRunMode = runSILENT;
+	}
+	else if( argc > 2 )
+	{
+		wxPrintf(wxT("CodeDesigner's usage:\n    CodeDesigner [-g][project]\n    g - generate opened project immediately\n    project - path to a project file to be opened by CodeDesigner\n\n"));
+		fflush(stdout);
+	}
+	
 	SetAppName( wxT("codedesigner") );
 	
 	wxInitAllImageHandlers();
@@ -116,59 +134,62 @@ bool UMLDesignerApp::OnInit()
 		
 
 	UMLDesignerFrame::EnableInternalEvents( true );
-
-    // initialize main frame
-    m_pMainFrame = new UMLDesignerFrame(0L);
-	SetTopWindow(m_pMainFrame);
-
-    //m_pMainFrame->SetIcon(wxIcon(wx_xpm));
 	
-	bool fSilent = false;
-	// should some project to be opened or generated now?
-	if( argc == 2 && wxFileExists( wxString( argv[1] ) ) )
+	switch( m_nRunMode )
 	{
-		m_pMainFrame->OpenProjectFile( wxString( argv[1] ) );
-	}
-	else if( argc == 3 &&  wxString( argv[1]) == wxT("-g") && wxFileExists( wxString( argv[2] ) ) )
-	{
-		m_pMainFrame->OpenProjectFile( wxString( argv[2] ) );
-		
-		// generate project here and then quit silently
-		wxString sLang =  udProject::Get()->GetSettings().GetPropertyAsString( wxT("active_language"), wxT("udCPPLanguage") );
-		
-		udLanguage *pLang = m_mapLanguages[sLang];
-		udProjectGenerator *pProjGen = m_mapProjGenerators[sLang];
-		
-		if( pLang && pProjGen )
+		case runSTANDARD:
+			m_pMainFrame = new UMLDesignerFrame(0L);
+			SetTopWindow(m_pMainFrame);
+			break;
+			
+		case runWITHPROJECT:
+			m_pMainFrame = new UMLDesignerFrame(0L);
+			SetTopWindow(m_pMainFrame);
+			
+			m_pMainFrame->OpenProjectFile( wxString( argv[1] ) );
+			break;
+			
+		case runSILENT:
 		{
-			UMLDesignerFrame::EnableInternalEvents( false );
-			
-			pProjGen->SetActiveLanguage( pLang );
-			pProjGen->Generate( udProject::Get() );
-			
-			UMLDesignerFrame::EnableInternalEvents( true );
-		}
+			wxString sPath =  wxString( argv[2] );
+			m_pProject->DeserializeFromXml( sPath );
+			m_pProject->SetProjectDirectory( sPath.BeforeLast( wxFileName::GetPathSeparator() ) );
+			m_pProject->SetProjectPath( sPath );
 		
-		fSilent = true;
-	}
-	else if( argc > 2 )
-	{
-		wxPrintf(wxT("CodeDesigner's usage:\n    CodeDesigner [-g][project]\n    g - generate opened project immediately\n    project - path to a project file to be opened by CodeDesigner\n\n"));
-		fflush(stdout);
+			// generate project here and then quit silently
+			wxString sLang = m_pProject->GetSettings().GetPropertyAsString( wxT("active_language"), wxT("udCPPLanguage") );
+			
+			udLanguage *pLang = m_mapLanguages[sLang];
+			udProjectGenerator *pProjGen = m_mapProjGenerators[sLang];
+			
+			if( pLang && pProjGen )
+			{
+				UMLDesignerFrame::EnableInternalEvents( false );
+				
+				pProjGen->SetActiveLanguage( pLang );
+				pProjGen->Generate( udProject::Get() );
+				
+				UMLDesignerFrame::EnableInternalEvents( true );
+			}
+		}
+		break;
 	}
 	
-	if( !fSilent )
+	if( m_nRunMode != runSILENT )
 	{
 		m_pMainFrame->Show();
+		return true;
 	}
 	else
 	{
-		// quit application immediately
+		/*// quit application immediately
 		wxCommandEvent e( wxEVT_COMMAND_MENU_SELECTED, wxID_EXIT );
-		wxPostEvent( m_pMainFrame, e );
+		wxPostEvent( m_pMainFrame, e );*/
+		OnExit();
+		return false;
 	}
 	
-	return true;
+	/*return true;*/
 }
 
 int UMLDesignerApp::OnExit()
@@ -272,21 +293,24 @@ udLanguage* UMLDesignerApp::GetLanguage(const wxString& name)
 
 void UMLDesignerApp::Log(const wxString& msg)
 {
-	if( wxGetApp().GetMainFrame() )
+	if( wxGetApp().GetRunMode() != runSILENT )
 	{
-		wxGetApp().GetMainFrame()->GetLogWindow()->AddMessage(msg);
-	}
-	else
-	{
-		if( (m_nLogMask & logERRORS) && msg.Contains(wxT("ERROR")) )
+		if( wxGetApp().GetMainFrame() )
 		{
-			wxLogError(msg);
+			wxGetApp().GetMainFrame()->GetLogWindow()->AddMessage(msg);
 		}
-		else if( (m_nLogMask & logWARNINGS ) && msg.Contains(wxT("WARNING")) )
+		else
 		{
-			wxLogWarning(msg);
+			if( (m_nLogMask & logERRORS) && msg.Contains(wxT("ERROR")) )
+			{
+				wxLogError(msg);
+			}
+			else if( (m_nLogMask & logWARNINGS ) && msg.Contains(wxT("WARNING")) )
+			{
+				wxLogWarning(msg);
+			}
+			else if( m_nLogMask & logNORMAL ) wxLogMessage(msg);
 		}
-		else if( m_nLogMask & logNORMAL ) wxLogMessage(msg);
 	}
 }
 
