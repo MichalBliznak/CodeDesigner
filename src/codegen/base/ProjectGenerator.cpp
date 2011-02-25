@@ -48,7 +48,7 @@ void udProjectGenerator::Generate(udProject *src)
 		this->CleanUp();
 	}
 	else
-		wxMessageBox( wxT("Unable to generate project code. For more details see the log window."), wxT("CodeDesigner"), wxOK | wxICON_ERROR );
+		wxMessageBox( wxT("Unable to generate project code."), wxT("CodeDesigner"), wxOK | wxICON_ERROR );
 }
 
 wxString udProjectGenerator::BeginMark(const wxString& mark)
