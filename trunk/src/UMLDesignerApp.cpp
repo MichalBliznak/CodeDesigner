@@ -133,8 +133,21 @@ bool UMLDesignerApp::OnInit()
 	{
 		m_pMainFrame->OpenProjectFile( wxString( argv[2] ) );
 		
-		wxCommandEvent e( wxEVT_COMMAND_MENU_SELECTED, IDM_CODE_GENERATE );
-		m_pMainFrame->AddPendingEvent( e );
+		// generate project here and then quit silently
+		wxString sLang =  udProject::Get()->GetSettings().GetPropertyAsString( wxT("active_language"), wxT("udCPPLanguage") );
+		
+		udLanguage *pLang = m_mapLanguages[sLang];
+		udProjectGenerator *pProjGen = m_mapProjGenerators[sLang];
+		
+		if( pLang && pProjGen )
+		{
+			UMLDesignerFrame::EnableInternalEvents( false );
+			
+			pProjGen->SetActiveLanguage( pLang );
+			pProjGen->Generate( udProject::Get() );
+			
+			UMLDesignerFrame::EnableInternalEvents( true );
+		}
 		
 		fSilent = true;
 	}
@@ -152,7 +165,7 @@ bool UMLDesignerApp::OnInit()
 	{
 		// quit application immediately
 		wxCommandEvent e( wxEVT_COMMAND_MENU_SELECTED, wxID_EXIT );
-		m_pMainFrame->AddPendingEvent( e );
+		wxPostEvent( m_pMainFrame, e );
 	}
 	
 	return true;
