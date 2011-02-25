@@ -22,6 +22,7 @@
 
 #define uddvDEFAULT_PORT_VALUE wxT("50000")
 #define uddvDEFAULT_KEEP_ALIVE true
+#define uddvDEFAULT_RETAG_WORKSPACE true
 
 ////////////////////////////////////////////////////////////////////////////////
 // plugin class ////////////////////////////////////////////////////////////////
@@ -112,6 +113,7 @@ public:
 	// public data members
 	wxString m_sPort;
 	bool m_fKeepAlive;
+	bool m_fRetagWorkspace;
 };
 
 extern udCodeLitePlugin *thePlugin;
