@@ -31,7 +31,10 @@ void udProjectGenerator::Generate(udProject *src)
 {
 	wxASSERT( m_pOutLang );
 	
-	wxGetApp().GetMainFrame()->GetLogWindow()->ClearMessages();
+	if( wxGetApp().GetRunMode() != UMLDesignerApp::runSILENT )
+	{
+		wxGetApp().GetMainFrame()->GetLogWindow()->ClearMessages();
+	}
 	
 	if( CheckAlgorithms( src ) )
 	{
