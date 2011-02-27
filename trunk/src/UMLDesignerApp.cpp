@@ -93,7 +93,7 @@ bool UMLDesignerApp::OnInit()
 	}
 	
 	// show splash screen
-	if( m_Settings.GetProperty( wxT("Show splash screen") )->AsBool() )
+	if( m_nRunMode != runSILENT && m_Settings.GetProperty( wxT("Show splash screen") )->AsBool() )
 	{
 		new wxSplashScreen( wxBitmap( GetResourcesPath() + wxT("app/gui/splash.png"), wxBITMAP_TYPE_PNG ),  wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT, 4000, NULL, wxID_ANY );
 		wxYield();
