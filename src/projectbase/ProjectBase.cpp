@@ -545,7 +545,7 @@ void udCodeLinkItem::OnTreeTextChange(const wxString& txt)
 	udProjectItem::OnTreeTextChange( txt );
 	
 	// try to update parent element (if any)
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, wxDynamicCast( GetParent(), udProjectItem ), NULL, udfDELAYED );	
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, wxDynamicCast( GetParent(), udProjectItem ), NULL, wxEmptyString, udfDELAYED );	
 }
 
 bool udCodeLinkItem::OnTreeItemBeginDrag(const wxPoint &pos)
@@ -1080,7 +1080,7 @@ void udParamItem::OnTreeTextChange(const wxString& txt)
 	udProjectItem::OnTreeTextChange( txt );
 	
 	// update parent function
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, (udProjectItem*)GetParent(), NULL, udfDELAYED );
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, (udProjectItem*)GetParent(), NULL, wxEmptyString, udfDELAYED );
 }
 
 wxString udParamItem::ToString(CODEFORMAT format, udLanguage* lang)

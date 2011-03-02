@@ -916,7 +916,7 @@ void UMLDesignerFrame::DispatchEvent(wxEvent& evt, bool delayed)
 	}
 }
 
-void UMLDesignerFrame::SendProjectEvent(wxEventType cmdType, int id, udProjectItem* item, udProjectItem* parent, bool delayed)
+void UMLDesignerFrame::SendProjectEvent(wxEventType cmdType, int id, udProjectItem* item, udProjectItem* parent, const wxString& data, bool delayed)
 {
 	// static funtion: we need to determine whether the main frame already exists
 	if( m_fDispatchEvents )
@@ -925,6 +925,8 @@ void UMLDesignerFrame::SendProjectEvent(wxEventType cmdType, int id, udProjectIt
 		if( pFrame )
 		{
 			udProjectEvent evt( cmdType, id, item, parent );
+			evt.SetString( data );
+			
 			pFrame->DispatchEvent( evt, delayed );
 			
 			#ifdef DEBUG_EVENTS
@@ -1200,7 +1202,7 @@ void UMLDesignerFrame::OnProjectItemChanged(udProjectEvent& event)
 		SerializableList::compatibility_iterator node = lstLinks.GetFirst();
 		while( node )
 		{
-			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, wxDynamicCast(node->GetData()->GetParent(), udDiagElementItem), NULL, udfDELAYED );
+			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, wxDynamicCast(node->GetData()->GetParent(), udDiagElementItem), NULL, wxEmptyString, udfDELAYED );
 			node = node->GetNext();
 		}
 		
@@ -1249,16 +1251,16 @@ void UMLDesignerFrame::OnProjectItemAdded(udProjectEvent& event)
 				pPkg = pProj->CreateProjectItem( wxT("udCodePackageItem"), pProj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
 				pPkg->SetName( sPkgName ); 
 				
-				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pPkg, (udProjectItem*)pProj->GetRootItem(), udfDELAYED );
+				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pPkg, (udProjectItem*)pProj->GetRootItem(), wxEmptyString, udfDELAYED );
 			}
 			
 			if( event.GetParentItem() != pPkg )
 			{
 				pItem->Reparent( pPkg );
 				
-				if( !fNewPkg ) UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pPkg, NULL, udfDELAYED );
+				if( !fNewPkg ) UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pPkg, NULL, wxEmptyString, udfDELAYED );
 				
-				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, event.GetParentItem(), NULL, udfDELAYED );
+				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, event.GetParentItem(), NULL, wxEmptyString, udfDELAYED );
 			}
 		}
 	}
@@ -2067,7 +2069,7 @@ void UMLDesignerFrame::OnShapeTextChanged( wxSFShapeTextEvent& event )
 		{
 			pElement->OnShapeTextChange( event.GetText(), pLabel->GetLabelType(), pLabel->GetId() );
 			// the update must be delayed due to unfinished processing of this event in wxSF...
-			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement, NULL, udfDELAYED );
+			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement, NULL, wxEmptyString, udfDELAYED );
 		}
 	}
 }
@@ -2492,6 +2494,8 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
         udProjectGenerator *pProjGen = wxGetApp().GetProjectGenerators()[pLang->GetClassInfo()->GetClassName()];
         if(pProjGen)
         {
+			pProjGen->ClearGeneratedFiles();
+			
 			// send event
 			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_PROJECT_BEFORE_GENERATION, wxID_ANY );
 			
@@ -2539,6 +2543,11 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
             pProjGen->Generate( udProject::Get() );
 			
 			EnableInternalEvents( true );
+			
+			for( size_t i = 0; i < pProjGen->GetGeneratedFiles().GetCount(); ++i )
+			{
+				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_PROJECT_FILE_ADDED, wxID_ANY, NULL, NULL, pProjGen->GetGeneratedFiles()[i] );
+			}
 			
 			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_PROJECT_AFTER_GENERATION, wxID_ANY );
         }

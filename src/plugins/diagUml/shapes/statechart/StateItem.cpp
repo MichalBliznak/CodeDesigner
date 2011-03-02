@@ -179,8 +179,8 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 			udActionItem *pNewAct = new udActionItem( *(udActionItem*)pOriginal );
 			IPluginManager::Get()->GetProject()->AddItem( pOriginal->GetParent(), pNewAct );
 
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 			pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, nActionType) );
 		}

@@ -11,6 +11,8 @@
 #include "projectbase/Common.h"
 
 #include <wx/txtstrm.h>
+
+#define TOPIC wxT("CODEDESIGNER SESSION")
  
 ////////////////////////////////////////////////////////////////////////////////
 // plugin //////////////////////////////////////////////////////////////////////
@@ -62,7 +64,9 @@ bool udCodeLitePlugin::OnInit()
 	// connect events
 	m_PluginManager->RegisterEventListener( this );
 	
+	Connect( wxID_ANY, wxEVT_CD_PROJECT_BEFORE_GENERATION, udProjectEventHandler(udCodeLitePlugin::OnProjectGenerating) );	
 	Connect( wxID_ANY, wxEVT_CD_PROJECT_AFTER_GENERATION, udProjectEventHandler(udCodeLitePlugin::OnProjectGenerated) );
+	Connect( wxID_ANY, wxEVT_CD_PROJECT_FILE_ADDED, udProjectEventHandler(udCodeLitePlugin::OnFileAdded) );
 	m_PluginManager->GetMainFrame()->Connect( IDM_RECONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(udCodeLitePlugin::OnReconnect), NULL, this );
 	
 	// start client
@@ -82,14 +86,15 @@ int udCodeLitePlugin::OnExit()
 	
 	// close IPC client
 	m_Timer.Stop();
-	
 	delete m_Client;
 	
 	// disconnect events
 	m_PluginManager->UnregisterEventListener( this );
 	
 	Disconnect( ID_ALIVE_TIMER, wxEVT_TIMER, wxTimerEventHandler(udCodeLitePlugin::OnTimer) );
+	Disconnect( wxID_ANY, wxEVT_CD_PROJECT_BEFORE_GENERATION, udProjectEventHandler(udCodeLitePlugin::OnProjectGenerating) );	
 	Disconnect( wxID_ANY, wxEVT_CD_PROJECT_AFTER_GENERATION, udProjectEventHandler(udCodeLitePlugin::OnProjectGenerated) );	
+	Disconnect( wxID_ANY, wxEVT_CD_PROJECT_FILE_ADDED, udProjectEventHandler(udCodeLitePlugin::OnFileAdded) );
 	m_PluginManager->GetMainFrame()->Disconnect( IDM_RECONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(udCodeLitePlugin::OnReconnect), NULL, this );
 	
 	return 0;
@@ -133,15 +138,25 @@ wxMenu* udCodeLitePlugin::CreateMenu()
 	return pMenu;
 }
 
+void udCodeLitePlugin::OnProjectGenerating(udProjectEvent& event)
+{
+	m_Files = wxEmptyString;
+}
+
 void udCodeLitePlugin::OnProjectGenerated(udProjectEvent& event)
 {
 	if( m_Client->IsConnected() )
 	{
-		if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Re-tag CodeLite workspace") )->AsBool() )
+		if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Update CodeLite workspace") )->AsBool() )
 		{
-			m_Client->GetConnection()->Execute( wxT("RETAG WORKSPACE") );
+			m_Client->GetConnection()->Poke( wxT("ADD FILES"), (wxChar*)m_Files.c_str() );
 		}
 	}
+}
+
+void udCodeLitePlugin::OnFileAdded(udProjectEvent& event)
+{
+	m_Files << event.GetString() << wxT("\n");
 }
 
 void udCodeLitePlugin::OnReconnect(wxCommandEvent& event)
@@ -162,7 +177,6 @@ void udCodeLitePlugin::OnTimer(wxTimerEvent& event)
 	}
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // exported classes ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -176,12 +190,11 @@ udCodeLiteSettingsCategory::udCodeLiteSettingsCategory() : udSettingsCategory( w
 {
 	m_sPort = uddvDEFAULT_PORT_VALUE;
 	m_fKeepAlive = uddvDEFAULT_KEEP_ALIVE;
-	m_fRetagWorkspace = uddvDEFAULT_RETAG_WORKSPACE;
+	m_fUpdateWorkspace = uddvDEFAULT_UPDATE_WORKSPACE;
 	
-	// serialize class member (always, if needed)
 	XS_SERIALIZE( m_sPort, wxT("Communication port") );
 	XS_SERIALIZE( m_fKeepAlive, wxT("Keep connection alive") );
-	XS_SERIALIZE( m_fRetagWorkspace, wxT("Re-tag CodeLite workspace") );
+	XS_SERIALIZE( m_fUpdateWorkspace, wxT("Update CodeLite workspace") );
 }
 
 udCodeLiteSettingsCategory::udCodeLiteSettingsCategory(const udCodeLiteSettingsCategory& obj) : udSettingsCategory( obj )
@@ -190,11 +203,11 @@ udCodeLiteSettingsCategory::udCodeLiteSettingsCategory(const udCodeLiteSettingsC
 	
 	m_sPort = obj.m_sPort;
 	m_fKeepAlive = obj.m_fKeepAlive;
-	m_fRetagWorkspace = obj.m_fRetagWorkspace;
+	m_fUpdateWorkspace = obj.m_fUpdateWorkspace;
 
 	XS_SERIALIZE( m_sPort, wxT("Communication port") );
 	XS_SERIALIZE( m_fKeepAlive, wxT("Keep connection alive") );
-	XS_SERIALIZE( m_fRetagWorkspace, wxT("Re-tag CodeLite workspace") );
+	XS_SERIALIZE( m_fUpdateWorkspace, wxT("Update CodeLite workspace") );
 }
 
 udCodeLiteSettingsCategory::~udCodeLiteSettingsCategory()
@@ -210,7 +223,7 @@ CDClient::CDClient()
 {
 	wxString sPort = IPluginManager::Get()->GetAppSettings().GetPropertyAsString( wxT("Communication port"), uddvDEFAULT_PORT_VALUE );
 	
-	m_Connection = (CDConnection*) MakeConnection( wxT("localhost"), sPort, wxT("RETAG") );
+	m_Connection = (CDConnection*) MakeConnection( wxT("localhost"), sPort, TOPIC );
 }
 
 CDClient::~CDClient()
@@ -244,10 +257,10 @@ CDConnection::~CDConnection()
 {
 }
 
-bool CDConnection::Execute(const wxChar* data, int size, wxIPCFormat format)
+bool CDConnection::Poke(const wxString& item, wxChar *data, int size, wxIPCFormat format)
 {
-    bool retval = wxConnection::Execute(data, size, format);
-    if (!retval) IPluginManager::Get()->Log( wxT("WARNING: IPC Execute failed") );
+    bool retval = wxConnection::Poke(item, data, size, format);
+    if (!retval) IPluginManager::Get()->Log( wxT("WARNING: IPC Poke failed") );
 	
     return retval;
 }
@@ -257,3 +270,4 @@ bool CDConnection::OnDisconnect()
 	m_Client->Disconnect();
 	return true;
 }
+

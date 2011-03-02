@@ -26,12 +26,17 @@ public:
 	static wxString GetCodeFromCodemark(const udCodeItem *item, const wxFileName& file);
 	static void GetModifiedUserCode(const udLanguage* lang, SerializableList& items, wxArrayString& origcode, wxArrayString& modifcode, int *ambiguous);
 	
+	void ClearGeneratedFiles() { m_arrGeneratedFiles.Clear(); }
+	void AddToGeneratedFiles(const wxString& path) { m_arrGeneratedFiles.Add( path ); }
+	wxArrayString& GetGeneratedFiles() { return m_arrGeneratedFiles; }
+	
 	// public member data accessors
 	void SetActiveLanguage(udLanguage *lang){m_pOutLang = lang;}
 
 protected:
 	// protected data members
 	udLanguage *m_pOutLang;
+	wxArrayString m_arrGeneratedFiles;
 	
 	// protected functions
 	wxString BeginMark( const wxString& mark );

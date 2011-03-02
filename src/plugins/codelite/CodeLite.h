@@ -22,7 +22,7 @@
 
 #define uddvDEFAULT_PORT_VALUE wxT("50000")
 #define uddvDEFAULT_KEEP_ALIVE true
-#define uddvDEFAULT_RETAG_WORKSPACE true
+#define uddvDEFAULT_UPDATE_WORKSPACE true
 
 ////////////////////////////////////////////////////////////////////////////////
 // plugin class ////////////////////////////////////////////////////////////////
@@ -51,12 +51,15 @@ public:
 protected:
 	CDClient *m_Client;
 	wxTimer m_Timer;
+	wxString m_Files;
 
 	void StartClient();
 	void LogClientStatus();
 
 	// user-defined event handlers
+	void OnProjectGenerating(udProjectEvent &event);
 	void OnProjectGenerated(udProjectEvent &event);
+	void OnFileAdded(udProjectEvent &event);
 	void OnReconnect(wxCommandEvent &event);
 	void OnTimer(wxTimerEvent &event);
 };
@@ -68,7 +71,7 @@ public:
 	virtual ~CDConnection();
 	
 	virtual bool OnDisconnect();
-	virtual bool Execute(const wxChar *data, int size = -1, wxIPCFormat format = wxIPC_TEXT);
+	virtual bool Poke(const wxString& item, wxChar *data, int size = -1, wxIPCFormat format = wxIPC_TEXT);
 	
 protected:
 	CDClient *m_Client;
@@ -113,7 +116,7 @@ public:
 	// public data members
 	wxString m_sPort;
 	bool m_fKeepAlive;
-	bool m_fRetagWorkspace;
+	bool m_fUpdateWorkspace;
 };
 
 extern udCodeLitePlugin *thePlugin;

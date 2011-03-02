@@ -328,6 +328,8 @@ void udProjectGenerator::WriteToFile(const wxString& txt, const wxFileName& file
 		tout << sOutput;
 			
 		out.Close();
+		
+		if( m_arrGeneratedFiles.Index( file.GetFullPath() ) == wxNOT_FOUND ) m_arrGeneratedFiles.Add( file.GetFullPath() );
 	}
 }
 

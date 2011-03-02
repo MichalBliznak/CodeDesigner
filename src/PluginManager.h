@@ -76,7 +76,7 @@ public:
 	virtual udGeneratorInfo* FindGeneratorInfoByClassName(const wxString& classname);
 	virtual udGeneratorInfo* FindGeneratorInfoByName(const wxString& name);
 	
-	virtual void SendProjectEvent(wxEventType cmdType, int id, udProjectItem* item, udProjectItem* parent, bool delayed);
+	virtual void SendProjectEvent(wxEventType cmdType, int id, udProjectItem* item, udProjectItem* parent, const wxString& data, bool delayed);
 	
 	virtual void RegisterDiagram(const udDiagramInfo& info);
 	virtual void RegisterSettings(udSettingsCategory* settings, SETTINGSTYPE type);

@@ -175,10 +175,11 @@ public:
 	 * \param id Event ID
 	 * \param item Pointer to involved project item
 	 * \param parent Pointer to parent of involved project item (if any)
+	 * \param data String data associated with the event
 	 * \param delayed TRUE if the event's processing should be delayed, FALSE if it should be processed
 	 * immediatelly
 	 */
-	virtual void SendProjectEvent(wxEventType cmdType = wxEVT_NULL, int id = 0, udProjectItem *item = NULL, udProjectItem *parent = NULL, bool delayed = false) = 0;
+	virtual void SendProjectEvent(wxEventType cmdType = wxEVT_NULL, int id = 0, udProjectItem *item = NULL, udProjectItem *parent = NULL, const wxString& data = wxEmptyString, bool delayed = false) = 0;
 	/**
 	 * \brief Register event handler which should receive CodeDesigner's internal events.
 	 * \param plugin Pointer to new internal event's listener

@@ -15,6 +15,7 @@
 #define udfUNIQUE_NAME true
 #define udfAMBIGUOUS_NAME false
 #define udfDELAYED true
+#define udfNON_DELAYED false
 
 #define udnSTATE_CHART wxT("State Chart")
 #define udnSIMPLE_STATE_CHART wxT("Simple State Chart")
@@ -122,7 +123,7 @@ class UMLDesignerFrame: public _MainFrame
 		void DispatchEvent(wxEvent& evt, bool delayed);
 		void RegisterEventListener(wxEvtHandler *handler);
 		void UnregisterEventListener(wxEvtHandler *handler);
-		static void SendProjectEvent( wxEventType cmdType = wxEVT_NULL, int id = 0, udProjectItem *item = NULL, udProjectItem *parent = NULL, bool delayed = false );
+		static void SendProjectEvent( wxEventType cmdType = wxEVT_NULL, int id = 0, udProjectItem *item = NULL, udProjectItem *parent = NULL, const wxString& data = wxEmptyString, bool delayed = false );
 
         void InitializeProject(udProject *proj);
         void InitializeChoices();
