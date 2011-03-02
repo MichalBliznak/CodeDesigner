@@ -34,7 +34,7 @@ package.includepaths = { ".", "../../", "../../controls/include" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.
-package.links = { "projectBase" }
+package.links = { "wxShapeFramework", "projectBase" }
 
 -- Set wxWidgets presets
 dofile('../../../build/premake/scripts/wxpresets.lua')
