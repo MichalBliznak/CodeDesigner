@@ -106,9 +106,9 @@ void udPluginManager::RegisterEventListener(IPlugin* plugin)
 	m_Frame->RegisterEventListener( plugin );
 }
 
-void udPluginManager::SendProjectEvent(wxEventType cmdType, int id, udProjectItem* item, udProjectItem* parent, bool delayed)
+void udPluginManager::SendProjectEvent(wxEventType cmdType, int id, udProjectItem* item, udProjectItem* parent, const wxString& data, bool delayed)
 {
-	m_Frame->SendProjectEvent( cmdType, id, item, parent, delayed);
+	m_Frame->SendProjectEvent( cmdType, id, item, parent, data, delayed);
 }
 
 void udPluginManager::UnregisterEventListener(IPlugin* plugin)

@@ -105,7 +105,7 @@ void udClassElementItem::SetFunctionString(const wxString& txt, int id)
 		// remove the function from the class if new description is empty
 		if( txt == wxEmptyString )
 		{
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pFcnLink, this, udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pFcnLink, this, wxEmptyString, udfDELAYED );
 		}
 		else
 		{
@@ -136,7 +136,7 @@ void udClassElementItem::SetFunctionString(const wxString& txt, int id)
 				{
 					AssignCodeItem( new udMemberFunctionLinkItem(pFunction, nAccessType) );
 					
-					IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pFcnLink, this, udfDELAYED );
+					IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pFcnLink, this, wxEmptyString, udfDELAYED );
 				}
 				else
 				{
@@ -157,8 +157,8 @@ void udClassElementItem::SetFunctionString(const wxString& txt, int id)
 							// assign the link to selected class item
 							AssignCodeItem( new udMemberFunctionLinkItem(pNewFcn, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
 
-							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pFcnLink, this, udfDELAYED );
-							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewFcn, pRoot, udfDELAYED );
+							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pFcnLink, this, wxEmptyString, udfDELAYED );
+							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewFcn, pRoot, wxEmptyString, udfDELAYED );
 						}
 					}
 				}
@@ -191,7 +191,7 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 		// remove the variable from the class if txt is empty
 		if( txt == wxEmptyString )
 		{
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pVarLink, this, udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pVarLink, this, wxEmptyString, udfDELAYED );
 		}
 		else
 		{
@@ -222,7 +222,7 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 				{
 					AssignCodeItem( new udMemberDataLinkItem(pVariable, nAccessType) );
 					
-					IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pVarLink, this, udfDELAYED );
+					IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pVarLink, this, wxEmptyString, udfDELAYED );
 				}
 				else
 				{
@@ -243,8 +243,8 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 							// assign the link to selected class item
 							AssignCodeItem( new udMemberDataLinkItem(pNewVar, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
 
-							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pVarLink, this, udfDELAYED );
-							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewVar, pRoot, udfDELAYED );
+							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pVarLink, this, wxEmptyString, udfDELAYED );
+							IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewVar, pRoot, wxEmptyString, udfDELAYED );
 						}
 					}
 				}
@@ -628,7 +628,7 @@ void udClassElementItem::AssignMemberCopy(udLinkItem* link)
 	pNewItem->SetId( -1 );
 	
 	IPluginManager::Get()->GetProject()->AddItem( pOriginal->GetParent(), pNewItem );
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewItem, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewItem, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 		
 	if( link->IsKindOf( CLASSINFO(udMemberDataLinkItem) ) || link->IsKindOf( CLASSINFO(udVariableLinkItem) ) )
 	{
@@ -956,7 +956,7 @@ void udEnumElementItem::SetElementString(const wxString& element, int id)
 		}
 	}
 	
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this, NULL, udfDELAYED );
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this, NULL, wxEmptyString, udfDELAYED );
 }
 
 // public virtual functions /////////////////////////////////////////////////////////
@@ -1841,7 +1841,7 @@ void udEnumValueItem::OnTreeTextChange(const wxString& txt)
 		{
 			udProjectItem::OnTreeTextChange( key );
 			
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pEnum, NULL, udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pEnum, NULL, wxEmptyString, udfDELAYED );
 		}
 	}
 }

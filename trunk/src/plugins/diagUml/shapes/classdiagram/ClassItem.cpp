@@ -384,7 +384,7 @@ void umlClassItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* child)
 	{
 		pElement->AssignMemberCopy( pLink );
 
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 	}
 	else if( pLink->IsKindOf( CLASSINFO(udDiagramLinkItem) ) )
 	{
@@ -424,5 +424,5 @@ void umlClassItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* child)
 	}
 	
 	// delayed element update (due to unfinished processing of target class shape which will be changed by this event)
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement, NULL, udfDELAYED );
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pElement, NULL, wxEmptyString, udfDELAYED );
 }

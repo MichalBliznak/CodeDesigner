@@ -95,7 +95,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 		udEventItem *pNewEvt = new udEventItem( *(udEventItem*)pOriginal );
 		pProject->AddItem( pOriginal->GetParent(), pNewEvt );
 		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 		pTransElement->AssignCodeItem( new udEventLinkItem((udCodeItem*)pNewEvt) );
 	}
@@ -114,7 +114,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			udConditionItem *pNewCond = new udConditionItem( *(udConditionItem*)pOriginal );
 			pProject->AddItem( pOriginal->GetParent(), pNewCond );
 			
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 			pTransElement->AssignCodeItem( new udConditionLinkItem((udCodeItem*)pNewCond) );
 		}
@@ -124,7 +124,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			udActionItem *pNewAct = new udActionItem( *(udActionItem*)pOriginal );
 			pProject->AddItem( pOriginal->GetParent(), pNewAct );
 			
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), udfDELAYED );
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 			pTransElement->AssignCodeItem( new udActionLinkItem((udCodeItem*)pNewAct) );
 		}
@@ -276,5 +276,5 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 		}
 	}
 	
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pTransElement, NULL, udfDELAYED );
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pTransElement, NULL, wxEmptyString, udfDELAYED );
 }
