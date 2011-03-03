@@ -143,12 +143,11 @@ void udCodeLitePlugin::OnProjectGenerated(udProjectEvent& event)
 		}
 	}
 	
-	if( m_Client->IsConnected() )
+	if( m_Client->IsConnected() &&
+		IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Update CodeLite workspace") )->AsBool() &&
+		!m_Files.IsEmpty() )
 	{
-		if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Update CodeLite workspace") )->AsBool() )
-		{
-			m_Client->GetConnection()->Poke( wxT("ADD FILES"), (wxChar*)m_Files.c_str() );
-		}
+		m_Client->GetConnection()->Poke( wxT("ADD FILES"), (wxChar*)m_Files.c_str() );
 	}
 }
 
