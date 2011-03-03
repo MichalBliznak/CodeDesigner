@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.3.0.2399 Beta (SVN: 106)
+AppVerName=CodeDesigner 1.4.0.2508 Beta (SVN: 128)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.3.0.2399
+OutputBaseFilename=codedesigner-1.4.0.2508
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
@@ -21,8 +21,9 @@ Source: ..\..\output\codedesigner.exe; DestDir: {app}; Components: core
 Source: ..\..\output\cdprojectbase.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_propgrid_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_scintilla_cd.dll; DestDir: {app}; Components: core
-Source: ..\..\output\plugins\genuml.dll; DestDir: {app}\plugins; Components: umlgenerator; Tasks: 
+Source: ..\..\output\plugins\genuml.dll; DestDir: {app}\plugins; Components: umlgenerator
 Source: ..\..\output\plugins\diaguml.dll; DestDir: {app}\plugins; Components: umldiagram
+Source: ..\..\output\plugins\codelite.dll; DestDir: {app}\plugins; Components: codelite
 Source: ..\..\output\res\app\elements\Tool.xpm; DestDir: {app}\res\app\elements; Components: core
 Source: ..\..\output\res\app\elements\Bound.xpm; DestDir: {app}\res\app\elements; Components: core
 Source: ..\..\output\res\app\elements\LineNote.xpm; DestDir: {app}\res\app\elements; Components: core
@@ -176,6 +177,7 @@ Name: {app}\res\plugins\project; Components: core
 Name: core; Description: Main application files; Flags: fixed; Types: custom compact full
 Name: umldiagram; Description: UML diagrams; Types: custom full
 Name: umlgenerator; Description: UML code generators; Types: custom full
+Name: codelite; Description: CodeLite integration; Types: custom full
 Name: samples; Description: Sample projects; Types: custom full
 [Icons]
 Name: {group}\CodeDesigner; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\app\gui\application-icon.ico; Comment: CodeDesigner RAD; Components: core; IconIndex: 0
@@ -194,5 +196,8 @@ Name: desktopicon\user; Description: For the current user only; GroupDescription
 [Run]
 Filename: {app}\readme_bin.txt; Description: View the README file; Flags: postinstall shellexec skipifsilent
 Filename: {app}\codedesigner.exe; Description: Launch application; Flags: postinstall nowait skipifsilent unchecked
+
+
+
 
 

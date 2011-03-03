@@ -105,7 +105,7 @@ void udCodeLitePlugin::LogClientStatus()
 {
 	wxString sPort = IPluginManager::Get()->GetAppSettings().GetPropertyAsString( wxT("Communication port"), uddvDEFAULT_PORT_VALUE );
 	
-	if( m_Client->IsConnected() )
+	if( m_Client && m_Client->IsConnected() )
 	{
 		IPluginManager::Get()->Log( wxString::Format( wxT("CodeLite plugin: IPC connection on port %s estabilished."), sPort.c_str() ) );
 	}
@@ -143,7 +143,7 @@ void udCodeLitePlugin::OnProjectGenerated(udProjectEvent& event)
 		}
 	}
 	
-	if( m_Client->IsConnected() &&
+	if( m_Client && m_Client->IsConnected() &&
 		IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Update CodeLite workspace") )->AsBool() &&
 		!m_Files.IsEmpty() )
 	{
