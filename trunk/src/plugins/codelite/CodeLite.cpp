@@ -22,7 +22,6 @@ udCodeLitePlugin *thePlugin = NULL;
 
 // create plugin-specific GUI identifiers
 static long IDM_RECONNECT = IPluginManager::Get()->GetNewMenuId();
-static long ID_ALIVE_TIMER = IPluginManager::Get()->GetNewMenuId();
 
 // define the plugin entry point
 extern "C" WXDLLIMPEXP_CD IPlugin *CreatePlugin(IPluginManager *manager)
@@ -69,14 +68,6 @@ bool udCodeLitePlugin::OnInit()
 	Connect( wxID_ANY, wxEVT_CD_PROJECT_FILE_ADDED, udProjectEventHandler(udCodeLitePlugin::OnFileAdded) );
 	m_PluginManager->GetMainFrame()->Connect( IDM_RECONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(udCodeLitePlugin::OnReconnect), NULL, this );
 	
-	// start client
-	StartClient();
-	
-	// start 'alive' timer
-	Connect( ID_ALIVE_TIMER, wxEVT_TIMER, wxTimerEventHandler(udCodeLitePlugin::OnTimer) );
-	m_Timer.SetOwner( this, ID_ALIVE_TIMER );
-	m_Timer.Start( 10000 );
-	
 	return true;
 }
 
@@ -85,13 +76,11 @@ int udCodeLitePlugin::OnExit()
 	// note: plugin settings cannot be unregistered
 	
 	// close IPC client
-	m_Timer.Stop();
 	delete m_Client;
 	
 	// disconnect events
 	m_PluginManager->UnregisterEventListener( this );
 	
-	Disconnect( ID_ALIVE_TIMER, wxEVT_TIMER, wxTimerEventHandler(udCodeLitePlugin::OnTimer) );
 	Disconnect( wxID_ANY, wxEVT_CD_PROJECT_BEFORE_GENERATION, udProjectEventHandler(udCodeLitePlugin::OnProjectGenerating) );	
 	Disconnect( wxID_ANY, wxEVT_CD_PROJECT_AFTER_GENERATION, udProjectEventHandler(udCodeLitePlugin::OnProjectGenerated) );	
 	Disconnect( wxID_ANY, wxEVT_CD_PROJECT_FILE_ADDED, udProjectEventHandler(udCodeLitePlugin::OnFileAdded) );
@@ -145,6 +134,15 @@ void udCodeLitePlugin::OnProjectGenerating(udProjectEvent& event)
 
 void udCodeLitePlugin::OnProjectGenerated(udProjectEvent& event)
 {
+	if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Keep connection alive") )->AsBool() )
+	{
+		if( !m_Client || !m_Client->IsConnected() )
+		{
+			StartClient();
+			LogClientStatus();
+		}
+	}
+	
 	if( m_Client->IsConnected() )
 	{
 		if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Update CodeLite workspace") )->AsBool() )
@@ -163,18 +161,6 @@ void udCodeLitePlugin::OnReconnect(wxCommandEvent& event)
 {	
 	StartClient();
 	LogClientStatus();
-}
-
-void udCodeLitePlugin::OnTimer(wxTimerEvent& event)
-{
-	if( IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Keep connection alive") )->AsBool() )
-	{
-		if( !m_Client->IsConnected() )
-		{
-			StartClient();
-			LogClientStatus();
-		}
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -50,7 +50,6 @@ public:
 	
 protected:
 	CDClient *m_Client;
-	wxTimer m_Timer;
 	wxString m_Files;
 
 	void StartClient();
