@@ -45,6 +45,10 @@ void udDiagramCanvas::InitializeCanvas()
 {
 	AddStyle(sfsGRADIENT_BACKGROUND);
 	
+	AddStyle(sfsPROCESS_MOUSEWHEEL);
+	SetMinScale(0.2);
+	SetMaxScale(2);
+	
 	// apply default application settings
 	udSettings& settings = IPluginManager::Get()->GetAppSettings();
 	

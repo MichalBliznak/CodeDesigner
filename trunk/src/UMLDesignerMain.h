@@ -158,6 +158,7 @@ class UMLDesignerFrame: public _MainFrame
         void OnDiagramLeftClick( wxMouseEvent &event );
         void OnDiagramRightClick( wxMouseEvent &event );
         void OnDiagramLeftDoubleClick( wxMouseEvent &event );
+		void OnDiagramMouseWheel( wxMouseEvent &event );
         void OnDiagramKeyDown( wxKeyEvent &event );
         void OnConnectionFinished( wxSFShapeEvent& event );
         void OnShapeTextChanged( wxSFShapeTextEvent& event );
