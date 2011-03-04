@@ -949,6 +949,7 @@ void UMLDesignerFrame::ConnectDiagramEvents(udDiagramCanvas *diagram, bool enabl
 		diagram->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(UMLDesignerFrame::OnDiagramLeftClick), NULL, this);
 		diagram->Connect(wxEVT_RIGHT_DOWN, wxMouseEventHandler(UMLDesignerFrame::OnDiagramRightClick), NULL, this);
 		diagram->Connect(wxEVT_LEFT_DCLICK, wxMouseEventHandler(UMLDesignerFrame::OnDiagramLeftDoubleClick), NULL, this);
+		diagram->Connect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(UMLDesignerFrame::OnDiagramMouseWheel), NULL, this);
 		diagram->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(UMLDesignerFrame::OnDiagramKeyDown), NULL, this);
 		diagram->Connect(wxEVT_SF_LINE_DONE, wxSFShapeEventHandler(UMLDesignerFrame::OnConnectionFinished), NULL, this);
 		diagram->Connect(wxEVT_SF_TEXT_CHANGE, wxSFShapeTextEventHandler(UMLDesignerFrame::OnShapeTextChanged), NULL, this);
@@ -961,6 +962,7 @@ void UMLDesignerFrame::ConnectDiagramEvents(udDiagramCanvas *diagram, bool enabl
 		diagram->Disconnect(wxEVT_LEFT_DOWN, wxMouseEventHandler(UMLDesignerFrame::OnDiagramLeftClick), NULL, this);
 		diagram->Disconnect(wxEVT_RIGHT_DOWN, wxMouseEventHandler(UMLDesignerFrame::OnDiagramRightClick), NULL, this);
 		diagram->Disconnect(wxEVT_LEFT_DCLICK, wxMouseEventHandler(UMLDesignerFrame::OnDiagramLeftDoubleClick), NULL, this);
+		diagram->Disconnect(wxEVT_MOUSEWHEEL, wxMouseEventHandler(UMLDesignerFrame::OnDiagramMouseWheel), NULL, this);
 		diagram->Disconnect(wxEVT_KEY_DOWN, wxKeyEventHandler(UMLDesignerFrame::OnDiagramKeyDown), NULL, this);
 		diagram->Disconnect(wxEVT_SF_LINE_DONE, wxSFShapeEventHandler(UMLDesignerFrame::OnConnectionFinished), NULL, this);
 		diagram->Disconnect(wxEVT_SF_TEXT_CHANGE, wxSFShapeTextEventHandler(UMLDesignerFrame::OnShapeTextChanged), NULL, this);
@@ -1987,6 +1989,17 @@ void UMLDesignerFrame::OnDiagramLeftDoubleClick( wxMouseEvent &event )
 	}
 	
 	SetModified( true );
+}
+
+void UMLDesignerFrame::OnDiagramMouseWheel( wxMouseEvent& event )
+{
+	event.Skip();
+	
+	udDiagramCanvas *pCanvas = GetActiveCanvas();
+	if( pCanvas )
+	{
+		m_sliderZoom->SetValue( pCanvas->GetScale() * 50 );
+	}
 }
 
 void UMLDesignerFrame::OnDiagramKeyDown( wxKeyEvent &event )
