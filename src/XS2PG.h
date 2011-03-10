@@ -45,6 +45,7 @@ protected:
 	static void ReadStringFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest);
 	static void ReadColourFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest);
 	static void ReadFileNameFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest);
+	static void ReadDirNameFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest);
 	static void ReadFontFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest);
 	
 	static void WriteBoolToPG(wxPropertyGrid *dest, const wxString& propname, xsProperty *src);
