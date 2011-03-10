@@ -48,7 +48,7 @@ void udXS2PG::Initialize()
 	m_mapReadFcn[wxT("string")] = ReadStringFromPG;
 	m_mapReadFcn[wxT("colour")] = ReadColourFromPG;
 	m_mapReadFcn[wxT("filename")] = ReadFileNameFromPG;
-	m_mapReadFcn[wxT("dirname")] = ReadFileNameFromPG;
+	m_mapReadFcn[wxT("dirname")] = ReadDirNameFromPG;
 	m_mapReadFcn[wxT("font")] = ReadFontFromPG;
 	
 	m_mapWriteFcn[wxT("bool")] = WriteBoolToPG;
@@ -241,7 +241,12 @@ void udXS2PG::ReadColourFromPG(wxPropertyGrid *src, const wxString& propname, xs
 
 void udXS2PG::ReadFileNameFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest)
 {
-	((wxFileName*)dest->m_pSourceVariable)->SetPath( src->GetPropertyValueAsString( propname ) );
+	*(wxFileName*)dest->m_pSourceVariable = wxFileName( src->GetPropertyValueAsString( propname ) );
+}
+
+void udXS2PG::ReadDirNameFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest)
+{
+	*(wxFileName*)dest->m_pSourceVariable = wxFileName::DirName( src->GetPropertyValueAsString( propname ) );
 }
 
 void udXS2PG::ReadStringFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest)
