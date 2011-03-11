@@ -1,6 +1,8 @@
-Changes in version 1.4.1 beta (2011-03-10):
+Changes in version 1.4.1 beta (2011-03-11):
 ------------------------------------------------
 - Fixed specification of relative output path on Windows.
+- Allowing/disabling of usage of tabulators in generated code doesn't require the CodeDesigner
+  restart anymore.
 
 Changes in version 1.4.0 beta (2011-03-04):
 ------------------------------------------------

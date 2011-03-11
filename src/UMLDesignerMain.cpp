@@ -1474,7 +1474,7 @@ void UMLDesignerFrame::OnPreferences(wxCommandEvent& event)
 	udSettingsDialog dlg( this, wxGetApp().GetSettings(), wxT("Application preferences") );
 	udWindowManager dlgman( dlg, wxT("preferences_dialog") );
 	
-	if( dlg.ShowModal() )
+	if( dlg.ShowModal() == wxID_OK )
 	{
 		// re-initialize opened canvases
 		udDiagramItem *pDiagram;
@@ -1496,6 +1496,10 @@ void UMLDesignerFrame::OnPreferences(wxCommandEvent& event)
 			
 			node = node->GetNext();
 		}
+		
+		// re-initialize languages
+		wxGetApp().ClearLanguages();
+		wxGetApp().InitLanguages();
 	}
 }
 

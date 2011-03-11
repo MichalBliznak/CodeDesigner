@@ -67,6 +67,9 @@ public:
 	static int GetLogMask(){return m_nLogMask;}
 	static void ClearLog();
     static void Log(const wxString& msg);
+	
+	void ClearLanguages();
+	void InitLanguages();
 
 protected:
     // protected data memners

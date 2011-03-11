@@ -100,14 +100,7 @@ bool UMLDesignerApp::OnInit()
 	}
 	
     // initialize languages
-    m_mapLanguages[wxT("udCLanguage")] = new udCLanguage();
-    m_mapLanguages[wxT("udCPPLanguage")] = new udCPPLanguage();
-    m_mapLanguages[wxT("udPythonLanguage")] = new udPythonLanguage();
-    //m_mapLanguages[wxT("udLanguage")] = new udLanguage(); // only for testing purposes!
-
-    m_mapProjGenerators[wxT("udCLanguage")] = new udCProjectGenerator();
-    m_mapProjGenerators[wxT("udCPPLanguage")] = new udCProjectGenerator();
-    m_mapProjGenerators[wxT("udPythonLanguage")] = new udPythonProjectGenerator();
+    InitLanguages();
 	
 	// initialize common comment generators
 	udGenerator::InitAllStdCommentProcessors();
@@ -197,13 +190,7 @@ int UMLDesignerApp::OnExit()
 	UMLDesignerFrame::EnableInternalEvents( false );
 	
     // clear languages
-    LanguageMap::iterator lit = m_mapLanguages.begin();
-    while(lit != m_mapLanguages.end())
-    {
-        delete lit->second;
-        lit++;
-    }
-    m_mapLanguages.clear();
+    ClearLanguages();
 
     // clear project generators
     ProjectGeneratorMap::iterator pit = m_mapProjGenerators.begin();
@@ -366,3 +353,27 @@ wxString UMLDesignerApp::FindAppPath()
     // Failed
     return wxEmptyString;
 }
+
+void UMLDesignerApp::ClearLanguages()
+{
+	LanguageMap::iterator lit = m_mapLanguages.begin();
+    while(lit != m_mapLanguages.end())
+    {
+        delete lit->second;
+        lit++;
+    }
+    m_mapLanguages.clear();
+}
+
+void UMLDesignerApp::InitLanguages()
+{
+	m_mapLanguages[wxT("udCLanguage")] = new udCLanguage();
+    m_mapLanguages[wxT("udCPPLanguage")] = new udCPPLanguage();
+    m_mapLanguages[wxT("udPythonLanguage")] = new udPythonLanguage();
+    //m_mapLanguages[wxT("udLanguage")] = new udLanguage(); // only for testing purposes!
+
+    m_mapProjGenerators[wxT("udCLanguage")] = new udCProjectGenerator();
+    m_mapProjGenerators[wxT("udCPPLanguage")] = new udCProjectGenerator();
+    m_mapProjGenerators[wxT("udPythonLanguage")] = new udPythonProjectGenerator();
+}
+
