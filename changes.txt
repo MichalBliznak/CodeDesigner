@@ -1,3 +1,7 @@
+Changes in version 1.4.2 beta (2011-03-25):
+------------------------------------------------
+- Fixed diagram print.
+
 Changes in version 1.4.1 beta (2011-03-11):
 ------------------------------------------------
 - Fixed specification of relative output path on Windows.
