@@ -84,7 +84,8 @@ protected:
 	virtual void OnUpdateDefinitionFile( wxUpdateUIEvent& event );
 	virtual void OnUpdateEditor( wxUpdateUIEvent& event );
 	virtual void OnEditorChoice( wxCommandEvent& event );
-	virtual void OnEditorTextChange( wxKeyEvent& event );
+	virtual void OnEditorKillFocus( wxFocusEvent& event );
+
 };
 
 #endif // __udfunctiondialog__
