@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jul 31 2010)
+// C++ code generated with wxFormBuilder (version Mar  1 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -84,7 +84,7 @@ class _DiagramDialog : public wxDialog
 	
 	public:
 		
-		_DiagramDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_DiagramDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_DiagramDialog();
 	
 };
@@ -115,7 +115,7 @@ class _CodeLinkDialog : public wxDialog
 	
 	public:
 		
-		_CodeLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Code link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_CodeLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Code link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_CodeLinkDialog();
 	
 };
@@ -147,7 +147,7 @@ class _FunctionLinkDialog : public wxDialog
 	
 	public:
 		
-		_FunctionLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Function link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_FunctionLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Function link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_FunctionLinkDialog();
 	
 };
@@ -215,7 +215,7 @@ class _FunctionDialog : public wxDialog
 		virtual void OnMoveUpClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnMoveDownClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnEditorChoice( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnEditorTextChange( wxKeyEvent& event ) { event.Skip(); }
+		virtual void OnEditorKillFocus( wxFocusEvent& event ) { event.Skip(); }
 		virtual void OnUpdateEditor( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnCancel( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
@@ -223,7 +223,7 @@ class _FunctionDialog : public wxDialog
 	
 	public:
 		
-		_FunctionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Function properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 460,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_FunctionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Function properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 460,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_FunctionDialog();
 	
 };
@@ -276,7 +276,7 @@ class _VariableDialog : public wxDialog
 	
 	public:
 		
-		_VariableDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Variable properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_VariableDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Variable properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_VariableDialog();
 	
 };
@@ -296,7 +296,7 @@ class _ChoiceDialog : public wxDialog
 	
 	public:
 		
-		_ChoiceDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Select a choice"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+		_ChoiceDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Select a choice"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
 		~_ChoiceDialog();
 	
 };
@@ -327,7 +327,7 @@ class _ElementDialog : public wxDialog
 	
 	public:
 		
-		_ElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ElementDialog();
 	
 };
@@ -363,7 +363,7 @@ class _UpdateCodeDialog : public wxDialog
 	
 	public:
 		
-		_UpdateCodeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Update code references"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_UpdateCodeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Update code references"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_UpdateCodeDialog();
 		
 		void m_checkListCodeItemsOnContextMenu( wxMouseEvent &event )
@@ -403,7 +403,7 @@ class _ScopedElementDialog : public wxDialog
 	
 	public:
 		
-		_ScopedElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ScopedElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ScopedElementDialog();
 	
 };

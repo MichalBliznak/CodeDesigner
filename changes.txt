@@ -1,6 +1,7 @@
-Changes in version 1.4.2 beta (2011-03-25):
+Changes in version 1.4.2 beta (2011-04-12):
 ------------------------------------------------
 - Fixed diagram print.
+- Fixed user-defined code update performed via properties dialog.
 
 Changes in version 1.4.1 beta (2011-03-11):
 ------------------------------------------------

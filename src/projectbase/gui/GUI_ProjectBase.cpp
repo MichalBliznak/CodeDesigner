@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jul 31 2010)
+// C++ code generated with wxFormBuilder (version Mar  1 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -385,7 +385,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
-	m_pNotebook->AddPage( m_pageAdv, wxT("Advanced"), true );
+	m_pNotebook->AddPage( m_pageAdv, wxT("Advanced"), false );
 	m_pageRetVal = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* dataTypeSizer;
 	dataTypeSizer = new wxFlexGridSizer( 3, 2, 0, 0 );
@@ -553,7 +553,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_pageEditor->SetSizer( editorSizer );
 	m_pageEditor->Layout();
 	editorSizer->Fit( m_pageEditor );
-	m_pNotebook->AddPage( m_pageEditor, wxT("Editor"), false );
+	m_pNotebook->AddPage( m_pageEditor, wxT("Editor"), true );
 	
 	controlSizer->Add( m_pNotebook, wxGBPosition( 4, 0 ), wxGBSpan( 1, 2 ), wxEXPAND | wxALL, 5 );
 	
@@ -590,7 +590,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_btnMoveDown->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _FunctionDialog::OnMoveDownClick ), NULL, this );
 	m_btnMoveDown->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _FunctionDialog::OnUpdateParamButtons ), NULL, this );
 	m_chEditedField->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _FunctionDialog::OnEditorChoice ), NULL, this );
-	m_sciEditor->Connect( wxEVT_CHAR, wxKeyEventHandler( _FunctionDialog::OnEditorTextChange ), NULL, this );
+	m_sciEditor->Connect( wxEVT_KILL_FOCUS, wxFocusEventHandler( _FunctionDialog::OnEditorKillFocus ), NULL, this );
 	m_sciEditor->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _FunctionDialog::OnUpdateEditor ), NULL, this );
 	bntSizerCancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _FunctionDialog::OnCancel ), NULL, this );
 	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _FunctionDialog::OnOk ), NULL, this );
@@ -616,7 +616,7 @@ _FunctionDialog::~_FunctionDialog()
 	m_btnMoveDown->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _FunctionDialog::OnMoveDownClick ), NULL, this );
 	m_btnMoveDown->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _FunctionDialog::OnUpdateParamButtons ), NULL, this );
 	m_chEditedField->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( _FunctionDialog::OnEditorChoice ), NULL, this );
-	m_sciEditor->Disconnect( wxEVT_CHAR, wxKeyEventHandler( _FunctionDialog::OnEditorTextChange ), NULL, this );
+	m_sciEditor->Disconnect( wxEVT_KILL_FOCUS, wxFocusEventHandler( _FunctionDialog::OnEditorKillFocus ), NULL, this );
 	m_sciEditor->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _FunctionDialog::OnUpdateEditor ), NULL, this );
 	bntSizerCancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _FunctionDialog::OnCancel ), NULL, this );
 	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _FunctionDialog::OnOk ), NULL, this );

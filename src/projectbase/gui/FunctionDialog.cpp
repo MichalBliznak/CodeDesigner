@@ -274,15 +274,6 @@ void udFunctionDialog::OnEditorChoice(wxCommandEvent& event)
 		m_sciEditor->SetText( m_Code );
 }
 
-void udFunctionDialog::OnEditorTextChange(wxKeyEvent& event)
-{	
-	if( m_chEditedField->GetSelection() == 1 ) m_UserDeclaration = m_sciEditor->GetText() + wxChar(event.GetKeyCode());
-	else
-		m_Code = m_sciEditor->GetText() + wxChar(event.GetKeyCode());
-	
-	event.Skip();
-}
-
 void udFunctionDialog::UpdateParameters()
 {
 	long nIndex = 0;
@@ -386,3 +377,13 @@ udVariableItem* udFunctionDialog::GetSelectedParameter()
 	
 	return NULL;
 }
+
+void udFunctionDialog::OnEditorKillFocus(wxFocusEvent& event)
+{
+	event.Skip();
+	
+	if( m_chEditedField->GetSelection() == 1 ) m_UserDeclaration = m_sciEditor->GetText();
+	else
+		m_Code = m_sciEditor->GetText();
+}
+
