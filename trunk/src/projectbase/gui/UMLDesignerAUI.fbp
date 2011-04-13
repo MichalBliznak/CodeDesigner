@@ -3218,7 +3218,7 @@
                 </object>
             </object>
         </object>
-        <object class="Dialog" expanded="0">
+        <object class="Dialog" expanded="1">
             <property name="BottomDockable">1</property>
             <property name="LeftDockable">1</property>
             <property name="RightDockable">1</property>
@@ -3893,7 +3893,7 @@
                                 <object class="notebookpage" expanded="0">
                                     <property name="bitmap"></property>
                                     <property name="label">Advanced</property>
-                                    <property name="select">0</property>
+                                    <property name="select">1</property>
                                     <object class="wxPanel" expanded="0">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>
@@ -6361,7 +6361,7 @@
                                 <object class="notebookpage" expanded="0">
                                     <property name="bitmap"></property>
                                     <property name="label">Editor</property>
-                                    <property name="select">1</property>
+                                    <property name="select">0</property>
                                     <object class="wxPanel" expanded="0">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>

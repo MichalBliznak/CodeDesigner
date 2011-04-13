@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Mar  1 2011)
+// C++ code generated with wxFormBuilder (version Mar 22 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -385,7 +385,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
-	m_pNotebook->AddPage( m_pageAdv, wxT("Advanced"), false );
+	m_pNotebook->AddPage( m_pageAdv, wxT("Advanced"), true );
 	m_pageRetVal = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* dataTypeSizer;
 	dataTypeSizer = new wxFlexGridSizer( 3, 2, 0, 0 );
@@ -553,7 +553,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_pageEditor->SetSizer( editorSizer );
 	m_pageEditor->Layout();
 	editorSizer->Fit( m_pageEditor );
-	m_pNotebook->AddPage( m_pageEditor, wxT("Editor"), true );
+	m_pNotebook->AddPage( m_pageEditor, wxT("Editor"), false );
 	
 	controlSizer->Add( m_pNotebook, wxGBPosition( 4, 0 ), wxGBSpan( 1, 2 ), wxEXPAND | wxALL, 5 );
 	
