@@ -43,6 +43,8 @@ class udCodeLinkItem;
 #define udfUNIQUE_NAME true
 #define udvID_OFFSET 500000
 
+using namespace wxXS;
+
 // base classes ///////////////////////////////////////////////////////////////////
 
 class WXDLLIMPEXP_CD udProjectItem : public IProjectItem
