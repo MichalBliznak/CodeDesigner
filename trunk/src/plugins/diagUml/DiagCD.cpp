@@ -737,22 +737,6 @@ udBaseAggregElementItem::udBaseAggregElementItem(const udBaseAggregElementItem& 
 
 udBaseAggregElementItem::~udBaseAggregElementItem()
 {
-	udScopedElementDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
-	udWindowManager dlgman( dlg, wxT("scoped_element_dialog") );
-	
-	dlg.SetCodeName( m_sName );
-	dlg.SetDescription( m_sDescription );
-	dlg.SetAccessType( (int)m_nAccessType );
-	
-	if( dlg.ShowModal() == wxID_OK )
-	{
-		m_sDescription = dlg.GetDescription();
-		m_nAccessType = (udLanguage::ACCESSTYPE)dlg.GetAccessType();
-		
-		OnTreeTextChange( dlg.GetCodeName() );
-		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
-	}
 }
 
 // public virtual functions /////////////////////////////////////////////////////////
