@@ -2107,7 +2107,8 @@ void UMLDesignerFrame::OnDropShapes( wxSFShapeDropEvent& event )
 			node = lstElements.GetFirst();
 		}
 		else
-		{	udDiagElementItem *pElement = wxDynamicCast( node->GetData()->GetUserData(), udDiagElementItem );
+		{	
+			udDiagElementItem *pElement = wxDynamicCast( node->GetData()->GetUserData(), udDiagElementItem );
 			if( pElement ) pElement->UpdateInnerContent();
 			
 			node = node->GetNext();
