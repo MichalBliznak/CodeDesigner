@@ -75,6 +75,7 @@ udClassElementItem::udClassElementItem()
 }
 
 udClassElementItem::udClassElementItem(const udClassElementItem& obj)
+: udDiagElementItem(obj)
 {
 	m_Generate = obj.m_Generate;
 	

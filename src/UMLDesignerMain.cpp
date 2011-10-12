@@ -2113,7 +2113,6 @@ void UMLDesignerFrame::OnDropShapes( wxSFShapeDropEvent& event )
 			
 			node = node->GetNext();
 		}
-			
 	}
 	
 	// update dropped element shapes
