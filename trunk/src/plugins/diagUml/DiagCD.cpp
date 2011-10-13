@@ -14,6 +14,7 @@
 #include "gui/EnumElementDialog.h"
 #include "gui/EnumDialog.h"
 #include "gui/ClassDialog.h"
+#include "gui/AggregationDialog.h"
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/ClassDiagram.h"
@@ -721,19 +722,23 @@ XS_IMPLEMENT_CLONABLE_CLASS(udUniAssocElementItem, udDiagElementItem);
 // udBaseAggregElementItem class ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-XS_IMPLEMENT_CLONABLE_CLASS(udBaseAggregElementItem, udDiagElementItem);
+XS_IMPLEMENT_CLONABLE_CLASS(udBaseAggregElementItem, udIncludeAssocElementItem);
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
 udBaseAggregElementItem::udBaseAggregElementItem()
 {
+	m_IncludeClass = false;
+	
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+	XS_SERIALIZE( m_IncludeClass, wxT("include_target_class") );
 }
 
 udBaseAggregElementItem::udBaseAggregElementItem(const udBaseAggregElementItem& obj)
-: udDiagElementItem( obj )
+: udIncludeAssocElementItem( obj )
 {
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+	XS_SERIALIZE( m_IncludeClass, wxT("include_target_class") );
 }
 
 udBaseAggregElementItem::~udBaseAggregElementItem()
@@ -742,28 +747,30 @@ udBaseAggregElementItem::~udBaseAggregElementItem()
 
 // public virtual functions /////////////////////////////////////////////////////////
 
-wxMenu* udBaseAggregElementItem::CreateMenu()
+/*wxMenu* udBaseAggregElementItem::CreateMenu()
 {
 	wxMenu *pMenu = udDiagElementItem::CreateMenu();
 	
 	pMenu->Insert( 0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
 	
 	return pMenu;
-}
+}*/
 
 void udBaseAggregElementItem::OnEditItem(wxWindow* parent)
 {
-	udScopedElementDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
-	udWindowManager dlgman( dlg, wxT("scoped_element_dialog") );
+	udAggregationDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("aggregation_element_dialog") );
 	
 	dlg.SetCodeName( m_sName );
 	dlg.SetDescription( m_sDescription );
 	dlg.SetAccessType( (int)m_nAccessType );
+	dlg.SetIncludeClass( m_IncludeClass );
 	
 	if( dlg.ShowModal() == wxID_OK )
 	{
 		m_sDescription = dlg.GetDescription();
 		m_nAccessType = (udLanguage::ACCESSTYPE)dlg.GetAccessType();
+		m_IncludeClass = dlg.GetIncludeClass();
 		
 		OnTreeTextChange( dlg.GetCodeName() );
 		
@@ -775,19 +782,23 @@ void udBaseAggregElementItem::OnEditItem(wxWindow* parent)
 // udCompAggregElementItem class ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-XS_IMPLEMENT_CLONABLE_CLASS(udCompAggregElementItem, udDiagElementItem);
+XS_IMPLEMENT_CLONABLE_CLASS(udCompAggregElementItem, udIncludeAssocElementItem);
 
 // constructor and destructor ///////////////////////////////////////////////////////
 
 udCompAggregElementItem::udCompAggregElementItem()
 {
+	m_IncludeClass = false;
+	
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+	XS_SERIALIZE( m_IncludeClass, wxT("include_target_class") );
 }
 
 udCompAggregElementItem::udCompAggregElementItem(const udCompAggregElementItem& obj)
-: udDiagElementItem( obj )
+: udIncludeAssocElementItem( obj )
 {
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
+	XS_SERIALIZE( m_IncludeClass, wxT("include_target_class") );
 }
 
 udCompAggregElementItem::~udCompAggregElementItem()
@@ -796,17 +807,35 @@ udCompAggregElementItem::~udCompAggregElementItem()
 
 // public virtual functions /////////////////////////////////////////////////////////
 
-wxMenu* udCompAggregElementItem::CreateMenu()
+/*wxMenu* udCompAggregElementItem::CreateMenu()
 {
 	wxMenu *pMenu = udDiagElementItem::CreateMenu();
 	
 	pMenu->Insert( 0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
 	
 	return pMenu;
-}
+}*/
 
 void udCompAggregElementItem::OnEditItem(wxWindow* parent)
 {
+	udAggregationDialog dlg( IPluginManager::Get()->GetMainFrame(), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("aggregation_element_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetAccessType( (int)m_nAccessType );
+	dlg.SetIncludeClass( m_IncludeClass );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_nAccessType = (udLanguage::ACCESSTYPE)dlg.GetAccessType();
+		m_IncludeClass = dlg.GetIncludeClass();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1077,12 +1106,16 @@ XS_IMPLEMENT_CLONABLE_CLASS(udIncludeAssocElementItem, udDiagElementItem);
 
 udIncludeAssocElementItem::udIncludeAssocElementItem()
 {
+	m_IncludeClass = true;
+	
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 
 udIncludeAssocElementItem::udIncludeAssocElementItem(const udIncludeAssocElementItem& obj)
 : udDiagElementItem( obj )
 {
+	m_IncludeClass = obj.m_IncludeClass;
+	
 	XS_SERIALIZE_INT( m_nAccessType, wxT("access_type") );
 }
 

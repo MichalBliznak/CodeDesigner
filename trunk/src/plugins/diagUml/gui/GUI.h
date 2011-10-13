@@ -1,13 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jul 31 2010)
+// C++ code generated with wxFormBuilder (version Jun 27 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef __GUI__
-#define __GUI__
+#ifndef __GUI_H__
+#define __GUI_H__
 
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
 #include <wx/string.h>
 #include <wx/stattext.h>
 #include <wx/gdicmn.h>
@@ -84,7 +86,7 @@ class _CodeDialog : public wxDialog
 	
 	public:
 		
-		_CodeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Condition/Action properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_CodeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Condition/Action properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_CodeDialog();
 	
 };
@@ -122,7 +124,7 @@ class _StateActionDialog : public wxDialog
 	
 	public:
 		
-		_StateActionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("State action properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_StateActionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("State action properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_StateActionDialog();
 	
 };
@@ -158,7 +160,7 @@ class _EventDialog : public wxDialog
 	
 	public:
 		
-		_EventDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Event properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_EventDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Event properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_EventDialog();
 	
 };
@@ -193,7 +195,7 @@ class _ActionLinkDialog : public wxDialog
 	
 	public:
 		
-		_ActionLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("State action link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ActionLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("State action link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ActionLinkDialog();
 	
 };
@@ -226,7 +228,7 @@ class _ClassMemberLinkDialog : public wxDialog
 	
 	public:
 		
-		_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class member link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class member link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ClassMemberLinkDialog();
 	
 };
@@ -254,12 +256,10 @@ class _TransitionDialog : public wxDialog
 		wxStaticText* m_staticText53;
 		wxListBox* m_listUsed;
 		wxMenu* m_menuUsed;
-		
 		wxButton* m_btnAdd;
 		wxButton* m_btnRemove;
 		wxButton* m_btnUp;
 		wxButton* m_btnDown;
-		
 		wxStaticText* m_staticText54;
 		wxListBox* m_listAvailable;
 		wxMenu* m_menuAvailable;
@@ -290,7 +290,7 @@ class _TransitionDialog : public wxDialog
 	
 	public:
 		
-		_TransitionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Transition properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_TransitionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Transition properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_TransitionDialog();
 		
 		void m_listUsedOnContextMenu( wxMouseEvent &event )
@@ -337,7 +337,7 @@ class _FinalStateDialog : public wxDialog
 	
 	public:
 		
-		_FinalStateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Final state properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_FinalStateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Final state properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_FinalStateDialog();
 	
 };
@@ -364,12 +364,10 @@ class _CompStateDialog : public wxDialog
 		wxPanel* m_pageExit;
 		wxListBox* m_listUsedExit;
 		wxMenu* m_menuUsedExit;
-		
 		wxButton* m_btnAdd;
 		wxButton* m_btnRemove;
 		wxButton* m_btnUp;
 		wxButton* m_btnDown;
-		
 		wxStaticText* m_staticText54;
 		wxListBox* m_listAvailable;
 		wxMenu* m_menuAvailable;
@@ -399,7 +397,7 @@ class _CompStateDialog : public wxDialog
 	
 	public:
 		
-		_CompStateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Composite state properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_CompStateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Composite state properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_CompStateDialog();
 		
 		void m_listUsedEntryOnContextMenu( wxMouseEvent &event )
@@ -477,7 +475,7 @@ class _ConstructorDialog : public wxDialog
 	
 	public:
 		
-		_ConstructorDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Constructor properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 460,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ConstructorDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Constructor properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 460,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ConstructorDialog();
 	
 };
@@ -519,7 +517,7 @@ class _DestructorDialog : public wxDialog
 	
 	public:
 		
-		_DestructorDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Destructor properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 460,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_DestructorDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Destructor properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 460,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_DestructorDialog();
 	
 };
@@ -551,7 +549,7 @@ class _RenameVirtualDialog : public wxDialog
 	
 	public:
 		
-		_RenameVirtualDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Refactor virtual function"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_RenameVirtualDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Refactor virtual function"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_RenameVirtualDialog();
 		
 		void m_checkListCandidatesOnContextMenu( wxMouseEvent &event )
@@ -591,7 +589,7 @@ class _ClassTemplateDialog : public wxDialog
 	
 	public:
 		
-		_ClassTemplateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class template properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ClassTemplateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class template properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ClassTemplateDialog();
 	
 };
@@ -621,7 +619,7 @@ class _ClassInstanceDialog : public wxDialog
 	
 	public:
 		
-		_ClassInstanceDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class instance"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ClassInstanceDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class instance"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ClassInstanceDialog();
 	
 };
@@ -656,7 +654,7 @@ class _EnumElementDialog : public wxDialog
 	
 	public:
 		
-		_EnumElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Enumeration element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_EnumElementDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Enumeration element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_EnumElementDialog();
 	
 };
@@ -691,7 +689,7 @@ class _EnumDialog : public wxDialog
 	
 	public:
 		
-		_EnumDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Enumeration properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_EnumDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Enumeration properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_EnumDialog();
 	
 };
@@ -725,9 +723,45 @@ class _ClassDialog : public wxDialog
 	
 	public:
 		
-		_ClassDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ClassDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ClassDialog();
 	
 };
 
-#endif //__GUI__
+///////////////////////////////////////////////////////////////////////////////
+/// Class _AggregationDialog
+///////////////////////////////////////////////////////////////////////////////
+class _AggregationDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText1;
+		wxTextCtrl* m_eName;
+		wxCheckBox* m_cbMakeValid;
+		wxStaticText* m_staticText2;
+		wxTextCtrl* m_eDescription;
+		wxNotebook* m_pNotebook;
+		wxPanel* m_pageAdv;
+		wxCheckBox* m_chbIncludeClass;
+		wxStaticText* m_staticText55;
+		wxChoice* m_chAccess;
+		wxStdDialogButtonSizer* bntSizer;
+		wxButton* bntSizerOK;
+		wxButton* bntSizerCancel;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnNameChange( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnMakeValid( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_AggregationDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Aggregation properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		~_AggregationDialog();
+	
+};
+
+#endif //__GUI_H__

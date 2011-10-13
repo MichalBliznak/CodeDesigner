@@ -1,8 +1,10 @@
-Changes in version 1.4.3 beta (2011-10-12):
+Changes in version 1.4.3 beta (2011-10-13):
 ------------------------------------------------
 - Fixed crash that could occure when aggregation links were used in class diagram.
 - Fixed creation of copy of a class element by dragging from project tree (CTRL key
   must be pressed down).
+- Added ability to define whether source code of associated class will be included inside a referencing
+  one if basic or composition aggregation is used (see association element properties dialog).
 
 Changes in version 1.4.2 beta (2011-04-12):
 ------------------------------------------------
