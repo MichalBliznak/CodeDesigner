@@ -26,7 +26,11 @@ udLog::udLog( wxWindow* parent, wxWindowID id ) : _LogPanel( parent, id )
     m_lstImages = new wxImageList(ICON_SIZE, ICON_SIZE);
 
     // order should be the same as in the switch below!
+#if wxVERSION_NUMBER < 2900
     static const wxChar* icons[] =
+#else
+	static const char* icons[] =
+#endif
     {
 		wxART_INFORMATION,
         wxART_WARNING,

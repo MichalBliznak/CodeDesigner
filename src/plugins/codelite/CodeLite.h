@@ -70,7 +70,11 @@ public:
 	virtual ~CDConnection();
 	
 	virtual bool OnDisconnect();
+#if wxVERSION_NUMBER < 2900
 	virtual bool Poke(const wxString& item, wxChar *data, int size = -1, wxIPCFormat format = wxIPC_TEXT);
+#else
+	virtual bool Poke(const wxString& item, const wchar_t *data);
+#endif
 	
 protected:
 	CDClient *m_Client;

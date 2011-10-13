@@ -135,11 +135,12 @@ void udPluginManager::LoadPlugins()
 	ext = wxT("dll");
 #endif
 
-#ifdef __WXDEBUG__
+#ifndef NDEBUG
 	wxString sFileSpec( wxT( "*_d." ) + ext );
 #else
 	wxString sFileSpec( wxT( "*." ) + ext );
 #endif
+
 	wxDynamicLibrary *pDl = NULL;
 	
 	wxArrayString arrPluginNames;

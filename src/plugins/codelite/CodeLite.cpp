@@ -147,7 +147,11 @@ void udCodeLitePlugin::OnProjectGenerated(udProjectEvent& event)
 		IPluginManager::Get()->GetAppSettings().GetProperty( wxT("Update CodeLite workspace") )->AsBool() &&
 		!m_Files.IsEmpty() )
 	{
+#if wxVERSION_NUMBER < 2900
 		m_Client->GetConnection()->Poke( wxT("ADD FILES"), (wxChar*)m_Files.c_str() );
+#else
+		m_Client->GetConnection()->Poke( wxT("ADD FILES"), m_Files.c_str() );
+#endif
 	}
 }
 
@@ -242,6 +246,7 @@ CDConnection::~CDConnection()
 {
 }
 
+#if wxVERSION_NUMBER < 2900
 bool CDConnection::Poke(const wxString& item, wxChar *data, int size, wxIPCFormat format)
 {
     bool retval = wxConnection::Poke(item, data, size, format);
@@ -249,6 +254,15 @@ bool CDConnection::Poke(const wxString& item, wxChar *data, int size, wxIPCForma
 	
     return retval;
 }
+#else
+bool CDConnection::Poke(const wxString& item, const wchar_t *data)
+{
+    bool retval = wxConnection::Poke(item, data);
+    if (!retval) IPluginManager::Get()->Log( wxT("WARNING: IPC Poke failed") );
+	
+    return retval;
+}
+#endif
 
 bool CDConnection::OnDisconnect()
 {
