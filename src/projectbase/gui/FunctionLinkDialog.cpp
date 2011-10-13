@@ -36,7 +36,7 @@ void udFunctionLinkDialog::OnInit(wxInitDialogEvent& event)
 		udParamItem *pParam = (udParamItem*) m_pOriginal->GetFirstChild( CLASSINFO(udParamItem) );
 		while( pParam )
 		{
-			m_pgParams->Append( wxStringProperty( pParam->GetName(), wxPG_LABEL, m_pLink->GetCallParams()[ pParam->GetName()] ) );
+			m_pgParams->Append( new wxStringProperty( pParam->GetName(), wxPG_LABEL, m_pLink->GetCallParams()[ pParam->GetName()] ) );
 			
 			pParam = (udParamItem*) pParam->GetSibbling();
 		}
@@ -75,14 +75,21 @@ void udFunctionLinkDialog::OnOk(wxCommandEvent& event)
 		wxString sPropValue;
 		m_pLink->GetCallParams().clear();
 		
-		wxPGId pgID = m_pgParams->GetFirstProperty();
+		wxPropertyGridIterator it = m_pgParams->GetIterator( wxPG_ITERATE_PROPERTIES );
+		for( ; !it.AtEnd(); ++it )
+		{
+			wxString sPropValue = (*it)->GetValueAsString();
+			if( !sPropValue.IsEmpty() ) m_pLink->GetCallParams()[ (*it)->GetName() ] = sPropValue;
+		}
+		
+		/*wxPGId pgID = m_pgParams->GetFirstProperty();
 		while( pgID.IsOk() )
 		{
 			sPropValue = m_pgParams->GetPropertyValue( pgID ).GetString();
 			if( !sPropValue.IsEmpty() ) m_pLink->GetCallParams()[ m_pgParams->GetPropertyName(pgID) ] = sPropValue;
 			
 			pgID = m_pgParams->GetNextProperty( pgID );
-		}
+		}*/
 		
 		EndModal( wxID_OK );
 	}
