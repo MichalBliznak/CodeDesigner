@@ -435,7 +435,7 @@ void udConstructorDialog::UpdateConsParameters(const wxString& cons)
 		udParamItem *pParam = (udParamItem*) pCons->GetFirstChild( CLASSINFO(udParamItem) );
 		while( pParam )
 		{
-			m_pgParams->Append( wxStringProperty( pParam->GetName(), wxPG_LABEL, m_mapConsParams[ cons + wxT(":") + pParam->GetName()] ) );
+			m_pgParams->Append( new wxStringProperty( pParam->GetName(), wxPG_LABEL, m_mapConsParams[ cons + wxT(":") + pParam->GetName()] ) );
 				
 			pParam = (udParamItem*) pParam->GetSibbling();
 		}
@@ -446,6 +446,6 @@ void udConstructorDialog::OnPropertyGridChange(wxPropertyGridEvent& event)
 {
 	if( !event.GetPropertyValue().GetString().IsEmpty() )
 	{
-		m_mapConsParams[ m_chBaseConstructor->GetStringSelection() + wxT(":") + event.GetProperty().GetName() ] = event.GetPropertyValue().GetString();
+		m_mapConsParams[ m_chBaseConstructor->GetStringSelection() + wxT(":") + event.GetPropertyName() ] = event.GetPropertyValue().GetString();
 	}
 }

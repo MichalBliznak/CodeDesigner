@@ -68,7 +68,7 @@ void udSettingsDialog::CreateCategoryContent(udSettingsCategory* category)
 
 	// create cathegory title
 	m_pPropertyGrid->Clear();
-	m_pPropertyGrid->AppendCategory( category->GetName() );
+	m_pPropertyGrid->Append( new wxPropertyCategory( category->GetName() ) );
 		
 	PropertyList::compatibility_iterator node = category->GetProperties().GetFirst();
 	while( node )
@@ -100,7 +100,7 @@ void udSettingsDialog::OnChangeCategory(wxTreeEvent& event)
 		else
 		{
 			m_pPropertyGrid->Clear();
-			m_pPropertyGrid->AppendCategory(m_pCategoryTree->GetItemText( treeId ) );
+			m_pPropertyGrid->Append( new wxPropertyCategory( m_pCategoryTree->GetItemText( treeId ) ) );
 		}
 	}
 }

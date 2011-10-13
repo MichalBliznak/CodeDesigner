@@ -2475,7 +2475,7 @@ wxXmlNode* udDiagElementItem::Serialize(wxXmlNode* node)
         node = udProjectItem::Serialize(node);
 
         // serialize code items links (cannot be serialized in a standard way because they are children
-		// of user-data item appended to a shape )
+		// of user-data item appended to a transition shape )
 		IPluginManager::Get()->GetProject()->SerializeObjects( this, node, false );
     }
 

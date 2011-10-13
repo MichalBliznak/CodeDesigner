@@ -163,14 +163,14 @@ void udProjectManager::UpdatePropertiesView(udProjectItem* item)
 	// initialize properties grid
 	m_pPropertiesGrid->Clear();
 	// create some common steps
-	m_pPropertiesGrid->AppendCategory( wxT("Common") );
+	m_pPropertiesGrid->Append( new wxPropertyCategory( wxT("Common") ) );
 	
 	// show read-only properties of given item
 	if( item )
 	{
-		m_pPropertiesGrid->DisableProperty( m_pPropertiesGrid->Append( wxT("type"), wxPG_LABEL, udXS2PG::GetFriendlyName( wxT("classname"), item->GetClassInfo()->GetClassName() ) ) );
+		m_pPropertiesGrid->DisableProperty( m_pPropertiesGrid->Append( new wxStringProperty( wxT("type"), wxPG_LABEL, udXS2PG::GetFriendlyName( wxT("classname"), item->GetClassInfo()->GetClassName() ) ) ) );
 		
-		m_pPropertiesGrid->AppendCategory( wxT("Properties") );
+		m_pPropertiesGrid->Append( new wxPropertyCategory( wxT("Properties") ) );
 		
 		xsProperty *pProperty;
 		wxString sValue;
@@ -181,8 +181,8 @@ void udProjectManager::UpdatePropertiesView(udProjectItem* item)
 			pProperty = node->GetData();
 			sValue = wxXmlSerializer::GetPropertyIOHandler( pProperty->m_sDataType )->GetValueStr( pProperty );
 			
-			wxPGId pid =  m_pPropertiesGrid->Append( pProperty->m_sFieldName, wxPG_LABEL, udXS2PG::GetFriendlyName( pProperty->m_sFieldName, sValue ) );
-			if( pid.IsOk() ) m_pPropertiesGrid->DisableProperty( pid );
+			wxPGProperty *pNewProp =  m_pPropertiesGrid->Append( new wxStringProperty( pProperty->m_sFieldName, wxPG_LABEL, udXS2PG::GetFriendlyName( pProperty->m_sFieldName, sValue ) ) );
+			if( pNewProp ) m_pPropertiesGrid->DisableProperty( pNewProp );
 			
 			node = node->GetNext();
 		}

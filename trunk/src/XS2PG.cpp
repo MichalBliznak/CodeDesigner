@@ -236,8 +236,13 @@ void udXS2PG::ReadLongFromPG(wxPropertyGrid *src, const wxString& propname, xsPr
 
 void udXS2PG::ReadColourFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest)
 {
-	wxVariant value = src->GetPropertyValue( propname ); 
-	*(wxColour*)dest->m_pSourceVariable = *(wxColour*) WX_PG_VARIANT_TO_WXOBJECT( value, wxColour );
+	/*wxVariant value = src->GetPropertyValue( propname ); 
+	*(wxColour*)dest->m_pSourceVariable = *(wxColour*) WX_PG_VARIANT_TO_WXOBJECT( value, wxColour );*/
+	
+	wxColour col;
+	col << src->GetProperty( propname )->GetValue();
+	
+	*(wxColour*)dest->m_pSourceVariable = col;
 }
 
 void udXS2PG::ReadFileNameFromPG(wxPropertyGrid *src, const wxString& propname, xsProperty *dest)
@@ -258,42 +263,47 @@ void udXS2PG::ReadStringFromPG(wxPropertyGrid *src, const wxString& propname, xs
 void udXS2PG::WriteBoolToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
 
-	dest->Append( wxBoolProperty( propname, wxPG_LABEL, *(bool*)src->m_pSourceVariable ) );
+	dest->Append( new wxBoolProperty( propname, wxPG_LABEL, *(bool*)src->m_pSourceVariable ) );
 }
 
 void udXS2PG::WriteColourToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	dest->Append( wxColourProperty( propname, wxPG_LABEL, *(wxColour*)src->m_pSourceVariable ) );
+	dest->Append( new wxColourProperty( propname, wxPG_LABEL, *(wxColour*)src->m_pSourceVariable ) );
 }
 
 void udXS2PG::WriteFileNameToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	dest->Append( wxFileProperty( propname, wxPG_LABEL, ((wxFileName*)src->m_pSourceVariable)->GetPath() ) );
+	dest->Append( new wxFileProperty( propname, wxPG_LABEL, ((wxFileName*)src->m_pSourceVariable)->GetPath() ) );
 }
 
 void udXS2PG::WriteDirNameToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	dest->Append( wxDirProperty( propname, wxPG_LABEL, ((wxFileName*)src->m_pSourceVariable)->GetPath() ) );
+	dest->Append( new wxDirProperty( propname, wxPG_LABEL, ((wxFileName*)src->m_pSourceVariable)->GetPath() ) );
 }
 
 void udXS2PG::WriteStringToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	dest->Append( wxStringProperty( propname, wxPG_LABEL, *(wxString*)src->m_pSourceVariable ) );
+	dest->Append( new wxStringProperty( propname, wxPG_LABEL, *(wxString*)src->m_pSourceVariable ) );
 }
 
 void udXS2PG::WriteIntToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	dest->Append( wxIntProperty( propname, wxPG_LABEL, *(int*)src->m_pSourceVariable ) );
+	dest->Append( new wxIntProperty( propname, wxPG_LABEL, *(int*)src->m_pSourceVariable ) );
 }
 
 void udXS2PG::WriteLongToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	if( propname != wxT("id") ) dest->Append( wxIntProperty( propname, wxPG_LABEL, *(long*)src->m_pSourceVariable ) );
+	if( propname != wxT("id") ) dest->Append( new wxIntProperty( propname, wxPG_LABEL, *(long*)src->m_pSourceVariable ) );
 }
 
 void udXS2PG::ReadFontFromPG(wxPropertyGrid* src, const wxString& propname, xsProperty* dest)
 {	
-	wxFontPropertyValue* pFontVal = wxDynamicCast( src->GetPropertyValueAsWxObjectPtr( src->GetPropertyByName( propname ) ), wxFontPropertyValue );
+	wxFont font;
+	font << src->GetProperty( propname );
+	
+	*(wxFont*)dest->m_pSourceVariable = font;
+	
+	/*wxFontPropertyValue* pFontVal = wxDynamicCast( src->GetPropertyValueAsWxObjectPtr( src->GetPropertyByName( propname ) ), wxFontPropertyValue );
 	if( pFontVal )
 	{		
 		*(wxFont*)dest->m_pSourceVariable = wxFont( pFontVal->m_pointSize,
@@ -302,10 +312,10 @@ void udXS2PG::ReadFontFromPG(wxPropertyGrid* src, const wxString& propname, xsPr
 													pFontVal->m_weight,
 													pFontVal->m_underlined,
 													pFontVal->m_faceName);
-	}
+	}*/
 }
 
 void udXS2PG::WriteFontToPG(wxPropertyGrid* dest, const wxString& propname, xsProperty* src)
 {
-	dest->Append( wxFontProperty( propname, wxPG_LABEL, *(wxFont*)src->m_pSourceVariable ) );
+	dest->Append( new wxFontProperty( propname, wxPG_LABEL, *(wxFont*)src->m_pSourceVariable ) );
 }
