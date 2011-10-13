@@ -34,7 +34,11 @@ package.includepaths = { ".", "../../", "../../controls/include" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.
-package.links = { "wxPropGrid", "wxScintilla", "wxShapeFramework", "projectBase" }
+if ( wx_release == "2.8" ) then
+	package.links = { "wxPropGrid", "wxScintilla", "wxShapeFramework", "projectBase" }
+else
+	package.links = { "wxScintilla", "wxShapeFramework", "projectBase" }
+end
 
 -- Set wxWidgets presets
 dofile('../../../build/premake/scripts/wxpresets.lua')

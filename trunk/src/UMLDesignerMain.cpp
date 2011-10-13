@@ -1431,7 +1431,7 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 
 void UMLDesignerFrame::OnExportDiagram( wxCommandEvent &event )
 {
-	wxFileDialog dlg(this, wxT("Export diagram to BMP..."), wxGetCwd(), wxT(""), wxT("BMP Files (*.bmp)|*.bmp"), wxSAVE);
+	wxFileDialog dlg(this, wxT("Export diagram to BMP..."), wxGetCwd(), wxT(""), wxT("BMP Files (*.bmp)|*.bmp"), wxFD_SAVE);
 
 	if(dlg.ShowModal() == wxID_OK)
 	{
