@@ -93,6 +93,7 @@ void udXS2PG::Initialize()
 	pMap = new NameMap();
 	m_mapMaps[wxT("inline")] = pMap;
 	m_mapMaps[wxT("generate_code")] = pMap;
+	m_mapMaps[wxT("include_target_class")] = pMap;
 	
 	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("False");

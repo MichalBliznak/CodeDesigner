@@ -104,7 +104,28 @@ public:
     XS_DECLARE_CLONABLE_CLASS(udUniAssocElementItem);
 };
 
-class WXDLLIMPEXP_CD udBaseAggregElementItem : public udDiagElementItem
+class WXDLLIMPEXP_CD udIncludeAssocElementItem : public udDiagElementItem
+{
+public:
+    XS_DECLARE_CLONABLE_CLASS(udIncludeAssocElementItem);
+	
+	udIncludeAssocElementItem();
+	udIncludeAssocElementItem(const udIncludeAssocElementItem &obj);
+    virtual ~udIncludeAssocElementItem();
+	
+	virtual wxMenu* CreateMenu();
+	virtual void OnEditItem(wxWindow* parent);
+	
+	// data accessors
+	void SetIncludeClass(bool IncludeClass) {this->m_IncludeClass = IncludeClass;}
+	bool GetIncludeClass() const {return m_IncludeClass;}
+	
+protected:
+	// data members
+	bool m_IncludeClass;
+};
+
+class WXDLLIMPEXP_CD udBaseAggregElementItem : public udIncludeAssocElementItem
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udBaseAggregElementItem);
@@ -113,11 +134,11 @@ public:
 	udBaseAggregElementItem(const udBaseAggregElementItem &obj);
     virtual ~udBaseAggregElementItem();
 	
-	virtual wxMenu* CreateMenu();
+	// virtual wxMenu* CreateMenu();
 	virtual void OnEditItem(wxWindow* parent);
 };
 
-class WXDLLIMPEXP_CD udCompAggregElementItem : public udDiagElementItem
+class WXDLLIMPEXP_CD udCompAggregElementItem : public udIncludeAssocElementItem
 {
 public:
     XS_DECLARE_CLONABLE_CLASS(udCompAggregElementItem);
@@ -126,7 +147,7 @@ public:
 	udCompAggregElementItem(const udCompAggregElementItem &obj);
     virtual ~udCompAggregElementItem();
 	
-	virtual wxMenu* CreateMenu();
+	// virtual wxMenu* CreateMenu();
 	virtual void OnEditItem(wxWindow* parent);
 };
 
@@ -175,19 +196,6 @@ public:
 	
 protected:
 	wxString m_InstanceName;
-};
-
-class WXDLLIMPEXP_CD udIncludeAssocElementItem : public udDiagElementItem
-{
-public:
-    XS_DECLARE_CLONABLE_CLASS(udIncludeAssocElementItem);
-	
-	udIncludeAssocElementItem();
-	udIncludeAssocElementItem(const udIncludeAssocElementItem &obj);
-    virtual ~udIncludeAssocElementItem();
-	
-	virtual wxMenu* CreateMenu();
-	virtual void OnEditItem(wxWindow* parent);
 };
 
 // code items /////////////////////////////////////////////////////////////////////

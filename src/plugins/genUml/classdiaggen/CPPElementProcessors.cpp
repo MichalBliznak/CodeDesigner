@@ -405,21 +405,24 @@ void udCPPIncludeAssocProcessor::ProcessElement(wxSFShapeBase* element)
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 	udClassAlgorithm *pAlg = (udClassAlgorithm*) m_pParentGenerator->GetActiveAlgorithm();
 	
-	udProjectItem *pAssoc = udPROJECT::GetDiagramElement( element );
+	udIncludeAssocElementItem *pAssoc = wxDynamicCast( udPROJECT::GetDiagramElement( element ), udIncludeAssocElementItem );
 	
-	pLang->SingleLineCommentCmd( pAssoc->GetName() );
-	
-	// get target element
-	wxSFLineShape *pConnection = wxDynamicCast( element, wxSFLineShape );
-	if( pConnection )
+	if( pAssoc && pAssoc->GetIncludeClass() )
 	{
-		wxSFShapeBase *pTrgShape = pConnection->GetShapeManager()->FindShape( pConnection->GetTrgShapeId() );
-		if( pTrgShape )
+		pLang->SingleLineCommentCmd( pAssoc->GetName() );
+		
+		// get target element
+		wxSFLineShape *pConnection = wxDynamicCast( element, wxSFLineShape );
+		if( pConnection )
 		{
-			udElementProcessor *pProcessor = pAlg->GetElementProcessor( pTrgShape->GetClassInfo()->GetClassName() ); 
-			if( pProcessor )
+			wxSFShapeBase *pTrgShape = pConnection->GetShapeManager()->FindShape( pConnection->GetTrgShapeId() );
+			if( pTrgShape )
 			{
-				pProcessor->ProcessElement( pTrgShape );
+				udElementProcessor *pProcessor = pAlg->GetElementProcessor( pTrgShape->GetClassInfo()->GetClassName() ); 
+				if( pProcessor )
+				{
+					pProcessor->ProcessElement( pTrgShape );
+				}
 			}
 		}
 	}
