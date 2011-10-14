@@ -5,7 +5,7 @@ AppVerName=CodeDesigner 1.4.3.2563 Beta (SVN: 154)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.4.3.2564
+OutputBaseFilename=codedesigner-1.4.3.2563
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
@@ -196,6 +196,7 @@ Name: desktopicon\user; Description: For the current user only; GroupDescription
 [Run]
 Filename: {app}\readme_bin.txt; Description: View the README file; Flags: postinstall shellexec skipifsilent
 Filename: {app}\codedesigner.exe; Description: Launch application; Flags: postinstall nowait skipifsilent unchecked
+
 
 
 
