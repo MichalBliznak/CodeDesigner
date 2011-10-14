@@ -1,17 +1,17 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.4.2.2539 Beta (SVN: 141)
+AppVerName=CodeDesigner 1.4.3.2563 Beta (SVN: 154)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.4.2.2539
+OutputBaseFilename=codedesigner-1.4.3.2564
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
 [Files]
 Source: ..\..\..\..\..\..\..\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Components: core
-Source: ..\..\..\..\..\..\..\wxWidgets-2.8.10\lib\gcc_dll\wxmsw28u_gcc_custom.dll; DestDir: {app}; Components: core
+Source: ..\..\..\..\..\..\..\wxWidgets-2.8.12\lib\gcc_dll\wxmsw28u_gcc.dll; DestDir: {app}; Components: core
 Source: ..\..\readme_bin.txt; DestDir: {app}; Components: core
 Source: ..\..\LICENSE.txt; DestDir: {app}; Components: core
 Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: samples
@@ -196,6 +196,7 @@ Name: desktopicon\user; Description: For the current user only; GroupDescription
 [Run]
 Filename: {app}\readme_bin.txt; Description: View the README file; Flags: postinstall shellexec skipifsilent
 Filename: {app}\codedesigner.exe; Description: Launch application; Flags: postinstall nowait skipifsilent unchecked
+
 
 
 
