@@ -11,20 +11,20 @@ fi
 release=`wx-config --release`
 
 # ========== CodeLite project files ==========
-premake/premake-linux --target cl-gcc --wx-version $release --shared --with-wx-shared $unicode $debug $1
-#premake/premake-linux --target cl-gcc --wx-version $release $unicode $debug $1
+premake/premake-linux --target cl-gcc --wx-version $release --shared --with-wx-shared --no-builtin-propgrid $unicode $debug $1
+#premake/premake-linux --target cl-gcc --wx-version $release --no-builtin-propgrid $unicode $debug $1
 echo done...
 echo 
 #
 # ========== GNU Makefile ==========
-premake/premake-linux --target gnu --wx-version $release --shared --with-wx-shared $unicode $debug $1
-#premake/premake-linux --target gnu --wx-version $release $unicode $debug $1
+premake/premake-linux --target gnu --wx-version $release --shared --with-wx-shared --no-builtin-propgrid $unicode $debug $1
+#premake/premake-linux --target gnu --wx-version $release --no-builtin-propgrid $unicode $debug $1
 echo done...
 echo 
 #
 # ========== Code::Blocks project files ==========
-#premake/premake-linux --target cb-gcc --wx-version $release --shared --with-wx-shared $unicode $debug $1
-#premake/premake-linux --target cb-gcc --wx-version $release $unicode $debug $1
+#premake/premake-linux --target cb-gcc --wx-version $release --shared --with-wx-shared --no-builtin-propgrid $unicode $debug $1
+#premake/premake-linux --target cb-gcc --wx-version $release --no-builtin-propgrid $unicode $debug $1
 echo done...
 echo 
 #

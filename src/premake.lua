@@ -62,7 +62,7 @@ end
 package.config["Debug"].prebuildcommands = { "python $(ProjectPath)/create_buildnum.py" }
 
 -- Set the libraries it links to.
-if ( wx_release == "2.8" ) then
+if ( options["no-builtin-propgrid"] ) then
 	package.links = { "wxPropGrid", "wxScintilla", "wxShapeFramework", "projectBase" }
 else
 	package.links = { "wxScintilla", "wxShapeFramework", "projectBase" }
@@ -76,7 +76,7 @@ package.pchheader = "wx_pch.h"
 package.pchsource = "wx_pch.cpp"
 
 -- Set wxWidgets presets
-if ( wx_release ~= "2.8" ) then
+if ( not options["no-builtin-propgrid"] ) then
 	wx_config_libs="std,aui,propgrid"
 end
 dofile('../build/premake/scripts/wxpresets.lua')

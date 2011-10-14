@@ -34,7 +34,7 @@ package.includepaths = { ".", "../../", "../../controls/include" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.
-if ( wx_release == "2.8" ) then
+if ( options["no-builtin-propgrid"] ) then
 	package.links = { "wxPropGrid", "wxScintilla", "wxShapeFramework", "projectBase" }
 else
 	package.links = { "wxScintilla", "wxShapeFramework", "projectBase" }
