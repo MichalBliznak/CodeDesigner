@@ -299,10 +299,10 @@ void udXS2PG::WriteLongToPG(wxPropertyGrid* dest, const wxString& propname, xsPr
 void udXS2PG::ReadFontFromPG(wxPropertyGrid* src, const wxString& propname, xsProperty* dest)
 {	
 	wxFont font;
-	font << src->GetProperty( propname );
+	font << src->GetProperty( propname )->GetValue();
 	
 	*(wxFont*)dest->m_pSourceVariable = font;
-	
+
 	/*wxFontPropertyValue* pFontVal = wxDynamicCast( src->GetPropertyValueAsWxObjectPtr( src->GetPropertyByName( propname ) ), wxFontPropertyValue );
 	if( pFontVal )
 	{		
