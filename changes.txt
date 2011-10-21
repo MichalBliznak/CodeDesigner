@@ -1,3 +1,7 @@
+Changes in version 1.4.4 beta (2011-10-21):
+------------------------------------------------
+- Fixed crash occured when diagram font was changed.
+
 Changes in version 1.4.3 beta (2011-10-13):
 ------------------------------------------------
 - Fixed crash that could occure when aggregation links were used in class diagram.
