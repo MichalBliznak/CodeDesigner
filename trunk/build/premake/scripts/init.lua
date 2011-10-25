@@ -1,5 +1,5 @@
 --*****************************************************************************
---*	Author:		Michal BliæÚ·k
+--*	Author:		Michal Bli≈æ≈à√°k
 --*	Date:		18/11/2007
 --*	Version:	1.00
 --*	
@@ -23,6 +23,7 @@ addoption( "unicode", "Use the Unicode character set" )
 addoption( "with-wx-shared", "Link against wxWidgets as a shared library" )
 addoption( "wx-version", "Used wxWidgets version" )
 addoption( "no-builtin-propgrid", "Use external wxPropertyGrid control instead of built-in one" )
+addoption( "wx-root", "Specify wxWidgets prefix for platforms which uses wx-config" )
 
 wx_target = ""
 if ( windows ) then
@@ -30,7 +31,7 @@ if ( windows ) then
 elseif ( linux ) then
 	wx_target = "wx_gtk2"
 elseif ( macosx ) then
-	wx_target = "wxmac"
+	wx_target = "wx_mac"
 end
 
 usign = ""
@@ -38,6 +39,14 @@ if( options["unicode"] ) then
 	usign = "u" 
 end
 
-wx_custom = ""
 custom_targetName = ""
+
+wx_custom = ""
+wx_config_libs = ""
 wx_release = options["wx-version"]
+
+wx_root = ""
+if ( options["wx-root"] ) then
+	wx_root = options["wx-root"]
+end
+
