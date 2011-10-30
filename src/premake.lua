@@ -78,5 +78,8 @@ package.pchsource = "wx_pch.cpp"
 -- Set wxWidgets presets
 if ( not options["no-builtin-propgrid"] ) then
 	wx_config_libs="std,aui,propgrid"
+-- else
+-- 	wx_config_libs="std,aui"
 end
+	
 dofile('../build/premake/scripts/wxpresets.lua')
