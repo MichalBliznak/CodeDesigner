@@ -1,11 +1,11 @@
 [Setup]
-AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010
+AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2011
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.4.3.2563 Beta (SVN: 154)
+AppVerName=CodeDesigner 1.4.4.2581 Beta (SVN: 166)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.4.3.2563
+OutputBaseFilename=codedesigner-1.4.4.2581
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
