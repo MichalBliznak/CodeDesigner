@@ -1978,12 +1978,16 @@ void UMLDesignerFrame::OnDiagramLeftDoubleClick( wxMouseEvent &event )
 		!pShape->IsKindOf(CLASSINFO(wxSFEditTextShape)) &&
 		!pShape->IsKindOf(CLASSINFO(wxSFLineShape)) )
     {
-        udDiagElementItem *pElement = (udDiagElementItem*)pShape->GetGrandParentShape()->GetUserData();
-        if( pElement )
-        {
-			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_SELECTED, wxID_ANY, pElement );
-			
-            pElement->OnActivation();
+		pShape = udPROJECT::GetParentElement( pShape );
+		if( pShape )
+		{
+			udDiagElementItem *pElement = wxDynamicCast( pShape->GetUserData(), udDiagElementItem);
+			if( pElement )
+			{
+				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_SELECTED, wxID_ANY, pElement );
+				
+				pElement->OnActivation();
+			}
 		}
     }
 	else

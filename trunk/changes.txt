@@ -1,6 +1,8 @@
 Changes in version 1.4.4 beta (2011-11-04):
 ------------------------------------------------
 - Fixed crash occured when diagram font was changed.
+- Left-mouse-button double-click onto diagram element now opens correct properties
+  dialog even for child elements.
 - Optimized drawing performance.
 
 Changes in version 1.4.3 beta (2011-10-13):
