@@ -292,7 +292,10 @@ void UMLDesignerApp::Log(const wxString& msg)
 			{
 				wxLogWarning(msg);
 			}
-			else if( m_nLogMask & logNORMAL ) wxLogMessage(msg);
+			else if( m_nLogMask & logNORMAL )
+			{
+				wxLogMessage(msg);
+			}
 		}
 	}
 }
