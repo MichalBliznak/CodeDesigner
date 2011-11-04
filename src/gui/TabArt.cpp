@@ -7,6 +7,39 @@
 #include "gui/TabArt.h"
 #include "UMLDesignerApp.h"
 
+#if wxVERSION_NUMBER >= 2900
+	#define m_normal_font m_normalFont
+	#define m_selected_font m_selectedFont
+	#define m_measuring_font m_measuringFont
+	#define m_fixed_tab_width m_fixedTabWidth
+	#define m_tab_ctrl_height m_tabCtrlHeight
+	#define m_base_colour m_baseColour
+	#define m_base_colour_brush m_baseColourBrush
+	#define m_base_colour_pen m_baseColourPen
+	#define m_border_pen m_borderPen
+	#define m_active_close_bmp m_activeCloseBmp
+	#define m_disabled_close_bmp m_disabledCloseBmp
+	#define m_active_left_bmp m_activeLeftBmp
+	#define m_disabled_left_bmp m_disabledLeftBmp
+	#define m_active_right_bmp m_activeRightBmp
+	#define m_disabled_right_bmp m_disabledRightBmp
+	#define m_active_windowlist_bmp m_activeWindowListBmp
+	#define m_disabled_windowlist_bmp m_disabledWindowListBmp
+	
+	#define m_text_orientation m_textOrientation
+	#define m_highlight_colour m_highlightColour
+	#define m_separator_size m_separatorSize
+	#define m_gripper_size m_gripperSize
+	#define m_overflow_size m_overflowSize
+	#define m_gripper_pen1 m_gripperPen1
+	#define m_gripper_pen2 m_gripperPen2
+	#define m_gripper_pen3 m_gripperPen3
+	#define m_button_dropdown_bmp m_buttonDropDownBmp
+	#define m_disabled_button_dropdown_bmp m_disabledButtonDropDownBmp
+	#define m_overflow_bmp m_overflowBmp
+	#define m_disabled_overflow_bmp m_disabledOverflowBmp
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // AUI notebook art
 
