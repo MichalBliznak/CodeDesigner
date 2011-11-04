@@ -1,4 +1,4 @@
-Changes in version 1.4.4 beta (2011-10-27):
+Changes in version 1.4.4 beta (2011-11-04):
 ------------------------------------------------
 - Fixed crash occured when diagram font was changed.
 - Optimized drawing performance.
