@@ -1,13 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version May 27 2010)
+// C++ code generated with wxFormBuilder (version Nov  5 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef __GUI__
-#define __GUI__
+#ifndef __GUI_H__
+#define __GUI_H__
 
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
 #include <wx/string.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
@@ -172,6 +174,7 @@ class _MainFrame : public wxFrame
 		wxSlider* m_sliderZoom;
 		
 		_MainFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("CodeDesigner"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,480 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL );
+		
 		~_MainFrame();
 	
 };
@@ -197,6 +200,7 @@ class _EditorFrame : public wxFrame
 	public:
 		
 		_EditorFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Code preview"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,450 ), long style = wxCLOSE_BOX|wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
+		
 		~_EditorFrame();
 	
 };
@@ -217,7 +221,7 @@ class _LogPanel : public wxPanel
 	
 	public:
 		
-		_LogPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
+		_LogPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL ); 
 		~_LogPanel();
 	
 };
@@ -252,7 +256,7 @@ class _ProjManPanel : public wxPanel
 	
 	public:
 		
-		_ProjManPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,445 ), long style = wxTAB_TRAVERSAL );
+		_ProjManPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,445 ), long style = wxTAB_TRAVERSAL ); 
 		~_ProjManPanel();
 	
 };
@@ -277,7 +281,7 @@ class _EditorPanel : public wxPanel
 	
 	public:
 		
-		_EditorPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 300,150 ), long style = wxTAB_TRAVERSAL );
+		_EditorPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 300,150 ), long style = wxTAB_TRAVERSAL ); 
 		~_EditorPanel();
 	
 };
@@ -310,7 +314,7 @@ class _SettingsDialog : public wxDialog
 	
 	public:
 		
-		_SettingsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Settings"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_SettingsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Settings"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_SettingsDialog();
 		
 		void m_pSplitterOnIdle( wxIdleEvent& )
@@ -334,7 +338,7 @@ class _ProgressDialog : public wxDialog
 	
 	public:
 		
-		_ProgressDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Progress..."), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDIALOG_NO_PARENT|wxSTAY_ON_TOP );
+		_ProgressDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Progress..."), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDIALOG_NO_PARENT|wxSTAY_ON_TOP ); 
 		~_ProgressDialog();
 	
 };
@@ -352,7 +356,6 @@ class _InsertFromBankDialog : public wxDialog
 		wxStaticText* m_staticText70;
 		wxListCtrl* m_lstDiagrams;
 		wxMenu* m_menuDiagrams;
-		
 		wxButton* m_btnInsert;
 		wxButton* m_btnCancel;
 		
@@ -367,7 +370,7 @@ class _InsertFromBankDialog : public wxDialog
 	
 	public:
 		
-		_InsertFromBankDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Select diagrams for insertion"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_InsertFromBankDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Select diagrams for insertion"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_InsertFromBankDialog();
 		
 		void m_lstDiagramsOnContextMenu( wxMouseEvent &event )
@@ -393,7 +396,6 @@ class _StoreToBankDialog : public wxDialog
 		wxTextCtrl* m_textDescription;
 		wxStaticText* m_staticText70;
 		wxListCtrl* m_lstDeps;
-		
 		wxButton* m_btnInsert;
 		wxButton* m_btnCancel;
 		
@@ -404,7 +406,7 @@ class _StoreToBankDialog : public wxDialog
 	
 	public:
 		
-		_StoreToBankDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Store diagram to bank"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 435,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_StoreToBankDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Store diagram to bank"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 435,450 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_StoreToBankDialog();
 	
 };
@@ -421,12 +423,11 @@ class _DependenciesDialog : public wxDialog
 		wxTextCtrl* m_textDescription;
 		wxStaticText* m_staticText70;
 		wxListCtrl* m_lstDeps;
-		
 		wxButton* m_btnCancel;
 	
 	public:
 		
-		_DependenciesDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram Info"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_DependenciesDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Diagram Info"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_DependenciesDialog();
 	
 };
@@ -453,7 +454,6 @@ class _ManageBankDialog : public wxDialog
 		wxStaticLine* m_staticline1;
 		wxButton* m_btnCopyDiag;
 		wxButton* m_btnMoveDiag;
-		
 		wxButton* m_btnClose;
 		
 		// Virtual event handlers, overide them in your derived class
@@ -476,7 +476,7 @@ class _ManageBankDialog : public wxDialog
 	
 	public:
 		
-		_ManageBankDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Manage diagram bank"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 710,400 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ManageBankDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Manage diagram bank"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 710,400 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ManageBankDialog();
 	
 };
@@ -504,7 +504,7 @@ class _ManagePluginsDialog : public wxDialog
 	
 	public:
 		
-		_ManagePluginsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Manage plugins"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_ManagePluginsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Manage plugins"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ManagePluginsDialog();
 	
 };
@@ -537,7 +537,7 @@ class _SynchronizeDialog : public wxDialog
 	
 	public:
 		
-		_SynchronizeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Synchronize code"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+		_SynchronizeDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Synchronize code"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
 		~_SynchronizeDialog();
 		
 		void m_checkListOnContextMenu( wxMouseEvent &event )
@@ -574,9 +574,9 @@ class _GroupDialog : public wxDialog
 	
 	public:
 		
-		_GroupDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Group element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		_GroupDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Group element properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_GroupDialog();
 	
 };
 
-#endif //__GUI__
+#endif //__GUI_H__
