@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version May 27 2010)
+// C++ code generated with wxFormBuilder (version Nov  5 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -305,6 +305,11 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	wxMenuItem* menuProjRemoveAll;
 	menuProjRemoveAll = new wxMenuItem( projMenu, IDM_PROJ_REMOVEALL, wxString( wxT("Remove all") ) , wxT("Clear project (permanently remove all project items)"), wxITEM_NORMAL );
+	#ifdef __WXMSW__
+	menuProjRemoveAll->SetBitmaps( wxNullBitmap );
+	#elif defined( __WXGTK__ )
+	menuProjRemoveAll->SetBitmap( wxNullBitmap );
+	#endif
 	projMenu->Append( menuProjRemoveAll );
 	
 	wxMenuItem* m_separator12;
@@ -421,15 +426,11 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	btnZoom100->SetBitmapDisabled( wxBitmap( Zoom100Dis_xpm ) );
 	btnZoom100->SetToolTip( wxT("Zoom diagram to its original size") );
 	
-	btnZoom100->SetToolTip( wxT("Zoom diagram to its original size") );
-	
 	zoomSizer->Add( btnZoom100, 0, 0, 5 );
 	
 	btnZoomAll = new wxBitmapButton( m_mainPanel, wxID_ZOOM_FIT, wxBitmap( ZoomAll_xpm ), wxDefaultPosition, wxSize( 24,24 ), wxBU_AUTODRAW );
 	
 	btnZoomAll->SetBitmapDisabled( wxBitmap( ZoomAllDis_xpm ) );
-	btnZoomAll->SetToolTip( wxT("Zoom diagram to fit the design area") );
-	
 	btnZoomAll->SetToolTip( wxT("Zoom diagram to fit the design area") );
 	
 	zoomSizer->Add( btnZoomAll, 0, 0, 5 );
@@ -715,12 +716,17 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	mainSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	m_toolBar = new wxToolBar( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
-	m_toolBar->AddTool( IDT_PROJMAN_LINK, wxT("Link on/off"), wxBitmap( link_editor_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Link project manager with design area"), wxEmptyString ); 
-	m_toolBar->AddTool( IDT_PROJMAN_EXPAND, wxT("Expand/Collapse all"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString ); 
+	m_toolBar->AddTool( IDT_PROJMAN_LINK, wxT("Link on/off"), wxBitmap( link_editor_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Link project manager with design area"), wxEmptyString, NULL ); 
+	
+	m_toolBar->AddTool( IDT_PROJMAN_EXPAND, wxT("Expand/Collapse all"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString, NULL ); 
+	
 	m_toolBar->AddSeparator(); 
-	m_toolBar->AddTool( IDT_PROJMAN_SHOWPROPS, wxT("Show properies"), wxBitmap( form_blue_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Inspect properties of selected tree item"), wxEmptyString ); 
-	m_toolBar->AddTool( IDT_PROJMAN_ORGANIZECI, wxT("Organize code items"), wxBitmap( organisation_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Organize code items"), wxEmptyString ); 
-	m_toolBar->Realize();
+	
+	m_toolBar->AddTool( IDT_PROJMAN_SHOWPROPS, wxT("Show properies"), wxBitmap( form_blue_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Inspect properties of selected tree item"), wxEmptyString, NULL ); 
+	
+	m_toolBar->AddTool( IDT_PROJMAN_ORGANIZECI, wxT("Organize code items"), wxBitmap( organisation_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Organize code items"), wxEmptyString, NULL ); 
+	
+	m_toolBar->Realize(); 
 	
 	mainSizer->Add( m_toolBar, 0, wxEXPAND, 5 );
 	
@@ -796,14 +802,16 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	mainSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	m_toolActions = new wxToolBar( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxTB_FLAT|wxTB_HORIZONTAL ); 
-	m_toolActions->AddTool( IDT_INSTEDITOR_SAVE, wxT("tool"), wxBitmap( filesave_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes (Alt+S)"), wxEmptyString ); 
+	m_toolActions->AddTool( IDT_INSTEDITOR_SAVE, wxT("tool"), wxBitmap( filesave_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes (Alt+S)"), wxEmptyString, NULL ); 
+	
 	m_toolActions->AddSeparator(); 
+	
 	m_stCodeItem = new wxStaticText( m_toolActions, wxID_ANY, wxT("Code item:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_stCodeItem->Wrap( -1 );
 	m_stCodeItem->SetFont( wxFont( 8, 74, 90, 90, false, wxT("Sans") ) );
 	
 	m_toolActions->AddControl( m_stCodeItem );
-	m_toolActions->Realize();
+	m_toolActions->Realize(); 
 	
 	mainSizer->Add( m_toolActions, 0, wxEXPAND, 5 );
 	
@@ -1267,7 +1275,7 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText78->Wrap( -1 );
 	bSizer76->Add( m_staticText78, 0, wxTOP|wxRIGHT, 5 );
 	
-	m_textDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY );
+	m_textDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,75 ), wxTE_MULTILINE|wxTE_READONLY );
 	bSizer76->Add( m_textDescription, 0, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
 	m_staticText75 = new wxStaticText( this, wxID_ANY, wxT("Dependencies:"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
@@ -1382,17 +1390,17 @@ _ManagePluginsDialog::_ManagePluginsDialog( wxWindow* parent, wxWindowID id, con
 	pluginsSizer->Add( m_staticText13, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	wxArrayString m_checkListPluginsChoices;
-	m_checkListPlugins = new wxCheckListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 200,150 ), m_checkListPluginsChoices, 0 );
-	m_checkListPlugins->SetMinSize( wxSize( 200,250 ) );
+	m_checkListPlugins = new wxCheckListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 200,300 ), m_checkListPluginsChoices, 0 );
+	m_checkListPlugins->SetMinSize( wxSize( 200,300 ) );
 	
 	pluginsSizer->Add( m_checkListPlugins, 1, wxEXPAND|wxALL, 5 );
 	
 	recordsSizer->Add( pluginsSizer, 1, wxEXPAND, 5 );
 	
-	m_listCtrlPluginInfo = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,-1 ), wxLC_HRULES|wxLC_REPORT|wxSUNKEN_BORDER );
+	m_listCtrlPluginInfo = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 350,-1 ), wxLC_HRULES|wxLC_REPORT|wxSUNKEN_BORDER );
 	m_listCtrlPluginInfo->SetFont( wxFont( 9, 77, 90, 90, false, wxT("Arial") ) );
 	m_listCtrlPluginInfo->SetBackgroundColour( wxColour( 229, 229, 229 ) );
-	m_listCtrlPluginInfo->SetMinSize( wxSize( 300,-1 ) );
+	m_listCtrlPluginInfo->SetMinSize( wxSize( 350,-1 ) );
 	
 	recordsSizer->Add( m_listCtrlPluginInfo, 1, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
