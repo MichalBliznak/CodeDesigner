@@ -92,11 +92,22 @@ public:
 	 */
 	virtual wxString GetResourcesPath() = 0;
 	/**
+	 * \brief Get image list stored art provider.
+	 * \return Pointer to image list stored in art provider
+	 */
+	virtual wxImageList* GetArt() = 0;
+	/**
 	 * \brief Get bitmap stored in art provider.
 	 * \param name Bitmap identifier used during registration of the bitmap in art provider.
 	 * \return Bitmap (can be invalid if used identifier doesn't exist)
 	 */
 	virtual wxBitmap GetArtBitmap(const wxString& name) = 0;
+	/**
+	 * \brief Get index of bitmap stored in art provider.
+	 * \param name Bitmap identifier used during registration of the bitmap in art provider.
+	 * \return Index of bitmap stored in art provider (if exists)
+	 */
+	virtual int GetArtIndex(const wxString& name) = 0;
 	/**
 	 * \brief Get next free menu item ID ( applicable for any GUI control ).
 	 * \param step Value by which the ID differs from previously returned ID

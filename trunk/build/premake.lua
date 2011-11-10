@@ -25,6 +25,7 @@ dopackage( "../src/plugins/diagTest" )
 dopackage( "../src/plugins/diagUml" )
 dopackage( "../src/plugins/genUml" )
 dopackage( "../src/plugins/codelite" )
+dopackage( "../src/plugins/revEng" )
 dopackage( "../src" )
 
 function CreateSymlink( pathToLink, symLink )

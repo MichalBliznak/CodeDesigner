@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  5 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -872,7 +872,7 @@ _EditorPanel::~_EditorPanel()
 
 _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
-	this->SetSizeHints( wxSize( 620,420 ), wxDefaultSize );
+	this->SetSizeHints( wxSize( 670,420 ), wxDefaultSize );
 	
 	wxFlexGridSizer* mainSizer;
 	mainSizer = new wxFlexGridSizer( 2, 1, 0, 0 );
@@ -883,14 +883,14 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	m_pSplitter = new wxSplitterWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_3D );
 	m_pSplitter->Connect( wxEVT_IDLE, wxIdleEventHandler( _SettingsDialog::m_pSplitterOnIdle ), NULL, this );
-	m_pSplitter->SetMinimumPaneSize( 155 );
+	m_pSplitter->SetMinimumPaneSize( 205 );
 	
 	m_pPanelTree = new wxPanel( m_pSplitter, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* treeSizer;
 	treeSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_pCategoryTree = new wxTreeCtrl( m_pPanelTree, wxID_ANY, wxDefaultPosition, wxSize( 150,350 ), wxTR_DEFAULT_STYLE|wxTR_HIDE_ROOT|wxSIMPLE_BORDER );
-	m_pCategoryTree->SetMinSize( wxSize( 150,350 ) );
+	m_pCategoryTree = new wxTreeCtrl( m_pPanelTree, wxID_ANY, wxDefaultPosition, wxSize( 200,350 ), wxTR_DEFAULT_STYLE|wxTR_HIDE_ROOT|wxSIMPLE_BORDER );
+	m_pCategoryTree->SetMinSize( wxSize( 200,350 ) );
 	
 	treeSizer->Add( m_pCategoryTree, 1, wxEXPAND|wxTOP|wxBOTTOM|wxLEFT, 5 );
 	
@@ -909,7 +909,7 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_pPanelProps->SetSizer( propsSizer );
 	m_pPanelProps->Layout();
 	propsSizer->Fit( m_pPanelProps );
-	m_pSplitter->SplitVertically( m_pPanelTree, m_pPanelProps, 155 );
+	m_pSplitter->SplitVertically( m_pPanelTree, m_pPanelProps, 205 );
 	mainSizer->Add( m_pSplitter, 1, wxEXPAND, 5 );
 	
 	wxFlexGridSizer* buttonGridSizer;

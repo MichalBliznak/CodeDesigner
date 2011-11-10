@@ -62,7 +62,9 @@ public:
 	virtual udDiagramItem* GetActiveDiagram();
 	virtual const wxString& GetAppPath();
 	virtual wxString GetResourcesPath();
+	virtual wxImageList* GetArt();
 	virtual wxBitmap GetArtBitmap(const wxString& name);
+	virtual int GetArtIndex(const wxString& name);
 	virtual wxFrame* GetMainFrame();
 	virtual IProject* GetProject();
 	virtual udLanguage* GetSelectedLanguage();
