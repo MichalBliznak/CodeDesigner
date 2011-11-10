@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <wxFormBuilder_Project>
-    <FileVersion major="1" minor="10" />
+    <FileVersion major="1" minor="11" />
     <object class="Project" expanded="1">
         <property name="class_decoration"></property>
         <property name="code_generation">C++</property>
         <property name="disconnect_events">1</property>
         <property name="disconnect_mode">source_name</property>
+        <property name="disconnect_php_events">0</property>
         <property name="disconnect_python_events">0</property>
         <property name="embedded_files_path">res</property>
         <property name="encoding">UTF-8</property>
@@ -19,6 +20,7 @@
         <property name="path">.</property>
         <property name="precompiled_header">#include &quot;wx_pch.h&quot;</property>
         <property name="relative_path">1</property>
+        <property name="skip_php_events">1</property>
         <property name="skip_python_events">1</property>
         <property name="use_enum">0</property>
         <property name="use_microsoft_bom">0</property>
@@ -1948,6 +1950,7 @@
                         <property name="toolbar_pane">0</property>
                         <property name="tooltip"></property>
                         <property name="use_tabs">1</property>
+                        <property name="use_wxAddition">1</property>
                         <property name="validator_data_type"></property>
                         <property name="validator_style">wxFILTER_NONE</property>
                         <property name="validator_type">wxDefaultValidator</property>
@@ -2869,6 +2872,7 @@
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
                                             <property name="tooltip"></property>
+                                            <property name="use_wxAddition">1</property>
                                             <property name="validator_data_type"></property>
                                             <property name="validator_style">wxFILTER_NONE</property>
                                             <property name="validator_type">wxDefaultValidator</property>
@@ -2893,6 +2897,8 @@
                                             <event name="OnMouseEvents"></event>
                                             <event name="OnMouseWheel"></event>
                                             <event name="OnPaint"></event>
+                                            <event name="OnPropertyGridChanged"></event>
+                                            <event name="OnPropertyGridChanging"></event>
                                             <event name="OnRightDClick"></event>
                                             <event name="OnRightDown"></event>
                                             <event name="OnRightUp"></event>
@@ -3260,6 +3266,7 @@
                         <property name="toolbar_pane">0</property>
                         <property name="tooltip"></property>
                         <property name="use_tabs">1</property>
+                        <property name="use_wxAddition">1</property>
                         <property name="validator_data_type"></property>
                         <property name="validator_style">wxFILTER_NONE</property>
                         <property name="validator_type">wxDefaultValidator</property>
@@ -3333,7 +3340,7 @@
             <property name="maximum_size"></property>
             <property name="min_size"></property>
             <property name="minimize_button">0</property>
-            <property name="minimum_size">620,420</property>
+            <property name="minimum_size">670,420</property>
             <property name="moveable">1</property>
             <property name="name">_SettingsDialog</property>
             <property name="pane_border">1</property>
@@ -3439,7 +3446,7 @@
                         <property name="max_size"></property>
                         <property name="maximize_button">0</property>
                         <property name="maximum_size"></property>
-                        <property name="min_pane_size">155</property>
+                        <property name="min_pane_size">205</property>
                         <property name="min_size"></property>
                         <property name="minimize_button">0</property>
                         <property name="minimum_size"></property>
@@ -3453,7 +3460,7 @@
                         <property name="pos"></property>
                         <property name="resize">Resizable</property>
                         <property name="sashgravity">0.0</property>
-                        <property name="sashpos">155</property>
+                        <property name="sashpos">205</property>
                         <property name="sashsize">-1</property>
                         <property name="show">1</property>
                         <property name="size"></property>
@@ -3617,7 +3624,7 @@
                                             <property name="maximum_size"></property>
                                             <property name="min_size"></property>
                                             <property name="minimize_button">0</property>
-                                            <property name="minimum_size">150,350</property>
+                                            <property name="minimum_size">200,350</property>
                                             <property name="moveable">1</property>
                                             <property name="name">m_pCategoryTree</property>
                                             <property name="pane_border">1</property>
@@ -3628,7 +3635,7 @@
                                             <property name="pos"></property>
                                             <property name="resize">Resizable</property>
                                             <property name="show">1</property>
-                                            <property name="size">150,350</property>
+                                            <property name="size">200,350</property>
                                             <property name="style">wxTR_DEFAULT_STYLE|wxTR_HIDE_ROOT</property>
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
@@ -3828,6 +3835,7 @@
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
                                             <property name="tooltip"></property>
+                                            <property name="use_wxAddition">1</property>
                                             <property name="validator_data_type"></property>
                                             <property name="validator_style">wxFILTER_NONE</property>
                                             <property name="validator_type">wxDefaultValidator</property>
@@ -3852,6 +3860,8 @@
                                             <event name="OnMouseEvents"></event>
                                             <event name="OnMouseWheel"></event>
                                             <event name="OnPaint"></event>
+                                            <event name="OnPropertyGridChanged"></event>
+                                            <event name="OnPropertyGridChanging"></event>
                                             <event name="OnRightDClick"></event>
                                             <event name="OnRightDown"></event>
                                             <event name="OnRightUp"></event>
@@ -9194,6 +9204,7 @@
                                 <property name="toolbar_pane">0</property>
                                 <property name="tooltip">Source code from generated files</property>
                                 <property name="use_tabs">1</property>
+                                <property name="use_wxAddition">1</property>
                                 <property name="validator_data_type"></property>
                                 <property name="validator_style">wxFILTER_NONE</property>
                                 <property name="validator_type">wxDefaultValidator</property>
@@ -9287,6 +9298,7 @@
                                 <property name="toolbar_pane">0</property>
                                 <property name="tooltip">Source code from original code items</property>
                                 <property name="use_tabs">1</property>
+                                <property name="use_wxAddition">1</property>
                                 <property name="validator_data_type"></property>
                                 <property name="validator_style">wxFILTER_NONE</property>
                                 <property name="validator_type">wxDefaultValidator</property>

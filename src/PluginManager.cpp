@@ -301,6 +301,16 @@ wxString udPluginManager::GetResourcesPath()
 	return wxGetApp().GetResourcesPath();
 }
 
+wxImageList* udPluginManager::GetArt()
+{
+	return udArt::GetImageList();
+}
+
+int udPluginManager::GetArtIndex(const wxString& name)
+{
+	return udArt::GetImageIndex(name);
+}
+
 wxBitmap udPluginManager::GetArtBitmap(const wxString& name)
 {
 	return udArt::GetBitmap( name );
@@ -466,4 +476,3 @@ void udPluginManager::UnregisterCommentProcessor(const wxString& type)
 {
 	udGenerator::UnregisterCommentProcessor( type );
 }
-

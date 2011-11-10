@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  5 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -319,7 +319,7 @@ class _SettingsDialog : public wxDialog
 		
 		void m_pSplitterOnIdle( wxIdleEvent& )
 		{
-			m_pSplitter->SetSashPosition( 155 );
+			m_pSplitter->SetSashPosition( 205 );
 			m_pSplitter->Disconnect( wxEVT_IDLE, wxIdleEventHandler( _SettingsDialog::m_pSplitterOnIdle ), NULL, this );
 		}
 	
