@@ -9,6 +9,7 @@ class ctagClass : public wxTreeItemData
 public:
 	wxString m_Name;
 	wxString m_Inherits;
+	wxString m_Pattern;
 };
 
 class ctagMember : public wxTreeItemData
@@ -18,6 +19,7 @@ public:
 	wxString m_ParentClass;
 	wxString m_Access;
 	wxString m_RetType;
+	wxString m_Pattern;
 };
 
 class ctagFunction : public wxTreeItemData
@@ -28,6 +30,7 @@ public:
 	wxString m_Access;
 	wxString m_Signature;
 	wxString m_RetType;
+	wxString m_Pattern;
 };
 
 class udRevEngPanel : public _RevEngPanel {

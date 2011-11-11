@@ -1,7 +1,6 @@
 #include "RevEngPanel.h"
 #include "RevEng.h"
 
-#include <wx/filename.h>
 #include <wx/process.h>
 #include <wx/txtstrm.h>
 
@@ -23,7 +22,11 @@ void udRevEngPanel::OnAddFilesClick(wxCommandEvent& event)
 		wxArrayString arrFiles;
 		dlg.GetPaths( arrFiles );
 		
+		size_t nPrevIndex = m_checkListFiles->GetCount();
 		m_checkListFiles->Append( arrFiles );
+		size_t nCurrIndex = m_checkListFiles->GetCount();
+		
+		for( size_t i = nPrevIndex; i < nCurrIndex; i++) m_checkListFiles->Check( i );
 	}
 }
 
@@ -94,7 +97,7 @@ void udRevEngPanel::OnParseClick(wxCommandEvent& event)
 	InitializeSymbolsTree();
 	
 	//	get list of all classes
-	int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=number"), arrOutput );
+	int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern"), arrOutput );
 	if( res != 0 )
 	{
 		wxMessageBox( wxT("CTAGS utility failed. Please see the log window for more details."), wxT("Reverse Engineering"), wxOK | wxICON_ERROR );
@@ -168,8 +171,8 @@ void udRevEngPanel::InitializeSymbolsTree()
 	wxTreeItemId rootId = m_treeSymbols->AddRoot( wxT("Symbols"), IPluginManager::Get()->GetArtIndex( wxT("udRootItem") )  );
 	
 	m_treeIdClasses = m_treeSymbols->AppendItem( rootId, wxT("Classes"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
-	m_treeIdFunctions = m_treeSymbols->AppendItem( rootId, wxT("Functions"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
-	m_treeIdVariables = m_treeSymbols->AppendItem( rootId, wxT("Variables"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
+	// m_treeIdFunctions = m_treeSymbols->AppendItem( rootId, wxT("Functions"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
+	// m_treeIdVariables = m_treeSymbols->AppendItem( rootId, wxT("Variables"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
 	
 	m_treeSymbols->ExpandAll();
 }
@@ -179,9 +182,9 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 	// get path to CTAGS utility
 	wxString sCTAGS = IPluginManager::Get()->GetAppSettings().GetProperty( wxT("CTAGS path") )->AsString();
 	
-	if( sCTAGS.IsEmpty() )
+	if( ! wxFileExists(sCTAGS) )
 	{
-		IPluginManager::Get()->Log( wxT("ERROR: Please, specify path to CTAGS utility in Reverse Engineering plugin's settings") );
+		IPluginManager::Get()->Log( wxT("ERROR: Please, specify correct path to CTAGS utility in Reverse Engineering plugin's settings") );
 		return -1;
 	}
 	
@@ -194,9 +197,7 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 	sCmd = sCTAGS + wxT(" -f - ") + cmd;;
 	if( !m_textIdentifiers->IsEmpty() ) sCmd += wxT(" -I \"") + m_textIdentifiers->GetValue() + wxT("\"");
 	for( size_t i = 0; i < arrFiles.GetCount(); i++ ) sCmd += ( wxT(" \"") + arrFiles[i] + wxT("\"") );
-	
-	// IPluginManager::Get()->Log( wxT("DEBUG: ") + sCmd );
-	
+
 	// run CTAGS
 	output.Clear();
 	
@@ -229,7 +230,6 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
-	wxArrayString arrCtags;
 	wxString name;
 	
 	// process classes
@@ -246,30 +246,14 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			item->m_Inherits = FindTagValue( arrFields, wxT("inherits") );
 			
 			name = item->m_Name;
-			if( !item->m_Inherits.IsEmpty() ) name += + wxT(" ( inherits ") + item->m_Inherits + wxT(" )");
+			if( !item->m_Inherits.IsEmpty() ) name += wxT(" : ") + item->m_Inherits;
 			wxTreeItemId treeClass = m_treeSymbols->AppendItem( m_treeIdClasses, name, IPluginManager::Get()->GetArtIndex( wxT("umlClassItem") ), -1, item );
 			
 			// process class members
-			
-			int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern"), arrCtags );
-			if( res != 0 )
-			{
-				wxMessageBox( wxT("CTAGS utility failed. Please see the log window for more details."), wxT("Reverse Engineering"), wxOK | wxICON_ERROR );
-				return;
-			}
-			
-			ParseMembers( treeClass, arrCtags );
+			ParseMembers( treeClass, ctags );
 			
 			// process class functions
-			
-			res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern"), arrCtags );
-			if( res != 0 )
-			{
-				wxMessageBox( wxT("CTAGS utility failed. Please see the log window for more details."), wxT("Reverse Engineering"), wxOK | wxICON_ERROR );
-				return;
-			}
-			
-			ParseFunctions( treeClass, arrCtags );
+			ParseFunctions( treeClass, ctags );
 		}
 	}
 	
