@@ -94,7 +94,7 @@ void udRevEngPanel::OnParseClick(wxCommandEvent& event)
 	InitializeSymbolsTree();
 	
 	//	get list of all classes
-	int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=number --c-kinds=c"), arrOutput );
+	int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=number"), arrOutput );
 	if( res != 0 )
 	{
 		wxMessageBox( wxT("CTAGS utility failed. Please see the log window for more details."), wxT("Reverse Engineering"), wxOK | wxICON_ERROR );
@@ -237,10 +237,10 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 	{
 		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
 		
-		if( arrFields.GetCount() == 5 )
+		/* MainApp	main.h	26;"	kind:class	inherits:wxApp */
+		
+		if( FindTagValue( arrFields, wxT("kind") ) == wxT("class") )
 		{
-			/* MainApp	main.h	26;"	kind:class	inherits:wxApp */
-			
 			ctagClass *item = new ctagClass();
 			item->m_Name = arrFields[0].Trim();
 			item->m_Inherits = FindTagValue( arrFields, wxT("inherits") );
@@ -251,7 +251,7 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			
 			// process class members
 			
-			int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern --c-kinds=m"), arrCtags );
+			int res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern"), arrCtags );
 			if( res != 0 )
 			{
 				wxMessageBox( wxT("CTAGS utility failed. Please see the log window for more details."), wxT("Reverse Engineering"), wxOK | wxICON_ERROR );
@@ -262,7 +262,7 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			
 			// process class functions
 			
-			res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern --c-kinds=f"), arrCtags );
+			res = ExecCtags( wxT("--fields=+a+i+S+z+K --excmd=pattern"), arrCtags );
 			if( res != 0 )
 			{
 				wxMessageBox( wxT("CTAGS utility failed. Please see the log window for more details."), wxT("Reverse Engineering"), wxOK | wxICON_ERROR );
@@ -279,23 +279,27 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 void udRevEngPanel::ParseFunctions(wxTreeItemId parent, const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
+	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
 	
-	// process classes
-	for( size_t i = 0; i < ctags.GetCount(); i++ )
+	if( parentClass )
 	{
-		/* OnCloseFrame	gui.h	/^		virtual void OnCloseFrame( wxCloseEvent& event ) { event.Skip(); }$/;"	kind:function	class:MainFrameBase	access:protected	signature:( wxCloseEvent& event ) */
-		
-		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
-		
-		if( arrFields.GetCount() == 6 )
+		// process classes
+		for( size_t i = 0; i < ctags.GetCount(); i++ )
 		{
-			ctagFunction *item = new ctagFunction();
-			item->m_Name = arrFields[0].Trim();
-			item->m_Access = FindTagValue( arrFields, wxT("access") );
-			item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
-			item->m_Signature = FindTagValue( arrFields, wxT("signature") );
+			/* OnCloseFrame	gui.h	/^		virtual void OnCloseFrame( wxCloseEvent& event ) { event.Skip(); }$/;"	kind:function	class:MainFrameBase	access:protected	signature:( wxCloseEvent& event ) */
 			
-			m_treeSymbols->AppendItem( parent, item->m_Name + item->m_Signature, IPluginManager::Get()->GetArtIndex( wxT("udMemberFunctionItem") ), -1, item );
+			arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+			
+			if( FindTagValue( arrFields, wxT("class") ) == parentClass->m_Name && FindTagValue( arrFields, wxT("kind") ) == wxT("function") )
+			{
+				ctagFunction *item = new ctagFunction();
+				item->m_Name = arrFields[0].Trim();
+				item->m_Access = FindTagValue( arrFields, wxT("access") );
+				item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
+				item->m_Signature = FindTagValue( arrFields, wxT("signature") );
+				
+				m_treeSymbols->AppendItem( parent, item->m_Name + item->m_Signature, IPluginManager::Get()->GetArtIndex( wxT("udMemberFunctionItem") ), -1, item );
+			}
 		}
 	}
 }
@@ -303,22 +307,26 @@ void udRevEngPanel::ParseFunctions(wxTreeItemId parent, const wxArrayString& cta
 void udRevEngPanel::ParseMembers(wxTreeItemId parent, const wxArrayString& ctags)
 {	
 	wxArrayString arrFields;
+	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
 	
-	// process classes
-	for( size_t i = 0; i < ctags.GetCount(); i++ )
+	if( parentClass )
 	{
-		/* m_gridData	gui.h	/^		wxGrid* m_gridData;$/;"	kind:member	class:MainFrameBase	access:protected */
-		
-		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
-		
-		if( arrFields.GetCount() == 6 )
+		// process classes
+		for( size_t i = 0; i < ctags.GetCount(); i++ )
 		{
-			ctagMember *item = new ctagMember();
-			item->m_Name = arrFields[0].Trim();
-			item->m_Access = FindTagValue( arrFields, wxT("access") );
-			item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
+			/* m_gridData	gui.h	/^		wxGrid* m_gridData;$/;"	kind:member	class:MainFrameBase	access:protected */
 			
-			m_treeSymbols->AppendItem( parent, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udMemberDataItem") ), -1, item );
+			arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+			
+			if( FindTagValue( arrFields, wxT("class") ) == parentClass->m_Name && FindTagValue( arrFields, wxT("kind") ) == wxT("member")  )
+			{
+				ctagMember *item = new ctagMember();
+				item->m_Name = arrFields[0].Trim();
+				item->m_Access = FindTagValue( arrFields, wxT("access") );
+				item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
+				
+				m_treeSymbols->AppendItem( parent, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udMemberDataItem") ), -1, item );
+			}
 		}
 	}
 }
