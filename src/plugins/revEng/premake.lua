@@ -28,7 +28,7 @@ custom_targetName = "reveng";
 --		Options: exe | winexe | lib | dll
 package.kind = "dll"
 -- Set the files to include.
-package.files = { matchrecursive( "*.cpp", "*.h" ) }
+package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }
 -- Set the include paths.
 package.includepaths = { ".", "../../", "../../controls/include" }
 -- Set the defines.
