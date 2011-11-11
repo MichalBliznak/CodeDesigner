@@ -24,9 +24,10 @@
 #include <wx/menu.h>
 #include <wx/checklst.h>
 #include <wx/textctrl.h>
-#include <wx/statline.h>
-#include <wx/treectrl.h>
 #include <wx/panel.h>
+#include <wx/toolbar.h>
+#include <wx/treectrl.h>
+#include <wx/splitter.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -42,13 +43,19 @@ class _RevEngPanel : public wxPanel
 		{
 			IDB_ADDFILES = 6000,
 			IDB_REMOVEFILES,
+			IDM_ADD_FILES,
 			IDM_FILES_SELECTALL,
 			IDM_FILES_DESELECTALL,
 			IDM_FILES_CHECKALL,
 			IDM_FILES_UNCHECKALL,
-			IDB_PARSE
+			IDB_PARSE,
+			IDT_SYMBOLS_EXPANDALL,
+			IDT_SYMBOLS_CREATE_CLASSDIAG,
+			IDT_SYMBOLS_CREATE_STATECHART
 		};
 		
+		wxSplitterWindow* m_splitter;
+		wxPanel* m_panelFiles;
 		wxStaticText* m_staticText1;
 		wxButton* m_buttonAddFiles;
 		wxButton* m_buttonRemoveFiles;
@@ -57,20 +64,25 @@ class _RevEngPanel : public wxPanel
 		wxStaticText* m_staticText3;
 		wxTextCtrl* m_textIdentifiers;
 		wxButton* m_buttonParse;
-		wxStaticLine* m_staticline1;
+		wxPanel* m_panelSymbols;
 		wxStaticText* m_staticText2;
+		wxToolBar* m_toolBarSymbols;
 		wxTreeCtrl* m_treeSymbols;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnAddFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnRemoveFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUpdateRemoveFiles( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnRemoveAllFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnSelectAllFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDeselectAllFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCheckAllFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUncheckAllFilesClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnParseClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUpdateParse( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnExpandTreeClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCreateClassDiagClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCreateStateChartClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnBeginDrag( wxTreeEvent& event ) { event.Skip(); }
 		virtual void OnRightClick( wxTreeEvent& event ) { event.Skip(); }
 		
@@ -79,6 +91,12 @@ class _RevEngPanel : public wxPanel
 		
 		_RevEngPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL ); 
 		~_RevEngPanel();
+		
+		void m_splitterOnIdle( wxIdleEvent& )
+		{
+			m_splitter->SetSashPosition( 0 );
+			m_splitter->Disconnect( wxEVT_IDLE, wxIdleEventHandler( _RevEngPanel::m_splitterOnIdle ), NULL, this );
+		}
 		
 		void m_checkListFilesOnContextMenu( wxMouseEvent &event )
 		{
