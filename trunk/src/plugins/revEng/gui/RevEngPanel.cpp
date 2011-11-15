@@ -163,6 +163,21 @@ void udRevEngPanel::GetSelectedFiles(wxArrayString& files)
 	}
 }
 
+void udRevEngPanel::GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds& items)
+{
+	// get selected tree items
+	wxArrayTreeItemIds arrIds;
+	
+	if( m_treeSymbols->GetSelections( arrIds ) )
+	{
+		for( size_t i = 0; i < arrIds.GetCount(); i++ )
+		{
+			ctagClass *data = (ctagClass*) m_treeSymbols->GetItemData( arrIds[i] );
+			if( data && data->m_Type == type ) items.Add( arrIds[i] );
+		}
+	}
+}
+
 void udRevEngPanel::InitializeSymbolsTree()
 {
 	m_treeSymbols->DeleteAllItems();
@@ -244,6 +259,7 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			ctagClass *item = new ctagClass();
 			item->m_Name = arrFields[0].Trim();
 			item->m_Inherits = FindTagValue( arrFields, wxT("inherits") );
+			item->m_Pattern = FindTagPattern( ctags[i] );
 			
 			name = item->m_Name;
 			if( !item->m_Inherits.IsEmpty() ) name += wxT(" : ") + item->m_Inherits;
@@ -265,7 +281,7 @@ void udRevEngPanel::ParseFunctions(wxTreeItemId parent, const wxArrayString& cta
 	wxArrayString arrFields;
 	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
 	
-	if( parentClass )
+	if( parentClass && parentClass->m_Type == udCTAGS::ttCLASS )
 	{
 		// process classes
 		for( size_t i = 0; i < ctags.GetCount(); i++ )
@@ -276,11 +292,12 @@ void udRevEngPanel::ParseFunctions(wxTreeItemId parent, const wxArrayString& cta
 			
 			if( FindTagValue( arrFields, wxT("class") ) == parentClass->m_Name && FindTagValue( arrFields, wxT("kind") ) == wxT("function") )
 			{
-				ctagFunction *item = new ctagFunction();
+				ctagClassFunction *item = new ctagClassFunction();
 				item->m_Name = arrFields[0].Trim();
 				item->m_Access = FindTagValue( arrFields, wxT("access") );
 				item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
 				item->m_Signature = FindTagValue( arrFields, wxT("signature") );
+				item->m_Pattern = FindTagPattern( ctags[i] );
 				
 				m_treeSymbols->AppendItem( parent, item->m_Name + item->m_Signature, IPluginManager::Get()->GetArtIndex( wxT("udMemberFunctionItem") ), -1, item );
 			}
@@ -293,7 +310,7 @@ void udRevEngPanel::ParseMembers(wxTreeItemId parent, const wxArrayString& ctags
 	wxArrayString arrFields;
 	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
 	
-	if( parentClass )
+	if( parentClass && parentClass->m_Type == udCTAGS::ttCLASS )
 	{
 		// process classes
 		for( size_t i = 0; i < ctags.GetCount(); i++ )
@@ -304,10 +321,11 @@ void udRevEngPanel::ParseMembers(wxTreeItemId parent, const wxArrayString& ctags
 			
 			if( FindTagValue( arrFields, wxT("class") ) == parentClass->m_Name && FindTagValue( arrFields, wxT("kind") ) == wxT("member")  )
 			{
-				ctagMember *item = new ctagMember();
+				ctagClassMember *item = new ctagClassMember();
 				item->m_Name = arrFields[0].Trim();
 				item->m_Access = FindTagValue( arrFields, wxT("access") );
 				item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
+				item->m_Pattern = FindTagPattern( ctags[i] );
 				
 				m_treeSymbols->AppendItem( parent, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udMemberDataItem") ), -1, item );
 			}
@@ -320,6 +338,22 @@ wxString udRevEngPanel::FindTagValue(const wxArrayString& items, const wxString&
 	for( size_t i = 0; i < items.GetCount(); i++ )
 	{
 		if( items[i].Contains( key + wxT(":") ) ) return items[i].AfterFirst(':').Trim();
+	}
+	
+	return wxEmptyString;
+}
+
+wxString udRevEngPanel::FindTagPattern(const wxString& ctag)
+{
+	int start = ctag.Find( wxT("/^") );
+	int end = ctag.Find( wxT("$/") );
+	
+	if( start != wxNOT_FOUND && end != wxNOT_FOUND )
+	{
+		wxString pattern = ctag.Mid( start, end - start );
+		pattern.Replace( wxT("/^"), wxT("") );
+		
+		return pattern;
 	}
 	
 	return wxEmptyString;
@@ -343,9 +377,48 @@ void udRevEngPanel::OnRemoveAllFilesClick(wxCommandEvent& event)
 
 void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 {
+	wxArrayTreeItemIds arrClasses;
+	
+	GetSelectedTreeIds( udCTAGS::ttCLASS, arrClasses );
+	if( !arrClasses.IsEmpty() )
+	{
+		wxSFAutoLayout layout;
+		
+		IProject *proj = IPluginManager::Get()->GetProject();
+		
+		// create diagram package
+		udProjectItem *package = proj->CreateProjectItem( wxT("udPackageItem"), -1, udfUNIQUE_NAME );
+		if( package ) IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, package, (udProjectItem*) proj->GetRootItem(), wxEmptyString, udfDELAYED );
+		
+		// create class diagram
+		udClassDiagramItem *diag = (udClassDiagramItem*) proj->CreateProjectItem( wxT("udClassDiagramItem"), package->GetId(), udfUNIQUE_NAME );
+		if( diag )
+		{
+			// create classes
+			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
+			{
+				umlClassItem *classShape = CreateClassElement( arrClasses[i] );
+				if( classShape ) diag->GetDiagramManager().AddShape( classShape, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );
+			}
+			
+			// create associations
+			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
+			{
+				umlInheritanceItem *connection = CreateClassConnection( diag, arrClasses[i] );
+				if( connection ) diag->GetDiagramManager().AddShape( connection, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );	
+			}
+		
+			// layout diagram
+			layout.Layout( diag->GetDiagramManager(), wxT("Vertical Tree") );
+			
+			// update project structure tree
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, package, NULL, wxEmptyString, udfDELAYED );	
+		}
+	}
+	else
+		wxMessageBox( wxT("Select classes to be processed first."), wxT("Reverse Engineering"), wxOK | wxICON_WARNING );
 }
 
 void udRevEngPanel::OnCreateStateChartClick(wxCommandEvent& event)
 {
 }
-

@@ -2,35 +2,56 @@
 #define REVENGPANEL_H
 
 #include "GUI.h" // Base class: _RevEngPanel
-//#include "../diagUml/DiagUml.h"
+#include "../diagUml/DiagUml.h"
 
-class ctagClass : public wxTreeItemData
+class udCTAGS : public wxTreeItemData
 {
 public:
+	enum TYPE
+	{
+		ttUNDEFINED,
+		ttCLASS,
+		ttCLASS_MEMBER,
+		ttCLASS_FUNCTION,
+		ttFUNCTION
+	};
+
 	wxString m_Name;
-	wxString m_Inherits;
 	wxString m_Pattern;
+	
+	TYPE m_Type;
 };
 
-class ctagMember : public wxTreeItemData
+class ctagClass : public udCTAGS
 {
 public:
-	wxString m_Name;
+	ctagClass() { m_Type = ttCLASS; }
+	
+	wxString m_Inherits;
+};
+
+class ctagClassMember : public udCTAGS
+{
+public:
+	ctagClassMember() { m_Type = ttCLASS_MEMBER; }
 	wxString m_ParentClass;
 	wxString m_Access;
-	wxString m_RetType;
-	wxString m_Pattern;
 };
 
-class ctagFunction : public wxTreeItemData
+class ctagClassFunction : public udCTAGS
 {
 public:
-	wxString m_Name;
+	ctagClassFunction() { m_Type = ttCLASS_FUNCTION; }
 	wxString m_ParentClass;
 	wxString m_Access;
 	wxString m_Signature;
-	wxString m_RetType;
-	wxString m_Pattern;
+};
+
+class ctagFunction : public udCTAGS
+{
+public:
+	ctagFunction() { m_Type = ttFUNCTION; }
+	wxString m_Signature;
 };
 
 class udRevEngPanel : public _RevEngPanel {
@@ -48,6 +69,7 @@ protected:
 	
 	void GetCheckedFiles(wxArrayString &files);
 	void GetSelectedFiles(wxArrayString &files);
+	void GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds &items);
 	void InitializeSymbolsTree();
 	
 	int ExecCtags(const wxString& cmd, wxArrayString& output);
@@ -57,6 +79,10 @@ protected:
 	void ParseFunctions(wxTreeItemId parent, const wxArrayString& ctags);
 	
 	wxString FindTagValue(const wxArrayString& items, const wxString& key);
+	wxString FindTagPattern(const wxString& ctag);
+	
+	umlClassItem* CreateClassElement( wxTreeItemId classId );
+	umlInheritanceItem* CreateClassConnection( udDiagramItem* manager, wxTreeItemId classId );
 	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
 	virtual void OnBeginDrag(wxTreeEvent& event);
