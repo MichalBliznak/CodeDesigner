@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Nov 14 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -130,6 +130,28 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	m_treeSymbols = new wxTreeCtrl( m_panelSymbols, wxID_ANY, wxDefaultPosition, wxSize( -1,100 ), wxTR_DEFAULT_STYLE|wxTR_MULTIPLE );
 	m_treeSymbols->SetMinSize( wxSize( -1,100 ) );
 	
+	m_menuSymbols = new wxMenu();
+	wxMenuItem* menuSymbolsClassDiagram;
+	menuSymbolsClassDiagram = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_CREATE_CLASSDIAG, wxString( wxT("Create class diagram") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuSymbols->Append( menuSymbolsClassDiagram );
+	
+	wxMenuItem* menuSymbolsCreateStateChart;
+	menuSymbolsCreateStateChart = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_CREATE_STATECHART, wxString( wxT("Create state chart") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuSymbols->Append( menuSymbolsCreateStateChart );
+	
+	wxMenuItem* m_separator3;
+	m_separator3 = m_menuSymbols->AppendSeparator();
+	
+	wxMenuItem* menuSymbolsRemoveSelected;
+	menuSymbolsRemoveSelected = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_REMOVE_SELECTED, wxString( wxT("Remove selected symbols") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuSymbols->Append( menuSymbolsRemoveSelected );
+	
+	wxMenuItem* menuSymbolsRemoveAll;
+	menuSymbolsRemoveAll = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_REMOVE_ALL, wxString( wxT("Remove all symbols") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuSymbols->Append( menuSymbolsRemoveAll );
+	
+	m_treeSymbols->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( _RevEngPanel::m_treeSymbolsOnContextMenu ), NULL, this ); 
+	
 	panelSizerSymbols->Add( m_treeSymbols, 1, wxEXPAND|wxTOP|wxBOTTOM, 5 );
 	
 	m_panelSymbols->SetSizer( panelSizerSymbols );
@@ -157,8 +179,10 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	this->Connect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
 	this->Connect( IDT_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
 	this->Connect( IDT_SYMBOLS_CREATE_STATECHART, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
-	m_treeSymbols->Connect( wxEVT_COMMAND_TREE_BEGIN_DRAG, wxTreeEventHandler( _RevEngPanel::OnBeginDrag ), NULL, this );
-	m_treeSymbols->Connect( wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK, wxTreeEventHandler( _RevEngPanel::OnRightClick ), NULL, this );
+	this->Connect( menuSymbolsClassDiagram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
+	this->Connect( menuSymbolsCreateStateChart->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
+	this->Connect( menuSymbolsRemoveSelected->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveSelectedSymbolsClick ) );
+	this->Connect( menuSymbolsRemoveAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 }
 
 _RevEngPanel::~_RevEngPanel()
@@ -178,7 +202,9 @@ _RevEngPanel::~_RevEngPanel()
 	this->Disconnect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
 	this->Disconnect( IDT_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
 	this->Disconnect( IDT_SYMBOLS_CREATE_STATECHART, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
-	m_treeSymbols->Disconnect( wxEVT_COMMAND_TREE_BEGIN_DRAG, wxTreeEventHandler( _RevEngPanel::OnBeginDrag ), NULL, this );
-	m_treeSymbols->Disconnect( wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK, wxTreeEventHandler( _RevEngPanel::OnRightClick ), NULL, this );
+	this->Disconnect( IDM_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
+	this->Disconnect( IDM_SYMBOLS_CREATE_STATECHART, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
+	this->Disconnect( IDM_SYMBOLS_REMOVE_SELECTED, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveSelectedSymbolsClick ) );
+	this->Disconnect( IDM_SYMBOLS_REMOVE_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 	
 }

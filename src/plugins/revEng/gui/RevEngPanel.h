@@ -85,12 +85,10 @@ protected:
 	void CreateClassConnections( udDiagramItem* manager, wxTreeItemId classId );
 	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
-	virtual void OnBeginDrag(wxTreeEvent& event);
 	virtual void OnCheckAllFilesClick(wxCommandEvent& event);
 	virtual void OnDeselectAllFilesClick(wxCommandEvent& event);
 	virtual void OnParseClick(wxCommandEvent& event);
 	virtual void OnRemoveFilesClick(wxCommandEvent& event);
-	virtual void OnRightClick(wxTreeEvent& event);
 	virtual void OnSelectAllFilesClick(wxCommandEvent& event);
 	virtual void OnUncheckAllFilesClick(wxCommandEvent& event);
 	virtual void OnUpdateParse(wxUpdateUIEvent& event);
@@ -99,6 +97,8 @@ protected:
 	virtual void OnRemoveAllFilesClick(wxCommandEvent& event);
 	virtual void OnCreateClassDiagClick(wxCommandEvent& event);
 	virtual void OnCreateStateChartClick(wxCommandEvent& event);
+	virtual void OnRemoveAllSymbolsClick(wxCommandEvent& event);
+	virtual void OnRemoveSelectedSymbolsClick(wxCommandEvent& event);
 
 };
 

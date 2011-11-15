@@ -1448,7 +1448,7 @@
                                             <event name="OnRightUp"></event>
                                             <event name="OnSetFocus"></event>
                                             <event name="OnSize"></event>
-                                            <event name="OnTreeBeginDrag">OnBeginDrag</event>
+                                            <event name="OnTreeBeginDrag"></event>
                                             <event name="OnTreeBeginLabelEdit"></event>
                                             <event name="OnTreeBeginRDrag"></event>
                                             <event name="OnTreeDeleteItem"></event>
@@ -1463,13 +1463,82 @@
                                             <event name="OnTreeItemGetTooltip"></event>
                                             <event name="OnTreeItemMenu"></event>
                                             <event name="OnTreeItemMiddleClick"></event>
-                                            <event name="OnTreeItemRightClick">OnRightClick</event>
+                                            <event name="OnTreeItemRightClick"></event>
                                             <event name="OnTreeKeyDown"></event>
                                             <event name="OnTreeSelChanged"></event>
                                             <event name="OnTreeSelChanging"></event>
                                             <event name="OnTreeSetInfo"></event>
                                             <event name="OnTreeStateImageClick"></event>
                                             <event name="OnUpdateUI"></event>
+                                            <object class="wxMenu" expanded="1">
+                                                <property name="label">MyMenu</property>
+                                                <property name="name">m_menuSymbols</property>
+                                                <property name="permission">protected</property>
+                                                <object class="wxMenuItem" expanded="1">
+                                                    <property name="bitmap"></property>
+                                                    <property name="checked">0</property>
+                                                    <property name="enabled">1</property>
+                                                    <property name="help"></property>
+                                                    <property name="id">IDM_SYMBOLS_CREATE_CLASSDIAG</property>
+                                                    <property name="kind">wxITEM_NORMAL</property>
+                                                    <property name="label">Create class diagram</property>
+                                                    <property name="name">menuSymbolsClassDiagram</property>
+                                                    <property name="permission">none</property>
+                                                    <property name="shortcut"></property>
+                                                    <property name="unchecked_bitmap"></property>
+                                                    <event name="OnMenuSelection">OnCreateClassDiagClick</event>
+                                                    <event name="OnUpdateUI"></event>
+                                                </object>
+                                                <object class="wxMenuItem" expanded="1">
+                                                    <property name="bitmap"></property>
+                                                    <property name="checked">0</property>
+                                                    <property name="enabled">1</property>
+                                                    <property name="help"></property>
+                                                    <property name="id">IDM_SYMBOLS_CREATE_STATECHART</property>
+                                                    <property name="kind">wxITEM_NORMAL</property>
+                                                    <property name="label">Create state chart</property>
+                                                    <property name="name">menuSymbolsCreateStateChart</property>
+                                                    <property name="permission">none</property>
+                                                    <property name="shortcut"></property>
+                                                    <property name="unchecked_bitmap"></property>
+                                                    <event name="OnMenuSelection">OnCreateStateChartClick</event>
+                                                    <event name="OnUpdateUI"></event>
+                                                </object>
+                                                <object class="separator" expanded="1">
+                                                    <property name="name">m_separator3</property>
+                                                    <property name="permission">none</property>
+                                                </object>
+                                                <object class="wxMenuItem" expanded="1">
+                                                    <property name="bitmap"></property>
+                                                    <property name="checked">0</property>
+                                                    <property name="enabled">1</property>
+                                                    <property name="help"></property>
+                                                    <property name="id">IDM_SYMBOLS_REMOVE_SELECTED</property>
+                                                    <property name="kind">wxITEM_NORMAL</property>
+                                                    <property name="label">Remove selected symbols</property>
+                                                    <property name="name">menuSymbolsRemoveSelected</property>
+                                                    <property name="permission">none</property>
+                                                    <property name="shortcut"></property>
+                                                    <property name="unchecked_bitmap"></property>
+                                                    <event name="OnMenuSelection">OnRemoveSelectedSymbolsClick</event>
+                                                    <event name="OnUpdateUI"></event>
+                                                </object>
+                                                <object class="wxMenuItem" expanded="1">
+                                                    <property name="bitmap"></property>
+                                                    <property name="checked">0</property>
+                                                    <property name="enabled">1</property>
+                                                    <property name="help"></property>
+                                                    <property name="id">IDM_SYMBOLS_REMOVE_ALL</property>
+                                                    <property name="kind">wxITEM_NORMAL</property>
+                                                    <property name="label">Remove all symbols</property>
+                                                    <property name="name">menuSymbolsRemoveAll</property>
+                                                    <property name="permission">none</property>
+                                                    <property name="shortcut"></property>
+                                                    <property name="unchecked_bitmap"></property>
+                                                    <event name="OnMenuSelection">OnRemoveAllSymbolsClick</event>
+                                                    <event name="OnUpdateUI"></event>
+                                                </object>
+                                            </object>
                                         </object>
                                     </object>
                                 </object>
