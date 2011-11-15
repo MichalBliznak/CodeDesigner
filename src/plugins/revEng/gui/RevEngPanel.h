@@ -82,7 +82,7 @@ protected:
 	wxString FindTagPattern(const wxString& ctag);
 	
 	umlClassItem* CreateClassElement( wxTreeItemId classId );
-	umlInheritanceItem* CreateClassConnection( udDiagramItem* manager, wxTreeItemId classId );
+	void CreateClassConnections( udDiagramItem* manager, wxTreeItemId classId );
 	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
 	virtual void OnBeginDrag(wxTreeEvent& event);
