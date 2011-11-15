@@ -86,6 +86,7 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 	//generate comment if requested
 	pLang->WriteCodeBlocks( udGenerator::GetComment( pClass, pLang) );
 	
+	bool fPass = true;
 	int nAccessType = 0;
 	wxClassInfo *pPrevType;
 	udVariableItem *pVar;
@@ -135,6 +136,8 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				pPrevType = (*it)->GetClassInfo();
 			}
 			pLang->NewLine();
+			
+			fPass = false;
 		}
 		
 		nAccessType++;
@@ -188,10 +191,14 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				pPrevType = (*it)->GetClassInfo();
 			}
 			pLang->NewLine();
+			
+			fPass = false;
 		}
 		
 		nAccessType++;
 	}
+	
+	if( fPass ) pLang->WriteCodeBlocks( wxT("pass" ) );
 	
 	// insert class ending with delimiter
 	pLang->EndCmd();

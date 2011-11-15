@@ -56,7 +56,20 @@ void udCPPLanguage::ClassDeclCmd(const wxString& name, const wxString& parents)
 	Indent();
 	
 	m_sOutBuffer << wxT("class ") << name;
-	if( !parents.IsEmpty() ) m_sOutBuffer << wxT(" : public ") << parents;
+	if( !parents.IsEmpty() )
+	{
+		m_sOutBuffer << wxT(" : ");
+		
+		wxStringTokenizer tokenz( parents, wxT(","), wxTOKEN_STRTOK );
+		while( 1 )
+		{
+			m_sOutBuffer << wxT("public ") << tokenz.GetNextToken().Trim().Trim(false);
+			
+			if( tokenz.HasMoreTokens() ) m_sOutBuffer << wxT(", ");
+			else
+				break;
+		}
+	}
 	
 	NewLine();
 }

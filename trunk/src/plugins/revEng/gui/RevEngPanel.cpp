@@ -404,8 +404,7 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 			// create associations
 			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
 			{
-				umlInheritanceItem *connection = CreateClassConnection( diag, arrClasses[i] );
-				if( connection ) diag->GetDiagramManager().AddShape( connection, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );	
+				CreateClassConnections( diag, arrClasses[i] );
 			}
 		
 			// layout diagram

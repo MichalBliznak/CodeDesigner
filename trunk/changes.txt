@@ -1,3 +1,9 @@
+Changes in version 1.5.0 beta (2011-11-15):
+------------------------------------------------
+- Implemented reverse code engineering.
+- Fixed C++ code generation for classes with multiple bases.
+- Fixed Python code generation for classes without members.
+
 Changes in version 1.4.4 beta (2011-11-04):
 ------------------------------------------------
 - Fixed crash occured when diagram font was changed.
