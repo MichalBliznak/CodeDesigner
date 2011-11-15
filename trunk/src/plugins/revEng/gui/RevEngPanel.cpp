@@ -30,10 +30,6 @@ void udRevEngPanel::OnAddFilesClick(wxCommandEvent& event)
 	}
 }
 
-void udRevEngPanel::OnBeginDrag(wxTreeEvent& event)
-{
-}
-
 void udRevEngPanel::OnCheckAllFilesClick(wxCommandEvent& event)
 {
 	for( size_t i = 0; i < m_checkListFiles->GetCount(); i++ ) m_checkListFiles->Check( i );
@@ -113,10 +109,6 @@ void udRevEngPanel::OnRemoveFilesClick(wxCommandEvent& event)
 	GetSelectedFiles( arrFiles );
 	
 	for( size_t i = 0; i < arrFiles.GetCount(); i++ ) m_checkListFiles->Delete( m_checkListFiles->FindString( arrFiles[i] ) );
-}
-
-void udRevEngPanel::OnRightClick(wxTreeEvent& event)
-{
 }
 
 void udRevEngPanel::OnSelectAllFilesClick(wxCommandEvent& event)
@@ -421,3 +413,12 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 void udRevEngPanel::OnCreateStateChartClick(wxCommandEvent& event)
 {
 }
+
+void udRevEngPanel::OnRemoveAllSymbolsClick(wxCommandEvent& event)
+{
+}
+
+void udRevEngPanel::OnRemoveSelectedSymbolsClick(wxCommandEvent& event)
+{
+}
+

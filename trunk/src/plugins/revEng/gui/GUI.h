@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Nov 14 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -51,7 +51,11 @@ class _RevEngPanel : public wxPanel
 			IDB_PARSE,
 			IDT_SYMBOLS_EXPANDALL,
 			IDT_SYMBOLS_CREATE_CLASSDIAG,
-			IDT_SYMBOLS_CREATE_STATECHART
+			IDT_SYMBOLS_CREATE_STATECHART,
+			IDM_SYMBOLS_CREATE_CLASSDIAG,
+			IDM_SYMBOLS_CREATE_STATECHART,
+			IDM_SYMBOLS_REMOVE_SELECTED,
+			IDM_SYMBOLS_REMOVE_ALL
 		};
 		
 		wxSplitterWindow* m_splitter;
@@ -68,6 +72,7 @@ class _RevEngPanel : public wxPanel
 		wxStaticText* m_staticText2;
 		wxToolBar* m_toolBarSymbols;
 		wxTreeCtrl* m_treeSymbols;
+		wxMenu* m_menuSymbols;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnAddFilesClick( wxCommandEvent& event ) { event.Skip(); }
@@ -83,8 +88,8 @@ class _RevEngPanel : public wxPanel
 		virtual void OnExpandTreeClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCreateClassDiagClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCreateStateChartClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnBeginDrag( wxTreeEvent& event ) { event.Skip(); }
-		virtual void OnRightClick( wxTreeEvent& event ) { event.Skip(); }
+		virtual void OnRemoveSelectedSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnRemoveAllSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
@@ -101,6 +106,11 @@ class _RevEngPanel : public wxPanel
 		void m_checkListFilesOnContextMenu( wxMouseEvent &event )
 		{
 			m_checkListFiles->PopupMenu( m_menuFiles, event.GetPosition() );
+		}
+		
+		void m_treeSymbolsOnContextMenu( wxMouseEvent &event )
+		{
+			m_treeSymbols->PopupMenu( m_menuSymbols, event.GetPosition() );
 		}
 	
 };
