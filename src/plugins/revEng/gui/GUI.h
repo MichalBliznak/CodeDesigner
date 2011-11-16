@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 14 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -24,7 +24,9 @@
 #include <wx/menu.h>
 #include <wx/checklst.h>
 #include <wx/textctrl.h>
+#include <wx/choice.h>
 #include <wx/panel.h>
+#include <wx/checkbox.h>
 #include <wx/toolbar.h>
 #include <wx/treectrl.h>
 #include <wx/splitter.h>
@@ -54,7 +56,6 @@ class _RevEngPanel : public wxPanel
 			IDT_SYMBOLS_CREATE_STATECHART,
 			IDM_SYMBOLS_CREATE_CLASSDIAG,
 			IDM_SYMBOLS_CREATE_STATECHART,
-			IDM_SYMBOLS_REMOVE_SELECTED,
 			IDM_SYMBOLS_REMOVE_ALL
 		};
 		
@@ -68,9 +69,11 @@ class _RevEngPanel : public wxPanel
 		wxStaticText* m_staticText3;
 		wxTextCtrl* m_textIdentifiers;
 		wxButton* m_buttonParse;
+		wxChoice* m_choiceLanguage;
 		wxPanel* m_panelSymbols;
 		wxStaticText* m_staticText2;
 		wxToolBar* m_toolBarSymbols;
+		wxCheckBox* m_checkBoxMembers;
 		wxTreeCtrl* m_treeSymbols;
 		wxMenu* m_menuSymbols;
 		
@@ -88,7 +91,6 @@ class _RevEngPanel : public wxPanel
 		virtual void OnExpandTreeClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCreateClassDiagClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCreateStateChartClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnRemoveSelectedSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnRemoveAllSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	

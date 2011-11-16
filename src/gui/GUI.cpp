@@ -956,33 +956,6 @@ _SettingsDialog::~_SettingsDialog()
 	
 }
 
-_ProgressDialog::_ProgressDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
-	wxBoxSizer* mainSizer;
-	mainSizer = new wxBoxSizer( wxVERTICAL );
-	
-	m_stLabel = new wxStaticText( this, wxID_ANY, wxT("Text"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_stLabel->Wrap( -1 );
-	m_stLabel->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString ) );
-	
-	mainSizer->Add( m_stLabel, 1, wxEXPAND|wxALL, 5 );
-	
-	m_gaProgress = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 350,-1 ), wxGA_HORIZONTAL );
-	mainSizer->Add( m_gaProgress, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-	
-	this->SetSizer( mainSizer );
-	this->Layout();
-	mainSizer->Fit( this );
-	
-	this->Centre( wxBOTH );
-}
-
-_ProgressDialog::~_ProgressDialog()
-{
-}
-
 _InsertFromBankDialog::_InsertFromBankDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 420,300 ), wxDefaultSize );

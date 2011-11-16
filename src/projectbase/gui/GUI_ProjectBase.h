@@ -1,13 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Mar 22 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef __GUI_ProjectBase__
-#define __GUI_ProjectBase__
+#ifndef __GUI_PROJECTBASE_H__
+#define __GUI_PROJECTBASE_H__
 
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
 #include <wx/string.h>
 #include <wx/stattext.h>
 #include <wx/gdicmn.h>
@@ -37,6 +39,7 @@
 #include <wx/wxScintilla/wxscintilla.h>
 #include <wx/menu.h>
 #include <wx/checklst.h>
+#include <wx/gauge.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -168,7 +171,6 @@ class _FunctionDialog : public wxDialog
 		wxNotebook* m_pNotebook;
 		wxPanel* m_pageAdv;
 		wxCheckBox* m_chbInline;
-		
 		wxStaticText* m_staticText461;
 		wxChoice* m_chImplementation;
 		wxStaticText* m_staticText431;
@@ -408,4 +410,22 @@ class _ScopedElementDialog : public wxDialog
 	
 };
 
-#endif //__GUI_ProjectBase__
+///////////////////////////////////////////////////////////////////////////////
+/// Class _ProgressDialog
+///////////////////////////////////////////////////////////////////////////////
+class _ProgressDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_stLabel;
+		wxGauge* m_gaProgress;
+	
+	public:
+		
+		_ProgressDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Progress..."), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDIALOG_NO_PARENT|wxSTAY_ON_TOP ); 
+		~_ProgressDialog();
+	
+};
+
+#endif //__GUI_PROJECTBASE_H__

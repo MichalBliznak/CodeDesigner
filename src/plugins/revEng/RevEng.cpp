@@ -1,6 +1,6 @@
 /*********************************************************************
- * Name:      	DiagTest.cpp
- * Purpose:   	Implements testing diagram plugin
+ * Name:      	RevEng.cpp
+ * Purpose:   	Implements reverse code engineering plugin
  * Author:    	Michal Bližňák
  * Created:   
  * Copyright: 
@@ -12,7 +12,6 @@
 #include "projectbase/Common.h"
 
 #include <wx/txtstrm.h>
-/* #include <wx/artprov.h> */
  
 ////////////////////////////////////////////////////////////////////////////////
 // plugin //////////////////////////////////////////////////////////////////////
@@ -43,7 +42,7 @@ extern "C" WXDLLIMPEXP_CD udPluginInfo GetPluginInfo()
 	info.SetName( wxT("Reverse Engineering") );
 	info.SetDescription( wxT("Reverse code engineering plugin which uses CTAGS tool to parse source files.") );
 	info.SetType( udPluginInfo::ptGUI );
-	info.SetVersion( wxT("1.0") );
+	info.SetVersion( wxT("0.1.0 Beta") );
 	info.SetAPIVersionMin( 1 );
 	info.SetAPIVersionMax( 1 );
 	
@@ -111,19 +110,12 @@ udToolbarInfo udReverseEngineeringPlugin::CreateToolbar(wxWindow *parent)
 	
 	udToolbarInfo TbInfo;
 	
-	/*wxAuiToolBar *pToolbar = new wxAuiToolBar( parent, wxID_ANY );
-	pToolbar->AddTool( IDT_REVENG_SHOWPANEL, wxT("Show/Hide Reverse Engineering Panel"), wxArtProvider::GetBitmap( wxART_HELP_SETTINGS, wxART_TOOLBAR ) );
-	pToolbar->Realize();
-	
-	TbInfo.SetToolbar( pToolbar );
-	TbInfo.SetName( wxT("Reverse Engineering Toolbar") );*/
-	
 	return TbInfo;
 }
 
 void udReverseEngineeringPlugin::OnAbout(wxCommandEvent& event)
 {
-	wxMessageBox( wxT("Reverse Engineering v0.1.0 beta, (c) Michal Bližňák, Tomas Bata University in Zlin, 2011 - 2012"), wxT("Reverse Engineering") );
+	wxMessageBox( wxT("Reverse Engineering v0.1.0 Beta, (c) Michal Bližňák, Tomas Bata University in Zlin, 2011 - 2012"), wxT("Reverse Engineering") );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

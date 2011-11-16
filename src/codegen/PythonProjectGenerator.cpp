@@ -10,7 +10,7 @@
 #include "Project.h"
 #include "UMLDesignerApp.h"
 #include "UMLDesignerMain.h"
-#include "gui/ProgressDialog.h"
+#include "projectbase/gui/ProgressDialog.h"
 #include "projectbase/codegen/Generator.h"
 #include "projectbase/codegen/CodeItemsGenerator.h"
 #include "codegen/PythonProjectGenerator.h"

@@ -1,5 +1,6 @@
 #include "RevEngPanel.h"
 #include "RevEng.h"
+#include "projectbase/gui/ProgressDialog.h"
 
 #include <wx/process.h>
 #include <wx/txtstrm.h>
@@ -170,6 +171,22 @@ void udRevEngPanel::GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds& i
 	}
 }
 
+void udRevEngPanel::GetClassMembersIds(udCTAGS::TYPE type, wxTreeItemId classId, wxArrayTreeItemIds& items)
+{
+	items.Clear();
+	
+	wxTreeItemIdValue cookie;
+	
+	wxTreeItemId treeChild = m_treeSymbols->GetFirstChild( classId, cookie );
+	while( treeChild.IsOk() )
+	{
+		udCTAGS *ctag = (udCTAGS*) m_treeSymbols->GetItemData( treeChild );
+		if( ctag && ctag->m_Type == type ) items.Add( treeChild );
+		
+		treeChild = m_treeSymbols->GetNextChild( classId, cookie );
+	}
+}
+
 void udRevEngPanel::InitializeSymbolsTree()
 {
 	m_treeSymbols->DeleteAllItems();
@@ -258,17 +275,17 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			wxTreeItemId treeClass = m_treeSymbols->AppendItem( m_treeIdClasses, name, IPluginManager::Get()->GetArtIndex( wxT("umlClassItem") ), -1, item );
 			
 			// process class members
-			ParseMembers( treeClass, ctags );
+			ParseMemberData( treeClass, ctags );
 			
 			// process class functions
-			ParseFunctions( treeClass, ctags );
+			ParseMemberFunctions( treeClass, ctags );
 		}
 	}
 	
 	m_treeSymbols->Expand( m_treeIdClasses );
 }
 
-void udRevEngPanel::ParseFunctions(wxTreeItemId parent, const wxArrayString& ctags)
+void udRevEngPanel::ParseMemberFunctions(wxTreeItemId parent, const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
 	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
@@ -297,7 +314,7 @@ void udRevEngPanel::ParseFunctions(wxTreeItemId parent, const wxArrayString& cta
 	}
 }
 
-void udRevEngPanel::ParseMembers(wxTreeItemId parent, const wxArrayString& ctags)
+void udRevEngPanel::ParseMemberData(wxTreeItemId parent, const wxArrayString& ctags)
 {	
 	wxArrayString arrFields;
 	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
@@ -344,6 +361,8 @@ wxString udRevEngPanel::FindTagPattern(const wxString& ctag)
 	{
 		wxString pattern = ctag.Mid( start, end - start );
 		pattern.Replace( wxT("/^"), wxT("") );
+		pattern.Replace( wxT(";"), wxT("") );
+		pattern.Trim().Trim(false);
 		
 		return pattern;
 	}
@@ -374,9 +393,16 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 	GetSelectedTreeIds( udCTAGS::ttCLASS, arrClasses );
 	if( !arrClasses.IsEmpty() )
 	{
+		udProgressDialog progressDlg( NULL );
+		progressDlg.SetLabel( wxT("Importing project items...") );
+		progressDlg.Clear();
+		progressDlg.SetStepCount( arrClasses.GetCount() * 2 );
+		
 		wxSFAutoLayout layout;
 		
 		IProject *proj = IPluginManager::Get()->GetProject();
+		
+		IPluginManager::Get()->Log( wxT("Starting reverse code engineering...") );
 		
 		// create diagram package
 		udProjectItem *package = proj->CreateProjectItem( wxT("udPackageItem"), -1, udfUNIQUE_NAME );
@@ -386,6 +412,9 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 		udClassDiagramItem *diag = (udClassDiagramItem*) proj->CreateProjectItem( wxT("udClassDiagramItem"), package->GetId(), udfUNIQUE_NAME );
 		if( diag )
 		{
+			progressDlg.Show();
+			progressDlg.Raise();
+		
 			// create classes
 			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
 			{
@@ -393,10 +422,18 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 				if( classShape ) diag->GetDiagramManager().AddShape( classShape, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );
 			}
 			
+			// create inheritance
+			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
+			{
+				CreateClassInheritance( diag, arrClasses[i] );
+				progressDlg.Step();
+			}
+			
 			// create associations
 			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
 			{
-				CreateClassConnections( diag, arrClasses[i] );
+				CreateClassAssociations( diag, arrClasses[i] );
+				progressDlg.Step();
 			}
 		
 			// layout diagram
@@ -404,6 +441,9 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 			
 			// update project structure tree
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, package, NULL, wxEmptyString, udfDELAYED );	
+			
+			IPluginManager::Get()->Log( wxString::Format( wxT("Number of parsed classes: %d"), arrClasses.GetCount() ) );
+			IPluginManager::Get()->Log( wxT("WARNING: Manual check of parsed project items is strongly recommended due to possible simplifications done during the import process.") );
 		}
 	}
 	else
@@ -416,9 +456,5 @@ void udRevEngPanel::OnCreateStateChartClick(wxCommandEvent& event)
 
 void udRevEngPanel::OnRemoveAllSymbolsClick(wxCommandEvent& event)
 {
+	InitializeSymbolsTree();
 }
-
-void udRevEngPanel::OnRemoveSelectedSymbolsClick(wxCommandEvent& event)
-{
-}
-
