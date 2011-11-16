@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Mar 22 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -1170,4 +1170,31 @@ _ScopedElementDialog::~_ScopedElementDialog()
 	m_cbMakeValid->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( _ScopedElementDialog::OnMakeValid ), NULL, this );
 	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _ScopedElementDialog::OnOk ), NULL, this );
 	
+}
+
+_ProgressDialog::_ProgressDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* mainSizer;
+	mainSizer = new wxBoxSizer( wxVERTICAL );
+	
+	m_stLabel = new wxStaticText( this, wxID_ANY, wxT("Text"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stLabel->Wrap( -1 );
+	m_stLabel->SetFont( wxFont( 9, 74, 90, 92, false, wxT("sans") ) );
+	
+	mainSizer->Add( m_stLabel, 1, wxALL|wxEXPAND, 5 );
+	
+	m_gaProgress = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 350,-1 ), wxGA_HORIZONTAL );
+	mainSizer->Add( m_gaProgress, 0, wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	
+	this->SetSizer( mainSizer );
+	this->Layout();
+	mainSizer->Fit( this );
+	
+	this->Centre( wxBOTH );
+}
+
+_ProgressDialog::~_ProgressDialog()
+{
 }

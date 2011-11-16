@@ -39,7 +39,6 @@
 #include <wx/stattext.h>
 #include <wx/treectrl.h>
 #include <wx/dialog.h>
-#include <wx/gauge.h>
 #include <wx/choice.h>
 #include <wx/textctrl.h>
 #include <wx/statbox.h>
@@ -322,24 +321,6 @@ class _SettingsDialog : public wxDialog
 			m_pSplitter->SetSashPosition( 205 );
 			m_pSplitter->Disconnect( wxEVT_IDLE, wxIdleEventHandler( _SettingsDialog::m_pSplitterOnIdle ), NULL, this );
 		}
-	
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class _ProgressDialog
-///////////////////////////////////////////////////////////////////////////////
-class _ProgressDialog : public wxDialog 
-{
-	private:
-	
-	protected:
-		wxStaticText* m_stLabel;
-		wxGauge* m_gaProgress;
-	
-	public:
-		
-		_ProgressDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Progress..."), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDIALOG_NO_PARENT|wxSTAY_ON_TOP ); 
-		~_ProgressDialog();
 	
 };
 

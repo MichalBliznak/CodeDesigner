@@ -41,6 +41,7 @@ class udCodeLinkItem;
 #define udfDONT_CLEAR_CONTENT false
 #define udnCOMMON_ITEMS wxT("Common Items")
 #define udfUNIQUE_NAME true
+#define udfAMBIGUOUS_NAME false
 #define udvID_OFFSET 500000
 
 using namespace wxXS;

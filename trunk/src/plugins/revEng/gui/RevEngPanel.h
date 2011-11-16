@@ -4,6 +4,9 @@
 #include "GUI.h" // Base class: _RevEngPanel
 #include "../diagUml/DiagUml.h"
 
+#define udfWITH_DECORATION true
+#define udfWITHOUT_DECORATION true
+
 class udCTAGS : public wxTreeItemData
 {
 public:
@@ -70,19 +73,28 @@ protected:
 	void GetCheckedFiles(wxArrayString &files);
 	void GetSelectedFiles(wxArrayString &files);
 	void GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds &items);
+	void GetClassMembersIds(udCTAGS::TYPE type, wxTreeItemId classId, wxArrayTreeItemIds &items);
 	void InitializeSymbolsTree();
 	
 	int ExecCtags(const wxString& cmd, wxArrayString& output);
 	
 	void ParseClasses(const wxArrayString& ctags);
-	void ParseMembers(wxTreeItemId parent, const wxArrayString& ctags);
-	void ParseFunctions(wxTreeItemId parent, const wxArrayString& ctags);
+	void ParseMemberData(wxTreeItemId parent, const wxArrayString& ctags);
+	void ParseMemberFunctions(wxTreeItemId parent, const wxArrayString& ctags);
 	
 	wxString FindTagValue(const wxArrayString& items, const wxString& key);
 	wxString FindTagPattern(const wxString& ctag);
 	
+	wxString GetDataType(udCTAGS *ctag, bool decorations );
+	udLanguage::ACCESSTYPE GetAccessType(const wxString& at);
+	void GetFunctionArguments(udCTAGS *ctag, wxArrayString& args);
+	
 	umlClassItem* CreateClassElement( wxTreeItemId classId );
-	void CreateClassConnections( udDiagramItem* manager, wxTreeItemId classId );
+	void CreateClassInheritance( udDiagramItem* manager, wxTreeItemId classId );
+	void CreateClassAssociations( udDiagramItem* manager, wxTreeItemId classId );
+	
+	void CreateDataMembers( udClassElementItem *classItem, wxTreeItemId classId );
+	void CreateFunctionMembers( udClassElementItem *classItem, wxTreeItemId classId );
 	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
 	virtual void OnCheckAllFilesClick(wxCommandEvent& event);
@@ -98,7 +110,6 @@ protected:
 	virtual void OnCreateClassDiagClick(wxCommandEvent& event);
 	virtual void OnCreateStateChartClick(wxCommandEvent& event);
 	virtual void OnRemoveAllSymbolsClick(wxCommandEvent& event);
-	virtual void OnRemoveSelectedSymbolsClick(wxCommandEvent& event);
 
 };
 

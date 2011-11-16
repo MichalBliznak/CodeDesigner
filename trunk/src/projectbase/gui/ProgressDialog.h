@@ -1,9 +1,10 @@
 #ifndef __progressdialog__
 #define __progressdialog__
 
-#include "GUI.h"
+#include "GUI_ProjectBase.h"
+#include "../ProjectBase.h"
 
-class udProgressDialog : public _ProgressDialog
+class WXDLLIMPEXP_CD udProgressDialog : public _ProgressDialog
 {
 public:
 	udProgressDialog(wxWindow *parent);
