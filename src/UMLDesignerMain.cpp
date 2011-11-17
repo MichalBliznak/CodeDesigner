@@ -55,7 +55,6 @@ WX_DEFINE_LIST(ListenerList);
 // long term todos:
 //-----------------
 // TODO: implement languages by using XML templates/XSLT(???)
-// TODO: design and implement OpenMP diagrams
 // TODO: implement parallel states in HSCH
 // TODO: implement QuantumLeaps code generator
 // TODO: implement re-arrangement of elements in diagram for code generation (???)

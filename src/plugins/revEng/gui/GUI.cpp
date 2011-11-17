@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Nov 16 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -96,18 +96,8 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	panelSizerFiles->Add( m_textIdentifiers, 0, wxEXPAND|wxBOTTOM, 5 );
 	
-	wxBoxSizer* parseSizer;
-	parseSizer = new wxBoxSizer( wxHORIZONTAL );
-	
 	m_buttonParse = new wxButton( m_panelFiles, IDB_PARSE, wxT("Parse checked files"), wxDefaultPosition, wxDefaultSize, 0 );
-	parseSizer->Add( m_buttonParse, 1, wxALL|wxEXPAND, 5 );
-	
-	wxArrayString m_choiceLanguageChoices;
-	m_choiceLanguage = new wxChoice( m_panelFiles, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceLanguageChoices, 0 );
-	m_choiceLanguage->SetSelection( 0 );
-	parseSizer->Add( m_choiceLanguage, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
-	
-	panelSizerFiles->Add( parseSizer, 1, wxEXPAND, 5 );
+	panelSizerFiles->Add( m_buttonParse, 1, wxALL|wxEXPAND, 5 );
 	
 	m_panelFiles->SetSizer( panelSizerFiles );
 	m_panelFiles->Layout();
