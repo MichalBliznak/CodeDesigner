@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Nov 16 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -24,7 +24,6 @@
 #include <wx/menu.h>
 #include <wx/checklst.h>
 #include <wx/textctrl.h>
-#include <wx/choice.h>
 #include <wx/panel.h>
 #include <wx/checkbox.h>
 #include <wx/toolbar.h>
@@ -69,7 +68,6 @@ class _RevEngPanel : public wxPanel
 		wxStaticText* m_staticText3;
 		wxTextCtrl* m_textIdentifiers;
 		wxButton* m_buttonParse;
-		wxChoice* m_choiceLanguage;
 		wxPanel* m_panelSymbols;
 		wxStaticText* m_staticText2;
 		wxToolBar* m_toolBarSymbols;
