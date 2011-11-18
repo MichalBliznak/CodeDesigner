@@ -1517,7 +1517,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.4.4.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.5.0.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams and code generation.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");

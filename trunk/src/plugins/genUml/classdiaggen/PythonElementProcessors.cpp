@@ -129,7 +129,7 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				// generate variable
 				sOut = pVar->ToString( udCodeItem::cfDECLARATION, pLang );
 				if( nAccessType != udLanguage::AT_PUBLIC ) sOut.Replace( pLang->MakeValidIdentifier(pVar->GetName()), wxT("__") + pLang->MakeValidIdentifier(pVar->GetName()) );
-				if( pVar->GetDataModifer() != udLanguage::DM_STATIC ) sOut = wxT("self.") + sOut;
+				//if( pVar->GetDataModifer() != udLanguage::DM_STATIC ) sOut = wxT("self.") + sOut;
 				
 				pLang->WriteCodeBlocks( sOut );
 			

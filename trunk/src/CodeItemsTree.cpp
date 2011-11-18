@@ -53,9 +53,9 @@ wxTreeItemId udCodeItemsTree::CreateTreeItems(udProjectItem* item, wxTreeItemId 
 		}
 		else if( item->IsKindOf( CLASSINFO(udVariableItem)) || 
 				 item->IsKindOf( CLASSINFO(udFunctionItem)) ) 
-				 {
-					treeId = CreateItem( parent, item, nImageIndex );
-				 }
+		{
+			treeId = CreateItem( parent, item, nImageIndex );
+		}
 		
 		// show new tree item
 		if( treeId.IsOk() )

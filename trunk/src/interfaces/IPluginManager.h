@@ -92,6 +92,11 @@ public:
 	 */
 	virtual wxString GetResourcesPath() = 0;
 	/**
+	 * \brief Get name of registered code items package.
+	 * \return String containing code package name
+	 */
+	virtual wxString GetCodePackage(const wxString& classname) = 0;
+	/**
 	 * \brief Get image list stored art provider.
 	 * \return Pointer to image list stored in art provider
 	 */
@@ -120,6 +125,22 @@ public:
 	 * then proper icon will be displayed in the log window as well.
 	 */
 	virtual void Log(const wxString& msg) = 0;
+	/**
+	 * \brief Clear log window.
+	 */
+	virtual void ClearLog() = 0;
+	/**
+	 * \brief Returns information whether selected of any diagram component or diagram canvas will
+	 * select also relevant tree node in project structure tree.
+	 * \return TRUE if the tree node will be selected as well.
+	 */
+	virtual bool IsProjManLinked() = 0;
+	/**
+	 * \brief Returns information whether newly created code items will be auto-organised into
+	 * pre-registered code packages.
+	 * \return TRUE if auto-organisation is enabled.
+	 */
+	virtual bool IsProjManOrganised() = 0;
 	
 	// project-related functions
 	/**
@@ -139,12 +160,6 @@ public:
 	 * \return Pointer to selected project item if any, otherwise NULL
 	 */
 	virtual udProjectItem* GetSelectedProjectItem() = 0;
-	/**
-	 * \brief Returns information whether selected of any diagram component or diagram canvas will
-	 * select also relevant tree node in project structure tree.
-	 * \return TRUE if the tree node will be selected as well.
-	 */
-	virtual bool IsProjManLinked() = 0;
 	/**
 	 * \brief Get array containing info about all registered code generators
 	 * \return Reference to array.

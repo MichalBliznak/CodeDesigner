@@ -12,6 +12,10 @@
 #include "projectbase/Common.h"
 
 #include <wx/txtstrm.h>
+
+// TODO: import custom function bodies
+// TODO: include CTAGS project into CodeDesigner workspace
+// TODO: create state charts from function bodies (for both standalone functions and class member functions)
  
 ////////////////////////////////////////////////////////////////////////////////
 // plugin //////////////////////////////////////////////////////////////////////
@@ -130,9 +134,13 @@ XS_IMPLEMENT_CLONABLE_CLASS(udRevEngAppSettingsCategory, udSettingsCategory);
 udRevEngAppSettingsCategory::udRevEngAppSettingsCategory() : udSettingsCategory( wxT("Reverse Engineering") )
 {
 	m_CtagsPath = uddvDEFAULT_CTAGS;
+	m_CPPExtensions = uddvDEFAULT_CTAGS_CPP_EXT;
+	m_PythonExtensions = uddvDEFAULT_CTAGS_PYTHON_EXT;
 	
 	// serialize class member (always, if needed)
 	XS_SERIALIZE( m_CtagsPath, wxT("CTAGS path") );
+	XS_SERIALIZE( m_CPPExtensions, wxT("C/C++ file extensions") );
+	XS_SERIALIZE( m_PythonExtensions, wxT("Python file extensions") );
 }
 
 udRevEngAppSettingsCategory::udRevEngAppSettingsCategory(const udRevEngAppSettingsCategory& obj) : udSettingsCategory( obj )
@@ -140,8 +148,12 @@ udRevEngAppSettingsCategory::udRevEngAppSettingsCategory(const udRevEngAppSettin
 	SetName( wxT("Reverse Engineering") );
 	
 	m_CtagsPath = obj.m_CtagsPath;
+	m_CPPExtensions = obj.m_CPPExtensions;
+	m_PythonExtensions = obj.m_PythonExtensions;
 
 	XS_SERIALIZE( m_CtagsPath, wxT("CTAGS path") );
+	XS_SERIALIZE( m_CPPExtensions, wxT("C/C++ file extensions") );
+	XS_SERIALIZE( m_PythonExtensions, wxT("Python file extensions") );
 }
 
 udRevEngAppSettingsCategory::~udRevEngAppSettingsCategory()

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 16 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -53,11 +53,15 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	m_menuFiles = new wxMenu();
 	wxMenuItem* menuFilesAdd;
-	menuFilesAdd = new wxMenuItem( m_menuFiles, IDM_ADD_FILES, wxString( wxT("Add files") ) , wxEmptyString, wxITEM_NORMAL );
+	menuFilesAdd = new wxMenuItem( m_menuFiles, IDM_FILES_ADD, wxString( wxT("Add files") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuFiles->Append( menuFilesAdd );
 	
+	wxMenuItem* menuFilesRemove;
+	menuFilesRemove = new wxMenuItem( m_menuFiles, IDM_FILES_REMOVE, wxString( wxT("Remove selected files") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuFiles->Append( menuFilesRemove );
+	
 	wxMenuItem* menuFilesRemoveAllFiles;
-	menuFilesRemoveAllFiles = new wxMenuItem( m_menuFiles, wxID_ANY, wxString( wxT("Remove all files") ) , wxEmptyString, wxITEM_NORMAL );
+	menuFilesRemoveAllFiles = new wxMenuItem( m_menuFiles, IDM_FILES_REMOVE_ALL, wxString( wxT("Remove all files") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuFiles->Append( menuFilesRemoveAllFiles );
 	
 	wxMenuItem* m_separator2;
@@ -171,6 +175,8 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	m_buttonRemoveFiles->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _RevEngPanel::OnRemoveFilesClick ), NULL, this );
 	m_buttonRemoveFiles->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateRemoveFiles ), NULL, this );
 	this->Connect( menuFilesAdd->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnAddFilesClick ) );
+	this->Connect( menuFilesRemove->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveFilesClick ) );
+	this->Connect( menuFilesRemove->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateRemoveFiles ) );
 	this->Connect( menuFilesRemoveAllFiles->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllFilesClick ) );
 	this->Connect( menuFilesSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnSelectAllFilesClick ) );
 	this->Connect( menuFilesDeselectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnDeselectAllFilesClick ) );
@@ -192,8 +198,10 @@ _RevEngPanel::~_RevEngPanel()
 	m_buttonAddFiles->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _RevEngPanel::OnAddFilesClick ), NULL, this );
 	m_buttonRemoveFiles->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _RevEngPanel::OnRemoveFilesClick ), NULL, this );
 	m_buttonRemoveFiles->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateRemoveFiles ), NULL, this );
-	this->Disconnect( IDM_ADD_FILES, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnAddFilesClick ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllFilesClick ) );
+	this->Disconnect( IDM_FILES_ADD, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnAddFilesClick ) );
+	this->Disconnect( IDM_FILES_REMOVE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveFilesClick ) );
+	this->Disconnect( IDM_FILES_REMOVE, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateRemoveFiles ) );
+	this->Disconnect( IDM_FILES_REMOVE_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllFilesClick ) );
 	this->Disconnect( IDM_FILES_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnSelectAllFilesClick ) );
 	this->Disconnect( IDM_FILES_DESELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnDeselectAllFilesClick ) );
 	this->Disconnect( IDM_FILES_CHECKALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCheckAllFilesClick ) );
