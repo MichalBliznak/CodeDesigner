@@ -111,14 +111,30 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 	wxArrayTreeItemIds arrMembers;
 	GetClassMembersIds( udCTAGS::ttCLASS_MEMBER, classId, arrMembers );
 	
+	IProject *proj = IPluginManager::Get()->GetProject();
+	
+	int parentId = proj->GetRootItem()->GetId();
+	
+	// create code package for new members if doesn't exists
+	if( IPluginManager::Get()->IsProjManOrganised() )
+	{
+		wxString pkgName = IPluginManager::Get()->GetCodePackage( wxT("udMemberDataItem") );
+		udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
+		if( !package )
+		{
+			package = proj->CreateProjectItem( wxT("udCodePackageItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
+			package->SetName( pkgName );
+		}
+		
+		parentId = package->GetId();
+	}
+	
 	for(size_t i = 0; i < arrMembers.GetCount(); i++)
 	{
 		ctagClassMember *ctag = (ctagClassMember*) m_treeSymbols->GetItemData( arrMembers[i] );
 		
 		// create code item
-		IProject *proj = IPluginManager::Get()->GetProject();
-		
-		udMemberDataItem *data = (udMemberDataItem*) proj->CreateProjectItem( wxT("udMemberDataItem"), -1, udfAMBIGUOUS_NAME );
+		udMemberDataItem *data = (udMemberDataItem*) proj->CreateProjectItem( wxT("udMemberDataItem"), parentId, udfAMBIGUOUS_NAME );
 		data->SetName( ctag->m_Name );
 		data->SetDescription( wxT("Original class member: \"") + ctag->m_Pattern + wxT("\"") );
 		data->SetScope( classItem->GetName() );
@@ -128,9 +144,7 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 		data->SetUserDeclPlace( udVariableItem::dlBUILTIN );
 		
 		// assign link to the class
-		classItem->AssignCodeItem(  new udMemberDataLinkItem( data, GetAccessType( ctag->m_Access ) ) );
-		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, data, (udProjectItem*) proj->GetRootItem(), wxEmptyString, udfDELAYED );
+		classItem->AssignCodeItem( new udMemberDataLinkItem( data, GetAccessType( ctag->m_Access ) ) );
 	}
 }
 
@@ -139,6 +153,8 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 	wxArrayTreeItemIds arrMembers;
 	GetClassMembersIds( udCTAGS::ttCLASS_FUNCTION, classId, arrMembers );
 	
+	IProject *proj = IPluginManager::Get()->GetProject();
+	
 	for(size_t i = 0; i < arrMembers.GetCount(); i++)
 	{
 		ctagClassFunction *ctag = (ctagClassFunction*) m_treeSymbols->GetItemData( arrMembers[i] );
@@ -146,28 +162,40 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 		//IPluginManager::Get()->Log( wxT("DEBUG: Member's pattern:") + ctag->m_Pattern + wxT(", signature: ") + ctag->m_Signature );
 		
 		// create code item
-		IProject *proj = IPluginManager::Get()->GetProject();
-		
 		udMemberFunctionItem *data = NULL;
 
 		if( ctag->m_Name == ctag->m_ParentClass )
 		{
-			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udConstructorFunctionItem"), -1, udfAMBIGUOUS_NAME );
+			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udConstructorFunctionItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
 			data->SetName( proj->MakeUniqueName( wxT("Constructor ") + ctag->m_Name ) );
 		}
 		else if( ctag->m_Name == wxT("~") + ctag->m_ParentClass )
 		{
-			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udDestructorFunctionItem"), -1, udfAMBIGUOUS_NAME );
+			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udDestructorFunctionItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
 			wxString name = ctag->m_Name;
 			name.Replace( wxT("~"), wxT("") );
 			data->SetName( proj->MakeUniqueName( wxT("Destructor ") + name ) );
 		}
 		else
 		{
-			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udMemberFunctionItem"), -1, udfAMBIGUOUS_NAME );
+			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udMemberFunctionItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
 			data->SetName( ctag->m_Name );
 		}
 		
+		// create code package for new members if doesn't exists
+		if( IPluginManager::Get()->IsProjManOrganised() )
+		{
+			wxString pkgName = IPluginManager::Get()->GetCodePackage( data->GetClassInfo()->GetClassName() );
+			udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
+			if( !package )
+			{
+				package = proj->CreateProjectItem( wxT("udCodePackageItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
+				package->SetName( pkgName );
+			}
+			
+			data->Reparent( package );
+		}
+			
 		data->SetDescription( wxT("Original class member: \"") + ctag->m_Pattern + wxT("\"") );
 		data->SetScope( classItem->GetName() );
 		
@@ -197,8 +225,6 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 		
 		// assign link to the class
 		classItem->AssignCodeItem( new udMemberFunctionLinkItem( data, GetAccessType( ctag->m_Access ) ) );
-		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, data, (udProjectItem*) proj->GetRootItem(), wxEmptyString, udfDELAYED );
 	}
 }
 

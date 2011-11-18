@@ -62,6 +62,7 @@ public:
 	virtual udDiagramItem* GetActiveDiagram();
 	virtual const wxString& GetAppPath();
 	virtual wxString GetResourcesPath();
+	virtual wxString GetCodePackage(const wxString& classname);
 	virtual wxImageList* GetArt();
 	virtual wxBitmap GetArtBitmap(const wxString& name);
 	virtual int GetArtIndex(const wxString& name);
@@ -101,7 +102,9 @@ public:
 	virtual void SaveDiagramState(udDiagramItem *diag);
 	
 	virtual bool IsProjManLinked();
+	virtual bool IsProjManOrganised();
 	virtual void Log(const wxString& msg);
+	virtual void ClearLog();
 	
 	static int GetNewComponentId() {return m_ComponentIndex++;}
 	static int GetNewDiagramId() {return m_DiagramIndex++;}

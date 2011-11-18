@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 16 2011)
+// C++ code generated with wxFormBuilder (version Nov  8 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -44,7 +44,9 @@ class _RevEngPanel : public wxPanel
 		{
 			IDB_ADDFILES = 6000,
 			IDB_REMOVEFILES,
-			IDM_ADD_FILES,
+			IDM_FILES_ADD,
+			IDM_FILES_REMOVE,
+			IDM_FILES_REMOVE_ALL,
 			IDM_FILES_SELECTALL,
 			IDM_FILES_DESELECTALL,
 			IDM_FILES_CHECKALL,

@@ -476,3 +476,19 @@ void udPluginManager::UnregisterCommentProcessor(const wxString& type)
 {
 	udGenerator::UnregisterCommentProcessor( type );
 }
+
+void udPluginManager::ClearLog()
+{
+	UMLDesignerApp::ClearLog();
+}
+
+wxString udPluginManager::GetCodePackage(const wxString& classname)
+{
+	return m_Frame->GetCodePackages()[classname];
+}
+
+bool udPluginManager::IsProjManOrganised()
+{
+	return m_Frame->GetProjectManager()->IsOrganized();
+}
+

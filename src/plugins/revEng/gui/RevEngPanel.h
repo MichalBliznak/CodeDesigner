@@ -12,12 +12,19 @@ class udCTAGS : public wxTreeItemData
 public:
 	enum TYPE
 	{
-		ttUNDEFINED,
+		ttUNDEFINED = 0,
 		ttCLASS,
 		ttCLASS_MEMBER,
 		ttCLASS_FUNCTION,
 		ttFUNCTION
 	};
+	
+	enum LANGTYPE
+	{
+		ltUNKNOWN = 0,
+		ltCPP,
+		ltPYTHON
+	} m_LangType;
 
 	wxString m_Name;
 	wxString m_Pattern;
@@ -65,15 +72,20 @@ public:
 	
 protected:
 	bool m_fExpanded;
+	udCTAGS::LANGTYPE m_LangType;
 	
 	wxTreeItemId m_treeIdClasses;
 	wxTreeItemId m_treeIdFunctions;
 	wxTreeItemId m_treeIdVariables;
 	
+	/*wxArrayString m_arrCPPExtensions;
+	wxArrayString m_arrPythonExtensions;*/
+	
 	void GetCheckedFiles(wxArrayString &files);
 	void GetSelectedFiles(wxArrayString &files);
 	void GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds &items);
 	void GetClassMembersIds(udCTAGS::TYPE type, wxTreeItemId classId, wxArrayTreeItemIds &items);
+	udCTAGS::LANGTYPE GetLanguageFromFiles(const wxArrayString &files);
 	void InitializeSymbolsTree();
 	
 	int ExecCtags(const wxString& cmd, wxArrayString& output);
