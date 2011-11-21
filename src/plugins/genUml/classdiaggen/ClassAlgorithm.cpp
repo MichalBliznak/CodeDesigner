@@ -60,21 +60,27 @@ void udClassAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		}
 	}
 	
-	// generate classes
+	// generate outer classes
 	lstElements.Clear();
     pDiagManager->GetShapes(CLASSINFO(umlClassItem), lstElements);
 	
 	for( ShapeList::iterator it = lstElements.begin(); it != lstElements.end(); ++it )
 	{
-		udElementProcessor *pProcessor = GetElementProcessor( (*it)->GetClassInfo()->GetClassName() );
-		if(pProcessor)
+		lstAssocs.Clear();
+		
+		pDiagManager->GetAssignedConnections( *it, CLASSINFO(umlIncludeAssocItem), wxSFLineShape::lineENDING, lstAssocs );
+		if( lstAssocs.IsEmpty() )
 		{
-			pProcessor->ProcessElement( *it );
-		}
-		else
-		{
-			pLang->SingleLineCommentCmd(wxString::Format(wxT( "!!! WARNING: UNSUPPORTED ELEMENT ('%s') !!!"), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
-			IPluginManager::Get()->Log(wxString::Format(wxT("WARNING: '%s' element is not supported by this algorithm."), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+			udElementProcessor *pProcessor = GetElementProcessor( (*it)->GetClassInfo()->GetClassName() );
+			if(pProcessor)
+			{
+				pProcessor->ProcessElement( *it );
+			}
+			else
+			{
+				pLang->SingleLineCommentCmd(wxString::Format(wxT( "!!! WARNING: UNSUPPORTED ELEMENT ('%s') !!!"), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+				IPluginManager::Get()->Log(wxString::Format(wxT("WARNING: '%s' element is not supported by this algorithm."), ((udProjectItem*)(*it)->GetUserData())->GetName().c_str()));
+			}
 		}
 	}
 }

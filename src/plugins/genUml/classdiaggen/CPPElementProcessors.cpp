@@ -41,7 +41,7 @@ void udCPPClassElementProcessor::ProcessElement(wxSFShapeBase *element)
 	
 	// process child classes recursivelly first
 	ShapeList lstBases;
-	umlClassDiagram::GetBaseClasses( (umlClassItem*)element, lstBases );
+	umlClassDiagram::GetOuterClasses( (umlClassItem*)element, lstBases );
 
 	for( ShapeList::iterator it = lstBases.begin(); it != lstBases.end(); ++it )
 	{

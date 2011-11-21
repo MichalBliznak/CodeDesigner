@@ -8,7 +8,6 @@
 #include "GUI.h"
 
 #include "../res/project/ClassDiag.xpm"
-#include "../res/project/SimpleStateChartDiag.xpm"
 #include "res/gui/collapse.xpm"
 
 ///////////////////////////////////////////////////////////////////////////
@@ -123,16 +122,16 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	m_toolBarSymbols->AddSeparator(); 
 	
-	m_toolBarSymbols->AddTool( IDT_SYMBOLS_CREATE_CLASSDIAG, wxT("Create class diagram"), wxBitmap( ClassDiag_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Create class diagram for all selected classes"), wxEmptyString, NULL ); 
+	m_toolBarSymbols->AddTool( IDT_SYMBOLS_CREATE_CLASSDIAG, wxT("Create class diagram"), wxBitmap( ClassDiag_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Create class diagram for selected classes/enums"), wxEmptyString, NULL ); 
 	
 	m_checkBoxMembers = new wxCheckBox( m_toolBarSymbols, wxID_ANY, wxT("Members "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxMembers->SetToolTip( wxT("Create also class members") );
+	m_checkBoxMembers->SetToolTip( wxT("Import class members") );
 	
 	m_toolBarSymbols->AddControl( m_checkBoxMembers );
-	m_toolBarSymbols->AddSeparator(); 
+	m_checkBoxBodies = new wxCheckBox( m_toolBarSymbols, wxID_ANY, wxT("Bodies "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxBodies->SetToolTip( wxT("Import function bodies") );
 	
-	m_toolBarSymbols->AddTool( IDT_SYMBOLS_CREATE_STATECHART, wxT("Create state chart"), wxBitmap( SimpleStateChartDiag_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Create state charts for all listed functions"), wxEmptyString, NULL ); 
-	
+	m_toolBarSymbols->AddControl( m_checkBoxBodies );
 	m_toolBarSymbols->Realize(); 
 	
 	panelSizerSymbols->Add( m_toolBarSymbols, 0, wxEXPAND, 5 );
@@ -186,7 +185,6 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	m_buttonParse->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateParse ), NULL, this );
 	this->Connect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
 	this->Connect( IDT_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
-	this->Connect( IDT_SYMBOLS_CREATE_STATECHART, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
 	this->Connect( menuSymbolsClassDiagram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
 	this->Connect( menuSymbolsCreateStateChart->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
 	this->Connect( menuSymbolsRemoveAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
@@ -210,7 +208,6 @@ _RevEngPanel::~_RevEngPanel()
 	m_buttonParse->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateParse ), NULL, this );
 	this->Disconnect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
 	this->Disconnect( IDT_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
-	this->Disconnect( IDT_SYMBOLS_CREATE_STATECHART, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
 	this->Disconnect( IDM_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
 	this->Disconnect( IDM_SYMBOLS_CREATE_STATECHART, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateStateChartClick ) );
 	this->Disconnect( IDM_SYMBOLS_REMOVE_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );

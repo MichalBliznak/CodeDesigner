@@ -86,7 +86,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	m_separator1 = fileMenu->AppendSeparator();
 	
 	wxMenuItem* menuFileExportBMP;
-	menuFileExportBMP = new wxMenuItem( fileMenu, IDM_FILE_EXPORT, wxString( wxT("Export diagram to BMP...") ) , wxT("Export active diagram to BMP file"), wxITEM_NORMAL );
+	menuFileExportBMP = new wxMenuItem( fileMenu, IDM_FILE_EXPORT, wxString( wxT("Export diagram to image...") ) , wxT("Export active diagram to BMP file"), wxITEM_NORMAL );
 	fileMenu->Append( menuFileExportBMP );
 	
 	wxMenuItem* m_separator2;

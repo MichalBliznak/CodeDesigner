@@ -39,6 +39,29 @@ void umlClassDiagram::GetBaseClasses(umlClassItem* shape, ShapeList& bases)
 	}
 }
 
+void umlClassDiagram::GetOuterClasses(umlClassItem* shape, ShapeList& bases)
+{
+	wxASSERT(shape);
+	if( !shape ) return;
+	
+	umlClassItem *pClass;
+	wxSFDiagramManager *pDiagManager = shape->GetShapeManager();
+	
+	ShapeList lstAssocs;
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlInheritanceItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlInterfaceItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlTemplateBindItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlUniDirectAssocItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlBasicAggregItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	pDiagManager->GetAssignedConnections( shape, CLASSINFO(umlCompAggregItem), wxSFShapeBase::lineSTARTING, lstAssocs );
+	
+	for( ShapeList::iterator it = lstAssocs.begin(); it != lstAssocs.end(); ++it )
+	{
+		pClass =  wxDynamicCast( pDiagManager->FindShape( ((wxSFLineShape*)*it)->GetTrgShapeId() ), umlClassItem );
+		if( pClass ) bases.Append( pClass );
+	}
+}
+
 void umlClassDiagram::GetClassMembers(umlClassItem* shape, wxClassInfo* type, udLanguage::ACCESSTYPE at, SerializableList& members)
 {
 	wxASSERT(shape);
@@ -73,3 +96,4 @@ void umlClassDiagram::GetClassAssociations(umlClassItem* shape, wxClassInfo* typ
 		if( pAssocElement && (pAssocElement->GetAccessType() == at) ) assocs.Append( *it );
 	}
 }
+

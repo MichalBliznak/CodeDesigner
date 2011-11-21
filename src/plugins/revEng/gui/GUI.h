@@ -54,7 +54,6 @@ class _RevEngPanel : public wxPanel
 			IDB_PARSE,
 			IDT_SYMBOLS_EXPANDALL,
 			IDT_SYMBOLS_CREATE_CLASSDIAG,
-			IDT_SYMBOLS_CREATE_STATECHART,
 			IDM_SYMBOLS_CREATE_CLASSDIAG,
 			IDM_SYMBOLS_CREATE_STATECHART,
 			IDM_SYMBOLS_REMOVE_ALL
@@ -74,6 +73,7 @@ class _RevEngPanel : public wxPanel
 		wxStaticText* m_staticText2;
 		wxToolBar* m_toolBarSymbols;
 		wxCheckBox* m_checkBoxMembers;
+		wxCheckBox* m_checkBoxBodies;
 		wxTreeCtrl* m_treeSymbols;
 		wxMenu* m_menuSymbols;
 		
