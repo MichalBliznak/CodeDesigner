@@ -1430,11 +1430,32 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 
 void UMLDesignerFrame::OnExportDiagram( wxCommandEvent &event )
 {
-	wxFileDialog dlg(this, wxT("Export diagram to BMP..."), wxGetCwd(), wxT(""), wxT("BMP Files (*.bmp)|*.bmp"), wxFD_SAVE);
+	wxFileDialog dlg(this, wxT("Export diagram to image..."), wxGetCwd(), wxT(""), wxT("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|(*.gif)|XPM Files (*.xpm)|*.xpm|PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg"), wxFD_SAVE);
 
 	if(dlg.ShowModal() == wxID_OK)
 	{
-        GetActiveCanvas()->SaveCanvasToBMP(dlg.GetPath());
+		wxBitmapType type = wxBITMAP_TYPE_ANY;
+		
+		switch( dlg.GetFilterIndex() )
+		{
+			case 0:
+				type = wxBITMAP_TYPE_BMP;
+				break;
+			case 1:
+				type = wxBITMAP_TYPE_GIF;
+				break;
+			case 2:
+				type = wxBITMAP_TYPE_XPM;
+				break;
+			case 3:
+				type = wxBITMAP_TYPE_PNG;
+				break;
+			case 4:
+				type = wxBITMAP_TYPE_JPEG;
+				break;
+		}
+		
+        GetActiveCanvas()->SaveCanvasToImage( dlg.GetPath(), type, wxGetApp().GetSettings().GetProperty( wxT("Export canvas background") )->AsBool() );
 	}
 }
 

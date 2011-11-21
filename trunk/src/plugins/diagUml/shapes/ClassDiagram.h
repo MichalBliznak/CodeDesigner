@@ -18,6 +18,7 @@ public:
 
 	// public static functions
 	static void GetBaseClasses(umlClassItem *shape, ShapeList& bases);
+	static void GetOuterClasses(umlClassItem *shape, ShapeList& bases);
 	static void GetClassMembers(umlClassItem *shape, wxClassInfo *type, udLanguage::ACCESSTYPE at, SerializableList& members);
 	static void GetClassAssociations(umlClassItem *shape, wxClassInfo *type, wxSFLineShape::CONNECTMODE direction, udLanguage::ACCESSTYPE at, ShapeList& assocs);
 };

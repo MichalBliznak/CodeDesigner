@@ -1,5 +1,5 @@
-#ifndef UMLBASICAGGREGITEM_H
-#define UMLBASICAGGREGITEM_H
+#ifndef UMLCOMPAGGREGITEM_H
+#define UMLCOMPAGGREGITEM_H
 
 #include "UniDirectAssocItem.h"
 #include "interfaces/Defs.h"

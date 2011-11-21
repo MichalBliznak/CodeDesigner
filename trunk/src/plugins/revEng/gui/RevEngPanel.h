@@ -16,7 +16,10 @@ public:
 		ttCLASS,
 		ttCLASS_MEMBER,
 		ttCLASS_FUNCTION,
-		ttFUNCTION
+		ttENUM,
+		ttENUM_ITEM,
+		ttFUNCTION,
+		ttVARIABLE
 	};
 	
 	enum LANGTYPE
@@ -24,11 +27,11 @@ public:
 		ltUNKNOWN = 0,
 		ltCPP,
 		ltPYTHON
-	} m_LangType;
+	};
 
 	wxString m_Name;
 	wxString m_Pattern;
-	
+	wxString m_File;
 	TYPE m_Type;
 };
 
@@ -38,6 +41,8 @@ public:
 	ctagClass() { m_Type = ttCLASS; }
 	
 	wxString m_Inherits;
+	wxString m_OuterClass;
+	wxString m_Access;
 };
 
 class ctagClassMember : public udCTAGS
@@ -46,6 +51,7 @@ public:
 	ctagClassMember() { m_Type = ttCLASS_MEMBER; }
 	wxString m_ParentClass;
 	wxString m_Access;
+	wxString m_Value;
 };
 
 class ctagClassFunction : public udCTAGS
@@ -55,6 +61,7 @@ public:
 	wxString m_ParentClass;
 	wxString m_Access;
 	wxString m_Signature;
+	wxString m_Content;
 };
 
 class ctagFunction : public udCTAGS
@@ -62,6 +69,25 @@ class ctagFunction : public udCTAGS
 public:
 	ctagFunction() { m_Type = ttFUNCTION; }
 	wxString m_Signature;
+	wxString m_Content;
+};
+
+class ctagEnum : public udCTAGS
+{
+public:
+	ctagEnum() { m_Type = ttENUM; }
+
+	wxString m_OuterClass;
+	wxString m_Access;
+};
+
+class ctagEnumItem : public udCTAGS
+{
+public:
+	ctagEnumItem() { m_Type = ttENUM_ITEM; }
+
+	wxString m_ParentEnum;
+	wxString m_Value;
 };
 
 class udRevEngPanel : public _RevEngPanel {
@@ -77,13 +103,10 @@ protected:
 	wxTreeItemId m_treeIdClasses;
 	wxTreeItemId m_treeIdFunctions;
 	wxTreeItemId m_treeIdVariables;
-	
-	/*wxArrayString m_arrCPPExtensions;
-	wxArrayString m_arrPythonExtensions;*/
-	
+
 	void GetCheckedFiles(wxArrayString &files);
 	void GetSelectedFiles(wxArrayString &files);
-	void GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds &items);
+	void GetSelectedTreeIds(int type, wxArrayTreeItemIds &items);
 	void GetClassMembersIds(udCTAGS::TYPE type, wxTreeItemId classId, wxArrayTreeItemIds &items);
 	udCTAGS::LANGTYPE GetLanguageFromFiles(const wxArrayString &files);
 	void InitializeSymbolsTree();
@@ -93,6 +116,9 @@ protected:
 	void ParseClasses(const wxArrayString& ctags);
 	void ParseMemberData(wxTreeItemId parent, const wxArrayString& ctags);
 	void ParseMemberFunctions(wxTreeItemId parent, const wxArrayString& ctags);
+	void ParseFunctionBody(ctagClassFunction *ctag);
+	void ParseEnums(const wxArrayString& ctags);
+	void ParseEnumItems(wxTreeItemId parent, const wxArrayString& ctags);
 	
 	wxString FindTagValue(const wxArrayString& items, const wxString& key);
 	wxString FindTagPattern(const wxString& ctag);
@@ -102,8 +128,9 @@ protected:
 	void GetFunctionArguments(udCTAGS *ctag, wxArrayString& args);
 	
 	umlClassItem* CreateClassElement( wxTreeItemId classId );
-	void CreateClassInheritance( udDiagramItem* manager, wxTreeItemId classId );
+	umlEnumItem* CreateEnumElement( wxTreeItemId enumId );
 	void CreateClassAssociations( udDiagramItem* manager, wxTreeItemId classId );
+	void CreateMemberAssociations( udDiagramItem* manager, wxTreeItemId classId );
 	
 	void CreateDataMembers( udClassElementItem *classItem, wxTreeItemId classId );
 	void CreateFunctionMembers( udClassElementItem *classItem, wxTreeItemId classId );
@@ -120,7 +147,6 @@ protected:
 	virtual void OnExpandTreeClick(wxCommandEvent& event);
 	virtual void OnRemoveAllFilesClick(wxCommandEvent& event);
 	virtual void OnCreateClassDiagClick(wxCommandEvent& event);
-	virtual void OnCreateStateChartClick(wxCommandEvent& event);
 	virtual void OnRemoveAllSymbolsClick(wxCommandEvent& event);
 
 };

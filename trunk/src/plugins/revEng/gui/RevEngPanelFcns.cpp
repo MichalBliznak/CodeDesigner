@@ -4,58 +4,80 @@ umlClassItem* udRevEngPanel::CreateClassElement(wxTreeItemId classId)
 {
 	ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( classId );
 	
-	umlClassItem *classItem = new umlClassItem();
-	udClassElementItem *classElement = new udClassElementItem();
-	
-	classItem->SetUserData( classElement );
-	
-	udLABEL::SetContent(ctag->m_Name, classItem, udLABEL::ltTITLE);
-	classElement->SetName( ctag->m_Name );
-	
-	if( m_checkBoxMembers->IsChecked() )
+	if( ctag->m_Type == udCTAGS::ttCLASS )
 	{
-		CreateDataMembers( classElement, classId );
-		CreateFunctionMembers( classElement, classId );
+		umlClassItem *classItem = new umlClassItem();
+		udClassElementItem *classElement = new udClassElementItem();
+		
+		classItem->SetUserData( classElement );
+		
+		udLABEL::SetContent(ctag->m_Name, classItem, udLABEL::ltTITLE);
+		classElement->SetName( ctag->m_Name );
+		
+		if( m_checkBoxMembers->IsChecked() )
+		{
+			CreateDataMembers( classElement, classId );
+			CreateFunctionMembers( classElement, classId );
+		}
+		
+		classElement->OnCreate();
+		classElement->UpdateInnerContent();
+		
+		return classItem;
 	}
-	
-	classElement->OnCreate();
-	classElement->UpdateInnerContent();
-	
-	return classItem;
+	else
+		return NULL;
 }
 
-void udRevEngPanel::CreateClassInheritance(udDiagramItem* diagram, wxTreeItemId classId)
+void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId classId)
 {
 	ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( classId );
-	if( !ctag->m_Inherits.IsEmpty() )
+	
+	udProjectItem *newClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	if( newClass )
 	{
-		udProjectItem *newClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
-		if( newClass )
+		// inheritance 
+		wxStringTokenizer tokenz( ctag->m_Inherits, wxT(",") );
+		while( tokenz.HasMoreTokens() )
 		{
-			wxStringTokenizer tokenz( ctag->m_Inherits, wxT(",") );
-			while( tokenz.HasMoreTokens() )
+			udProjectItem *baseClass = udPROJECT::GetDiagramElement( diagram, tokenz.GetNextToken() );
+			if( baseClass )
 			{
-				udProjectItem *baseClass = udPROJECT::GetDiagramElement( diagram, tokenz.GetNextToken() );
-				if( baseClass )
-				{
-					umlInheritanceItem *connection = new umlInheritanceItem();
-					udInherElementItem *connElement = new udInherElementItem();
-					
-					connection->SetUserData( connElement );
-					
-					connElement->SetName( wxT("Inheritance element") );
-					
-					connection->SetSrcShapeId( ((wxSFShapeBase*)newClass->GetParent())->GetId() );
-					connection->SetTrgShapeId( ((wxSFShapeBase*)baseClass->GetParent())->GetId() );
-					
-					diagram->GetDiagramManager().AddShape( connection, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );	
-				}
+				umlInheritanceItem *connection = new umlInheritanceItem();
+				udInherElementItem *connElement = new udInherElementItem();
+				
+				connection->SetUserData( connElement );
+				
+				connElement->SetName( wxT("Inheritance element") );
+				
+				connection->SetSrcShapeId( ((wxSFShapeBase*)newClass->GetParent())->GetId() );
+				connection->SetTrgShapeId( ((wxSFShapeBase*)baseClass->GetParent())->GetId() );
+				
+				diagram->GetDiagramManager().AddShape( connection, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );	
 			}
+		}
+		
+		// include associations
+		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_OuterClass );
+		if( outerClass )
+		{
+			umlIncludeAssocItem *connection = new umlIncludeAssocItem();
+			udIncludeAssocElementItem *connElement = new udIncludeAssocElementItem();
+			
+			connection->SetUserData( connElement );
+			
+			connElement->SetName( wxT("Include association element") );
+			connElement->SetAccessType( GetAccessType( ctag->m_Access ) );
+			
+			connection->SetTrgShapeId( ((wxSFShapeBase*)newClass->GetParent())->GetId() );
+			connection->SetSrcShapeId( ((wxSFShapeBase*)outerClass->GetParent())->GetId() );
+			
+			diagram->GetDiagramManager().AddShape( connection, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );	
 		}
 	}
 }
 
-void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId classId)
+void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemId classId)
 {
 	wxArrayTreeItemIds arrMembers;
 	GetClassMembersIds( udCTAGS::ttCLASS_MEMBER, classId, arrMembers );
@@ -226,6 +248,34 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 		// assign link to the class
 		classItem->AssignCodeItem( new udMemberFunctionLinkItem( data, GetAccessType( ctag->m_Access ) ) );
 	}
+}
+
+umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)
+{
+	ctagEnum *ctag = (ctagEnum*) m_treeSymbols->GetItemData( enumId );
+	
+	if( ctag->m_Type == udCTAGS::ttENUM )
+	{
+		umlEnumItem *enumItem = new umlEnumItem();
+		udEnumElementItem *enumElement = new udEnumElementItem();
+		
+		enumItem->SetUserData( enumElement );
+		
+		udLABEL::SetContent(ctag->m_Name, enumItem, udLABEL::ltTITLE);
+		enumElement->SetName( ctag->m_Name );
+		
+		if( m_checkBoxMembers->IsChecked() )
+		{
+			// CreateEnumItems( enumElement, enumId );
+		}
+		
+		enumElement->OnCreate();
+		enumElement->UpdateInnerContent();
+		
+		return enumItem;
+	}
+	else
+		return NULL;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

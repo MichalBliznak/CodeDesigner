@@ -34,6 +34,7 @@ public:
 	// public data members
 	bool m_fShowGrid;
 	bool m_fUseGraphicsContext;
+	bool m_fExportBackground;
 	
 	wxColour m_colHighlightCol;
 	wxColour m_colBackgroundFrom;

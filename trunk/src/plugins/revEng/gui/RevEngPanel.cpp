@@ -9,18 +9,6 @@ udRevEngPanel::udRevEngPanel( wxWindow *parent ) : _RevEngPanel( parent )
 {
 	m_fExpanded = false;
 	m_LangType = udCTAGS::ltUNKNOWN;
-
-	// initialize known file extensions
-	/*m_arrPythonExtensions.Add( wxT("py") );
-	m_arrPythonExtensions.Add( wxT("pyw") );
-
-	m_arrCPPExtensions.Add( wxT("c") );
-	m_arrCPPExtensions.Add( wxT("cpp") );
-	m_arrCPPExtensions.Add( wxT("cxx") );
-	m_arrCPPExtensions.Add( wxT("h") );
-	m_arrCPPExtensions.Add( wxT("hpp") );
-	m_arrCPPExtensions.Add( wxT("hxx") );
-	m_arrCPPExtensions.Add( wxT("inc") );*/
 }
 
 udRevEngPanel::~udRevEngPanel()
@@ -135,6 +123,7 @@ void udRevEngPanel::OnParseClick(wxCommandEvent& event)
 		return;
 	}
 
+	ParseEnums( arrOutput );
 	ParseClasses( arrOutput );
 }
 
@@ -190,7 +179,7 @@ void udRevEngPanel::GetSelectedFiles(wxArrayString& files)
 	}
 }
 
-void udRevEngPanel::GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds& items)
+void udRevEngPanel::GetSelectedTreeIds(int type, wxArrayTreeItemIds& items)
 {
 	// get selected tree items
 	wxArrayTreeItemIds arrIds;
@@ -200,7 +189,7 @@ void udRevEngPanel::GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds& i
 		for( size_t i = 0; i < arrIds.GetCount(); i++ )
 		{
 			ctagClass *data = (ctagClass*) m_treeSymbols->GetItemData( arrIds[i] );
-			if( data && data->m_Type == type ) items.Add( arrIds[i] );
+			if( data && data->m_Type & type ) items.Add( arrIds[i] );
 		}
 	}
 }
@@ -303,18 +292,17 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 		{
 			ctagClass *item = new ctagClass();
 			item->m_Name = arrFields[0].Trim();
-			item->m_Inherits = FindTagValue( arrFields, wxT("inherits") );
-			item->m_Pattern = FindTagPattern( ctags[i] );
-			
-			// try to remove namespace from inheritance
 			if( m_LangType == udCTAGS::ltCPP )
 			{
-				if( item->m_Inherits.Contains( wxT("::") ) ) item->m_Inherits = item->m_Inherits.AfterLast( ':' );
+				item->m_Inherits = FindTagValue( arrFields, wxT("inherits") ).AfterLast( ':' );
 			}
 			else if( m_LangType == udCTAGS::ltPYTHON )
 			{
-				if( item->m_Inherits.Contains( wxT(".") ) ) item->m_Inherits = item->m_Inherits.AfterLast( '.' );
+				item->m_Inherits = FindTagValue( arrFields, wxT("inherits") ).AfterLast( '.' );
 			}
+			item->m_OuterClass = FindTagValue( arrFields, wxT("class") ).AfterLast( ':' );
+			item->m_Access = FindTagValue( arrFields, wxT("access") );
+			item->m_Pattern = FindTagPattern( ctags[i] );
 
 			name = item->m_Name;
 			if( !item->m_Inherits.IsEmpty() ) name += wxT(" : ") + item->m_Inherits;
@@ -351,10 +339,13 @@ void udRevEngPanel::ParseMemberFunctions(wxTreeItemId parent, const wxArrayStrin
 			{
 				ctagClassFunction *item = new ctagClassFunction();
 				item->m_Name = arrFields[0].Trim();
+				item->m_File = arrFields[1];
 				item->m_Access = FindTagValue( arrFields, wxT("access") );
 				item->m_ParentClass = FindTagValue( arrFields, wxT("class") );
 				item->m_Signature = FindTagValue( arrFields, wxT("signature") );
 				item->m_Pattern = FindTagPattern( ctags[i] );
+				
+				if( m_checkBoxBodies->IsChecked() ) ParseFunctionBody( item );
 
 				m_treeSymbols->AppendItem( parent, item->m_Name + item->m_Signature, IPluginManager::Get()->GetArtIndex( wxT("udMemberFunctionItem") ), -1, item );
 			}
@@ -391,6 +382,69 @@ void udRevEngPanel::ParseMemberData(wxTreeItemId parent, const wxArrayString& ct
 		}
 	}
 }
+
+void udRevEngPanel::ParseEnums(const wxArrayString& ctags)
+{
+	wxArrayString arrFields;
+	wxString name;
+
+	// process classes
+	for( size_t i = 0; i < ctags.GetCount(); i++ )
+	{
+		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+
+		/* InnerEnum	test.cpp	/^	enum InnerEnum$/;"	kind:enum	class:Data	file:	access:public */
+
+		if( FindTagValue( arrFields, wxT("kind") ) == wxT("enum") )
+		{
+			ctagEnum *item = new ctagEnum();
+			item->m_Name = arrFields[0].Trim();
+			item->m_OuterClass = FindTagValue( arrFields, wxT("class") ).AfterLast( ':' );
+			item->m_Access = FindTagValue( arrFields, wxT("access") );
+			item->m_Pattern = FindTagPattern( ctags[i] );
+
+			wxTreeItemId treeEnum = m_treeSymbols->AppendItem( m_treeIdClasses, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("umlEnumItem") ), -1, item );
+
+			// process enum items
+			ParseEnumItems( treeEnum, ctags );
+		}
+	}
+
+	m_treeSymbols->Expand( m_treeIdClasses );
+}
+
+void udRevEngPanel::ParseEnumItems(wxTreeItemId parent, const wxArrayString& ctags)
+{
+	wxArrayString arrFields;
+	ctagEnum *parentEnum = (ctagEnum*) m_treeSymbols->GetItemData( parent );
+
+	if( parentEnum && parentEnum->m_Type == udCTAGS::ttENUM )
+	{
+		// process classes
+		for( size_t i = 0; i < ctags.GetCount(); i++ )
+		{
+			/* itemONE	test.cpp	/^		itemONE,$/;"	kind:enumerator	enum:Data::InnerEnum	file: */
+
+			arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+
+			if( FindTagValue( arrFields, wxT("enum") ).AfterLast( ':' ) == parentEnum->m_Name && 
+				FindTagValue( arrFields, wxT("kind") ) == wxT("enumerator") ) 
+			{
+				ctagEnumItem *item = new ctagEnumItem();
+				item->m_Name = arrFields[0].Trim();
+				item->m_ParentEnum = FindTagValue( arrFields, wxT("enum") ).AfterLast( ':' );
+				item->m_Pattern = FindTagPattern( ctags[i] );
+
+				m_treeSymbols->AppendItem( parent, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udEnumValueItem") ), -1, item );
+			}
+		}
+	}
+}
+
+void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
+{
+}
+
 
 wxString udRevEngPanel::FindTagValue(const wxArrayString& items, const wxString& key)
 {
@@ -440,13 +494,15 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 {
 	wxArrayTreeItemIds arrClasses;
 
-	GetSelectedTreeIds( udCTAGS::ttCLASS, arrClasses );
+	GetSelectedTreeIds( udCTAGS::ttCLASS | udCTAGS::ttENUM, arrClasses );
 	if( !arrClasses.IsEmpty() )
 	{
+		IPluginManager::Get()->ClearLog();
+		
 		udProgressDialog progressDlg( NULL );
 		progressDlg.SetLabel( wxT("Importing project items...") );
 		progressDlg.Clear();
-		progressDlg.SetStepCount( arrClasses.GetCount() * 2 );
+		progressDlg.SetStepCount( arrClasses.GetCount() * 4 );
 
 		wxSFAutoLayout layout;
 
@@ -463,25 +519,34 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 		{
 			progressDlg.Show();
 			progressDlg.Raise();
+			
+			// create enums
+			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
+			{
+				umlEnumItem *enumShape = CreateEnumElement( arrClasses[i] );
+				if( enumShape ) diag->GetDiagramManager().AddShape( enumShape, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );
+				progressDlg.Step();
+			}
 
 			// create classes
 			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
 			{
 				umlClassItem *classShape = CreateClassElement( arrClasses[i] );
 				if( classShape ) diag->GetDiagramManager().AddShape( classShape, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );
+				progressDlg.Step();
 			}
 
 			// create inheritance
 			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
 			{
-				CreateClassInheritance( diag, arrClasses[i] );
+				CreateClassAssociations( diag, arrClasses[i] );
 				progressDlg.Step();
 			}
 
 			// create associations
 			for( size_t i = 0; i < arrClasses.GetCount(); i++ )
 			{
-				CreateClassAssociations( diag, arrClasses[i] );
+				CreateMemberAssociations( diag, arrClasses[i] );
 				progressDlg.Step();
 			}
 
@@ -499,10 +564,6 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 	}
 	else
 		wxMessageBox( wxT("Select classes to be processed first."), wxT("Reverse Engineering"), wxOK | wxICON_WARNING );
-}
-
-void udRevEngPanel::OnCreateStateChartClick(wxCommandEvent& event)
-{
 }
 
 void udRevEngPanel::OnRemoveAllSymbolsClick(wxCommandEvent& event)
