@@ -37,7 +37,7 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 	if( newClass )
 	{
 		// inheritance 
-		wxStringTokenizer tokenz( ctag->m_Inherits, wxT(",") );
+		wxStringTokenizer tokenz( ctag->m_Inherits, wxT(","), wxTOKEN_STRTOK);
 		while( tokenz.HasMoreTokens() )
 		{
 			udProjectItem *baseClass = udPROJECT::GetDiagramElement( diagram, tokenz.GetNextToken() );
@@ -80,7 +80,7 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemId classId)
 {
 	wxArrayTreeItemIds arrMembers;
-	GetClassMembersIds( udCTAGS::ttCLASS_MEMBER, classId, arrMembers );
+	GetMemberIds( udCTAGS::ttCLASS_MEMBER, classId, arrMembers );
 	
 	wxArrayTreeItemIds arrClasses;
 	GetSelectedTreeIds( udCTAGS::ttCLASS, arrClasses );
@@ -131,7 +131,7 @@ void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemI
 void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemId classId)
 {
 	wxArrayTreeItemIds arrMembers;
-	GetClassMembersIds( udCTAGS::ttCLASS_MEMBER, classId, arrMembers );
+	GetMemberIds( udCTAGS::ttCLASS_MEMBER, classId, arrMembers );
 	
 	IProject *proj = IPluginManager::Get()->GetProject();
 	
@@ -173,7 +173,7 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeItemId classId)
 {
 	wxArrayTreeItemIds arrMembers;
-	GetClassMembersIds( udCTAGS::ttCLASS_FUNCTION, classId, arrMembers );
+	GetMemberIds( udCTAGS::ttCLASS_FUNCTION, classId, arrMembers );
 	
 	IProject *proj = IPluginManager::Get()->GetProject();
 	
@@ -220,6 +220,7 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 			
 		data->SetDescription( wxT("Original class member: \"") + ctag->m_Pattern + wxT("\"") );
 		data->SetScope( classItem->GetName() );
+		if( m_checkBoxBodies->IsChecked() ) data->SetCode( ctag->m_Content );
 		
 		data->SetRetValDataType( udLanguage::DT_USERDEFINED );
 		data->SetUserRetValDataType( GetDataType( ctag, udfWITHOUT_DECORATION ) );
@@ -266,7 +267,7 @@ umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)
 		
 		if( m_checkBoxMembers->IsChecked() )
 		{
-			// CreateEnumItems( enumElement, enumId );
+			CreateEnumItems( enumElement, enumId );
 		}
 		
 		enumElement->OnCreate();
@@ -276,6 +277,53 @@ umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)
 	}
 	else
 		return NULL;
+}
+
+void udRevEngPanel::CreateEnumItems(udEnumElementItem* enumItem, wxTreeItemId enumId)
+{
+	wxArrayTreeItemIds arrMembers;
+	GetMemberIds( udCTAGS::ttENUM_ITEM, enumId, arrMembers );
+	
+	for(size_t i = 0; i < arrMembers.GetCount(); i++)
+	{
+		ctagEnumItem *ctag = (ctagEnumItem*) m_treeSymbols->GetItemData( arrMembers[i] );
+		
+		// create code item
+		udEnumValueItem *data = new udEnumValueItem();
+		data->SetName( ctag->m_Name );
+		data->SetValue( ctag->m_Value );
+		data->SetDescription( wxT("Original class member: \"") + ctag->m_Pattern + wxT("\"") );
+		
+		// assign link to the class
+		enumItem->AssignCodeItem( data );
+	}
+}
+
+void udRevEngPanel::CreateEnumAssociations(udDiagramItem* diagram, wxTreeItemId enumId)
+{
+	ctagEnum *ctag = (ctagEnum*) m_treeSymbols->GetItemData( enumId );
+	
+	udProjectItem *newEnum = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	if( newEnum )
+	{
+		// include associations
+		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_OuterClass );
+		if( outerClass )
+		{
+			umlIncludeAssocItem *connection = new umlIncludeAssocItem();
+			udIncludeAssocElementItem *connElement = new udIncludeAssocElementItem();
+			
+			connection->SetUserData( connElement );
+			
+			connElement->SetName( wxT("Include association element") );
+			connElement->SetAccessType( GetAccessType( ctag->m_Access ) );
+			
+			connection->SetTrgShapeId( ((wxSFShapeBase*)newEnum->GetParent())->GetId() );
+			connection->SetSrcShapeId( ((wxSFShapeBase*)outerClass->GetParent())->GetId() );
+			
+			diagram->GetDiagramManager().AddShape( connection, NULL, wxDefaultPosition, sfINITIALIZE, sfDONT_SAVE_STATE );	
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
