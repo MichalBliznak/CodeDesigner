@@ -487,7 +487,6 @@ void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
 							else
 								ctag->m_Content += c;
 						}
-						fcnpos++;
 					}
 				}
 				else if( m_LangType == udCTAGS::ltPYTHON )
