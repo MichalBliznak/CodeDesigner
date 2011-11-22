@@ -106,8 +106,8 @@ protected:
 
 	void GetCheckedFiles(wxArrayString &files);
 	void GetSelectedFiles(wxArrayString &files);
-	void GetSelectedTreeIds(int type, wxArrayTreeItemIds &items);
-	void GetClassMembersIds(udCTAGS::TYPE type, wxTreeItemId classId, wxArrayTreeItemIds &items);
+	void GetSelectedTreeIds(udCTAGS::TYPE type, wxArrayTreeItemIds &items);
+	void GetMemberIds(udCTAGS::TYPE type, wxTreeItemId classId, wxArrayTreeItemIds &items);
 	udCTAGS::LANGTYPE GetLanguageFromFiles(const wxArrayString &files);
 	void InitializeSymbolsTree();
 	
@@ -129,11 +129,13 @@ protected:
 	
 	umlClassItem* CreateClassElement( wxTreeItemId classId );
 	umlEnumItem* CreateEnumElement( wxTreeItemId enumId );
-	void CreateClassAssociations( udDiagramItem* manager, wxTreeItemId classId );
-	void CreateMemberAssociations( udDiagramItem* manager, wxTreeItemId classId );
+	void CreateClassAssociations( udDiagramItem* diagram, wxTreeItemId classId );
+	void CreateEnumAssociations( udDiagramItem* diagram, wxTreeItemId enumId );
+	void CreateMemberAssociations( udDiagramItem* diagram, wxTreeItemId classId );
 	
 	void CreateDataMembers( udClassElementItem *classItem, wxTreeItemId classId );
 	void CreateFunctionMembers( udClassElementItem *classItem, wxTreeItemId classId );
+	void CreateEnumItems( udEnumElementItem *enumItem, wxTreeItemId enumId );
 	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
 	virtual void OnCheckAllFilesClick(wxCommandEvent& event);
