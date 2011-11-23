@@ -188,12 +188,19 @@ class _EditorFrame : public wxFrame
 	protected:
 		wxStatusBar* m_statusBar;
 		wxMenuBar* m_menuBar;
-		wxMenu* m_fileMenu;
+		wxMenu* m_menuFile;
+		wxMenu* m_menuEdit;
 		wxScintilla* m_scintillaEditor;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void OnCloseClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCutClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpdateCut( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnCopyClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpdateCopy( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnPasteClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpdatePaste( wxUpdateUIEvent& event ) { event.Skip(); }
 		
 	
 	public:

@@ -331,33 +331,37 @@ void udRevEngPanel::CreateEnumAssociations(udDiagramItem* diagram, wxTreeItemId 
 wxString udRevEngPanel::GetDataType(udCTAGS* ctag, bool decorations )
 {
 	wxString dataType;
-	int namePos = wxNOT_FOUND;
 	
-	if( ctag->m_Type == udCTAGS::ttCLASS_MEMBER )
+	if( m_LangType == udCTAGS::ltCPP )
 	{
-		namePos = ctag->m_Pattern.Find( ctag->m_Name );
-	}
-	else if( ctag->m_Type == udCTAGS::ttCLASS_FUNCTION )
-	{
-		if( ctag->m_Pattern.Contains( ((ctagClassFunction*)ctag)->m_ParentClass ) )
+		int namePos = wxNOT_FOUND;
+		
+		if( ctag->m_Type == udCTAGS::ttCLASS_MEMBER )
 		{
-			namePos = ctag->m_Pattern.Find( ((ctagClassFunction*)ctag)->m_ParentClass );
+			namePos = ctag->m_Pattern.Find( ctag->m_Name );
+		}
+		else if( ctag->m_Type == udCTAGS::ttCLASS_FUNCTION )
+		{
+			if( ctag->m_Pattern.Contains( ((ctagClassFunction*)ctag)->m_ParentClass ) )
+			{
+				namePos = ctag->m_Pattern.Find( ((ctagClassFunction*)ctag)->m_ParentClass );
+			}
+			else
+				namePos = ctag->m_Pattern.Find( ctag->m_Name );
 		}
 		else
 			namePos = ctag->m_Pattern.Find( ctag->m_Name );
-	}
-	else
-		namePos = ctag->m_Pattern.Find( ctag->m_Name );
-		
-	if( namePos != wxNOT_FOUND ) dataType = ctag->m_Pattern.Mid(0, namePos);
+			
+		if( namePos != wxNOT_FOUND ) dataType = ctag->m_Pattern.Mid(0, namePos);
 
-	if( !decorations )
-	{
-		dataType.Replace( wxT("*"), wxT("") );
-		dataType.Replace( wxT("&"), wxT("") );
+		if( !decorations )
+		{
+			dataType.Replace( wxT("*"), wxT("") );
+			dataType.Replace( wxT("&"), wxT("") );
+		}
+		
+		dataType.Trim().Trim(false);
 	}
-	
-	dataType.Trim().Trim(false);
 	
 	return dataType;
 }

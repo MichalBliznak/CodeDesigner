@@ -610,16 +610,32 @@ _MainFrame::~_MainFrame()
 _EditorFrame::_EditorFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetExtraStyle( wxWS_EX_BLOCK_EVENTS );
 	this->SetExtraStyle( wxFRAME_EX_CONTEXTHELP );
 	
 	m_statusBar = this->CreateStatusBar( 1, wxST_SIZEGRIP, wxID_ANY );
 	m_menuBar = new wxMenuBar( 0 );
-	m_fileMenu = new wxMenu();
-	wxMenuItem* m_miClose;
-	m_miClose = new wxMenuItem( m_fileMenu, wxID_CLOSE, wxString( wxT("Close") ) + wxT('\t') + wxT("Alt+X"), wxT("Close editor window"), wxITEM_NORMAL );
-	m_fileMenu->Append( m_miClose );
+	m_menuFile = new wxMenu();
+	wxMenuItem* menuFileClose;
+	menuFileClose = new wxMenuItem( m_menuFile, wxID_CLOSE, wxString( wxT("Close") ) + wxT('\t') + wxT("Alt+X"), wxT("Close editor window"), wxITEM_NORMAL );
+	m_menuFile->Append( menuFileClose );
 	
-	m_menuBar->Append( m_fileMenu, wxT("&File") ); 
+	m_menuBar->Append( m_menuFile, wxT("&File") ); 
+	
+	m_menuEdit = new wxMenu();
+	wxMenuItem* menuEditCut;
+	menuEditCut = new wxMenuItem( m_menuEdit, wxID_CUT, wxString( wxT("Cu&t") ) + wxT('\t') + wxT("Ctrl+X"), wxEmptyString, wxITEM_NORMAL );
+	m_menuEdit->Append( menuEditCut );
+	
+	wxMenuItem* menuEditCopy;
+	menuEditCopy = new wxMenuItem( m_menuEdit, wxID_COPY, wxString( wxT("&Copy") ) + wxT('\t') + wxT("Ctrl+C"), wxEmptyString, wxITEM_NORMAL );
+	m_menuEdit->Append( menuEditCopy );
+	
+	wxMenuItem* menuEditPaste;
+	menuEditPaste = new wxMenuItem( m_menuEdit, wxID_PASTE, wxString( wxT("&Paste") ) + wxT('\t') + wxT("Ctrl+V"), wxEmptyString, wxITEM_NORMAL );
+	m_menuEdit->Append( menuEditPaste );
+	
+	m_menuBar->Append( m_menuEdit, wxT("&Edit") ); 
 	
 	this->SetMenuBar( m_menuBar );
 	
@@ -673,7 +689,13 @@ _EditorFrame::_EditorFrame( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	// Connect Events
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( _EditorFrame::OnClose ) );
-	this->Connect( m_miClose->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCloseClick ) );
+	this->Connect( menuFileClose->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCloseClick ) );
+	this->Connect( menuEditCut->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCutClick ) );
+	this->Connect( menuEditCut->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorFrame::OnUpdateCut ) );
+	this->Connect( menuEditCopy->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCopyClick ) );
+	this->Connect( menuEditCopy->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorFrame::OnUpdateCopy ) );
+	this->Connect( menuEditPaste->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnPasteClick ) );
+	this->Connect( menuEditPaste->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorFrame::OnUpdatePaste ) );
 }
 
 _EditorFrame::~_EditorFrame()
@@ -681,6 +703,12 @@ _EditorFrame::~_EditorFrame()
 	// Disconnect Events
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( _EditorFrame::OnClose ) );
 	this->Disconnect( wxID_CLOSE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCloseClick ) );
+	this->Disconnect( wxID_CUT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCutClick ) );
+	this->Disconnect( wxID_CUT, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorFrame::OnUpdateCut ) );
+	this->Disconnect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnCopyClick ) );
+	this->Disconnect( wxID_COPY, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorFrame::OnUpdateCopy ) );
+	this->Disconnect( wxID_PASTE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _EditorFrame::OnPasteClick ) );
+	this->Disconnect( wxID_PASTE, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorFrame::OnUpdatePaste ) );
 	
 }
 

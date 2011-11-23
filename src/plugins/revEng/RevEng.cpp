@@ -13,9 +13,7 @@
 
 #include <wx/txtstrm.h>
 
-// TODO: import custom function bodies
 // TODO: include CTAGS project into CodeDesigner workspace
-// TODO: import class templates
 
 // TODO: LONG TERM: create state charts from function bodies (for both standalone functions and class member functions)
  

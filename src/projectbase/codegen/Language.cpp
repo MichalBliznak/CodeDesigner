@@ -133,7 +133,7 @@ wxString udLanguage::GetExtension(FILEEXTENSION fe) const
 
 void udLanguage::WriteCodeBlocks(const wxString& code)
 {
-	wxStringTokenizer tokenz( code, wxT("\n\r") );
+	wxStringTokenizer tokenz( code, wxT("\n"), wxTOKEN_RET_EMPTY );
 	while( tokenz.HasMoreTokens() )
 	{
 		Indent();

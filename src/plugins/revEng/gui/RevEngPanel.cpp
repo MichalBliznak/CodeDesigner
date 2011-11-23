@@ -469,6 +469,7 @@ void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
 				if( m_LangType == udCTAGS::ltCPP )
 				{
 					int nBraceCnt = 0;
+					bool fFirstChar = true;
 					
 					while( fcnpos < (int) sFileContent.Len() )
 					{
@@ -485,19 +486,82 @@ void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
 								if( --nBraceCnt == 0 ) break;
 							}
 							else
-								ctag->m_Content += c;
+							{
+								if( c != wxT('\n') || !fFirstChar ) ctag->m_Content += c;
+								fFirstChar = false;
+							}
 						}
 					}
 				}
 				else if( m_LangType == udCTAGS::ltPYTHON )
 				{
-					/* int nIndentWidth = 0;
+					int nIndentWidth = 0;
+					int nIndent = 0;
+					bool fFirstLine = false;
+					bool fInside = false;
+					bool fNewLine = false;
 					
 					while( fcnpos < (int) sFileContent.Len() )
 					{
 						c = sFileContent.GetChar( fcnpos++ );
-					} */
-					
+						
+						if( !fInside && !fFirstLine && c == wxT('\n') )
+						{
+							fFirstLine = true;
+						}
+						else if( fFirstLine )
+						{
+							if( fNewLine )
+							{
+								if( c == wxT(' ') || c == wxT('\t') )
+								{
+									nIndentWidth++;
+								}
+								else
+								{
+									ctag->m_Content += c;
+									fNewLine = false;
+								}
+							}
+							else 
+							{
+								ctag->m_Content += c;
+								if( c == wxT('\n') )
+								{
+									fFirstLine = false;
+									fInside = true;
+								}
+							}
+						}
+						else if( fInside )
+						{
+							if( fNewLine )
+							{
+								if( c == wxT(' ') || c == wxT('\t') )
+								{
+									nIndent++;
+								}
+								else
+								{
+									if( nIndent == nIndentWidth )
+									{
+										ctag->m_Content += c;
+										if( c != wxT('\n') ) fNewLine = false;
+									}
+									else
+										break;
+								}
+							}
+							else
+								ctag->m_Content += c;
+						}
+						
+						if( c == wxT('\n') )
+						{
+							fNewLine = true;
+							nIndent = 0;
+						}
+					}
 				}
 			}
 		}

@@ -1,6 +1,8 @@
 #include "gui/Editor.h"
 #include "UMLDesignerApp.h"
 
+#include <wx/clipbrd.h>
+
 BEGIN_EVENT_TABLE ( udCodeEditor,  _EditorFrame )
 	EVT_SCI_MARGINCLICK( wxID_ANY, udCodeEditor::OnMarginClick )
 END_EVENT_TABLE ()
@@ -16,6 +18,8 @@ udCodeEditor::udCodeEditor( wxWindow* parent, wxWindowID id, const wxString& tit
 	#else
 	SetIcon(wxIcon(sResPath + wxT("app/gui/editor-icon.png"), wxBITMAP_TYPE_PNG));
 	#endif
+	
+	this->SetFocus();
 }
 
 // event handlers ///////////////////////////////////////////////////////////////////////////
@@ -41,5 +45,52 @@ void udCodeEditor::OnMarginClick ( wxScintillaEvent &event )
 		{
 			m_scintillaEditor->ToggleFold ( lineClick );
 		}
+	}
+}
+
+void udCodeEditor::OnCopyClick(wxCommandEvent& event)
+{
+	if( wxTheClipboard->Open() )
+	{
+		wxTheClipboard->SetData( new wxTextDataObject( m_scintillaEditor->GetSelectedText() ) );
+		wxTheClipboard->Close();
+	}
+}
+
+void udCodeEditor::OnCutClick(wxCommandEvent& event)
+{
+	OnCopyClick( event );
+	m_scintillaEditor->ReplaceSelection( wxT("") );
+}
+
+void udCodeEditor::OnPasteClick(wxCommandEvent& event)
+{
+	if( wxTheClipboard->Open() )
+	{
+		wxTextDataObject data;
+		wxTheClipboard->GetData( data );
+		
+		m_scintillaEditor->InsertText( m_scintillaEditor->GetCurrentPos(), data.GetText() );
+		
+		wxTheClipboard->Close();
+	}
+}
+
+void udCodeEditor::OnUpdateCopy(wxUpdateUIEvent& event)
+{
+	event.Enable( !m_scintillaEditor->GetSelectedText().IsEmpty() );
+}
+
+void udCodeEditor::OnUpdateCut(wxUpdateUIEvent& event)
+{
+	OnUpdateCopy( event );
+}
+
+void udCodeEditor::OnUpdatePaste(wxUpdateUIEvent& event)
+{
+	if( wxTheClipboard->Open() )
+	{
+		event.Enable( wxTheClipboard->IsSupported( wxDF_TEXT ) );
+		wxTheClipboard->Close();
 	}
 }
