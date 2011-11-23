@@ -24,7 +24,7 @@
         <property name="skip_python_events">1</property>
         <property name="use_enum">0</property>
         <property name="use_microsoft_bom">0</property>
-        <object class="Frame" expanded="1">
+        <object class="Frame" expanded="0">
             <property name="BottomDockable">1</property>
             <property name="LeftDockable">1</property>
             <property name="RightDockable">1</property>
@@ -120,7 +120,7 @@
             <event name="OnSetFocus"></event>
             <event name="OnSize"></event>
             <event name="OnUpdateUI"></event>
-            <object class="wxMenuBar" expanded="1">
+            <object class="wxMenuBar" expanded="0">
                 <property name="BottomDockable">1</property>
                 <property name="LeftDockable">1</property>
                 <property name="RightDockable">1</property>
@@ -200,7 +200,7 @@
                 <event name="OnSetFocus"></event>
                 <event name="OnSize"></event>
                 <event name="OnUpdateUI"></event>
-                <object class="wxMenu" expanded="1">
+                <object class="wxMenu" expanded="0">
                     <property name="label">&amp;File</property>
                     <property name="name">fileMenu</property>
                     <property name="permission">protected</property>
@@ -1665,7 +1665,7 @@
             <property name="validator_style">wxFILTER_NONE</property>
             <property name="validator_type">wxDefaultValidator</property>
             <property name="validator_variable"></property>
-            <property name="window_extra_style"></property>
+            <property name="window_extra_style">wxWS_EX_BLOCK_EVENTS</property>
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
@@ -1704,7 +1704,7 @@
             <event name="OnSetFocus"></event>
             <event name="OnSize"></event>
             <event name="OnUpdateUI"></event>
-            <object class="wxStatusBar" expanded="1">
+            <object class="wxStatusBar" expanded="0">
                 <property name="BottomDockable">1</property>
                 <property name="LeftDockable">1</property>
                 <property name="RightDockable">1</property>
@@ -1867,9 +1867,9 @@
                 <event name="OnUpdateUI"></event>
                 <object class="wxMenu" expanded="0">
                     <property name="label">&amp;File</property>
-                    <property name="name">m_fileMenu</property>
+                    <property name="name">m_menuFile</property>
                     <property name="permission">protected</property>
-                    <object class="wxMenuItem" expanded="1">
+                    <object class="wxMenuItem" expanded="0">
                         <property name="bitmap"></property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
@@ -1877,7 +1877,7 @@
                         <property name="id">wxID_CLOSE</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Close</property>
-                        <property name="name">m_miClose</property>
+                        <property name="name">menuFileClose</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Alt+X</property>
                         <property name="unchecked_bitmap"></property>
@@ -1885,17 +1885,67 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>
+                <object class="wxMenu" expanded="0">
+                    <property name="label">&amp;Edit</property>
+                    <property name="name">m_menuEdit</property>
+                    <property name="permission">protected</property>
+                    <object class="wxMenuItem" expanded="0">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_CUT</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">Cu&amp;t</property>
+                        <property name="name">menuEditCut</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut">Ctrl+X</property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">OnCutClick</event>
+                        <event name="OnUpdateUI">OnUpdateCut</event>
+                    </object>
+                    <object class="wxMenuItem" expanded="0">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_COPY</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">&amp;Copy</property>
+                        <property name="name">menuEditCopy</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut">Ctrl+C</property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">OnCopyClick</event>
+                        <event name="OnUpdateUI">OnUpdateCopy</event>
+                    </object>
+                    <object class="wxMenuItem" expanded="0">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_PASTE</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">&amp;Paste</property>
+                        <property name="name">menuEditPaste</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut">Ctrl+V</property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">OnPasteClick</event>
+                        <event name="OnUpdateUI">OnUpdatePaste</event>
+                    </object>
+                </object>
             </object>
-            <object class="wxBoxSizer" expanded="1">
+            <object class="wxBoxSizer" expanded="0">
                 <property name="minimum_size"></property>
                 <property name="name">mainSizer</property>
                 <property name="orient">wxVERTICAL</property>
                 <property name="permission">none</property>
-                <object class="sizeritem" expanded="1">
+                <object class="sizeritem" expanded="0">
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
-                    <object class="wxScintilla" expanded="1">
+                    <object class="wxScintilla" expanded="0">
                         <property name="BottomDockable">1</property>
                         <property name="LeftDockable">1</property>
                         <property name="RightDockable">1</property>

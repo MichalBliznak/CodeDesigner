@@ -17,6 +17,12 @@ protected:
 	// Handlers for EditorFrame events.
 	virtual void OnClose( wxCloseEvent& event );
 	virtual void OnCloseClick( wxCommandEvent& event );
+	virtual void OnCopyClick(wxCommandEvent& event);
+	virtual void OnCutClick(wxCommandEvent& event);
+	virtual void OnPasteClick(wxCommandEvent& event);
+	virtual void OnUpdateCopy(wxUpdateUIEvent& event);
+	virtual void OnUpdateCut(wxUpdateUIEvent& event);
+	virtual void OnUpdatePaste(wxUpdateUIEvent& event);
 
 	void OnMarginClick( wxScintillaEvent &event );
 
