@@ -1,4 +1,4 @@
-Changes in version 1.5.0 beta (2011-11-23):
+Changes in version 1.5.0 beta (2011-11-25):
 ------------------------------------------------
 - Implemented reverse code engineering for class diagrams (for both C++ and Python languages).
 - Fixed C++ code generation for classes with multiple bases.
@@ -6,6 +6,7 @@ Changes in version 1.5.0 beta (2011-11-23):
 - Fixed Python code generation for class data members.
 - Fixed code generation for inner (included) classes.
 - Fixed code generation for user-defined code containig empty lines.
+- Fixed drawing issues when multiple selected diagram element were handled.
 - Improved export of diagram's canvas to image. Several image formats are supported now and also diagram's background
   export can be suppressed.
 
