@@ -16,6 +16,7 @@ public:
 	
 	void Clear();
 	void Step();
+	void Pulse();
 
 };
 
