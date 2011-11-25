@@ -281,6 +281,14 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
 	wxString name;
+	
+	udProgressDialog progressDlg( NULL );
+	
+	progressDlg.SetLabel( wxT("Parsing classes...") );
+	progressDlg.Clear();
+
+	progressDlg.Show();
+	progressDlg.Raise();
 
 	// process classes
 	for( size_t i = 0; i < ctags.GetCount(); i++ )
@@ -305,6 +313,9 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			item->m_Access = FindTagValue( arrFields, wxT("access") );
 			item->m_Pattern = FindTagPattern( ctags[i] );
 
+			progressDlg.SetLabel( wxString::Format( wxT("Parsing classes... %s"), item->m_Name.c_str() ) );
+			progressDlg.Pulse();
+			
 			name = item->m_Name;
 			if( !item->m_Inherits.IsEmpty() ) name += wxT(" : ") + item->m_Inherits;
 			wxTreeItemId treeClass = m_treeSymbols->AppendItem( m_treeIdClasses, name, IPluginManager::Get()->GetArtIndex( wxT("umlClassItem") ), -1, item );
@@ -388,6 +399,14 @@ void udRevEngPanel::ParseEnums(const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
 	wxString name;
+	
+	udProgressDialog progressDlg( NULL );
+	
+	progressDlg.SetLabel( wxT("Parsing enums...") );
+	progressDlg.Clear();
+
+	progressDlg.Show();
+	progressDlg.Raise();
 
 	// process classes
 	for( size_t i = 0; i < ctags.GetCount(); i++ )
@@ -403,6 +422,9 @@ void udRevEngPanel::ParseEnums(const wxArrayString& ctags)
 			item->m_OuterClass = FindTagValue( arrFields, wxT("class") ).AfterLast( ':' );
 			item->m_Access = FindTagValue( arrFields, wxT("access") );
 			item->m_Pattern = FindTagPattern( ctags[i] );
+			
+			progressDlg.SetLabel( wxString::Format( wxT("Parsing enums... %s"), item->m_Name.c_str() ) );
+			progressDlg.Pulse();
 
 			wxTreeItemId treeEnum = m_treeSymbols->AppendItem( m_treeIdClasses, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("umlEnumItem") ), -1, item );
 
@@ -473,7 +495,7 @@ void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
 					
 					while( fcnpos < (int) sFileContent.Len() )
 					{
-						c = sFileContent.GetChar( fcnpos++ );
+						c = sFileContent[ fcnpos++ ];
 						
 						if( c == wxT('{') )
 						{
@@ -503,7 +525,7 @@ void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
 					
 					while( fcnpos < (int) sFileContent.Len() )
 					{
-						c = sFileContent.GetChar( fcnpos++ );
+						c = sFileContent[ fcnpos++ ];
 						
 						if( !fInside && !fFirstLine && c == wxT('\n') )
 						{

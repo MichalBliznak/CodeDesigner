@@ -50,3 +50,10 @@ void udProgressDialog::Step()
 	wxYield();
 }
 
+void udProgressDialog::Pulse()
+{
+	m_gaProgress->Pulse();
+	
+	Update();
+	wxYield();
+}
