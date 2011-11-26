@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 24 2011)
+// C++ code generated with wxFormBuilder (version Nov 26 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -538,7 +538,7 @@ _ClassMemberLinkDialog::_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id,
 	wxBoxSizer* advSizer;
 	advSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText17 = new wxStaticText( m_pageAdv, wxID_ANY, wxT("Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText17 = new wxStaticText( m_pageAdv, wxID_ANY, wxT("Access:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText17->Wrap( -1 );
 	advSizer->Add( m_staticText17, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
