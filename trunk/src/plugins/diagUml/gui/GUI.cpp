@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun 27 2011)
+// C++ code generated with wxFormBuilder (version Nov 24 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -67,7 +67,7 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -200,7 +200,7 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	m_staticText17->Wrap( -1 );
 	advSizer->Add( m_staticText17, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
-	wxString m_chTypeChoices[] = { wxT("Entry action"), wxT("Exit action") };
+	wxString m_chTypeChoices[] = { wxT("\"Entry action\" \"Exit action\"") };
 	int m_chTypeNChoices = sizeof( m_chTypeChoices ) / sizeof( wxString );
 	m_chType = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxSize( 200,-1 ), m_chTypeNChoices, m_chTypeChoices, 0 );
 	m_chType->SetSelection( 0 );
@@ -216,7 +216,7 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -346,7 +346,7 @@ _EventDialog::_EventDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	m_staticText11->Wrap( -1 );
 	advSizer->Add( m_staticText11, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
-	wxString m_chEventTypeChoices[] = { wxT("Normal event"), wxT("Critical event") };
+	wxString m_chEventTypeChoices[] = { wxT("\"Normal event\" \"Critical event\"") };
 	int m_chEventTypeNChoices = sizeof( m_chEventTypeChoices ) / sizeof( wxString );
 	m_chEventType = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxSize( 200,-1 ), m_chEventTypeNChoices, m_chEventTypeChoices, 0 );
 	m_chEventType->SetSelection( 0 );
@@ -440,7 +440,7 @@ _ActionLinkDialog::_ActionLinkDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText17->Wrap( -1 );
 	advSizer->Add( m_staticText17, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
-	wxString m_chTypeChoices[] = { wxT("Entry action"), wxT("Exit action") };
+	wxString m_chTypeChoices[] = { wxT("\"Entry action\" \"Exit action\"") };
 	int m_chTypeNChoices = sizeof( m_chTypeChoices ) / sizeof( wxString );
 	m_chType = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxSize( 200,-1 ), m_chTypeNChoices, m_chTypeChoices, 0 );
 	m_chType->SetSelection( 0 );
@@ -542,7 +542,7 @@ _ClassMemberLinkDialog::_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id,
 	m_staticText17->Wrap( -1 );
 	advSizer->Add( m_staticText17, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
-	wxString m_chTypeChoices[] = { wxT("public"), wxT("protected"), wxT("private") };
+	wxString m_chTypeChoices[] = { wxT("\"public\" \"protected\" \"private\"") };
 	int m_chTypeNChoices = sizeof( m_chTypeChoices ) / sizeof( wxString );
 	m_chType = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxSize( 200,-1 ), m_chTypeNChoices, m_chTypeChoices, 0 );
 	m_chType->SetSelection( 0 );
@@ -681,6 +681,11 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	wxMenuItem* menuUsedDeselectAll;
 	menuUsedDeselectAll = new wxMenuItem( m_menuUsed, IDM_TRANS_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
+	#ifdef __WXMSW__
+	menuUsedDeselectAll->SetBitmaps( wxNullBitmap );
+	#elif defined( __WXGTK__ )
+	menuUsedDeselectAll->SetBitmap( wxNullBitmap );
+	#endif
 	m_menuUsed->Append( menuUsedDeselectAll );
 	
 	wxMenuItem* m_separator15;
@@ -984,6 +989,11 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	wxMenuItem* menuUsedDeselectAll;
 	menuUsedDeselectAll = new wxMenuItem( m_menuUsed, IDM_TRANS_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
+	#ifdef __WXMSW__
+	menuUsedDeselectAll->SetBitmaps( wxNullBitmap );
+	#elif defined( __WXGTK__ )
+	menuUsedDeselectAll->SetBitmap( wxNullBitmap );
+	#endif
 	m_menuUsed->Append( menuUsedDeselectAll );
 	
 	wxMenuItem* m_separator15;
@@ -1015,6 +1025,11 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	wxMenuItem* menuUsedDeselectAllExit;
 	menuUsedDeselectAllExit = new wxMenuItem( m_menuUsedExit, IDM_TRANS_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
+	#ifdef __WXMSW__
+	menuUsedDeselectAllExit->SetBitmaps( wxNullBitmap );
+	#elif defined( __WXGTK__ )
+	menuUsedDeselectAllExit->SetBitmap( wxNullBitmap );
+	#endif
 	m_menuUsedExit->Append( menuUsedDeselectAllExit );
 	
 	wxMenuItem* m_separator151;
@@ -1212,7 +1227,7 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	m_staticText461->Wrap( -1 );
 	advSizer->Add( m_staticText461, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	wxString m_chImplementationChoices[] = { wxT("<user-defined-code>") };
+	wxString m_chImplementationChoices[] = { wxT("\"<user-defined-code>\"") };
 	int m_chImplementationNChoices = sizeof( m_chImplementationChoices ) / sizeof( wxString );
 	m_chImplementation = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chImplementationNChoices, m_chImplementationChoices, 0 );
 	m_chImplementation->SetSelection( 0 );
@@ -1301,7 +1316,7 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -1463,7 +1478,7 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText461->Wrap( -1 );
 	advSizer->Add( m_staticText461, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	wxString m_chImplementationChoices[] = { wxT("<user-defined-code>") };
+	wxString m_chImplementationChoices[] = { wxT("\"<user-defined-code>\"") };
 	int m_chImplementationNChoices = sizeof( m_chImplementationChoices ) / sizeof( wxString );
 	m_chImplementation = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chImplementationNChoices, m_chImplementationChoices, 0 );
 	m_chImplementation->SetSelection( 0 );
@@ -1486,7 +1501,7 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -1787,7 +1802,7 @@ _ClassInstanceDialog::_ClassInstanceDialog( wxWindow* parent, wxWindowID id, con
 	m_staticText42->Wrap( -1 );
 	itemSizer->Add( m_staticText42, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	wxString m_choiceTypeChoices[] = { wxT("Static"), wxT("Dynamic") };
+	wxString m_choiceTypeChoices[] = { wxT("\"Static\" \"Dynamic\"") };
 	int m_choiceTypeNChoices = sizeof( m_choiceTypeChoices ) / sizeof( wxString );
 	m_choiceType = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceTypeNChoices, m_choiceTypeChoices, 0 );
 	m_choiceType->SetSelection( 0 );
