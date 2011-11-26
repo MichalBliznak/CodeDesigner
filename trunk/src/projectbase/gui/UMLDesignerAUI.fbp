@@ -4190,7 +4190,7 @@
                                                     <property name="caption"></property>
                                                     <property name="caption_visible">1</property>
                                                     <property name="center_pane">0</property>
-                                                    <property name="choices">&quot;&lt;user-defined-code&gt;&quot;</property>
+                                                    <property name="choices">&lt;user-defined-code&gt;</property>
                                                     <property name="close_button">1</property>
                                                     <property name="context_help"></property>
                                                     <property name="context_menu">1</property>
@@ -5441,7 +5441,7 @@
                                                             <property name="caption"></property>
                                                             <property name="caption_visible">1</property>
                                                             <property name="center_pane">0</property>
-                                                            <property name="choices">&quot;Built-in&quot; &quot;Editor&quot; &quot;Definition file&quot;</property>
+                                                            <property name="choices">Built-in;Editor;Definition file</property>
                                                             <property name="close_button">1</property>
                                                             <property name="context_help"></property>
                                                             <property name="context_menu">1</property>
@@ -6466,7 +6466,7 @@
                                                     <property name="caption"></property>
                                                     <property name="caption_visible">1</property>
                                                     <property name="center_pane">0</property>
-                                                    <property name="choices">&quot;Function code&quot; &quot;User-defined return type&quot;</property>
+                                                    <property name="choices">Function code;User-defined return type</property>
                                                     <property name="close_button">1</property>
                                                     <property name="context_help"></property>
                                                     <property name="context_menu">1</property>
@@ -8521,7 +8521,7 @@
                                                             <property name="caption"></property>
                                                             <property name="caption_visible">1</property>
                                                             <property name="center_pane">0</property>
-                                                            <property name="choices">&quot;Built-in&quot; &quot;Editor&quot; &quot;Definition file&quot;</property>
+                                                            <property name="choices">Built-in;Editor;Definition file</property>
                                                             <property name="close_button">1</property>
                                                             <property name="context_help"></property>
                                                             <property name="context_menu">1</property>
