@@ -2000,7 +2000,6 @@
                         <property name="toolbar_pane">0</property>
                         <property name="tooltip"></property>
                         <property name="use_tabs">1</property>
-                        <property name="use_wxAddition">1</property>
                         <property name="validator_data_type"></property>
                         <property name="validator_style">wxFILTER_NONE</property>
                         <property name="validator_type">wxDefaultValidator</property>
@@ -2009,7 +2008,7 @@
                         <property name="view_whitespace">0</property>
                         <property name="window_extra_style"></property>
                         <property name="window_name"></property>
-                        <property name="window_style"></property>
+                        <property name="window_style">wxVSCROLL</property>
                         <event name="OnChar"></event>
                         <event name="OnEnterWindow"></event>
                         <event name="OnEraseBackground"></event>
@@ -2922,7 +2921,6 @@
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
                                             <property name="tooltip"></property>
-                                            <property name="use_wxAddition">1</property>
                                             <property name="validator_data_type"></property>
                                             <property name="validator_style">wxFILTER_NONE</property>
                                             <property name="validator_type">wxDefaultValidator</property>
@@ -2947,8 +2945,6 @@
                                             <event name="OnMouseEvents"></event>
                                             <event name="OnMouseWheel"></event>
                                             <event name="OnPaint"></event>
-                                            <event name="OnPropertyGridChanged"></event>
-                                            <event name="OnPropertyGridChanging"></event>
                                             <event name="OnRightDClick"></event>
                                             <event name="OnRightDown"></event>
                                             <event name="OnRightUp"></event>
@@ -3316,7 +3312,6 @@
                         <property name="toolbar_pane">0</property>
                         <property name="tooltip"></property>
                         <property name="use_tabs">1</property>
-                        <property name="use_wxAddition">1</property>
                         <property name="validator_data_type"></property>
                         <property name="validator_style">wxFILTER_NONE</property>
                         <property name="validator_type">wxDefaultValidator</property>
@@ -3325,7 +3320,7 @@
                         <property name="view_whitespace">0</property>
                         <property name="window_extra_style"></property>
                         <property name="window_name"></property>
-                        <property name="window_style"></property>
+                        <property name="window_style">wxVSCROLL</property>
                         <event name="OnChar"></event>
                         <event name="OnEnterWindow"></event>
                         <event name="OnEraseBackground"></event>
@@ -3885,7 +3880,6 @@
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
                                             <property name="tooltip"></property>
-                                            <property name="use_wxAddition">1</property>
                                             <property name="validator_data_type"></property>
                                             <property name="validator_style">wxFILTER_NONE</property>
                                             <property name="validator_type">wxDefaultValidator</property>
@@ -3910,8 +3904,6 @@
                                             <event name="OnMouseEvents"></event>
                                             <event name="OnMouseWheel"></event>
                                             <event name="OnPaint"></event>
-                                            <event name="OnPropertyGridChanged"></event>
-                                            <event name="OnPropertyGridChanging"></event>
                                             <event name="OnRightDClick"></event>
                                             <event name="OnRightDown"></event>
                                             <event name="OnRightUp"></event>
@@ -8977,7 +8969,6 @@
                                 <property name="toolbar_pane">0</property>
                                 <property name="tooltip">Source code from generated files</property>
                                 <property name="use_tabs">1</property>
-                                <property name="use_wxAddition">1</property>
                                 <property name="validator_data_type"></property>
                                 <property name="validator_style">wxFILTER_NONE</property>
                                 <property name="validator_type">wxDefaultValidator</property>
@@ -9071,7 +9062,6 @@
                                 <property name="toolbar_pane">0</property>
                                 <property name="tooltip">Source code from original code items</property>
                                 <property name="use_tabs">1</property>
-                                <property name="use_wxAddition">1</property>
                                 <property name="validator_data_type"></property>
                                 <property name="validator_style">wxFILTER_NONE</property>
                                 <property name="validator_type">wxDefaultValidator</property>

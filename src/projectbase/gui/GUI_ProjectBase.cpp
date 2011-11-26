@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Nov 24 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -367,7 +367,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_staticText461->Wrap( -1 );
 	advSizer->Add( m_staticText461, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	wxString m_chImplementationChoices[] = { wxT("<user-defined-code>") };
+	wxString m_chImplementationChoices[] = { wxT("\"<user-defined-code>\"") };
 	int m_chImplementationNChoices = sizeof( m_chImplementationChoices ) / sizeof( wxString );
 	m_chImplementation = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chImplementationNChoices, m_chImplementationChoices, 0 );
 	m_chImplementation->SetSelection( 0 );
@@ -445,7 +445,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_staticText48->Wrap( -1 );
 	fgSizer10->Add( m_staticText48, 0, wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
-	wxString m_chDefinitionPlaceChoices[] = { wxT("Built-in"), wxT("Editor"), wxT("Definition file") };
+	wxString m_chDefinitionPlaceChoices[] = { wxT("\"Built-in\" \"Editor\" \"Definition file\"") };
 	int m_chDefinitionPlaceNChoices = sizeof( m_chDefinitionPlaceChoices ) / sizeof( wxString );
 	m_chDefinitionPlace = new wxChoice( m_pageUserDataType, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chDefinitionPlaceNChoices, m_chDefinitionPlaceChoices, 0 );
 	m_chDefinitionPlace->SetSelection( 0 );
@@ -503,13 +503,13 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	wxString m_chEditedFieldChoices[] = { wxT("Function code"), wxT("User-defined return type") };
+	wxString m_chEditedFieldChoices[] = { wxT("\"Function code\" \"User-defined return type\"") };
 	int m_chEditedFieldNChoices = sizeof( m_chEditedFieldChoices ) / sizeof( wxString );
 	m_chEditedField = new wxChoice( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chEditedFieldNChoices, m_chEditedFieldChoices, 0 );
 	m_chEditedField->SetSelection( 0 );
 	editorSizer->Add( m_chEditedField, 0, wxTOP|wxRIGHT|wxLEFT|wxEXPAND, 5 );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -730,7 +730,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_staticText48->Wrap( -1 );
 	fgSizer10->Add( m_staticText48, 0, wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
-	wxString m_chDefinitionPlaceChoices[] = { wxT("Built-in"), wxT("Editor"), wxT("Definition file") };
+	wxString m_chDefinitionPlaceChoices[] = { wxT("\"Built-in\" \"Editor\" \"Definition file\"") };
 	int m_chDefinitionPlaceNChoices = sizeof( m_chDefinitionPlaceChoices ) / sizeof( wxString );
 	m_chDefinitionPlace = new wxChoice( m_pageUserDataType, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chDefinitionPlaceNChoices, m_chDefinitionPlaceChoices, 0 );
 	m_chDefinitionPlace->SetSelection( 0 );
@@ -753,7 +753,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -983,7 +983,7 @@ _UpdateCodeDialog::_UpdateCodeDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* previewSizer;
 	previewSizer = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_scintillaCode = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxSize( 280,150 ), 0, wxEmptyString );
+	m_scintillaCode = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxSize( 280,150 ), wxVSCROLL, wxEmptyString );
 	m_scintillaCode->SetUseTabs( true );
 	m_scintillaCode->SetTabWidth( 4 );
 	m_scintillaCode->SetIndent( 4 );

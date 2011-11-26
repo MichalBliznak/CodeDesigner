@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Nov 24 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -642,7 +642,7 @@ _EditorFrame::_EditorFrame( wxWindow* parent, wxWindowID id, const wxString& tit
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_scintillaEditor = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_scintillaEditor = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_scintillaEditor->SetUseTabs( true );
 	m_scintillaEditor->SetTabWidth( 4 );
 	m_scintillaEditor->SetIndent( 4 );
@@ -843,7 +843,7 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	mainSizer->Add( m_toolActions, 0, wxEXPAND, 5 );
 	
-	m_scintillaEditor = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_scintillaEditor = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
 	m_scintillaEditor->SetUseTabs( true );
 	m_scintillaEditor->SetTabWidth( 4 );
 	m_scintillaEditor->SetIndent( 4 );
