@@ -16,8 +16,7 @@
 // TODO: include CTAGS project into CodeDesigner workspace
 // TODO: LONG TERM: create state charts from function bodies (for both standalone functions and class member functions).
 
-// FIX: don't generate included enums also as stand-alone ones.
-// FIX: enum's items can be inserted into wrong parent enum if it has the ambiguous name ( for example included enums ).
+// FIX: fix ambiguous class/enum names used during associations creation (use namespaces)
  
 ////////////////////////////////////////////////////////////////////////////////
 // plugin //////////////////////////////////////////////////////////////////////

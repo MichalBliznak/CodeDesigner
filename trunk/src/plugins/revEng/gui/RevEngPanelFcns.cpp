@@ -58,7 +58,7 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 		}
 		
 		// include associations
-		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_OuterClass );
+		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Namespace.AfterLast( wxT(':') ) );
 		if( outerClass )
 		{
 			umlIncludeAssocItem *connection = new umlIncludeAssocItem();
@@ -307,7 +307,7 @@ void udRevEngPanel::CreateEnumAssociations(udDiagramItem* diagram, wxTreeItemId 
 	if( newEnum )
 	{
 		// include associations
-		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_OuterClass );
+		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Namespace.AfterLast( wxT(':') ) );
 		if( outerClass )
 		{
 			umlIncludeAssocItem *connection = new umlIncludeAssocItem();

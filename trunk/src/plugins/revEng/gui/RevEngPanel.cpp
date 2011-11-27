@@ -309,7 +309,7 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 			{
 				item->m_Inherits = FindTagValue( arrFields, wxT("inherits") ).AfterLast( '.' );
 			}
-			item->m_OuterClass = FindTagValue( arrFields, wxT("class") ).AfterLast( ':' );
+			item->m_Namespace = FindTagValue( arrFields, wxT("class") );
 			item->m_Access = FindTagValue( arrFields, wxT("access") );
 			item->m_Pattern = FindTagPattern( ctags[i] );
 
@@ -419,7 +419,7 @@ void udRevEngPanel::ParseEnums(const wxArrayString& ctags)
 		{
 			ctagEnum *item = new ctagEnum();
 			item->m_Name = arrFields[0].Trim();
-			item->m_OuterClass = FindTagValue( arrFields, wxT("class") ).AfterLast( ':' );
+			item->m_Namespace = FindTagValue( arrFields, wxT("class") );
 			item->m_Access = FindTagValue( arrFields, wxT("access") );
 			item->m_Pattern = FindTagPattern( ctags[i] );
 			
@@ -439,6 +439,8 @@ void udRevEngPanel::ParseEnums(const wxArrayString& ctags)
 void udRevEngPanel::ParseEnumItems(wxTreeItemId parent, const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
+	wxString parentName;
+	
 	ctagEnum *parentEnum = (ctagEnum*) m_treeSymbols->GetItemData( parent );
 
 	if( parentEnum && parentEnum->m_Type == udCTAGS::ttENUM )
@@ -449,13 +451,17 @@ void udRevEngPanel::ParseEnumItems(wxTreeItemId parent, const wxArrayString& cta
 			/* itemONE	test.cpp	/^		itemONE,$/;"	kind:enumerator	enum:Data::InnerEnum	file: */
 
 			arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+			
+			if( !parentEnum->m_Namespace.IsEmpty() ) parentName = parentEnum->m_Namespace + wxT("::") + parentEnum->m_Name;
+			else
+				parentName = parentEnum->m_Name;
 
-			if( FindTagValue( arrFields, wxT("enum") ).AfterLast( ':' ) == parentEnum->m_Name && 
+			if( FindTagValue( arrFields, wxT("enum") ) == parentName && 
 				FindTagValue( arrFields, wxT("kind") ) == wxT("enumerator") ) 
 			{
 				ctagEnumItem *item = new ctagEnumItem();
 				item->m_Name = arrFields[0].Trim();
-				item->m_ParentEnum = FindTagValue( arrFields, wxT("enum") ).AfterLast( ':' );
+				item->m_ParentEnum = FindTagValue( arrFields, wxT("enum") );
 				item->m_Pattern = FindTagPattern( ctags[i] );
 				
 				// parse item value

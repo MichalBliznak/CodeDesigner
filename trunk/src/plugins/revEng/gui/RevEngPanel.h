@@ -41,7 +41,7 @@ public:
 	ctagClass() { m_Type = ttCLASS; }
 	
 	wxString m_Inherits;
-	wxString m_OuterClass;
+	wxString m_Namespace;
 	wxString m_Access;
 };
 
@@ -77,7 +77,7 @@ class ctagEnum : public udCTAGS
 public:
 	ctagEnum() { m_Type = ttENUM; }
 
-	wxString m_OuterClass;
+	wxString m_Namespace;
 	wxString m_Access;
 };
 
