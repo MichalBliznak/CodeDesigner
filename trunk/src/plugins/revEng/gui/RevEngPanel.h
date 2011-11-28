@@ -4,6 +4,10 @@
 #include "GUI.h" // Base class: _RevEngPanel
 #include "../diagUml/DiagUml.h"
 
+#include <wx/hashmap.h>
+
+WX_DECLARE_STRING_HASH_MAP( udProjectItem*, ProjectItemMap );
+
 #define udfWITH_DECORATION true
 #define udfWITHOUT_DECORATION true
 
@@ -103,6 +107,8 @@ protected:
 	wxTreeItemId m_treeIdClasses;
 	wxTreeItemId m_treeIdFunctions;
 	wxTreeItemId m_treeIdVariables;
+	
+	ProjectItemMap m_mapProjectItems;
 
 	void GetCheckedFiles(wxArrayString &files);
 	void GetSelectedFiles(wxArrayString &files);

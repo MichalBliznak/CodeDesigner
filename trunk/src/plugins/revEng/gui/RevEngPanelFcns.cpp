@@ -14,6 +14,9 @@ umlClassItem* udRevEngPanel::CreateClassElement(wxTreeItemId classId)
 		udLABEL::SetContent(ctag->m_Name, classItem, udLABEL::ltTITLE);
 		classElement->SetName( ctag->m_Name );
 		
+		if( ctag->m_Namespace.IsEmpty() ) m_mapProjectItems[ ctag->m_Name ] = classElement;
+		m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ] = classElement;
+		
 		if( m_checkBoxMembers->IsChecked() )
 		{
 			CreateDataMembers( classElement, classId );
@@ -33,7 +36,8 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 {
 	ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( classId );
 	
-	udProjectItem *newClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	//udProjectItem *newClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	udProjectItem *newClass = m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ];
 	if( newClass )
 	{
 		// inheritance 
@@ -58,7 +62,8 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 		}
 		
 		// include associations
-		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Namespace.AfterLast( wxT(':') ) );
+		//udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Namespace.AfterLast( wxT(':') ) );
+		udProjectItem *outerClass = m_mapProjectItems[ ctag->m_Namespace ];
 		if( outerClass )
 		{
 			umlIncludeAssocItem *connection = new umlIncludeAssocItem();
@@ -85,12 +90,13 @@ void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemI
 	wxArrayTreeItemIds arrClasses;
 	GetSelectedTreeIds( udCTAGS::ttCLASS, arrClasses );
 	
-	udCTAGS *ctag = (udCTAGS*) m_treeSymbols->GetItemData( classId );
-	udProjectItem *srcClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( classId );
+	//udProjectItem *srcClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	udProjectItem *srcClass = m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ];
 	
 	for( size_t i = 0; i < arrMembers.GetCount(); i++ )
 	{
-		ctag = (udCTAGS*) m_treeSymbols->GetItemData( arrMembers[i] );
+		udCTAGS* ctag = (udCTAGS*) m_treeSymbols->GetItemData( arrMembers[i] );
 		
 		wxString memberName = ctag->m_Name;
 		
@@ -99,13 +105,14 @@ void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemI
 		
 		for( size_t j = 0; j < arrClasses.GetCount(); j++ )
 		{
-			ctag = (udCTAGS*) m_treeSymbols->GetItemData( arrClasses[j] );
+			ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( arrClasses[j] );
 			
 			// IPluginManager::Get()->Log( wxT("DEBUG: ") + targetName + wxT(" ?= ") + ctag->m_Name );
 			
 			if( targetName.Contains( wxT(" ") + ctag->m_Name + wxT(" ") ) )
 			{
-				udProjectItem *trgClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+				//udProjectItem *trgClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+				udProjectItem *trgClass = m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ];
 				
 				if( srcClass && trgClass )
 				{
@@ -265,6 +272,9 @@ umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)
 		udLABEL::SetContent(ctag->m_Name, enumItem, udLABEL::ltTITLE);
 		enumElement->SetName( ctag->m_Name );
 		
+		if( ctag->m_Namespace.IsEmpty() ) m_mapProjectItems[ ctag->m_Name ] = enumElement;
+		m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ] = enumElement;
+		
 		if( m_checkBoxMembers->IsChecked() )
 		{
 			CreateEnumItems( enumElement, enumId );
@@ -303,11 +313,13 @@ void udRevEngPanel::CreateEnumAssociations(udDiagramItem* diagram, wxTreeItemId 
 {
 	ctagEnum *ctag = (ctagEnum*) m_treeSymbols->GetItemData( enumId );
 	
-	udProjectItem *newEnum = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	//udProjectItem *newEnum = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
+	udProjectItem *newEnum = m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ];
 	if( newEnum )
 	{
 		// include associations
-		udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Namespace.AfterLast( wxT(':') ) );
+		//udProjectItem *outerClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Namespace.AfterLast( wxT(':') ) );
+		udProjectItem *outerClass = m_mapProjectItems[ ctag->m_Namespace ];
 		if( outerClass )
 		{
 			umlIncludeAssocItem *connection = new umlIncludeAssocItem();

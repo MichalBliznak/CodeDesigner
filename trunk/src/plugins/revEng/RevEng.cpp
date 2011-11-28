@@ -15,8 +15,7 @@
 
 // TODO: include CTAGS project into CodeDesigner workspace
 // TODO: LONG TERM: create state charts from function bodies (for both standalone functions and class member functions).
-
-// FIX: fix ambiguous class/enum names used during associations creation (use namespaces)
+// TODO: support for namespace (if implemented in app core)
  
 ////////////////////////////////////////////////////////////////////////////////
 // plugin //////////////////////////////////////////////////////////////////////

@@ -295,7 +295,8 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 	{
 		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
 
-		/* MainApp	main.h	26;"	kind:class	inherits:wxApp */
+		/* MainApp	main.h	26;"	kind:class	inherits:wxApp
+		   SharedClass	test.cpp	/^		class SharedClass$/;"	kind:class	class:StaticData::InnerClass	file:	access:public */
 
 		if( FindTagValue( arrFields, wxT("kind") ) == wxT("class") )
 		{
@@ -334,6 +335,8 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 void udRevEngPanel::ParseMemberFunctions(wxTreeItemId parent, const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
+	wxString parentName;
+	
 	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
 
 	if( parentClass && parentClass->m_Type == udCTAGS::ttCLASS )
@@ -341,11 +344,16 @@ void udRevEngPanel::ParseMemberFunctions(wxTreeItemId parent, const wxArrayStrin
 		// process classes
 		for( size_t i = 0; i < ctags.GetCount(); i++ )
 		{
-			/* OnCloseFrame	gui.h	/^		virtual void OnCloseFrame( wxCloseEvent& event ) { event.Skip(); }$/;"	kind:function	class:MainFrameBase	access:protected	signature:( wxCloseEvent& event ) */
+			/* OnCloseFrame	gui.h	/^		virtual void OnCloseFrame( wxCloseEvent& event ) { event.Skip(); }$/;"	kind:function	class:MainFrameBase	access:protected	signature:( wxCloseEvent& event ) 
+			   foo	test.cpp	/^			void foo() {;}$/;"	kind:function	class:StaticData::InnerClass::SharedClass	access:public	signature:() */
 
 			arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+			
+			if( !parentClass->m_Namespace.IsEmpty() ) parentName = parentClass->m_Namespace + wxT("::") + parentClass->m_Name;
+			else
+				parentName = parentClass->m_Name;
 
-			if( FindTagValue( arrFields, wxT("class") ) == parentClass->m_Name && 
+			if( FindTagValue( arrFields, wxT("class") ) == parentName && 
 				( ( ( m_LangType == udCTAGS::ltCPP ) && ( FindTagValue( arrFields, wxT("kind") ) == wxT("function") ) ) ||
 				  ( ( m_LangType == udCTAGS::ltPYTHON ) && ( FindTagValue( arrFields, wxT("kind") ) == wxT("member") ) ) ) )
 			{
@@ -368,6 +376,8 @@ void udRevEngPanel::ParseMemberFunctions(wxTreeItemId parent, const wxArrayStrin
 void udRevEngPanel::ParseMemberData(wxTreeItemId parent, const wxArrayString& ctags)
 {
 	wxArrayString arrFields;
+	wxString parentName;
+	
 	ctagClass *parentClass = (ctagClass*) m_treeSymbols->GetItemData( parent );
 
 	if( parentClass && parentClass->m_Type == udCTAGS::ttCLASS )
@@ -378,8 +388,12 @@ void udRevEngPanel::ParseMemberData(wxTreeItemId parent, const wxArrayString& ct
 			/* m_gridData	gui.h	/^		wxGrid* m_gridData;$/;"	kind:member	class:MainFrameBase	access:protected */
 
 			arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+			
+			if( !parentClass->m_Namespace.IsEmpty() ) parentName = parentClass->m_Namespace + wxT("::") + parentClass->m_Name;
+			else
+				parentName = parentClass->m_Name;
 
-			if( FindTagValue( arrFields, wxT("class") ) == parentClass->m_Name && 
+			if( FindTagValue( arrFields, wxT("class") ) == parentName && 
 				( ( ( m_LangType == udCTAGS::ltCPP ) && ( FindTagValue( arrFields, wxT("kind") ) == wxT("member") ) ) ||
 				  ( ( m_LangType == udCTAGS::ltPYTHON ) && ( FindTagValue( arrFields, wxT("kind") ) == wxT("variable") ) ) ) )
 			{
@@ -647,13 +661,14 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 	int cnt = 0;
 	
 	IPluginManager::Get()->ClearLog();
+	m_mapProjectItems.clear();
 		
 	udProgressDialog progressDlg( NULL );
 	
 	IProject *proj = IPluginManager::Get()->GetProject();
 
 	IPluginManager::Get()->Log( wxT("Starting reverse code engineering...") );
-
+	
 	// create diagram package
 	udProjectItem *package = proj->CreateProjectItem( wxT("udPackageItem"), proj->GetRootItem()->GetId(), udfUNIQUE_NAME );
 	if( package )
