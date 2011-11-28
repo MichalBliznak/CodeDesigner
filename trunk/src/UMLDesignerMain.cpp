@@ -52,9 +52,11 @@ WX_DEFINE_LIST(ListenerList);
 // short term todos:
 //------------------
 
+// TODO: support for namespace in class diagram (implemented as a uml package)
+
 // long term todos:
 //-----------------
-// TODO: support for namespace in class diagram (implemented as a uml package)
+
 // TODO: implement languages by using XML templates/XSLT(???)
 // TODO: implement parallel states in HSCH
 // TODO: implement QuantumLeaps code generator
