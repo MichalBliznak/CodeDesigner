@@ -412,8 +412,8 @@ void udRevEngPanel::GetFunctionArguments(udCTAGS* ctag, wxArrayString& args)
 	wxStringTokenizer tokenz( signature, wxT(","), wxTOKEN_STRTOK );
 	while( tokenz.HasMoreTokens() )
 	{
-		wxString arg = tokenz.GetNextToken();
-		args.Add( arg.Trim().Trim(false) );
+		wxString arg = tokenz.GetNextToken().Trim().Trim(false);
+		if( !arg.IsEmpty() ) args.Add( arg );
 	}
 }
 
