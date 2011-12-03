@@ -13,7 +13,7 @@
 
 #include <wx/txtstrm.h>
 
-// TODO: include CTAGS project into CodeDesigner workspace
+// TODO: parse also global functions and variables and create generic code items from them.
 // TODO: LONG TERM: create state charts from function bodies (for both standalone functions and class member functions).
 // TODO: support for namespace (if implemented in app core)
  

@@ -229,9 +229,15 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 {
 	// get path to CTAGS utility
 	wxString sCTAGS = IPluginManager::Get()->GetAppSettings().GetProperty( wxT("CTAGS path") )->AsString();
+	
+	if( sCTAGS == wxT("<built-in>") )
+	{
+		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("ctags");
+	}
 
 	if( ! wxFileExists(sCTAGS) )
 	{
+		IPluginManager::Get()->Log( wxT("ERROR: Unable to find CTAGS under path ") + sCTAGS );
 		IPluginManager::Get()->Log( wxT("ERROR: Please, specify correct path to CTAGS utility in Reverse Engineering plugin's settings") );
 		return -1;
 	}
@@ -242,7 +248,7 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 	wxArrayString arrFiles;
 	GetCheckedFiles( arrFiles );
 
-	sCmd = sCTAGS + wxT(" -f - ") + cmd;;
+	sCmd = sCTAGS + wxT(" -f - ") + cmd;
 	if( !m_textIdentifiers->IsEmpty() ) sCmd += wxT(" -I \"") + m_textIdentifiers->GetValue() + wxT("\"");
 	for( size_t i = 0;
 	        i < arrFiles.GetCount();
