@@ -18,7 +18,7 @@
 
 #include "projectbase/ProjectBase.h"
 
-#define uddvDEFAULT_CTAGS wxT("ctags")
+#define uddvDEFAULT_CTAGS wxT("<built-in>")
 #define uddvDEFAULT_CTAGS_CPP_EXT wxT("c cpp cxx h hpp hxx inc")
 #define uddvDEFAULT_CTAGS_PYTHON_EXT wxT("py pyw")
 
