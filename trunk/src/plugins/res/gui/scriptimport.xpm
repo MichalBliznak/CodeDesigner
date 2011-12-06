@@ -1,5 +1,5 @@
 /* XPM */
-static char * scriptimport_xpm[] = {
+static const char * scriptimport_xpm[] = {
 "16 16 95 2",
 "  	c None",
 ". 	c #547E7E",
