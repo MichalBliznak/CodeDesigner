@@ -11,9 +11,6 @@
 #include "gui/RevEngPanel.h"
 #include "projectbase/Common.h"
 
-#include <wx/txtstrm.h>
-
-// TODO: parse also global functions and variables and create generic code items from them.
 // TODO: LONG TERM: create state charts from function bodies (for both standalone functions and class member functions).
 // TODO: support for namespace (if implemented in app core)
  

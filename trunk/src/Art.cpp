@@ -24,9 +24,9 @@ void udArt::Initialize()
     m_lstImages = new wxImageList(16, 16, true);
 		
     // static project images
-    m_lstImages->Add(wxBitmap(sPath + wxT("app/project/cubes.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udRootItem")] = m_Index++; //Root_xpm
-    m_lstImages->Add(wxBitmap(sPath + wxT("app/project/cube_green.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udPackageItem")] = m_Index++; //Folder_xpm
-	m_lstImages->Add(wxBitmap(sPath + wxT("app/project/cube_yellow.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udCodePackageItem")] = m_Index++; //Folder_code_xpm
+    m_lstImages->Add(wxBitmap(sPath + wxT("app/project/cubes.png"), wxBITMAP_TYPE_PNG)); m_mapImageIndexes[wxT("udRootItem")] = m_Index++; //Root_xpm
+    m_lstImages->Add(wxBitmap(sPath + wxT("app/project/cube_green.png"), wxBITMAP_TYPE_PNG)); m_mapImageIndexes[wxT("udPackageItem")] = m_Index++; //Folder_xpm
+	m_lstImages->Add(wxBitmap(sPath + wxT("app/project/cube_yellow.png"), wxBITMAP_TYPE_PNG)); m_mapImageIndexes[wxT("udCodePackageItem")] = m_Index++; //Folder_code_xpm
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/project/Variable.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udGenericVariableItem")] = m_Index++;
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/project/Variable_locked.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udImpVariableItem")] = m_Index++;
 	m_lstImages->Add(wxBitmap(sPath + wxT("app/project/Variable_link.xpm"), wxBITMAP_TYPE_XPM)); m_mapImageIndexes[wxT("udVariableLinkItem")] = m_Index++;

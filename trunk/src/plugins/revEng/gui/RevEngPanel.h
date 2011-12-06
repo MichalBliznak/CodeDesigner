@@ -49,23 +49,19 @@ public:
 	wxString m_Access;
 };
 
-class ctagClassMember : public udCTAGS
+class ctagVariable : public udCTAGS
+{
+public:
+	ctagVariable() { m_Type = ttVARIABLE; }
+	wxString m_Value;
+};
+
+class ctagClassMember : public ctagVariable
 {
 public:
 	ctagClassMember() { m_Type = ttCLASS_MEMBER; }
 	wxString m_ParentClass;
 	wxString m_Access;
-	wxString m_Value;
-};
-
-class ctagClassFunction : public udCTAGS
-{
-public:
-	ctagClassFunction() { m_Type = ttCLASS_FUNCTION; }
-	wxString m_ParentClass;
-	wxString m_Access;
-	wxString m_Signature;
-	wxString m_Content;
 };
 
 class ctagFunction : public udCTAGS
@@ -74,6 +70,14 @@ public:
 	ctagFunction() { m_Type = ttFUNCTION; }
 	wxString m_Signature;
 	wxString m_Content;
+};
+
+class ctagClassFunction : public ctagFunction
+{
+public:
+	ctagClassFunction() { m_Type = ttCLASS_FUNCTION; }
+	wxString m_ParentClass;
+	wxString m_Access;
 };
 
 class ctagEnum : public udCTAGS
@@ -122,14 +126,17 @@ protected:
 	void ParseClasses(const wxArrayString& ctags);
 	void ParseMemberData(wxTreeItemId parent, const wxArrayString& ctags);
 	void ParseMemberFunctions(wxTreeItemId parent, const wxArrayString& ctags);
-	void ParseFunctionBody(ctagClassFunction *ctag);
+	void ParseFunctionBody(ctagFunction *ctag);
 	void ParseEnums(const wxArrayString& ctags);
 	void ParseEnumItems(wxTreeItemId parent, const wxArrayString& ctags);
+	void ParseFunctions(const wxArrayString& ctags);
+	void ParseVariables(const wxArrayString& ctags);
 	
 	wxString FindTagValue(const wxArrayString& items, const wxString& key);
 	wxString FindTagPattern(const wxString& ctag);
 	
 	wxString GetDataType(udCTAGS *ctag, bool decorations );
+	wxString GetDataValue(udCTAGS *ctag);
 	udLanguage::ACCESSTYPE GetAccessType(const wxString& at);
 	void GetFunctionArguments(udCTAGS *ctag, wxArrayString& args);
 	
@@ -143,6 +150,9 @@ protected:
 	void CreateFunctionMembers( udClassElementItem *classItem, wxTreeItemId classId );
 	void CreateEnumItems( udEnumElementItem *enumItem, wxTreeItemId enumId );
 	
+	void CreateFunctions( wxTreeItemId fcnId );
+	void CreateVariables( wxTreeItemId varId );
+	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
 	virtual void OnCheckAllFilesClick(wxCommandEvent& event);
 	virtual void OnDeselectAllFilesClick(wxCommandEvent& event);
@@ -154,7 +164,7 @@ protected:
 	virtual void OnUpdateRemoveFiles(wxUpdateUIEvent& event);
 	virtual void OnExpandTreeClick(wxCommandEvent& event);
 	virtual void OnRemoveAllFilesClick(wxCommandEvent& event);
-	virtual void OnCreateClassDiagClick(wxCommandEvent& event);
+	virtual void OnImportSymbolsClick(wxCommandEvent& event);
 	virtual void OnRemoveAllSymbolsClick(wxCommandEvent& event);
 
 };

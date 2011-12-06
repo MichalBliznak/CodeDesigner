@@ -171,6 +171,7 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 		data->SetDataType( udLanguage::DT_USERDEFINED );
 		data->SetUserDataType( GetDataType( ctag, udfWITHOUT_DECORATION ) );
 		data->SetUserDeclPlace( udVariableItem::dlBUILTIN );
+		data->SetValue( GetDataValue( ctag ) );
 		
 		// assign link to the class
 		classItem->AssignCodeItem( new udMemberDataLinkItem( data, GetAccessType( ctag->m_Access ) ) );
@@ -244,7 +245,7 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 			udParamItem *var = new udParamItem();
 			
 			var->SetName( arg.AfterLast(' ') );
-			var->SetDescription( wxT("Original class member: \"") + arg + wxT("\"") );
+			var->SetDescription( wxT("Original parameter: \"") + arg + wxT("\"") );
 			
 			var->SetDataType( udLanguage::DT_USERDEFINED );
 			var->SetUserDataType( arg.BeforeLast(' ') );
@@ -256,6 +257,93 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 		// assign link to the class
 		classItem->AssignCodeItem( new udMemberFunctionLinkItem( data, GetAccessType( ctag->m_Access ) ) );
 	}
+}
+
+void udRevEngPanel::CreateFunctions(wxTreeItemId fcnId)
+{
+	IProject *proj = IPluginManager::Get()->GetProject();
+	
+	int parentId = proj->GetRootItem()->GetId();
+	
+	ctagFunction *ctag = (ctagFunction*) m_treeSymbols->GetItemData( fcnId );
+		
+	// create code package for new members if doesn't exists
+	if( IPluginManager::Get()->IsProjManOrganised() )
+	{
+		wxString pkgName = IPluginManager::Get()->GetCodePackage( wxT("udGenericFunctionItem") );
+		udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
+		if( !package )
+		{
+			package = proj->CreateProjectItem( wxT("udCodePackageItem"), parentId, udfAMBIGUOUS_NAME );
+			package->SetName( pkgName );
+		}
+		
+		parentId = package->GetId();
+	}
+	
+	// create code item
+	udGenericFunctionItem *data = (udGenericFunctionItem*) proj->CreateProjectItem( wxT("udGenericFunctionItem"), parentId, udfAMBIGUOUS_NAME );
+	data->SetName( ctag->m_Name );
+
+	data->SetDescription( wxT("Original function: \"") + ctag->m_Pattern + wxT("\"") );
+	if( m_checkBoxBodies->IsChecked() ) data->SetCode( ctag->m_Content );
+	
+	data->SetRetValDataType( udLanguage::DT_USERDEFINED );
+	data->SetUserRetValDataType( GetDataType( ctag, udfWITHOUT_DECORATION ) );
+	data->SetUserRetValDeclPlace( udVariableItem::dlBUILTIN );
+	
+	// create function arguments
+	wxArrayString arrArgs;
+	GetFunctionArguments( ctag, arrArgs );
+	
+	for( size_t j = 0; j < arrArgs.GetCount(); j++ )
+	{
+		wxString arg = arrArgs[j];
+		
+		udParamItem *var = new udParamItem();
+		
+		var->SetName( arg.AfterLast(' ') );
+		var->SetDescription( wxT("Original parameter: \"") + arg + wxT("\"") );
+		
+		var->SetDataType( udLanguage::DT_USERDEFINED );
+		var->SetUserDataType( arg.BeforeLast(' ') );
+		var->SetUserDeclPlace( udVariableItem::dlBUILTIN );
+		
+		data->AddChild( var );
+	}
+}
+
+void udRevEngPanel::CreateVariables(wxTreeItemId varId)
+{
+	IProject *proj = IPluginManager::Get()->GetProject();
+	
+	int parentId = proj->GetRootItem()->GetId();
+	
+	// create code package for new variables if doesn't exists
+	if( IPluginManager::Get()->IsProjManOrganised() )
+	{
+		wxString pkgName = IPluginManager::Get()->GetCodePackage( wxT("udGenericVariableItem") );
+		udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
+		if( !package )
+		{
+			package = proj->CreateProjectItem( wxT("udCodePackageItem"), parentId, udfAMBIGUOUS_NAME );
+			package->SetName( pkgName );
+		}
+		
+		parentId = package->GetId();
+	}
+	
+	ctagVariable *ctag = (ctagVariable*) m_treeSymbols->GetItemData( varId );
+	
+	// create code item
+	udGenericVariableItem *data = (udGenericVariableItem*) proj->CreateProjectItem( wxT("udGenericVariableItem"), parentId, udfAMBIGUOUS_NAME );
+	data->SetName( ctag->m_Name );
+	data->SetDescription( wxT("Original variable: \"") + ctag->m_Pattern + wxT("\"") );
+	
+	data->SetDataType( udLanguage::DT_USERDEFINED );
+	data->SetUserDataType( GetDataType( ctag, udfWITHOUT_DECORATION ) );
+	data->SetUserDeclPlace( udVariableItem::dlBUILTIN );
+	data->SetValue( GetDataValue( ctag ) );
 }
 
 umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)
@@ -376,6 +464,18 @@ wxString udRevEngPanel::GetDataType(udCTAGS* ctag, bool decorations )
 	}
 	
 	return dataType;
+}
+
+wxString udRevEngPanel::GetDataValue(udCTAGS* ctag)
+{
+	if( ctag->m_Type == udCTAGS::ttVARIABLE || ctag->m_Type == udCTAGS::ttVARIABLE )
+	{
+		wxString val = ctag->m_Pattern.AfterLast( wxT('=') );
+		val.Replace( wxT(";"), wxT("") );
+		return val.Trim().Trim(false);
+	}
+	else
+		return wxEmptyString;
 }
 
 udLanguage::ACCESSTYPE udRevEngPanel::GetAccessType(const wxString& at)
