@@ -30,7 +30,7 @@ package.kind = "dll"
 -- Set the files to include.
 package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }
 -- Set the include paths.
-package.includepaths = { ".", "../../", "../../controls/include" }
+package.includepaths = { ".", "../", "../../", "../../controls/include" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.

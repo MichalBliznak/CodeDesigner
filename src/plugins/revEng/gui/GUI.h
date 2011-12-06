@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov  8 2011)
+// C++ code generated with wxFormBuilder (version Dec  2 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -53,9 +53,8 @@ class _RevEngPanel : public wxPanel
 			IDM_FILES_UNCHECKALL,
 			IDB_PARSE,
 			IDT_SYMBOLS_EXPANDALL,
-			IDT_SYMBOLS_CREATE_CLASSDIAG,
+			IDT_SYMBOLS_IMPORT,
 			IDM_SYMBOLS_CREATE_CLASSDIAG,
-			IDM_SYMBOLS_CREATE_STATECHART,
 			IDM_SYMBOLS_REMOVE_ALL
 		};
 		
@@ -89,8 +88,8 @@ class _RevEngPanel : public wxPanel
 		virtual void OnParseClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUpdateParse( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnExpandTreeClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnImportSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCreateClassDiagClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnCreateStateChartClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnRemoveAllSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	

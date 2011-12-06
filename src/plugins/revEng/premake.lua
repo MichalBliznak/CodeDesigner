@@ -30,7 +30,7 @@ package.kind = "dll"
 -- Set the files to include.
 package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }
 -- Set the include paths.
-package.includepaths = { ".", "../../", "../../controls/include" }
+package.includepaths = { ".", "../", "../../", "../../controls/include" }
 -- Set hardcoded path for loaded shared libraries
 if ( target == "cb-gcc" ) then
 	table.insert( package.linkoptions, "-Wl,-rpath,$``ORIGIN/" )

@@ -126,6 +126,12 @@ void udRevEngPanel::OnParseClick(wxCommandEvent& event)
 
 	ParseEnums( arrOutput );
 	ParseClasses( arrOutput );
+	ParseFunctions( arrOutput );
+	ParseVariables( arrOutput );
+	
+	m_treeSymbols->Expand( m_treeIdClasses);
+	m_treeSymbols->Expand( m_treeIdFunctions);
+	m_treeSymbols->Expand( m_treeIdVariables);
 }
 
 void udRevEngPanel::OnRemoveFilesClick(wxCommandEvent& event)
@@ -219,8 +225,8 @@ void udRevEngPanel::InitializeSymbolsTree()
 	wxTreeItemId rootId = m_treeSymbols->AddRoot( wxT("Symbols"), IPluginManager::Get()->GetArtIndex( wxT("udRootItem") )  );
 
 	m_treeIdClasses = m_treeSymbols->AppendItem( rootId, wxT("Classes"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
-	// m_treeIdFunctions = m_treeSymbols->AppendItem( rootId, wxT("Functions"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
-	// m_treeIdVariables = m_treeSymbols->AppendItem( rootId, wxT("Variables"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
+	m_treeIdFunctions = m_treeSymbols->AppendItem( rootId, wxT("Functions"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
+	m_treeIdVariables = m_treeSymbols->AppendItem( rootId, wxT("Variables"), IPluginManager::Get()->GetArtIndex( wxT("udCodePackageItem") ) );
 
 	m_treeSymbols->ExpandAll();
 }
@@ -335,7 +341,7 @@ void udRevEngPanel::ParseClasses(const wxArrayString& ctags)
 		}
 	}
 
-	m_treeSymbols->Expand( m_treeIdClasses );
+	//m_treeSymbols->Expand( m_treeIdClasses );
 }
 
 void udRevEngPanel::ParseMemberFunctions(wxTreeItemId parent, const wxArrayString& ctags)
@@ -453,7 +459,7 @@ void udRevEngPanel::ParseEnums(const wxArrayString& ctags)
 		}
 	}
 
-	m_treeSymbols->Expand( m_treeIdClasses );
+	//m_treeSymbols->Expand( m_treeIdClasses );
 }
 
 void udRevEngPanel::ParseEnumItems(wxTreeItemId parent, const wxArrayString& ctags)
@@ -497,7 +503,89 @@ void udRevEngPanel::ParseEnumItems(wxTreeItemId parent, const wxArrayString& cta
 	}
 }
 
-void udRevEngPanel::ParseFunctionBody(ctagClassFunction* ctag)
+void udRevEngPanel::ParseFunctions(const wxArrayString& ctags)
+{
+	wxArrayString arrFields;
+	wxString name;
+	
+	udProgressDialog progressDlg( NULL );
+	
+	progressDlg.SetLabel( wxT("Parsing global functions...") );
+	progressDlg.Clear();
+
+	progressDlg.Show();
+	progressDlg.Raise();
+
+	// process classes
+	for( size_t i = 0; i < ctags.GetCount(); i++ )
+	{
+		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+
+		/* GlobalFunction	test.cpp	/^int GlobalFunction( int n )$/;"	kind:function	signature:( int n )
+		   GlobalFunction	wxFBTest.py	/^def GlobalFunction(n):$/;"	kind:function	access:public */
+
+		if( FindTagValue( arrFields, wxT("kind") ) == wxT("function") && 
+			FindTagValue( arrFields, wxT("class") ) == wxEmptyString )
+		{
+			ctagFunction *item = new ctagFunction();
+			item->m_Name = arrFields[0].Trim();
+			item->m_Pattern = FindTagPattern( ctags[i] );
+			item->m_Signature = FindTagValue( arrFields, wxT("signature") );
+			
+			if( m_LangType == udCTAGS::ltPYTHON && item->m_Signature.IsEmpty() )
+			{
+				item->m_Signature = wxT("(") + item->m_Pattern.AfterLast( wxT('(') );
+				item->m_Signature.Truncate( item->m_Signature.Len() + 1 );
+			}
+			
+			progressDlg.SetLabel( wxString::Format( wxT("Parsing global functions... %s"), item->m_Name.c_str() ) );
+			progressDlg.Pulse();
+
+			m_treeSymbols->AppendItem( m_treeIdFunctions, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udGenericFunctionItem") ), -1, item );;
+		}
+	}
+
+	//m_treeSymbols->Expand( m_treeIdFunctions);
+}
+
+void udRevEngPanel::ParseVariables(const wxArrayString& ctags)
+{
+	wxArrayString arrFields;
+	wxString name;
+	
+	udProgressDialog progressDlg( NULL );
+	
+	progressDlg.SetLabel( wxT("Parsing global variables...") );
+	progressDlg.Clear();
+
+	progressDlg.Show();
+	progressDlg.Raise();
+
+	// process classes
+	for( size_t i = 0; i < ctags.GetCount(); i++ )
+	{
+		arrFields = wxStringTokenize( ctags[i], wxT("\t"), wxTOKEN_STRTOK );
+
+		/* GlobalVarible	test.cpp	/^static int GlobalVarible = 10;$/;"	kind:variable	file: */
+
+		if( FindTagValue( arrFields, wxT("kind") ) == wxT("variable") && 
+			FindTagValue( arrFields, wxT("class") ) == wxEmptyString )
+		{
+			ctagVariable *item = new ctagVariable();
+			item->m_Name = arrFields[0].Trim();
+			item->m_Pattern = FindTagPattern( ctags[i] );
+			
+			progressDlg.SetLabel( wxString::Format( wxT("Parsing global variables... %s"), item->m_Name.c_str() ) );
+			progressDlg.Pulse();
+
+			m_treeSymbols->AppendItem( m_treeIdVariables, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udGenericVariableItem") ), -1, item );;
+		}
+	}
+
+	//m_treeSymbols->Expand( m_treeIdFunctions);
+}
+
+void udRevEngPanel::ParseFunctionBody(ctagFunction* ctag)
 {
 	if( wxFileExists( ctag->m_File ) )
 	{
@@ -660,7 +748,7 @@ void udRevEngPanel::OnRemoveAllFilesClick(wxCommandEvent& event)
 	while( m_checkListFiles->GetCount() ) m_checkListFiles->Delete( 0 );
 }
 
-void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
+void udRevEngPanel::OnImportSymbolsClick(wxCommandEvent& event)
 {
 	wxArrayTreeItemIds arrItems;
 	wxSFAutoLayout layout;
@@ -718,7 +806,7 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 				}
 			}
 			
-			 arrItems.Clear();
+			arrItems.Clear();
 			
 			GetSelectedTreeIds( udCTAGS::ttENUM, arrItems );
 			if( !arrItems.IsEmpty() )
@@ -750,6 +838,56 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 					progressDlg.Step();
 				}
 			}
+			
+			arrItems.Clear();
+			
+			GetSelectedTreeIds( udCTAGS::ttFUNCTION, arrItems );
+			if( !arrItems.IsEmpty() )
+			{
+				cnt += arrItems.GetCount();
+				
+				progressDlg.SetLabel( wxT("Importing functions...") );
+				progressDlg.Clear();
+				progressDlg.SetStepCount( arrItems.GetCount() );
+			
+				if( ! progressDlg.IsShown() )
+				{
+					progressDlg.Show();
+					progressDlg.Raise();
+				}
+				
+				// create functions
+				for( size_t i = 0; i < arrItems.GetCount(); i++ )
+				{
+					CreateFunctions( arrItems[i] );
+					progressDlg.Step();
+				}
+			}
+			
+			arrItems.Clear();
+			
+			GetSelectedTreeIds( udCTAGS::ttVARIABLE, arrItems );
+			if( !arrItems.IsEmpty() )
+			{
+				cnt += arrItems.GetCount();
+				
+				progressDlg.SetLabel( wxT("Importing variables...") );
+				progressDlg.Clear();
+				progressDlg.SetStepCount( arrItems.GetCount() );
+			
+				if( ! progressDlg.IsShown() )
+				{
+					progressDlg.Show();
+					progressDlg.Raise();
+				}
+				
+				// create functions
+				for( size_t i = 0; i < arrItems.GetCount(); i++ )
+				{
+					CreateVariables( arrItems[i] );
+					progressDlg.Step();
+				}
+			}
 
 			// layout diagram
 			layout.Layout( diag->GetDiagramManager(), wxT("Vertical Tree") );
@@ -762,11 +900,11 @@ void udRevEngPanel::OnCreateClassDiagClick(wxCommandEvent& event)
 			if( cnt == 0 )
 			{
 				IPluginManager::Get()->Log( wxT("Done.") );
-				wxMessageBox( wxT("Select classes/enums to be processed."), wxT("Reverse Engineering"), wxOK | wxICON_WARNING );
+				wxMessageBox( wxT("Select symbols to be processed."), wxT("Reverse Engineering"), wxOK | wxICON_WARNING );
 			}
 			else
 			{
-				IPluginManager::Get()->Log( wxString::Format( wxT("Number of parsed classes/enums: %d"), cnt ) );
+				IPluginManager::Get()->Log( wxString::Format( wxT("Number of symbols: %d"), cnt ) );
 				IPluginManager::Get()->Log( wxT("WARNING: Manual check of parsed project items is strongly recommended due to possible simplifications done during the import process.") );
 			}
 		}
