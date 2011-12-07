@@ -15,6 +15,12 @@ echo "Removing old temporary directory..."
 rm -rf $out
 mkdir $out
 
+if [ ! -f "../../output/bin/ctags" ];
+then
+	echo "CTAGS utility doesn't exist in bin directory."
+	exit 1
+fi
+
 # copy program files
 echo "Copying application files..."
 cp -R -L ../../output/* $out
@@ -26,6 +32,7 @@ cp ../../LICENSE.txt $out
 cp ../../changes.txt $out
 cp ../../readme_bin.txt $out
 chmod +x $out/bin/codedesigner
+chmod +x $out/bin/ctags
 
 # copy samples
 mkdir $out/samples
