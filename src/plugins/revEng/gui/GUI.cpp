@@ -141,7 +141,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	m_menuSymbols = new wxMenu();
 	wxMenuItem* menuSymbolsClassDiagram;
-	menuSymbolsClassDiagram = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_CREATE_CLASSDIAG, wxString( wxT("Import selected symbols") ) , wxEmptyString, wxITEM_NORMAL );
+	menuSymbolsClassDiagram = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_IMPORT, wxString( wxT("Import selected symbols") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuSymbols->Append( menuSymbolsClassDiagram );
 	
 	wxMenuItem* m_separator3;
@@ -181,7 +181,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	m_buttonParse->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateParse ), NULL, this );
 	this->Connect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
 	this->Connect( IDT_SYMBOLS_IMPORT, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
-	this->Connect( menuSymbolsClassDiagram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
+	this->Connect( menuSymbolsClassDiagram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Connect( menuSymbolsRemoveAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 }
 
@@ -203,7 +203,7 @@ _RevEngPanel::~_RevEngPanel()
 	m_buttonParse->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateParse ), NULL, this );
 	this->Disconnect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
 	this->Disconnect( IDT_SYMBOLS_IMPORT, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
-	this->Disconnect( IDM_SYMBOLS_CREATE_CLASSDIAG, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnCreateClassDiagClick ) );
+	this->Disconnect( IDM_SYMBOLS_IMPORT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Disconnect( IDM_SYMBOLS_REMOVE_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 	
 }
