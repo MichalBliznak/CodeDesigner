@@ -238,7 +238,11 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 	
 	if( sCTAGS == wxT("<built-in>") )
 	{
+		#ifdef __WXMSW__
+		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("ctags.exe");
+		#else
 		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("ctags");
+		#endif
 	}
 
 	if( ! wxFileExists(sCTAGS) )
@@ -617,12 +621,15 @@ void udRevEngPanel::ParseFunctionBody(ctagFunction* ctag)
 						if( c == wxT('{') )
 						{
 							nBraceCnt++;
+							if( nBraceCnt > 1 ) ctag->m_Content += c;
 						}
 						else if( nBraceCnt )
 						{
 							if( c == wxT('}') )
 							{
 								if( --nBraceCnt == 0 ) break;
+								else
+									ctag->m_Content += c;
 							}
 							else
 							{

@@ -24,7 +24,11 @@ void umlIncludeAssocItem::Initialize()
 	AcceptSrcNeighbour(wxT("All"));
     AcceptTrgNeighbour(wxT("All"));
 
+	#ifdef __WXMSW__
+	m_Pen = wxPen( *wxBLACK, 1, wxDOT );
+	#else
 	m_Pen = wxPen( *wxBLACK, 1, wxSHORT_DASH );
+	#endif
 	
 	// create labels
 	SetMaxLabelCount( 1 );

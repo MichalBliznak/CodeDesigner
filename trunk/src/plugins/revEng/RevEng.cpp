@@ -11,6 +11,8 @@
 #include "gui/RevEngPanel.h"
 #include "projectbase/Common.h"
 
+#define udREVENG_VERSION wxT("1.0 Beta")
+
 // TODO: LONG TERM: create state charts from function bodies (for both standalone functions and class member functions).
 // TODO: support for namespace (if implemented in app core)
  
@@ -19,9 +21,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 udReverseEngineeringPlugin *thePlugin = NULL;
-
-// create plugin-specific GUI identifiers
-static long IDM_REVENG_ABOUT = IPluginManager::Get()->GetNewMenuId();
 
 // define the plugin entry point
 extern "C" WXDLLIMPEXP_CD IPlugin *CreatePlugin(IPluginManager *manager)
@@ -43,7 +42,7 @@ extern "C" WXDLLIMPEXP_CD udPluginInfo GetPluginInfo()
 	info.SetName( wxT("Reverse Engineering") );
 	info.SetDescription( wxT("Reverse code engineering plugin which uses CTAGS tool to parse source files.") );
 	info.SetType( udPluginInfo::ptGUI );
-	info.SetVersion( wxT("0.1.0 Beta") );
+	info.SetVersion( udREVENG_VERSION );
 	info.SetAPIVersionMin( 1 );
 	info.SetAPIVersionMax( 1 );
 	
@@ -60,17 +59,11 @@ bool udReverseEngineeringPlugin::OnInit()
 	// register plugin settings
 	m_PluginManager->RegisterSettings( new udRevEngAppSettingsCategory(), IPluginManager::settingsAPPLICATION );
 	
-	// connect events
-	m_PluginManager->GetMainFrame()->Connect( IDM_REVENG_ABOUT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(udReverseEngineeringPlugin::OnAbout) );
-	
 	return true;
 }
 
 int udReverseEngineeringPlugin::OnExit()
 {	
-	// disconnect events
-	m_PluginManager->GetMainFrame()->Disconnect( IDM_REVENG_ABOUT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(udReverseEngineeringPlugin::OnAbout) );
-	
 	return 0;
 }
 
@@ -86,10 +79,7 @@ wxMenu* udReverseEngineeringPlugin::CreateMenu()
 {
 	// create plugin menu (if needed) here...
 	
-	wxMenu *pMenu = new wxMenu();
-	pMenu->Append( IDM_REVENG_ABOUT, wxT("About...") );
-	
-	return pMenu;
+	return NULL;
 }
 
 udPaneInfo udReverseEngineeringPlugin::CreateAuiPane(wxWindow *parent)
@@ -112,11 +102,6 @@ udToolbarInfo udReverseEngineeringPlugin::CreateToolbar(wxWindow *parent)
 	udToolbarInfo TbInfo;
 	
 	return TbInfo;
-}
-
-void udReverseEngineeringPlugin::OnAbout(wxCommandEvent& event)
-{
-	wxMessageBox( wxT("Reverse Engineering v0.1.0 Beta, (c) Michal Bližňák, Tomas Bata University in Zlin, 2011 - 2012"), wxT("Reverse Engineering") );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

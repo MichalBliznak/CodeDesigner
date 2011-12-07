@@ -25,5 +25,9 @@ void umlInterfaceItem::Initialize()
     AcceptSrcNeighbour(wxT("All"));
     AcceptTrgNeighbour(wxT("All"));
 
-	m_Pen = *wxBLACK_DASHED_PEN;
+	#ifdef __WXMSW__
+	m_Pen = wxPen( *wxBLACK, 1, wxDOT );
+	#else
+	m_Pen = wxPen( *wxBLACK, 1, wxSHORT_DASH );
+	#endif
 }
