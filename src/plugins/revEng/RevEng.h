@@ -50,9 +50,6 @@ protected:
 	// info about published component
 	udDiagramInfo m_infoDiag;
 	udGeneratorInfo m_infoGenerator;
-	
-	// user-defined event handlers
-	void OnAbout(wxCommandEvent &event);
 };
 
 extern udReverseEngineeringPlugin *thePlugin;

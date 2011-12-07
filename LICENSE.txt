@@ -346,6 +346,8 @@ and the plugin is NOT one of the official plugins (see list below):
 
 - UML Diagrams
 - UML Code Generators
+- CodeLite
+- Reverse Engineering
 - Test plugin
 
 Can be distributed under a license other than the GPL.

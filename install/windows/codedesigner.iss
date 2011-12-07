@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2011
 AppName=CodeDesigner
-AppVerName=CodeDesigner 1.4.4.2581 Beta (SVN: 166)
+AppVerName=CodeDesigner 1.5.0.2872 Beta (SVN: 203)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.4.4.2581
+OutputBaseFilename=codedesigner-1.5.0.2872
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
@@ -18,12 +18,14 @@ Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: sampl
 Source: ..\..\samples\TestClass.cdp; DestDir: {app}\samples; Components: samples
 Source: ..\..\output\wxmsw28u_shapeframework_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\codedesigner.exe; DestDir: {app}; Components: core
+Source: ..\..\output\ctags.exe; DestDir: {app}; Components: core
 Source: ..\..\output\cdprojectbase.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_propgrid_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_scintilla_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\plugins\genuml.dll; DestDir: {app}\plugins; Components: umlgenerator
 Source: ..\..\output\plugins\diaguml.dll; DestDir: {app}\plugins; Components: umldiagram
 Source: ..\..\output\plugins\codelite.dll; DestDir: {app}\plugins; Components: codelite
+Source: ..\..\output\plugins\reveng.dll; DestDir: {app}\plugins; Components: reveng
 Source: ..\..\output\res\app\elements\Tool.xpm; DestDir: {app}\res\app\elements; Components: core
 Source: ..\..\output\res\app\elements\Bound.xpm; DestDir: {app}\res\app\elements; Components: core
 Source: ..\..\output\res\app\elements\LineNote.xpm; DestDir: {app}\res\app\elements; Components: core
@@ -161,6 +163,7 @@ Source: ..\..\output\res\plugins\project\MemberFunction_link.xpm; DestDir: {app}
 Source: ..\..\output\res\plugins\project\SimpleStateChartDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\StateChartDiag.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
 Source: ..\..\output\res\plugins\project\EnumVal.xpm; DestDir: {app}\res\plugins\project; Components: umldiagram
+Source: ..\..\output\res\plugins\gui\scriptimport.xpm; DestDir: {app}\res\plugins\gui; Components: reveng
 Source: ..\..\output\res\app\gui\splash.png; DestDir: {app}\res\app\gui
 [Dirs]
 Name: {app}\plugins; Components: core
@@ -173,11 +176,13 @@ Name: {app}\res\app\gui; Components: core
 Name: {app}\res\app\project; Components: core
 Name: {app}\res\plugins\elements; Components: core
 Name: {app}\res\plugins\project; Components: core
+Name: {app}\res\plugins\gui; Components: core
 [Components]
 Name: core; Description: Main application files; Flags: fixed; Types: custom compact full
 Name: umldiagram; Description: UML diagrams; Types: custom full
 Name: umlgenerator; Description: UML code generators; Types: custom full
 Name: codelite; Description: CodeLite integration; Types: custom full
+Name: reveng; Description: Reverse code engineering; Types: custom full
 Name: samples; Description: Sample projects; Types: custom full
 [Icons]
 Name: {group}\CodeDesigner; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\app\gui\application-icon.ico; Comment: CodeDesigner RAD; Components: core; IconIndex: 0
