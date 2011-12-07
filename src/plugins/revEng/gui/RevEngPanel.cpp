@@ -676,20 +676,17 @@ void udRevEngPanel::ParseFunctionBody(ctagFunction* ctag)
 						{
 							if( fNewLine )
 							{
-								if( c == wxT(' ') || c == wxT('\t') )
+								if( nIndent >= nIndentWidth )
+								{
+									ctag->m_Content += c;
+									if( c != wxT('\n') ) fNewLine = false;
+								}
+								else if( c == wxT(' ') || c == wxT('\t') )
 								{
 									nIndent++;
 								}
 								else
-								{
-									if( nIndent == nIndentWidth )
-									{
-										ctag->m_Content += c;
-										if( c != wxT('\n') ) fNewLine = false;
-									}
-									else
-										break;
-								}
+									break;
 							}
 							else
 								ctag->m_Content += c;
