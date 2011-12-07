@@ -54,7 +54,7 @@ class _RevEngPanel : public wxPanel
 			IDB_PARSE,
 			IDT_SYMBOLS_EXPANDALL,
 			IDT_SYMBOLS_IMPORT,
-			IDM_SYMBOLS_CREATE_CLASSDIAG,
+			IDM_SYMBOLS_IMPORT,
 			IDM_SYMBOLS_REMOVE_ALL
 		};
 		
@@ -89,7 +89,6 @@ class _RevEngPanel : public wxPanel
 		virtual void OnUpdateParse( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnExpandTreeClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnImportSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnCreateClassDiagClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnRemoveAllSymbolsClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	

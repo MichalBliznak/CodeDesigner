@@ -529,6 +529,7 @@ void udRevEngPanel::ParseFunctions(const wxArrayString& ctags)
 		{
 			ctagFunction *item = new ctagFunction();
 			item->m_Name = arrFields[0].Trim();
+			item->m_File = arrFields[1];
 			item->m_Pattern = FindTagPattern( ctags[i] );
 			item->m_Signature = FindTagValue( arrFields, wxT("signature") );
 			
@@ -540,6 +541,8 @@ void udRevEngPanel::ParseFunctions(const wxArrayString& ctags)
 			
 			progressDlg.SetLabel( wxString::Format( wxT("Parsing global functions... %s"), item->m_Name.c_str() ) );
 			progressDlg.Pulse();
+			
+			ParseFunctionBody( item );
 
 			m_treeSymbols->AppendItem( m_treeIdFunctions, item->m_Name, IPluginManager::Get()->GetArtIndex( wxT("udGenericFunctionItem") ), -1, item );;
 		}
