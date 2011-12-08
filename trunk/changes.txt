@@ -1,3 +1,7 @@
+Changes in version 1.5.1 beta (2011-12-08):
+------------------------------------------------
+- Improved Reverse Engineering plugin.
+
 Changes in version 1.5.0 beta (2011-11-25):
 ------------------------------------------------
 - Implemented reverse code engineering for class diagrams (for both C++ and Python languages).

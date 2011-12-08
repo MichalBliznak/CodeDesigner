@@ -10,6 +10,8 @@ udRevEngPanel::udRevEngPanel( wxWindow *parent ) : _RevEngPanel( parent )
 {
 	m_fExpanded = false;
 	m_LangType = udCTAGS::ltUNKNOWN;
+	
+	InitializeSymbolsTree();
 }
 
 udRevEngPanel::~udRevEngPanel()
