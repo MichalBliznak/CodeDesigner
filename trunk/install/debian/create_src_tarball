@@ -42,7 +42,7 @@ function make_src_tarball
 	$PREMAKE_DIR/premake-linux --target gnu --unicode --disable-wx-debug --with-wx-shared --wx-version 2.8 --shared --no-builtin-propgrid
 
 	# Remove premake dir
-	rm -rf $PREMAKE_DIR
+	#rm -rf $PREMAKE_DIR
 
 	cd ..
 
@@ -70,7 +70,7 @@ do
  version=`expr match "$line" '.*\([0-9]\.[0-9]\{1,2\}\.[0-9]\+\)'`
  if [ -n "$version" ]
  then
- echo "$version"
+ echo "Detected version: $version"
  echo `pwd`
    # because I redirected cat to the while loop, bash spawned a subshell
    # this means "version" will go out of scope at the end of the loop
