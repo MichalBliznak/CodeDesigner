@@ -18,7 +18,7 @@ build: build-stamp
 
 build-stamp: configure-stamp 
 	dh_testdir
-	cd $(CURDIR)/codedesigner/build
+	cd $(CURDIR)/build
 	$(MAKE) CONFIG=Release
 	touch $@
 
@@ -26,7 +26,7 @@ clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-	cd $(CURDIR)/codedesigner/build
+	cd $(CURDIR)/build
 	$(MAKE) CONFIG=Release clean
 	dh_clean 
 
