@@ -54,6 +54,26 @@ function add_log_entry
 	debchange -D lucid -v "$1-0ubuntu1~lucid1" -m
 }
 
+# Parse command line options
+upload=""
+source=""
+for args in "$@"
+do
+    if ( [ ${args} = "--help" ] || [ ${args} = "-h" ] ); then
+        echo "Available options:"
+        echo
+        echo "-s, --s		Create source package only, otherwise also binary package will be created"
+        echo "-u, --u		Upload package to PPA"
+        echo
+        exit
+    elif ( [ ${args} = "-u" ] || [ ${args} = "--u" ] ); then
+        upload="1"
+        continue
+    elif ( [ ${args} = "-s" ] || [ ${args} = "--s" ] ); then
+        source="1"
+        continue
+    fi
+done
 
 # get source tarball
 debian/rules get-orig-source
@@ -100,16 +120,20 @@ cp -R install/debian/debian .
 
 #update the changelog by hand for now
 nano debian/changelog
+cp -f debian/changelog $currentdir/debian/changelog
 
-#make debian source archive
-#dpkg-buildpackage -S -sa -rfakeroot
-
-#make debian source and binary archive
-dpkg-buildpackage -rfakeroot
+#make debian archives
+if ( [ -n "$source" ] ); then
+    dpkg-buildpackage -S -sa -rfakeroot
+else
+    dpkg-buildpackage -rfakeroot
+fi
 
 #cleanup
 cd $currentdir
 rm -r $sourcedir
 
 #upload the files to the PPA
-#dput ppa:michal-bliznak-gmail/codedesigner *.changes
+if ( [ -n "$upload" ] ); then
+    dput ppa:michal-bliznak-tbu/codedesigner *.changes
+fi
