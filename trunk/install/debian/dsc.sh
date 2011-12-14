@@ -50,8 +50,8 @@ function add_log_entry
 	fi
 
 	# use debchange
-	echo debchange -D oneiric -v "$1-0ubuntu1~oneiric1" -m
-	debchange -D oneiric -v "$1-0ubuntu1~oneiric1" -m
+	echo debchange -D lucid -v "$1-0ubuntu1~lucid1" -m
+	debchange -D lucid -v "$1-0ubuntu1~lucid1" -m
 }
 
 

@@ -1,0 +1,5 @@
+codedesigner (1.5.0-0ubuntu1~lucid1) lucid; urgency=low
+
+  * Sync to upstream 3.2.01.
+
+ -- Michal Bližňák <michal.bliznak@gmail.com>  Wed,  14 Dec 2011 09:26:25 -040
