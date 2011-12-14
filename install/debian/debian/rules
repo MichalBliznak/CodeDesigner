@@ -47,7 +47,7 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs $(CURDIR)/changes.txt 
-	dh_installdocs $(CURDIR)/README.txt
+	dh_installdocs $(CURDIR)/readme_src.txt
 	dh_install --sourcedir=$(CURDIR)/install/debian/data/gnome --autodest \*
 	dh_installmenu
 	dh_installmime
