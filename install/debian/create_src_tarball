@@ -19,6 +19,11 @@
 #*****************************************************************************
 # this function does the actual work of making the source package
 # the version is passed to it as the first argument, below
+function pause()
+{
+   read -p “$*”
+}
+
 function make_src_tarball
 {
 	set -e
@@ -27,13 +32,19 @@ function make_src_tarball
 	basedir=.
 
 	# create Makefiles
+	cd build
 
 	# Build premake
-	PREMAKE_DIR=build/premake
+	PREMAKE_DIR=premake
 
 	# Use premake to generate Makefiles
 	chmod +x $PREMAKE_DIR/premake-linux          
 	$PREMAKE_DIR/premake-linux --target gnu --unicode --disable-wx-debug --with-wx-shared --wx-version 2.8 --shared --no-builtin-propgrid
+
+	# Remove premake dir
+	rm -rf $PREMAKE_DIR
+
+	cd ..
 
 	# use a temporary directory
 	tmpdir=codedesigner-$1 #.orig
@@ -60,6 +71,7 @@ do
  if [ -n "$version" ]
  then
  echo "$version"
+ echo `pwd`
    # because I redirected cat to the while loop, bash spawned a subshell
    # this means "version" will go out of scope at the end of the loop
    # so I need to do everything here
