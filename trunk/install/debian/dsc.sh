@@ -135,5 +135,5 @@ rm -r $sourcedir
 
 #upload the files to the PPA
 if ( [ -n "$upload" ] ); then
-    dput ppa:michal-bliznak-tbu/codedesigner *.changes
+    dput ppa:michal-bliznak-tbu/codedesigner-rad *.changes
 fi
