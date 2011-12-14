@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
-Name=CodeDesigner
-Comment=CodeDesigner RAD tool
+Name=CodeDesigner RAD
+Comment=CodeDesigner RAD code generation/reverse engineering tool
 TryExec=codedesigner
 Exec=codedesigner %f
 Icon=codedesigner.png
