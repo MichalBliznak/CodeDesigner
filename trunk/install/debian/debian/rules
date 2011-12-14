@@ -18,7 +18,7 @@ build: build-stamp
 
 build-stamp: configure-stamp 
 	dh_testdir
-	$(MAKE) -C build CONFIG=Release
+	$(MAKE) -j8 -C build CONFIG=Release
 	touch $@
 
 clean:
@@ -46,7 +46,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs $(CURDIR)/output/changes.txt 
+	dh_installchangelogs $(CURDIR)/changes.txt 
 	dh_installdocs $(CURDIR)/README.txt
 	dh_install --sourcedir=$(CURDIR)/install/debian/data/gnome --autodest \*
 	dh_installmenu
