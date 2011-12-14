@@ -110,4 +110,4 @@ cd $currentdir
 rm -r $sourcedir
 
 #upload the files to the PPA
-dput ppa:codedesigner/release *.changes
+dput ppa:michal-bliznak-gmail/codedesigner *.changes
