@@ -58,7 +58,7 @@ echo
 # ========== Code::Blocks project files ==========
 #premake/premake-linux --target cb-gcc --wx-version $release --shared --with-wx-shared $propgrid $unicode $debug $wxroot $1
 #premake/premake-linux --target cb-gcc --wx-version $release $propgrid $unicode $debug $wxroot $1
-echo done...
+#echo done...
 echo 
 #
 echo Done generating all project files for CodeDesigner.

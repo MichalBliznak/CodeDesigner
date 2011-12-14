@@ -27,6 +27,7 @@ dopackage( "../src/plugins/genUml" )
 dopackage( "../src/plugins/codelite" )
 dopackage( "../src/plugins/revEng" )
 dopackage( "../src" )
+dopackage( "../src/ctags" )
 
 function CreateSymlink( pathToLink, symLink )
 	os.execute( "ln -s -f -n " .. pathToLink .. " " .. symLink  )
