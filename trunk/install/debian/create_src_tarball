@@ -71,7 +71,6 @@ do
  if [ -n "$version" ]
  then
  echo "Detected version: $version"
- echo `pwd`
    # because I redirected cat to the while loop, bash spawned a subshell
    # this means "version" will go out of scope at the end of the loop
    # so I need to do everything here
