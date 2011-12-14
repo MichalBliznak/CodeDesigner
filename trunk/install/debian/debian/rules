@@ -18,14 +18,14 @@ build: build-stamp
 
 build-stamp: configure-stamp 
 	dh_testdir
-	$(MAKE) CONFIG=Release
+	$(shell cd $(CURDIR)/build; $(MAKE) CONFIG=Release)
 	touch $@
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-	$(shell cd $(CURDIR)/build; $(MAKE) CONFIG=Release clean)
+	$(MAKE) -f build/Makefile CONFIG=Release clean
 	dh_clean 
 
 install: build
