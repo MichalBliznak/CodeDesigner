@@ -35,6 +35,7 @@ function make_src_tarball
 	cd build
 
 	PREMAKE_DIR=premake
+	currdir=`pwd`
 
 	# Use premake to generate Makefiles
 	chmod +x $PREMAKE_DIR/premake-linux          
@@ -43,12 +44,12 @@ function make_src_tarball
 	cd ..
 
 	# remove symlinks
-	rm -rf ./output/share/codedesigner/app
-	rm -rf ./output/share/codedesigner/plugins
+	rm -rf $currdir/output/share/codedesigner/app
+	rm -rf $currdir/output/share/codedesigner/plugins
 
 	# copy resources to source package
-	cp -R ./src/res/* ./output/share/codedesigner/app
-	cp -R ./src/plugins/res/* ./output/share/codedesigner/plugins
+	cp -R $currdir/src/res/* $currdir/output/share/codedesigner/app
+	cp -R $currdir/src/plugins/res/* $currdir/output/share/codedesigner/plugins
 
 	# use a temporary directory
 	tmpdir=codedesigner-$1 #.orig
