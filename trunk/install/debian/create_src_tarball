@@ -48,7 +48,9 @@ function make_src_tarball
 	rm -rf ./output/share/codedesigner/plugins
 
 	# copy resources to source package
+	mkdir $currdir/output/share/codedesigner/app
 	cp -R $currdir/src/res/* $currdir/output/share/codedesigner/app
+	mkdir $currdir/output/share/codedesigner/plugins
 	cp -R $currdir/src/plugins/res/* $currdir/output/share/codedesigner/plugins
 
 	# use a temporary directory
