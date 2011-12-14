@@ -102,12 +102,12 @@ cp -R install/debian/debian .
 nano debian/changelog
 
 #make debian source archive
-#dpkg-buildpackage -S -sa -rfakeroot
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${sourcedir}/output/codedesigner dpkg-buildpackage -rfakeroot
+dpkg-buildpackage -S -sa -rfakeroot
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${sourcedir}/output/codedesigner dpkg-buildpackage -rfakeroot
 
 #cleanup
 cd $currentdir
 rm -r $sourcedir
 
 #upload the files to the PPA
-# dput ppa:codedesigner/release *.changes
+dput ppa:codedesigner/release *.changes
