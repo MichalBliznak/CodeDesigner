@@ -69,7 +69,7 @@ cd codedesigner-*
 sourcedir=`pwd`
 
 #determine version
-#changelog="output/Changelog.txt"
+#changelog="changes.txt"
 #if [ ! -f $changelog ];
 #then
 #  echo "Sorry, could not find "$changelog". Need it to parse the version."
@@ -102,8 +102,8 @@ cp -R install/debian/debian .
 nano debian/changelog
 
 #make debian source archive
-dpkg-buildpackage -S -sa -rfakeroot
-#dpkg-buildpackage -rfakeroot
+#dpkg-buildpackage -S -sa -rfakeroot
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${sourcedir}/output/codedesigner dpkg-buildpackage -rfakeroot
 
 #cleanup
 cd $currentdir
