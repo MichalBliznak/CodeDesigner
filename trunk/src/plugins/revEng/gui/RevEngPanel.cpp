@@ -241,9 +241,9 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 	if( sCTAGS == wxT("<built-in>") )
 	{
 		#ifdef __WXMSW__
-		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("ctags.exe");
+		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("codedesigner-ctags.exe");
 		#else
-		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("ctags");
+		sCTAGS = IPluginManager::Get()->GetAppPath() + wxT("codedesigner-ctags");
 		#endif
 	}
 
