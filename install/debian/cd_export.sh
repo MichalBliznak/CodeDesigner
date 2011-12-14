@@ -54,6 +54,8 @@ then
 fi
 
 # copy ouput files to target directories  
+echo "CD EXPORT: "
+echo `pwd`
 cp -R --interactive output/* $outputDir/share/codedesigner/
 
 # reorganize target directories
