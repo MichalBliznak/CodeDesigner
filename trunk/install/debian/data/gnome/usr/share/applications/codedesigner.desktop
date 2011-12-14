@@ -10,4 +10,4 @@ X-MultipleArgs=false
 Type=Application
 Categories=GTK;Development;
 StartupNotify=true
-MimeType=application/x-codedesigner;
+MimeType=application/x-codedesigner-rad;
