@@ -47,7 +47,7 @@ function make_src_tarball
 	cd ..
 
 	# Create top-level Makefile
-	echo "include build/Makefile" > Makefile
+	# echo "include build/Makefile" > Makefile
 
 	# use a temporary directory
 	tmpdir=codedesigner-$1 #.orig
