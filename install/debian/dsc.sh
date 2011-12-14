@@ -102,7 +102,10 @@ cp -R install/debian/debian .
 nano debian/changelog
 
 #make debian source archive
-dpkg-buildpackage -S -sa -rfakeroot
+#dpkg-buildpackage -S -sa -rfakeroot
+
+#make debian source and binary archive
+dpkg-buildpackage -rfakeroot
 
 #cleanup
 cd $currentdir

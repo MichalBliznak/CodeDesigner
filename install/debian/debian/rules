@@ -58,7 +58,7 @@ binary-arch: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	dh_shlibdeps
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(CURDIR)/output/lib/codedesigner dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
