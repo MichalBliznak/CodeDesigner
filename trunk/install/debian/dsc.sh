@@ -103,11 +103,10 @@ nano debian/changelog
 
 #make debian source archive
 dpkg-buildpackage -S -sa -rfakeroot
-#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${sourcedir}/output/codedesigner dpkg-buildpackage -rfakeroot
 
 #cleanup
 cd $currentdir
 rm -r $sourcedir
 
 #upload the files to the PPA
-dput ppa:michal-bliznak-gmail/codedesigner *.changes
+#dput ppa:michal-bliznak-gmail/codedesigner *.changes

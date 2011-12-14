@@ -34,17 +34,21 @@ function make_src_tarball
 	# create Makefiles
 	cd build
 
-	# Build premake
 	PREMAKE_DIR=premake
 
 	# Use premake to generate Makefiles
 	chmod +x $PREMAKE_DIR/premake-linux          
 	$PREMAKE_DIR/premake-linux --target gnu --unicode --disable-wx-debug --with-wx-shared --wx-version 2.8 --shared --no-builtin-propgrid
 
-	# Remove premake dir
-	#rm -rf $PREMAKE_DIR
-
 	cd ..
+
+	# remove symlinks
+	rm -rf output/share/codedesigner/app
+	rm -rf output/share/codedesigner/plugins
+
+	# copy resources to source package
+	cp -R src/res/* output/share/codedesigner/app
+	cp -R src/plugins/res/* output/share/codedesigner/plugins
 
 	# use a temporary directory
 	tmpdir=codedesigner-$1 #.orig
