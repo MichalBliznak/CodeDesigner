@@ -54,6 +54,7 @@ then
 fi
 
 # copy ouput files to target directories  
+cp -R --interactive output/* $outputDir/share/codedesigner/
 cp -R --interactive $outputDir/../../../output/share/codedesigner/* $outputDir/share/codedesigner/
 
 # reorganize target directories
