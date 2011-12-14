@@ -54,9 +54,7 @@ then
 fi
 
 # copy ouput files to target directories  
-echo "CD EXPORT: "
-echo `pwd`
-cp -R --interactive output/* $outputDir/share/codedesigner/
+cp -R --interactive `pwd`/output/share/* $outputDir/share/codedesigner/
 
 # reorganize target directories
 if [ -d $outputDir/bin ]
