@@ -1,6 +1,8 @@
 Changes in version 1.5.1 beta (2011-12-08):
 ------------------------------------------------
 - Improved Reverse Engineering plugin.
+- CTAGS utility included in the application sources.
+- Available as a Debian/Ubuntu package.
 
 Changes in version 1.5.0 beta (2011-11-25):
 ------------------------------------------------
