@@ -1,11 +1,11 @@
 [Setup]
-AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2011
-AppName=CodeDesigner
-AppVerName=CodeDesigner 1.5.0.2872 Beta (SVN: 203)
+AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2012
+AppName=CodeDesigner RAD
+AppVerName=CodeDesigner RAD 1.5.1.2874 Beta (SVN: 247)
 ChangesAssociations=true
-DefaultGroupName=CodeDesigner
+DefaultGroupName=CodeDesigner RAD
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.5.0.2872
+OutputBaseFilename=codedesigner-1.5.1.2874
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
@@ -18,7 +18,7 @@ Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: sampl
 Source: ..\..\samples\TestClass.cdp; DestDir: {app}\samples; Components: samples
 Source: ..\..\output\wxmsw28u_shapeframework_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\codedesigner.exe; DestDir: {app}; Components: core
-Source: ..\..\output\ctags.exe; DestDir: {app}; Components: core
+Source: ..\..\output\codedesigner-ctags.exe; DestDir: {app}; Components: core
 Source: ..\..\output\cdprojectbase.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_propgrid_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\wxmsw28u_scintilla_cd.dll; DestDir: {app}; Components: core
@@ -185,13 +185,13 @@ Name: codelite; Description: CodeLite integration; Types: custom full
 Name: reveng; Description: Reverse code engineering; Types: custom full
 Name: samples; Description: Sample projects; Types: custom full
 [Icons]
-Name: {group}\CodeDesigner; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\app\gui\application-icon.ico; Comment: CodeDesigner RAD; Components: core; IconIndex: 0
-Name: {group}\Uninstall CodeDesigner; Filename: {uninstallexe}
-Name: {commondesktop}\CodeDesigner; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\common; IconIndex: 0
-Name: {userdesktop}\CodeDesigner; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\user; IconIndex: 0
+Name: {group}\CodeDesigner RAD; Filename: {app}\codedesigner.exe; WorkingDir: {app}; IconFilename: {app}\res\app\gui\application-icon.ico; Comment: CodeDesigner RAD; Components: core; IconIndex: 0
+Name: {group}\Uninstall CodeDesigner RAD; Filename: {uninstallexe}
+Name: {commondesktop}\CodeDesigner RAD; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\common; IconIndex: 0
+Name: {userdesktop}\CodeDesigner RAD; Filename: {app}\codedesigner.exe; Components: core; Tasks: desktopicon\user; IconIndex: 0
 [Registry]
 Root: HKCR; Subkey: .cdp; ValueType: string; ValueData: CodeDesignerProjectFile; Flags: uninsdeletevalue
-Root: HKCR; Subkey: CodeDesignerProjectFile; ValueType: string; ValueName: ; ValueData: CodeDesigner project file; Flags: uninsdeletekey
+Root: HKCR; Subkey: CodeDesignerProjectFile; ValueType: string; ValueName: ; ValueData: CodeDesigner RAD project file; Flags: uninsdeletekey
 Root: HKCR; Subkey: CodeDesignerProjectFile\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\codedesigner.exe,0
 Root: HKCR; Subkey: CodeDesignerProjectFile\shell\open\command; ValueType: string; ValueName: ; ValueData: """{app}\codedesigner.exe"" ""%1"""
 [Tasks]

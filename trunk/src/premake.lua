@@ -43,7 +43,7 @@ end
 -- Set the files to include.
 package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }
 -- Set the files to exclude.
-package.excludes = { matchrecursive( "controls/*.*", "projectbase/*.*", "plugins/*.*" ) }
+package.excludes = { matchrecursive( "controls/*", "projectbase/*", "plugins/*", "ctags/*" ) }
 -- Set the include paths.
 package.includepaths = { "controls/include", "." }
 -- Set hardcoded path for loaded shared libraries
