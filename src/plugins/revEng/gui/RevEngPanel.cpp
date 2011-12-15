@@ -241,7 +241,7 @@ int udRevEngPanel::ExecCtags(const wxString& cmd, wxArrayString& output)
 	if( sCTAGS == wxT("<built-in>") )
 	{
 		wxString dstr = wxT("");
-		#ifdef __WXDEBUG__
+		#ifdef DEBUG
 		dstr = wxT("_d");
 		#endif
 		#ifdef __WXMSW__
