@@ -1542,7 +1542,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.5.0.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.5.1.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams and code generation.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -1565,7 +1565,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
     info.SetName(wxT("CodeDesigner"));
     info.SetVersion(version);
     info.SetDescription(desc);
-    info.SetCopyright(wxT("2007 - 2011 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
+    info.SetCopyright(wxT("2007 - 2012 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
     info.SetWebSite(wxT("http://www.codedesigner.org"));
     info.AddDeveloper(wxT("Michal Bližňák"));
 
