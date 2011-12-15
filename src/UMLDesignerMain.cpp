@@ -263,6 +263,8 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	m_pProcessedItem = NULL;
 	m_nCurrentToolId = IDT_DESIGN_TOOL_ID;
 	
+	SetTitle( wxT("CodeDesigner RAD") );
+	
 	udSettings &Settings = wxGetApp().GetSettings();
 //	const wxString &sAppPath = wxGetApp().GetPath();
 	wxString sResPath = wxGetApp().GetResourcesPath();
@@ -1295,7 +1297,7 @@ void UMLDesignerFrame::OnNewProject( wxCommandEvent &event )
 {
     OnRemoveAll(event);
 		
-	SetTitle( wxT("CodeDesigner") );
+	SetTitle( wxT("CodeDesigner RAD") );
 	
 	SetModified( false );
 }
@@ -1353,7 +1355,7 @@ void UMLDesignerFrame::OpenProjectFile(const wxString& path)
 				
 		InsertIntoRecentFiles( path );
 				
-		SetTitle( wxT("CodeDesigner [") + path + wxT("]") );
+		SetTitle( wxT("CodeDesigner RAD [") + path + wxT("]") );
 				
 		SetModified( false );
 				
@@ -1399,7 +1401,7 @@ void UMLDesignerFrame::OnSaveProject( wxCommandEvent &event )
 	{
 		pProj->SerializeToXml(  pProj->GetProjectPath(), true );
 		
-		SetTitle( wxT("CodeDesigner [") + pProj->GetProjectPath() + wxT("]") );
+		SetTitle( wxT("CodeDesigner RAD [") + pProj->GetProjectPath() + wxT("]") );
 		
 		SetModified( false );
 	}
@@ -1424,7 +1426,7 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 		
 		pProj->SerializeToXml(  pProj->GetProjectPath(), true );
 		
-		SetTitle( wxT("CodeDesigner [") + pProj->GetProjectPath() + wxT("]") );
+		SetTitle( wxT("CodeDesigner RAD [") + pProj->GetProjectPath() + wxT("]") );
 		
 		SetModified( false );
 		
@@ -1544,7 +1546,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	
 	wxString version = wxString::Format( wxT("1.5.1.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
-    wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams and code generation.\n\n");
+    wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams, code generation and reverse code engineering.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
     desc << wxT("Available diagrams:\n");
 
@@ -1562,7 +1564,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	desc << wxT("\n");
 
     wxAboutDialogInfo info;
-    info.SetName(wxT("CodeDesigner"));
+    info.SetName(wxT("CodeDesigner RAD"));
     info.SetVersion(version);
     info.SetDescription(desc);
     info.SetCopyright(wxT("2007 - 2012 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));

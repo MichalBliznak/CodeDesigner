@@ -29,7 +29,11 @@ else
 end
 
 -- Setup the package compiler settings.
-package.defines = { "HAVE_CONFIG_H" }
+if( windows ) then
+	package.defines = { "WIN32", "HAVE_REGCOMP", "__USE_GNU", "bool=int", "false=0", "true=1", "strcasecmp=stricmp" }
+else
+	package.defines = { "HAVE_CONFIG_H" }
+end
 
 if ( target == "vs2005" ) then
 	-- Windows and Visual C++ 2005
@@ -43,8 +47,17 @@ end
 
 -- Set the files to include.
 package.files = { matchrecursive( "*.c", "*.h" ) }
+if( linux ) then
+	package.excludes = { matchrecursive( "gnu_regex/*" ) }
+else
+	package.excludes = { "gnu_regex/regexec.c", "gnu_regex/regex_internal.c", "gnu_regex/regex_internal.h", "gnu_regex/regcomp.c" }
+end
+
 -- Set the include paths.
 package.includepaths = { "." }
+if( windows ) then
+	table.insert(package.includepaths, "gnu_regex")
+end
 
 -- Common setup
 package.language = "c"
