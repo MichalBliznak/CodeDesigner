@@ -36,33 +36,24 @@ function add_log_entry
 {
 	set -e
 
-	# check for commandlike arguments
-	if [ -z "$2" ]
-	then
-		echo "User name missing"
-		exit 1
-	fi
-
-	if [ -z "$3" ]
-	then
-		echo "Email missing"
-		exit 1
-	fi
-
 	# use debchange
-	echo debchange -D lucid -v "$1-0ubuntu1~lucid1" -m
-	debchange -D lucid -v "$1-0ubuntu1~lucid1" -m
+	echo debchange -D $2 -v "$1-0ubuntu1~${2}1" -m
+	debchange -D $2 -v "$1-0ubuntu1~${2}1" -m
 }
 
 # Parse command line options
 upload=""
 source=""
+change=""
+alter=""
 for args in "$@"
 do
     if ( [ ${args} = "--help" ] || [ ${args} = "-h" ] ); then
         echo "Available options:"
         echo
+	# echo "-c, --c		Update changelog"
         echo "-s, --s		Create source package only, otherwise also binary package will be created"
+	echo "-a, --a		Create alternative package only (orig. source wont be uploaded)"
         echo "-u, --u		Upload package to PPA"
         echo
         exit
@@ -71,6 +62,12 @@ do
         continue
     elif ( [ ${args} = "-s" ] || [ ${args} = "--s" ] ); then
         source="1"
+        continue
+    elif ( [ ${args} = "-c" ] || [ ${args} = "--c" ] ); then
+        change="1"
+        continue
+    elif ( [ ${args} = "-a" ] || [ ${args} = "--a" ] ); then
+        alter="1"
         continue
     fi
 done
@@ -88,33 +85,6 @@ currentdir=`pwd`
 cd codedesigner-*
 sourcedir=`pwd`
 
-#determine version
-#changelog="changes.txt"
-#if [ ! -f $changelog ];
-#then
-#  echo "Sorry, could not find "$changelog". Need it to parse the version."
-#  exit 1
-#fi
-#
-#cat "$changelog" |
-#while read line;
-#do
-# version=`expr match "$line" '.*\([0-9]\.[0-9]\{1,2\}\.[0-9]\+\)'`
-# if [ -n "$version" ]
-# then
-# echo "$version"
-#   # because I redirected cat to the while loop, bash spawned a subshell
-#   # this means "version" will go out of scope at the end of the loop
-#   # so I need to do everything here
-#   if [ ${#version} -ge 7 ]
-#   then
-#     version=${version/0/}
-#   fi
-#   add_log_entry $version $1 $2
-#   break
-# fi
-#done
-
 #copy the debian directory to the correct directory
 cp -R install/debian/debian .
 
@@ -122,8 +92,45 @@ cp -R install/debian/debian .
 nano debian/changelog
 cp -f debian/changelog $currentdir/debian/changelog
 
+#if ( [ -n "$change" ] ); then
+#    echo "Enter distribution: "
+#    read dist
+#
+#    #determine version
+#    changelog="changes.txt"
+#    if [ ! -f $changelog ];
+#    then
+#        echo "Sorry, could not find "$changelog". Need it to parse the version."
+#        exit 1
+#    fi
+#
+#    cat "$changelog" |
+#    while read line;
+#    do
+#        version=`expr match "$line" '.*\([0-9]\.[0-9]\{1,2\}\.[0-9]\+\)'`
+#        if [ -n "$version" ]
+#        then
+#	    echo "Detected version: "
+#            echo "$version"
+#            # because I redirected cat to the while loop, bash spawned a subshell
+#            # this means "version" will go out of scope at the end of the loop
+#            # so I need to do everything here
+#            if [ ${#version} -ge 7 ]
+#            then
+#                version=${version/0/}
+#            fi
+#            add_log_entry $version $dist
+#            break
+#        fi
+#    done
+#
+#    cp -f debian/changelog $currentdir/debian/changelog
+#fi
+
 #make debian archives
-if ( [ -n "$source" ] ); then
+if ( [ -n "$alter" ] ); then
+    dpkg-buildpackage -S -sd -rfakeroot
+elif ( [ -n "$source" ] ); then
     dpkg-buildpackage -S -sa -rfakeroot
 else
     dpkg-buildpackage -rfakeroot
