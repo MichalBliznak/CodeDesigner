@@ -57,6 +57,9 @@ fi
 cp -R --interactive output/* $outputDir/share/codedesigner/
 cp -R --interactive $outputDir/../../../output/share/codedesigner/* $outputDir/share/codedesigner/
 
+# remove test plugin
+rm -f $outputDir/share/codedesigner/lib/codedesigner/plugins/libdiagtest*
+
 # reorganize target directories
 if [ -d $outputDir/bin ]
 then
