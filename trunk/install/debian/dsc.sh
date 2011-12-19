@@ -90,7 +90,7 @@ cp -R install/debian/debian .
 
 #update the changelog by hand for now
 nano debian/changelog
-cp -f debian/changelog $currentdir/debian/changelog
+#cp -f debian/changelog $currentdir/debian/changelog
 
 #if ( [ -n "$change" ] ); then
 #    echo "Enter distribution: "

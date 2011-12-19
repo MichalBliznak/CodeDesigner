@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 24 2011)
+// C++ code generated with wxFormBuilder (version Dec 13 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -82,15 +82,13 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	fileMenu->Append( menuFileSaveAs );
 	
-	wxMenuItem* m_separator1;
-	m_separator1 = fileMenu->AppendSeparator();
+	fileMenu->AppendSeparator();
 	
 	wxMenuItem* menuFileExportBMP;
 	menuFileExportBMP = new wxMenuItem( fileMenu, IDM_FILE_EXPORT, wxString( wxT("Export diagram to image...") ) , wxT("Export active diagram to BMP file"), wxITEM_NORMAL );
 	fileMenu->Append( menuFileExportBMP );
 	
-	wxMenuItem* m_separator2;
-	m_separator2 = fileMenu->AppendSeparator();
+	fileMenu->AppendSeparator();
 	
 	wxMenuItem* menuFilePrint;
 	menuFilePrint = new wxMenuItem( fileMenu, wxID_PRINT, wxString( wxT("&Print...") ) + wxT('\t') + wxT("Ctrl+P"), wxT("Print active diagram"), wxITEM_NORMAL );
@@ -114,14 +112,12 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFilePageSetup = new wxMenuItem( fileMenu, wxID_PAGE_SETUP, wxString( wxT("Page setup...") ) , wxT("Set page properties"), wxITEM_NORMAL );
 	fileMenu->Append( menuFilePageSetup );
 	
-	wxMenuItem* m_separator3;
-	m_separator3 = fileMenu->AppendSeparator();
+	fileMenu->AppendSeparator();
 	
 	recentFilesMenu = new wxMenu();
 	fileMenu->Append( -1, wxT("Recent projects"), recentFilesMenu );
 	
-	wxMenuItem* m_separator14;
-	m_separator14 = fileMenu->AppendSeparator();
+	fileMenu->AppendSeparator();
 	
 	wxMenuItem* menuFileQuit;
 	menuFileQuit = new wxMenuItem( fileMenu, wxID_EXIT, wxString( wxT("&Quit") ) + wxT('\t') + wxT("Alt+F4"), wxT("Quit the application"), wxITEM_NORMAL );
@@ -153,8 +149,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	editMenu->Append( menuEditRedo );
 	
-	wxMenuItem* m_separator4;
-	m_separator4 = editMenu->AppendSeparator();
+	editMenu->AppendSeparator();
 	
 	wxMenuItem* menuEditCopy;
 	menuEditCopy = new wxMenuItem( editMenu, wxID_COPY, wxString( wxT("&Copy") ) + wxT('\t') + wxT("Ctrl+C"), wxEmptyString, wxITEM_NORMAL );
@@ -183,15 +178,13 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	editMenu->Append( menuEditPaste );
 	
-	wxMenuItem* m_separator5;
-	m_separator5 = editMenu->AppendSeparator();
+	editMenu->AppendSeparator();
 	
 	wxMenuItem* menuEditSelectAll;
 	menuEditSelectAll = new wxMenuItem( editMenu, IDM_EDIT_SELECTALL, wxString( wxT("Select &all") ) + wxT('\t') + wxT("CTRL+A"), wxT("Select all items in current diagram"), wxITEM_NORMAL );
 	editMenu->Append( menuEditSelectAll );
 	
-	wxMenuItem* m_separator6;
-	m_separator6 = editMenu->AppendSeparator();
+	editMenu->AppendSeparator();
 	
 	wxMenuItem* menuEditPreferences;
 	menuEditPreferences = new wxMenuItem( editMenu, IDM_EDIT_PREFERENCES, wxString( wxT("Preferences...") ) + wxT('\t') + wxT("Ctrl+Alt+P"), wxEmptyString, wxITEM_NORMAL );
@@ -209,8 +202,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuViewReset = new wxMenuItem( viewMenu, IDM_VIEW_RESET, wxString( wxT("Reset layout") ) , wxEmptyString, wxITEM_NORMAL );
 	viewMenu->Append( menuViewReset );
 	
-	wxMenuItem* m_separator17;
-	m_separator17 = viewMenu->AppendSeparator();
+	viewMenu->AppendSeparator();
 	
 	wxMenuItem* menuViewProjectPanel;
 	menuViewProjectPanel = new wxMenuItem( viewMenu, IDM_VIEW_PROJECT_PANEL, wxString( wxT("Project inspector") ) + wxT('\t') + wxT("Ctrl+1"), wxEmptyString, wxITEM_CHECK );
@@ -265,11 +257,9 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	projMenu->Append( menuProjCodePackage );
 	
-	wxMenuItem* m_separator8;
-	m_separator8 = projMenu->AppendSeparator();
+	projMenu->AppendSeparator();
 	
-	wxMenuItem* m_separator9;
-	m_separator9 = projMenu->AppendSeparator();
+	projMenu->AppendSeparator();
 	
 	wxMenuItem* menuProjVariable;
 	menuProjVariable = new wxMenuItem( projMenu, IDM_PROJ_VARIABLE, wxString( wxT("Create generic variable") ) , wxT("Create user-defined variable"), wxITEM_NORMAL );
@@ -289,8 +279,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	projMenu->Append( menuProjFunction );
 	
-	wxMenuItem* m_separator10;
-	m_separator10 = projMenu->AppendSeparator();
+	projMenu->AppendSeparator();
 	
 	wxMenuItem* menuProjEdit;
 	menuProjEdit = new wxMenuItem( projMenu, IDM_PROJ_EDIT, wxString( wxT("Edit selected item") ) , wxT("Edit properties of seleceted project item"), wxITEM_NORMAL );
@@ -300,8 +289,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjRemove = new wxMenuItem( projMenu, IDM_PROJ_REMOVE, wxString( wxT("Remove selected item") ) + wxT('\t') + wxT("CTRL+D"), wxT("Remove item selected in the project view from current project"), wxITEM_NORMAL );
 	projMenu->Append( menuProjRemove );
 	
-	wxMenuItem* m_separator11;
-	m_separator11 = projMenu->AppendSeparator();
+	projMenu->AppendSeparator();
 	
 	wxMenuItem* menuProjRemoveAll;
 	menuProjRemoveAll = new wxMenuItem( projMenu, IDM_PROJ_REMOVEALL, wxString( wxT("Remove all") ) , wxT("Clear project (permanently remove all project items)"), wxITEM_NORMAL );
@@ -312,8 +300,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	projMenu->Append( menuProjRemoveAll );
 	
-	wxMenuItem* m_separator12;
-	m_separator12 = projMenu->AppendSeparator();
+	projMenu->AppendSeparator();
 	
 	wxMenuItem* menuProjSettings;
 	menuProjSettings = new wxMenuItem( projMenu, IDM_PROJ_SETTINGS, wxString( wxT("Settings...") ) + wxT('\t') + wxT("Ctrl+Alt+S"), wxEmptyString, wxITEM_NORMAL );
@@ -331,8 +318,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuBankManage = new wxMenuItem( bankMenu, IDM_BANK_MANAGE, wxString( wxT("Manage bank...") ) + wxT('\t') + wxT("Ctrl+B"), wxEmptyString, wxITEM_NORMAL );
 	bankMenu->Append( menuBankManage );
 	
-	wxMenuItem* m_separator20;
-	m_separator20 = bankMenu->AppendSeparator();
+	bankMenu->AppendSeparator();
 	
 	wxMenuItem* menuBankStore;
 	menuBankStore = new wxMenuItem( bankMenu, IDM_DIAG_STORETOBANK, wxString( wxT("Store diagram to bank") ) , wxT("Store currently selected diagram to bank"), wxITEM_NORMAL );
@@ -363,8 +349,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	#endif
 	codeGenMenu->Append( menuCodeGenerate );
 	
-	wxMenuItem* m_separator19;
-	m_separator19 = codeGenMenu->AppendSeparator();
+	codeGenMenu->AppendSeparator();
 	
 	wxMenuItem* menuCodeSynchronize;
 	menuCodeSynchronize = new wxMenuItem( codeGenMenu, IDM_CODE_SYNCHRONIZE, wxString( wxT("Synchronize code") ) , wxT("Synchronize changes in code items' source code."), wxITEM_NORMAL );
@@ -440,12 +425,15 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	zoomSizer->Add( m_sliderZoom, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 5 );
 	
+	
 	mainDsgnSizer->Add( zoomSizer, 1, wxEXPAND, 5 );
+	
 	
 	m_mainPanel->SetSizer( mainDsgnSizer );
 	m_mainPanel->Layout();
 	mainDsgnSizer->Fit( m_mainPanel );
 	mainSizer->Add( m_mainPanel, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -682,6 +670,7 @@ _EditorFrame::_EditorFrame( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	mainSizer->Add( m_scintillaEditor, 1, wxEXPAND, 5 );
 	
+	
 	this->SetSizer( mainSizer );
 	this->Layout();
 	
@@ -719,6 +708,7 @@ _LogPanel::_LogPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos, const
 	
 	m_pLogList = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER );
 	mainSizer->Add( m_pLogList, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -772,6 +762,7 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	
 	treeSizer->Add( m_auintbViews, 1, wxEXPAND, 5 );
 	
+	
 	m_pPanelTree->SetSizer( treeSizer );
 	m_pPanelTree->Layout();
 	m_pPanelProperties = new wxPanel( m_pSplitter, wxID_ANY, wxDefaultPosition, wxSize( -1,100 ), wxTAB_TRAVERSAL );
@@ -783,10 +774,12 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	m_pPropertiesGrid = new wxPropertyGrid(m_pPanelProperties, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxPG_DEFAULT_STYLE|wxPG_SPLITTER_AUTO_CENTER|wxPG_TOOLTIPS);
 	propertiesSizer->Add( m_pPropertiesGrid, 1, wxEXPAND, 5 );
 	
+	
 	m_pPanelProperties->SetSizer( propertiesSizer );
 	m_pPanelProperties->Layout();
 	m_pSplitter->SplitHorizontally( m_pPanelTree, m_pPanelProperties, -1 );
 	mainSizer->Add( m_pSplitter, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -880,6 +873,7 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	m_scintillaEditor->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	mainSizer->Add( m_scintillaEditor, 1, wxEXPAND, 5 );
 	
+	
 	this->SetSizer( mainSizer );
 	this->Layout();
 	
@@ -922,6 +916,7 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	treeSizer->Add( m_pCategoryTree, 1, wxEXPAND|wxTOP|wxBOTTOM|wxLEFT, 5 );
 	
+	
 	m_pPanelTree->SetSizer( treeSizer );
 	m_pPanelTree->Layout();
 	treeSizer->Fit( m_pPanelTree );
@@ -933,6 +928,7 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_pPropertyGrid->SetMinSize( wxSize( 450,350 ) );
 	
 	propsSizer->Add( m_pPropertyGrid, 1, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
+	
 	
 	m_pPanelProps->SetSizer( propsSizer );
 	m_pPanelProps->Layout();
@@ -955,9 +951,12 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	buttonSizerCancel = new wxButton( this, wxID_CANCEL );
 	buttonSizer->AddButton( buttonSizerCancel );
 	buttonSizer->Realize();
+	
 	buttonGridSizer->Add( buttonSizer, 0, wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL, 5 );
 	
+	
 	mainSizer->Add( buttonGridSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1022,8 +1021,7 @@ _InsertFromBankDialog::_InsertFromBankDialog( wxWindow* parent, wxWindowID id, c
 	menuDiagDeselectAll = new wxMenuItem( m_menuDiagrams, IDM_DBANK_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuDiagrams->Append( menuDiagDeselectAll );
 	
-	wxMenuItem* m_separator19;
-	m_separator19 = m_menuDiagrams->AppendSeparator();
+	m_menuDiagrams->AppendSeparator();
 	
 	wxMenuItem* menuDiagDeps;
 	menuDiagDeps = new wxMenuItem( m_menuDiagrams, IDM_DBANK_SHOWDEPS, wxString( wxT("Show info") ) , wxEmptyString, wxITEM_NORMAL );
@@ -1045,7 +1043,9 @@ _InsertFromBankDialog::_InsertFromBankDialog( wxWindow* parent, wxWindowID id, c
 	m_btnCancel = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
 	buttonsSizer->Add( m_btnCancel, 0, wxALL, 5 );
 	
+	
 	mainSizer->Add( buttonsSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1101,6 +1101,7 @@ _StoreToBankDialog::_StoreToBankDialog( wxWindow* parent, wxWindowID id, const w
 	m_btnCreateCat = new wxButton( this, IDC_CATEGORY_CREATE, wxT("Create"), wxDefaultPosition, wxDefaultSize, 0 );
 	categorySizer->Add( m_btnCreateCat, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
+	
 	mainSizer->Add( categorySizer, 1, wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* sbSizer7;
@@ -1130,6 +1131,7 @@ _StoreToBankDialog::_StoreToBankDialog( wxWindow* parent, wxWindowID id, const w
 	
 	sbSizer7->Add( m_lstDeps, 1, wxALL|wxEXPAND, 5 );
 	
+	
 	mainSizer->Add( sbSizer7, 1, wxEXPAND|wxRIGHT|wxLEFT, 5 );
 	
 	wxBoxSizer* buttonsSizer;
@@ -1144,7 +1146,9 @@ _StoreToBankDialog::_StoreToBankDialog( wxWindow* parent, wxWindowID id, const w
 	m_btnCancel = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
 	buttonsSizer->Add( m_btnCancel, 0, wxALL, 5 );
 	
+	
 	mainSizer->Add( buttonsSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1202,7 +1206,9 @@ _DependenciesDialog::_DependenciesDialog( wxWindow* parent, wxWindowID id, const
 	m_btnCancel = new wxButton( this, wxID_OK, wxT("Close"), wxDefaultPosition, wxDefaultSize, 0 );
 	buttonsSizer->Add( m_btnCancel, 0, wxALL, 5 );
 	
+	
 	mainSizer->Add( buttonsSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1250,7 +1256,9 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	bSizer74->Add( m_btnRemoveCat, 1, wxEXPAND|wxTOP|wxBOTTOM, 5 );
 	
+	
 	sbSizer5->Add( bSizer74, 0, wxEXPAND, 5 );
+	
 	
 	mainSizer->Add( sbSizer5, 1, wxEXPAND|wxALL, 5 );
 	
@@ -1286,6 +1294,7 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_lstDeps = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
 	bSizer76->Add( m_lstDeps, 1, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
 	fgSizer22->Add( bSizer76, 1, wxEXPAND, 5 );
 	
 	wxBoxSizer* bSizer77;
@@ -1312,9 +1321,12 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	bSizer77->Add( m_btnMoveDiag, 0, wxEXPAND|wxBOTTOM, 5 );
 	
+	
 	fgSizer22->Add( bSizer77, 1, wxEXPAND, 5 );
 	
+	
 	sbSizer6->Add( fgSizer22, 1, wxEXPAND, 5 );
+	
 	
 	mainSizer->Add( sbSizer6, 1, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
@@ -1323,6 +1335,7 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	m_btnClose = new wxButton( this, wxID_OK, wxT("Close"), wxDefaultPosition, wxDefaultSize, 0 );
 	mainSizer->Add( m_btnClose, 0, wxALIGN_RIGHT|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1396,6 +1409,7 @@ _ManagePluginsDialog::_ManagePluginsDialog( wxWindow* parent, wxWindowID id, con
 	
 	pluginsSizer->Add( m_checkListPlugins, 1, wxEXPAND|wxALL, 5 );
 	
+	
 	recordsSizer->Add( pluginsSizer, 1, wxEXPAND, 5 );
 	
 	m_listCtrlPluginInfo = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 350,-1 ), wxLC_HRULES|wxLC_REPORT|wxSUNKEN_BORDER );
@@ -1405,6 +1419,7 @@ _ManagePluginsDialog::_ManagePluginsDialog( wxWindow* parent, wxWindowID id, con
 	
 	recordsSizer->Add( m_listCtrlPluginInfo, 1, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
+	
 	mainSizer->Add( recordsSizer, 1, wxEXPAND, 5 );
 	
 	buttonSizer = new wxStdDialogButtonSizer();
@@ -1413,7 +1428,9 @@ _ManagePluginsDialog::_ManagePluginsDialog( wxWindow* parent, wxWindowID id, con
 	buttonSizerCancel = new wxButton( this, wxID_CANCEL );
 	buttonSizer->AddButton( buttonSizerCancel );
 	buttonSizer->Realize();
+	
 	mainSizer->Add( buttonSizer, 0, wxEXPAND|wxALIGN_RIGHT|wxBOTTOM|wxRIGHT, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1560,6 +1577,7 @@ _SynchronizeDialog::_SynchronizeDialog( wxWindow* parent, wxWindowID id, const w
 	
 	compareSizer->Add( m_scintillaOriginal, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
+	
 	mainSizer->Add( compareSizer, 1, wxEXPAND, 5 );
 	
 	buttonSizer = new wxStdDialogButtonSizer();
@@ -1568,7 +1586,9 @@ _SynchronizeDialog::_SynchronizeDialog( wxWindow* parent, wxWindowID id, const w
 	buttonSizerCancel = new wxButton( this, wxID_CANCEL );
 	buttonSizer->AddButton( buttonSizerCancel );
 	buttonSizer->Realize();
+	
 	mainSizer->Add( buttonSizer, 0, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1603,8 +1623,6 @@ _GroupDialog::_GroupDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 3 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1636,6 +1654,7 @@ _GroupDialog::_GroupDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	m_colourPicker = new wxColourPickerCtrl( m_pageAdv, wxID_ANY, wxColour( 200, 255, 200 ), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
 	groupSizer->Add( m_colourPicker, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
+	
 	m_pageAdv->SetSizer( groupSizer );
 	m_pageAdv->Layout();
 	groupSizer->Fit( m_pageAdv );
@@ -1649,9 +1668,15 @@ _GroupDialog::_GroupDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 1 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 3 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
