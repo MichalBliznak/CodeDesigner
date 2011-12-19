@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec  2 2011)
+// C++ code generated with wxFormBuilder (version Dec 13 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -43,6 +43,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	m_buttonRemoveFiles = new wxButton( m_panelFiles, IDB_REMOVEFILES, wxT("Remove selected"), wxDefaultPosition, wxDefaultSize, 0 );
 	buttonSizer->Add( m_buttonRemoveFiles, 1, wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
+	
 	panelSizerFiles->Add( buttonSizer, 0, wxEXPAND, 5 );
 	
 	wxArrayString m_checkListFilesChoices;
@@ -63,8 +64,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	menuFilesRemoveAllFiles = new wxMenuItem( m_menuFiles, IDM_FILES_REMOVE_ALL, wxString( wxT("Remove all files") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuFiles->Append( menuFilesRemoveAllFiles );
 	
-	wxMenuItem* m_separator2;
-	m_separator2 = m_menuFiles->AppendSeparator();
+	m_menuFiles->AppendSeparator();
 	
 	wxMenuItem* menuFilesSelectAll;
 	menuFilesSelectAll = new wxMenuItem( m_menuFiles, IDM_FILES_SELECTALL, wxString( wxT("Select all") ) , wxEmptyString, wxITEM_NORMAL );
@@ -74,8 +74,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	menuFilesDeselectAll = new wxMenuItem( m_menuFiles, IDM_FILES_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuFiles->Append( menuFilesDeselectAll );
 	
-	wxMenuItem* m_separator1;
-	m_separator1 = m_menuFiles->AppendSeparator();
+	m_menuFiles->AppendSeparator();
 	
 	wxMenuItem* menuFilesCheckAll;
 	menuFilesCheckAll = new wxMenuItem( m_menuFiles, IDM_FILES_CHECKALL, wxString( wxT("Check all") ) , wxEmptyString, wxITEM_NORMAL );
@@ -101,6 +100,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	m_buttonParse = new wxButton( m_panelFiles, IDB_PARSE, wxT("Parse checked files"), wxDefaultPosition, wxDefaultSize, 0 );
 	panelSizerFiles->Add( m_buttonParse, 1, wxALL|wxEXPAND, 5 );
+	
 	
 	m_panelFiles->SetSizer( panelSizerFiles );
 	m_panelFiles->Layout();
@@ -144,8 +144,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	menuSymbolsClassDiagram = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_IMPORT, wxString( wxT("Import selected symbols") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menuSymbols->Append( menuSymbolsClassDiagram );
 	
-	wxMenuItem* m_separator3;
-	m_separator3 = m_menuSymbols->AppendSeparator();
+	m_menuSymbols->AppendSeparator();
 	
 	wxMenuItem* menuSymbolsRemoveAll;
 	menuSymbolsRemoveAll = new wxMenuItem( m_menuSymbols, IDM_SYMBOLS_REMOVE_ALL, wxString( wxT("Remove all symbols") ) , wxEmptyString, wxITEM_NORMAL );
@@ -155,11 +154,13 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	panelSizerSymbols->Add( m_treeSymbols, 1, wxEXPAND|wxTOP|wxBOTTOM, 5 );
 	
+	
 	m_panelSymbols->SetSizer( panelSizerSymbols );
 	m_panelSymbols->Layout();
 	panelSizerSymbols->Fit( m_panelSymbols );
 	m_splitter->SplitHorizontally( m_panelFiles, m_panelSymbols, 0 );
 	mainSizer->Add( m_splitter, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -206,4 +207,6 @@ _RevEngPanel::~_RevEngPanel()
 	this->Disconnect( IDM_SYMBOLS_IMPORT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Disconnect( IDM_SYMBOLS_REMOVE_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 	
+	delete m_menuFiles; 
+	delete m_menuSymbols; 
 }

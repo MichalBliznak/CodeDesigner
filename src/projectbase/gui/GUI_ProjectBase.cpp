@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 12 2011)
+// C++ code generated with wxFormBuilder (version Dec 13 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -698,7 +698,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	m_pageAdv = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* dataTypeSizer;
-	dataTypeSizer = new wxFlexGridSizer( 3, 2, 0, 0 );
+	dataTypeSizer = new wxFlexGridSizer( 4, 2, 0, 0 );
 	dataTypeSizer->AddGrowableCol( 1 );
 	dataTypeSizer->SetFlexibleDirection( wxBOTH );
 	dataTypeSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );

@@ -159,7 +159,7 @@ void udPluginManager::LoadPlugins()
 	{
 		wxString sFileName( arrPluginNames[i] );
 		
-		#ifndef __WXDEBUG__
+		#ifndef DEBUG
 		if( sFileName.Contains( wxT("_d.") + ext ) ) continue;
 		#endif
 

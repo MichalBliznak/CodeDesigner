@@ -1,5 +1,7 @@
 #include "RevEngPanel.h"
 
+#include <wx/regex.h>
+
 umlClassItem* udRevEngPanel::CreateClassElement(wxTreeItemId classId)
 {
 	ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( classId );
@@ -432,13 +434,21 @@ wxString udRevEngPanel::GetDataType(udCTAGS* ctag, bool decorations )
 {
 	wxString dataType;
 	
+	wxString name = ctag->m_Name;
+	
+	wxRegEx reName( wxT(" .*::") + name );
+	if( reName.IsValid() && reName.Matches( ctag->m_Pattern ) )
+	{
+		name = reName.GetMatch( ctag->m_Pattern );
+	}
+	
 	if( m_LangType == udCTAGS::ltCPP )
 	{
 		int namePos = wxNOT_FOUND;
 		
 		if( ctag->m_Type == udCTAGS::ttCLASS_MEMBER )
 		{
-			namePos = ctag->m_Pattern.Find( ctag->m_Name );
+			namePos = ctag->m_Pattern.Find( name );
 		}
 		else if( ctag->m_Type == udCTAGS::ttCLASS_FUNCTION )
 		{
@@ -447,10 +457,10 @@ wxString udRevEngPanel::GetDataType(udCTAGS* ctag, bool decorations )
 				namePos = ctag->m_Pattern.Find( ((ctagClassFunction*)ctag)->m_ParentClass );
 			}
 			else
-				namePos = ctag->m_Pattern.Find( ctag->m_Name );
+				namePos = ctag->m_Pattern.Find( name );
 		}
 		else
-			namePos = ctag->m_Pattern.Find( ctag->m_Name );
+			namePos = ctag->m_Pattern.Find( name );
 			
 		if( namePos != wxNOT_FOUND ) dataType = ctag->m_Pattern.Mid(0, namePos);
 

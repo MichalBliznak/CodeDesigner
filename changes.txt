@@ -1,3 +1,7 @@
+Changes in version 1.5.3 beta (2011-12-18):
+------------------------------------------------
+- Fixed parsing of variable name if namespace is used (for example in static class members).
+
 Changes in version 1.5.2 beta (2011-12-17):
 ------------------------------------------------
 - Available as a Debian/Ubuntu package.

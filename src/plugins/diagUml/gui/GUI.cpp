@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 26 2011)
+// C++ code generated with wxFormBuilder (version Dec 13 2011)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -20,8 +20,6 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -37,6 +35,7 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -58,6 +57,7 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	m_cbInline = new wxCheckBox( m_pageAdv, wxID_ANY, wxT("Inline code"), wxDefaultPosition, wxDefaultSize, 0 );
 	advSizer->Add( m_cbInline, 0, wxALL, 5 );
+	
 	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
@@ -108,6 +108,7 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	editorSizer->Add( m_sciEditor, 1, wxEXPAND | wxALL, 5 );
 	
+	
 	m_pageEditor->SetSizer( editorSizer );
 	m_pageEditor->Layout();
 	editorSizer->Fit( m_pageEditor );
@@ -121,9 +122,15 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -157,8 +164,6 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -174,6 +179,7 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -208,6 +214,7 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	
 	advSizer->Add( m_chType, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -257,6 +264,7 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	
 	editorSizer->Add( m_sciEditor, 1, wxEXPAND | wxALL, 5 );
 	
+	
 	m_pageEditor->SetSizer( editorSizer );
 	m_pageEditor->Layout();
 	editorSizer->Fit( m_pageEditor );
@@ -270,9 +278,15 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -306,8 +320,6 @@ _EventDialog::_EventDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -323,6 +335,7 @@ _EventDialog::_EventDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -352,6 +365,7 @@ _EventDialog::_EventDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	m_chEventType->SetSelection( 0 );
 	advSizer->Add( m_chEventType, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -365,9 +379,15 @@ _EventDialog::_EventDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -403,8 +423,6 @@ _ActionLinkDialog::_ActionLinkDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 3 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -427,6 +445,7 @@ _ActionLinkDialog::_ActionLinkDialog( wxWindow* parent, wxWindowID id, const wxS
 	btnEditOrig = new wxButton( this, wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
 	originalSizer->Add( btnEditOrig, 0, wxRIGHT|wxLEFT, 5 );
 	
+	
 	controlSizer->Add( originalSizer, wxGBPosition( 2, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	m_pNotebook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
@@ -448,6 +467,7 @@ _ActionLinkDialog::_ActionLinkDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	advSizer->Add( m_chType, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -458,6 +478,7 @@ _ActionLinkDialog::_ActionLinkDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	m_pgParams = new wxPropertyGrid(m_pageParametersMap, IDC_TRANSDLG_PROPGRID, wxDefaultPosition, wxDefaultSize, wxPG_BOLD_MODIFIED|wxPG_DEFAULT_STYLE);
 	paramSizer->Add( m_pgParams, 1, wxEXPAND | wxALL, 5 );
+	
 	
 	m_pageParametersMap->SetSizer( paramSizer );
 	m_pageParametersMap->Layout();
@@ -472,9 +493,15 @@ _ActionLinkDialog::_ActionLinkDialog( wxWindow* parent, wxWindowID id, const wxS
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 4, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 3 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -505,8 +532,6 @@ _ClassMemberLinkDialog::_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id,
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 3 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -529,6 +554,7 @@ _ClassMemberLinkDialog::_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id,
 	btnEditOrig = new wxButton( this, wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
 	originalSizer->Add( btnEditOrig, 0, wxRIGHT|wxLEFT, 5 );
 	
+	
 	controlSizer->Add( originalSizer, wxGBPosition( 2, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	m_pNotebook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
@@ -550,6 +576,7 @@ _ClassMemberLinkDialog::_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id,
 	
 	advSizer->Add( m_chType, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -563,9 +590,15 @@ _ClassMemberLinkDialog::_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id,
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 4, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 3 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -596,8 +629,6 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -613,6 +644,7 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -651,6 +683,7 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_spinPriority = new wxSpinCtrl( m_pageCondition, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 1, 255, 255 );
 	conditionSizer->Add( m_spinPriority, 0, wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
+	
 	m_pageCondition->SetSizer( conditionSizer );
 	m_pageCondition->Layout();
 	conditionSizer->Fit( m_pageCondition );
@@ -688,8 +721,7 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	#endif
 	m_menuUsed->Append( menuUsedDeselectAll );
 	
-	wxMenuItem* m_separator15;
-	m_separator15 = m_menuUsed->AppendSeparator();
+	m_menuUsed->AppendSeparator();
 	
 	wxMenuItem* menuUsedClearAll;
 	menuUsedClearAll = new wxMenuItem( m_menuUsed, IDM_TRANS_REMOVEALL, wxString( wxT("Remove all") ) , wxEmptyString, wxITEM_NORMAL );
@@ -698,6 +730,7 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_listUsed->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( _TransitionDialog::m_listUsedOnContextMenu ), NULL, this ); 
 	
 	usedSizer->Add( m_listUsed, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	
 	
 	actionsSizer->Add( usedSizer, 1, wxEXPAND, 5 );
 	
@@ -721,6 +754,7 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	
 	operationsSizer->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	
 	actionsSizer->Add( operationsSizer, 1, wxEXPAND, 5 );
 	
@@ -747,7 +781,9 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	availableSizer->Add( m_listAvailable, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
+	
 	actionsSizer->Add( availableSizer, 1, wxEXPAND, 5 );
+	
 	
 	m_pageActions->SetSizer( actionsSizer );
 	m_pageActions->Layout();
@@ -762,9 +798,15 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -828,8 +870,6 @@ _FinalStateDialog::_FinalStateDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -845,6 +885,7 @@ _FinalStateDialog::_FinalStateDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -877,7 +918,9 @@ _FinalStateDialog::_FinalStateDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_btnDefault = new wxButton( m_pageAdv, wxID_ANY, wxT("Default"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer51->Add( m_btnDefault, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
+	
 	advSizer->Add( bSizer51, 0, wxEXPAND, 5 );
+	
 	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
@@ -892,9 +935,15 @@ _FinalStateDialog::_FinalStateDialog( wxWindow* parent, wxWindowID id, const wxS
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -930,8 +979,6 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -947,6 +994,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -996,8 +1044,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	#endif
 	m_menuUsed->Append( menuUsedDeselectAll );
 	
-	wxMenuItem* m_separator15;
-	m_separator15 = m_menuUsed->AppendSeparator();
+	m_menuUsed->AppendSeparator();
 	
 	wxMenuItem* menuUsedClearAll;
 	menuUsedClearAll = new wxMenuItem( m_menuUsed, IDM_TRANS_REMOVEALL, wxString( wxT("Remove all") ) , wxEmptyString, wxITEM_NORMAL );
@@ -1006,6 +1053,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	m_listUsedEntry->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( _CompStateDialog::m_listUsedEntryOnContextMenu ), NULL, this ); 
 	
 	bSizer64->Add( m_listUsedEntry, 1, wxEXPAND, 5 );
+	
 	
 	m_pageEntry->SetSizer( bSizer64 );
 	m_pageEntry->Layout();
@@ -1032,8 +1080,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	#endif
 	m_menuUsedExit->Append( menuUsedDeselectAllExit );
 	
-	wxMenuItem* m_separator151;
-	m_separator151 = m_menuUsedExit->AppendSeparator();
+	m_menuUsedExit->AppendSeparator();
 	
 	wxMenuItem* menuUsedClearAllExit;
 	menuUsedClearAllExit = new wxMenuItem( m_menuUsedExit, IDM_TRANS_REMOVEALL, wxString( wxT("Remove all") ) , wxEmptyString, wxITEM_NORMAL );
@@ -1043,12 +1090,14 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	bSizer65->Add( m_listUsedExit, 1, wxEXPAND, 5 );
 	
+	
 	m_pageExit->SetSizer( bSizer65 );
 	m_pageExit->Layout();
 	bSizer65->Fit( m_pageExit );
 	m_notebookActions->AddPage( m_pageExit, wxT("Exit"), false );
 	
 	usedSizer->Add( m_notebookActions, 1, wxEXPAND | wxALL, 5 );
+	
 	
 	actionsSizer->Add( usedSizer, 1, wxEXPAND, 5 );
 	
@@ -1072,6 +1121,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	
 	operationsSizer->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	
 	actionsSizer->Add( operationsSizer, 1, wxEXPAND, 5 );
 	
@@ -1098,7 +1148,9 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	
 	availableSizer->Add( m_listAvailable, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
+	
 	actionsSizer->Add( availableSizer, 1, wxEXPAND, 5 );
+	
 	
 	m_pageActions->SetSizer( actionsSizer );
 	m_pageActions->Layout();
@@ -1113,9 +1165,15 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1184,8 +1242,6 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1201,6 +1257,7 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -1242,6 +1299,7 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	m_chFcnModifier->SetSelection( 0 );
 	advSizer->Add( m_chFcnModifier, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -1252,8 +1310,6 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	
 	wxGridBagSizer* gbSizer;
 	gbSizer = new wxGridBagSizer( 0, 0 );
-	gbSizer->AddGrowableCol( 0 );
-	gbSizer->AddGrowableRow( 4 );
 	gbSizer->SetFlexibleDirection( wxBOTH );
 	gbSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1275,7 +1331,12 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	m_btnMoveDown = new wxButton( m_pageParams, wxID_ANY, wxT("Move down"), wxDefaultPosition, wxDefaultSize, 0 );
 	gbSizer->Add( m_btnMoveDown, wxGBPosition( 4, 1 ), wxGBSpan( 1, 1 ), wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
+	
+	gbSizer->AddGrowableCol( 0 );
+	gbSizer->AddGrowableRow( 4 );
+	
 	paramsSizer->Add( gbSizer, 1, wxEXPAND, 5 );
+	
 	
 	m_pageParams->SetSizer( paramsSizer );
 	m_pageParams->Layout();
@@ -1306,7 +1367,9 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	m_pgParams = new wxPropertyGrid(m_pageBases, IDC_TRANSDLG_PROPGRID, wxDefaultPosition, wxDefaultSize, wxPG_BOLD_MODIFIED|wxPG_DEFAULT_STYLE);
 	callParamsSizer->Add( m_pgParams, 1, wxEXPAND | wxALL, 5 );
 	
+	
 	basesSizer->Add( callParamsSizer, 1, wxEXPAND, 5 );
+	
 	
 	m_pageBases->SetSizer( basesSizer );
 	m_pageBases->Layout();
@@ -1357,6 +1420,7 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	
 	editorSizer->Add( m_sciEditor, 1, wxEXPAND|wxALL, 5 );
 	
+	
 	m_pageEditor->SetSizer( editorSizer );
 	m_pageEditor->Layout();
 	editorSizer->Fit( m_pageEditor );
@@ -1370,9 +1434,15 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1435,8 +1505,6 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1452,6 +1520,7 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -1492,6 +1561,7 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_chFcnModifier = new wxChoice( m_pageAdv, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_chFcnModifierChoices, 0 );
 	m_chFcnModifier->SetSelection( 0 );
 	advSizer->Add( m_chFcnModifier, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	
 	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
@@ -1542,6 +1612,7 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	
 	editorSizer->Add( m_sciEditor, 1, wxEXPAND|wxALL, 5 );
 	
+	
 	m_pageEditor->SetSizer( editorSizer );
 	m_pageEditor->Layout();
 	editorSizer->Fit( m_pageEditor );
@@ -1555,9 +1626,15 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1613,6 +1690,7 @@ _RenameVirtualDialog::_RenameVirtualDialog( wxWindow* parent, wxWindowID id, con
 	m_chbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_chbMakeValid, 0, wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_CENTER_VERTICAL, 5 );
 	
+	
 	mainSizer->Add( nameSizer, 0, wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* renameSizer;
@@ -1636,6 +1714,7 @@ _RenameVirtualDialog::_RenameVirtualDialog( wxWindow* parent, wxWindowID id, con
 	
 	renameSizer->Add( m_checkListCandidates, 1, wxALL|wxEXPAND, 5 );
 	
+	
 	mainSizer->Add( renameSizer, 0, wxEXPAND|wxALL, 5 );
 	
 	buttonSizer = new wxStdDialogButtonSizer();
@@ -1644,7 +1723,9 @@ _RenameVirtualDialog::_RenameVirtualDialog( wxWindow* parent, wxWindowID id, con
 	buttonSizerCancel = new wxButton( this, wxID_CANCEL );
 	buttonSizer->AddButton( buttonSizerCancel );
 	buttonSizer->Realize();
+	
 	mainSizer->Add( buttonSizer, 1, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1681,8 +1762,6 @@ _ClassTemplateDialog::_ClassTemplateDialog( wxWindow* parent, wxWindowID id, con
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1698,6 +1777,7 @@ _ClassTemplateDialog::_ClassTemplateDialog( wxWindow* parent, wxWindowID id, con
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -1727,7 +1807,9 @@ _ClassTemplateDialog::_ClassTemplateDialog( wxWindow* parent, wxWindowID id, con
 	m_txtTemplateName = new wxTextCtrl( m_pageTempl, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	templateSizer->Add( m_txtTemplateName, 1, wxALL, 5 );
 	
+	
 	advSizer->Add( templateSizer, 0, wxEXPAND, 5 );
+	
 	
 	m_pageTempl->SetSizer( advSizer );
 	m_pageTempl->Layout();
@@ -1742,9 +1824,15 @@ _ClassTemplateDialog::_ClassTemplateDialog( wxWindow* parent, wxWindowID id, con
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1808,6 +1896,7 @@ _ClassInstanceDialog::_ClassInstanceDialog( wxWindow* parent, wxWindowID id, con
 	m_choiceType->SetSelection( 0 );
 	itemSizer->Add( m_choiceType, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	mainSizer->Add( itemSizer, 1, wxEXPAND, 5 );
 	
 	m_staticline1 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
@@ -1817,7 +1906,9 @@ _ClassInstanceDialog::_ClassInstanceDialog( wxWindow* parent, wxWindowID id, con
 	m_sdbSizer13OK = new wxButton( this, wxID_OK );
 	m_sdbSizer13->AddButton( m_sdbSizer13OK );
 	m_sdbSizer13->Realize();
+	
 	mainSizer->Add( m_sdbSizer13, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1847,8 +1938,6 @@ _EnumElementDialog::_EnumElementDialog( wxWindow* parent, wxWindowID id, const w
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1864,6 +1953,7 @@ _EnumElementDialog::_EnumElementDialog( wxWindow* parent, wxWindowID id, const w
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -1890,6 +1980,7 @@ _EnumElementDialog::_EnumElementDialog( wxWindow* parent, wxWindowID id, const w
 	m_eValue = new wxTextCtrl( m_pageAdv, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	advSizer->Add( m_eValue, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -1903,9 +1994,15 @@ _EnumElementDialog::_EnumElementDialog( wxWindow* parent, wxWindowID id, const w
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -1939,8 +2036,6 @@ _EnumDialog::_EnumDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1956,6 +2051,7 @@ _EnumDialog::_EnumDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -1982,6 +2078,7 @@ _EnumDialog::_EnumDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_eInstName = new wxTextCtrl( m_pageAdv, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	advSizer->Add( m_eInstName, 0, wxALL|wxEXPAND, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -1995,9 +2092,15 @@ _EnumDialog::_EnumDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -2031,8 +2134,6 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -2048,6 +2149,7 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -2068,6 +2170,7 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	m_chbGenerate = new wxCheckBox( m_pageAdv, wxID_ANY, wxT("Generate code"), wxDefaultPosition, wxDefaultSize, 0 );
 	advSizer->Add( m_chbGenerate, 0, wxALL, 5 );
 	
+	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
 	advSizer->Fit( m_pageAdv );
@@ -2081,9 +2184,15 @@ _ClassDialog::_ClassDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
@@ -2117,8 +2226,6 @@ _AggregationDialog::_AggregationDialog( wxWindow* parent, wxWindowID id, const w
 	
 	wxGridBagSizer* controlSizer;
 	controlSizer = new wxGridBagSizer( 0, 0 );
-	controlSizer->AddGrowableCol( 0 );
-	controlSizer->AddGrowableRow( 4 );
 	controlSizer->SetFlexibleDirection( wxBOTH );
 	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -2134,6 +2241,7 @@ _AggregationDialog::_AggregationDialog( wxWindow* parent, wxWindowID id, const w
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
 	nameSizer->Add( m_cbMakeValid, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
 	
 	controlSizer->Add( nameSizer, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxEXPAND, 5 );
 	
@@ -2166,7 +2274,9 @@ _AggregationDialog::_AggregationDialog( wxWindow* parent, wxWindowID id, const w
 	m_chAccess->SetSelection( 0 );
 	bSizer63->Add( m_chAccess, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
+	
 	advSizer->Add( bSizer63, 1, wxEXPAND, 5 );
+	
 	
 	m_pageAdv->SetSizer( advSizer );
 	m_pageAdv->Layout();
@@ -2181,9 +2291,15 @@ _AggregationDialog::_AggregationDialog( wxWindow* parent, wxWindowID id, const w
 	bntSizerCancel = new wxButton( this, wxID_CANCEL );
 	bntSizer->AddButton( bntSizerCancel );
 	bntSizer->Realize();
+	
 	controlSizer->Add( bntSizer, wxGBPosition( 5, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 4 );
+	
 	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
