@@ -15,7 +15,7 @@ echo "Removing old temporary directory..."
 rm -rf $out
 mkdir $out
 
-if [ ! -f "../../output/bin/ctags" ];
+if [ ! -f "../../output/bin/codedesigner-ctags" ];
 then
 	echo "CTAGS utility doesn't exist in bin directory."
 	exit 1
