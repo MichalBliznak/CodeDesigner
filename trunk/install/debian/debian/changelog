@@ -1,3 +1,9 @@
+codedesigner (1.5.3-0ubuntu1) lucid; urgency=low
+
+  * Sync to upstream 1.5.3.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Mon, 19 Dec 2011 10:44:52 +0100
+
 codedesigner (1.5.2-0ubuntu1) lucid; urgency=low
 
   * Sync to upstream 1.5.2.
