@@ -1,3 +1,8 @@
+Changes in version 1.5.4 beta (2012-01-02):
+------------------------------------------------
+- Modified hierarchical state charts preprocessor: entry/exit actions aren't assigned to state-loop transitions (i.e. transitions
+  starting and ending in the same state).
+
 Changes in version 1.5.3 beta (2011-12-18):
 ------------------------------------------------
 - Fixed parsing of variable name if namespace is used (for example in static class members).
