@@ -163,7 +163,7 @@ void udGOTOAlgorithm::ProcessState(wxSFShapeBase *state)
 		while( node )
 		{
 			pNext = pDiagManager->FindShape( ((umlTransitionItem*)node->GetData())->GetTrgShapeId() );
-			if( m_lstProcessedElements.IndexOf( pNext ) == wxNOT_FOUND )
+			if( m_lstProcessedElements.IndexOf( pNext ) == wxNOT_FOUND && pNext != state )
 			{
 				m_pNextElement = pNext;
 				break;
