@@ -1436,10 +1436,13 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 
 void UMLDesignerFrame::OnExportDiagram( wxCommandEvent &event )
 {
-	wxFileDialog dlg(this, wxT("Export diagram to image..."), wxGetCwd(), wxT(""), wxT("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|(*.gif)|XPM Files (*.xpm)|*.xpm|PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg"), wxFD_SAVE);
+	static wxString dirpath = wxGetCwd();
+	wxFileDialog dlg(this, wxT("Export diagram to image..."), dirpath, wxT(""), wxT("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|(*.gif)|XPM Files (*.xpm)|*.xpm|PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg"), wxFD_SAVE);
 
 	if(dlg.ShowModal() == wxID_OK)
 	{
+		dirpath = dlg.GetDirectory();
+		
 		wxBitmapType type = wxBITMAP_TYPE_ANY;
 		
 		switch( dlg.GetFilterIndex() )

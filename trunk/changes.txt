@@ -4,6 +4,7 @@ Changes in version 1.5.4 beta (2012-01-04):
   starting and ending in the same state).
 - Fix in Go-To codegeneration algorithm (incorrect jump was generated in case of inverted condition 
   was used).
+- The last folder used for diagram's export is remembered.
 
 Changes in version 1.5.3 beta (2011-12-18):
 ------------------------------------------------
