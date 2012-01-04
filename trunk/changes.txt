@@ -2,8 +2,7 @@ Changes in version 1.5.4 beta (2012-01-04):
 ------------------------------------------------
 - Modified hierarchical state charts preprocessor: entry/exit actions aren't assigned to state-loop transitions (i.e. transitions
   starting and ending in the same state).
-- Fix in Go-To codegeneration algorithm (incorrect jump was generated in case of inverted condition 
-  was used).
+- Fix in Go-To codegeneration algorithm (incorrect jump was generated in case an inverted condition was used).
 - The last folder used for diagram's export is remembered.
 
 Changes in version 1.5.3 beta (2011-12-18):
