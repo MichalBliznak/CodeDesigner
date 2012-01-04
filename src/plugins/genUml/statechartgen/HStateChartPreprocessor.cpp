@@ -185,8 +185,8 @@ void udHStateChartPreprocessor::AssignStateActions(udDiagramItem* diag)
 	// check all states in the diagram wherher they include entry/exit actions and assign those actions to
 	// incomming/outcomming state's transitions.
 	
-	wxSFShapeBase *pState;
-	wxSFLineShape *pTrgShape;
+	wxSFShapeBase *pState, *pTrgShape;
+	wxSFLineShape *pTransShape;
 	udTransElementItem *pTransElement;
 	udStateActionLinkItem *pActionLink;
 
@@ -217,10 +217,10 @@ void udHStateChartPreprocessor::AssignStateActions(udDiagramItem* diag)
 				while( tnode )
 				{
 					pTransElement = (udTransElementItem*) tnode->GetData()->GetUserData();
-					// insert new copy of state action to this transition element
-					pTrgShape = (wxSFLineShape*) diag->GetDiagramManager().FindShape( ((umlTransitionItem*) tnode->GetData())->GetSrcShapeId() );
+					pTransShape = (wxSFLineShape*) tnode->GetData();
 					
-					if( pTrgShape->GetSrcShapeId() != pTrgShape->GetTrgShapeId() ) pTransElement->AddChild( (xsSerializable*) pActionLink->Clone() );
+					// insert new copy of state action to this transition element
+					if( pTransShape->GetSrcShapeId() != pTransShape->GetTrgShapeId() ) pTransElement->AddChild( (xsSerializable*) pActionLink->Clone() );
 					
 					tnode = tnode->GetNext();
 				}
@@ -231,11 +231,11 @@ void udHStateChartPreprocessor::AssignStateActions(udDiagramItem* diag)
 				while( tnode )
 				{
 					pTransElement = (udTransElementItem*) tnode->GetData()->GetUserData();
-					// insert new copy of state action to this transition element
-					pTrgShape = (wxSFLineShape*) diag->GetDiagramManager().FindShape( ((umlTransitionItem*) tnode->GetData())->GetTrgShapeId() );
+					pTransShape = (wxSFLineShape*) tnode->GetData();
+					pTrgShape = diag->GetDiagramManager().FindShape( ((umlTransitionItem*) tnode->GetData())->GetTrgShapeId() );
 					
 					// insert exit action to the top of the children list
-					if( !pTrgShape->IsDescendant( pState ) && ( pTrgShape->GetSrcShapeId() != pTrgShape->GetTrgShapeId() ) ) pTransElement->AddChild( (xsSerializable*) pActionLink->Clone() );
+					if( !pTrgShape->IsDescendant( pState ) && ( pTransShape->GetSrcShapeId() != pTransShape->GetTrgShapeId() ) ) pTransElement->AddChild( (xsSerializable*) pActionLink->Clone() );
 					
 					tnode = tnode->GetNext();
 				}
