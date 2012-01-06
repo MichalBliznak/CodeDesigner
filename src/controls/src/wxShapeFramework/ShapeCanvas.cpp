@@ -684,7 +684,7 @@ void wxSFShapeCanvas::OnLeftDown(wxMouseEvent& event)
 					
 					if( pSelectedShape->ContainsStyle( wxSFShapeBase::sfsPROPAGATE_SELECTION ) && pSelectedShape->GetParentShape() )
 					{
-						pSelectedShape->GetParentShape()->Select(true);
+						PropagateSelection( pSelectedShape, true );
 					}
 					else
 						pSelectedShape->Select(true);
@@ -2763,6 +2763,18 @@ void wxSFShapeCanvas::AlignSelected(HALIGN halign, VALIGN valign)
     }
 }
 
+void wxSFShapeCanvas::PropagateSelection(wxSFShapeBase* shape, bool selection)
+{
+	wxSFShapeBase *parent = shape->GetParentShape();
+	
+	if( parent && shape->ContainsStyle( wxSFShapeBase::sfsPROPAGATE_SELECTION ) )
+	{
+		parent->Select( selection );
+		
+		PropagateSelection( parent, selection );
+	}
+}
+
 //----------------------------------------------------------------------------------//
 // Clipboard and D&D functions
 //----------------------------------------------------------------------------------//
@@ -3224,7 +3236,7 @@ void wxSFShapeCanvas::PageMargins()
     (*g_pageSetupData) = pageMarginsDialog.GetPageSetupDialogData();
 }
 #endif 
-*/
+
 #ifdef __WXMAC__ 
 void wxSFShapeCanvas::PageMargins() 
 { 
@@ -3241,9 +3253,9 @@ void wxSFShapeCanvas::PageMargins()
 	pageMarginsDialog.ShowModal(); 
  
 	(*g_printData) = pageMarginsDialog.GetPageSetupDialogData().GetPrintData(); 
-	(*g_pageSetupData) = pageMarginsDialog.GetPageSetupDialogData(); 
+	(*g_pageSetupData) = pageMarginsDialog.GetPageSetupDialogData();
 } 
-#endif
+#endif */
 
 //----------------------------------------------------------------------------------//
 // wxSFCanvasDropTarget class
