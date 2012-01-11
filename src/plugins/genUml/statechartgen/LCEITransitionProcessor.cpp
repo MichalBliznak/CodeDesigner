@@ -54,7 +54,7 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
     pDiagManager->GetAssignedConnections(element, CLASSINFO(umlTransitionItem), wxSFShapeBase::lineSTARTING, lstTransitions);
 
 	// sort transitions
-	((udStateChartGenerator*)m_pParentGenerator)->SortTransitions(lstTransitions);
+	((udStateChartGenerator*)m_pParentGenerator)->SortTransitions(lstTransitions, sortDESC);
 
     ShapeList::compatibility_iterator node = lstTransitions.GetFirst();
     while(node)

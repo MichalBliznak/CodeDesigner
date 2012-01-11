@@ -151,13 +151,14 @@ void udGOTOAlgorithm::ProcessState(wxSFShapeBase *state)
     pDiagManager->GetAssignedConnections(state, CLASSINFO(umlTransitionItem), wxSFShapeBase::lineSTARTING, lstTransitions);
 
 	// sort transitions
-	((udStateChartGenerator*)m_pParentGenerator)->SortTransitions(lstTransitions);
+	((udStateChartGenerator*)m_pParentGenerator)->SortTransitions(lstTransitions, sortASC);
 	
 	// find next processed state
 	m_pNextElement = NULL;
 	
     if( !lstTransitions.IsEmpty() )
     {
+		// 
 		wxSFShapeBase *pNext;
 		ShapeList::compatibility_iterator node = lstTransitions.GetFirst();
 		while( node )

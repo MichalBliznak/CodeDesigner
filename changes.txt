@@ -6,6 +6,7 @@ Changes in version 1.5.4 beta (2012-01-11):
 - Fixed Go-To code generation algorithm where incorrect jump was generated in case an inverted condition was used.
 - Fixed Go-To code generation algorithm where history states were processed incorrectly.
 - Fixed optimization of hierarchical state chart containing history state.
+- Optimized jumps in Go-To algorithm.
 
 Changes in version 1.5.3 beta (2011-12-18):
 ------------------------------------------------
