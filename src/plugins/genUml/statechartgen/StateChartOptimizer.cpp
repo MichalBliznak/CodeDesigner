@@ -466,7 +466,7 @@ void udStateChartOptimizer::TrackBranch(wxSFShapeBase *state, wxSFLineShape *int
 					branch->Append(state);
 					m_lstBranches.Append(branch);
 				}
-				if((lstST.GetCount()>1)||(lstET.GetCount()>1))branch = NULL;
+				if((lstST.GetCount()>1)||(lstET.GetCount()>1)||state->IsKindOf(CLASSINFO(umlHistoryItem)))branch = NULL;
 			}
 			else
 				branch = NULL;

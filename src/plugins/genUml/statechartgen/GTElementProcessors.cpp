@@ -385,6 +385,7 @@ void udGTHistoryProcessor::ProcessElement(wxSFShapeBase *element)
 	
 	ShapeList lstTargets;
 	pParent->GetChildShapes( CLASSINFO( umlCompStateItem ), lstTargets );
+	pParent->GetChildShapes( CLASSINFO( umlSimpleStateItem ), lstTargets );
 	
 	ShapeList::compatibility_iterator node = lstTargets.GetFirst();
 	while( node )
