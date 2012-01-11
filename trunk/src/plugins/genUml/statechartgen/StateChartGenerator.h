@@ -3,6 +3,9 @@
 
 #include "projectbase/ProjectBase.h"
 
+#define sortDESC true
+#define sortASC false
+
 class WXDLLIMPEXP_CD udStateChartGenerator : public udGenerator
 {
 public:
@@ -12,7 +15,7 @@ public:
     virtual ~udStateChartGenerator();
 
 	// public functions
-	void SortTransitions(ShapeList &transitions);
+	void SortTransitions(ShapeList &transitions, bool desc = true);
 
 protected:
     // protected virtual functions

@@ -10,7 +10,7 @@ IMPLEMENT_DYNAMIC_CLASS(udStateChartGenerator, udGenerator);
 
 // static functions ////////////////////////////////////////////////////////////////////////////////////////
 
-int SortByPriority(const wxSFShapeBase **t1, const wxSFShapeBase **t2)
+int SortByPriorityDesc(const wxSFShapeBase **t1, const wxSFShapeBase **t2)
 {
 	wxSFShapeBase *pTrans1 = *(wxSFShapeBase**)t1;
 	wxSFShapeBase *pTrans2 = *(wxSFShapeBase**)t2;
@@ -24,6 +24,25 @@ int SortByPriority(const wxSFShapeBase **t1, const wxSFShapeBase **t2)
 		else if( !pElement2->HasCondition() && pElement1->HasCondition() ) return -1;
 		//else if( !pElement2->HasCondition() && !pElement1->HasCondition() ) return 0;
 		else return pElement1->GetPriority() - pElement2->GetPriority();
+	}
+	else
+		return 0;
+}
+
+int SortByPriorityAsc(const wxSFShapeBase **t1, const wxSFShapeBase **t2)
+{
+	wxSFShapeBase *pTrans1 = *(wxSFShapeBase**)t1;
+	wxSFShapeBase *pTrans2 = *(wxSFShapeBase**)t2;
+	
+	udTransElementItem *pElement1 = wxDynamicCast( pTrans1->GetUserData(), udTransElementItem );
+	udTransElementItem *pElement2 = wxDynamicCast( pTrans2->GetUserData(), udTransElementItem );
+	
+	if( pElement1 && pElement2 )
+	{
+		if( !pElement1->HasCondition() && pElement2->HasCondition() ) return -1;
+		else if( !pElement2->HasCondition() && pElement1->HasCondition() ) return 1;
+		//else if( !pElement2->HasCondition() && !pElement1->HasCondition() ) return 0;
+		else return pElement2->GetPriority() - pElement1->GetPriority();
 	}
 	else
 		return 0;
@@ -81,9 +100,11 @@ void udStateChartGenerator::CleanUp()
 	delete m_pOptimizer;
 }
 
-void udStateChartGenerator::SortTransitions(ShapeList &transitions)
+void udStateChartGenerator::SortTransitions(ShapeList &transitions, bool desc)
 {
-	transitions.Sort( SortByPriority );
+	if( desc ) transitions.Sort( SortByPriorityDesc );
+	else
+		 transitions.Sort( SortByPriorityAsc );
 }
 
 // protected functions /////////////////////////////////////////////////////////////////////////////////////
