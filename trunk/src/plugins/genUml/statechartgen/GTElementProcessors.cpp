@@ -372,13 +372,13 @@ void udGTHistoryProcessor::ProcessElement(wxSFShapeBase *element)
 	SerializableList::compatibility_iterator anode;
 
 	wxString sCondition, sJump;
-	bool fOmitLabel = ShouldOmitLabel(element);
+	// bool fOmitLabel = ShouldOmitLabel(element);
 	bool fActionExist;
 
     // create label statement
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 
-    if( !fOmitLabel )pLang->LabelCmd(m_pParentGenerator->MakeIDName(element) + wxT("_L"));
+    // if( !fOmitLabel )pLang->LabelCmd(m_pParentGenerator->MakeIDName(element) + wxT("_L"));
 	
 	// create direct jumps to all states managed by this history state
 	wxSFShapeBase *pTrg, *pParent = element->GetParentShape();
