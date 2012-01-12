@@ -225,20 +225,22 @@ bool udGTSimpleStateProcessor::ShouldOmitLabel(wxSFShapeBase *element)
 	wxSFShapeBase *pPrev = m_pParentGenerator->GetActiveAlgorithm()->GetPrevElement();
 	
 	wxSFShapeBase *pParent = element->GetParentShape();
-	if( pParent && pParent->GetFirstChild( CLASSINFO( umlHistoryItem ) ) ) return false;
+	if( pParent && pParent->GetFirstChild( CLASSINFO( umlHistoryItem ) ) && !element->IsKindOf( CLASSINFO(umlFinalItem) ) ) return false;
 	
 	pManager->GetAssignedConnections(element, CLASSINFO(umlTransitionItem), wxSFShapeBase::lineSTARTING, lstTrans);
 	if( lstTrans.IsEmpty() && !element->IsKindOf(CLASSINFO(umlFinalItem)) ) return false;
 	
 	lstTrans.Clear();
 	pManager->GetAssignedConnections(element, CLASSINFO(umlTransitionItem), wxSFShapeBase::lineENDING, lstTrans);
+	
+	((udStateChartGenerator*)m_pParentGenerator)->SortTransitions(lstTrans, sortASC);
 
 	wxSFLineShape *pTrans = NULL;
-	ShapeList::compatibility_iterator node = lstTrans.GetFirst();
+	ShapeList::compatibility_iterator node = lstTrans.GetLast();
 	while( node )
 	{
 		pTrans = (wxSFLineShape*)node->GetData();
-		if( node == lstTrans.GetFirst() )
+		if( node == lstTrans.GetLast() )
 		{
 			nPrevStateId = pTrans->GetSrcShapeId();
 		}
@@ -249,7 +251,7 @@ bool udGTSimpleStateProcessor::ShouldOmitLabel(wxSFShapeBase *element)
 				fOnlyOneSource = false;
 			}
 		}
-		node  = node->GetNext();
+		node  = node->GetPrevious();
 	}
 	
 	if( fOnlyOneSource )
