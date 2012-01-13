@@ -9,6 +9,7 @@ Changes in version 1.5.4 beta (2012-01-11):
 - Optimized jumps in Go-To algorithm.
 - Removed useless label generated for history state in Go-To algorithm.
 - "Add files" dialog in Reverse Engineering panel now remembers the last used directory.
+- Reverse Engineering: fixed import of data type when the variable name is a part of its data type name (e.g. int i).
 
 Changes in version 1.5.3 beta (2011-12-18):
 ------------------------------------------------
