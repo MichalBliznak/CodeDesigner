@@ -20,10 +20,13 @@ udRevEngPanel::~udRevEngPanel()
 
 void udRevEngPanel::OnAddFilesClick(wxCommandEvent& event)
 {
-	wxFileDialog dlg( m_checkListFiles, wxT("Choose source files"), wxT(""), wxT(""), wxT("Source files (*.*)|*.*"), wxFD_OPEN | wxFD_FILE_MUST_EXIST | wxFD_MULTIPLE );
+	static wxString dirpath = wxGetCwd();
+	wxFileDialog dlg( m_checkListFiles, wxT("Choose source files"), dirpath, wxT(""), wxT("Source files (*.*)|*.*"), wxFD_OPEN | wxFD_FILE_MUST_EXIST | wxFD_MULTIPLE );
 
 	if( dlg.ShowModal() == wxID_OK )
 	{
+		dirpath = dlg.GetDirectory();
+		
 		wxArrayString arrFiles;
 		dlg.GetPaths( arrFiles );
 

@@ -8,6 +8,7 @@ Changes in version 1.5.4 beta (2012-01-11):
 - Fixed optimization of hierarchical state chart containing history state.
 - Optimized jumps in Go-To algorithm.
 - Removed useless label generated for history state in Go-To algorithm.
+- "Add files" dialog in Reverse Engineering panel now remembers the last used directory.
 
 Changes in version 1.5.3 beta (2011-12-18):
 ------------------------------------------------
