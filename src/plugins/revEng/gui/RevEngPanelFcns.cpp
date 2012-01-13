@@ -435,11 +435,17 @@ wxString udRevEngPanel::GetDataType(udCTAGS* ctag, bool decorations )
 	wxString dataType;
 	
 	wxString name = ctag->m_Name;
+	wxString pattern = ctag->m_Pattern;
 	
-	wxRegEx reName( wxT(" .*::") + name );
-	if( reName.IsValid() && reName.Matches( ctag->m_Pattern ) )
+	wxRegEx reName;
+	if( reName.Compile( wxT(" .*::") + name ) && reName.Matches( pattern ) )
 	{
-		name = reName.GetMatch( ctag->m_Pattern );
+		name = reName.GetMatch( pattern );
+	}
+	else if( reName.Compile( wxT(" ") + name + wxT("$") ) && reName.Matches( pattern ) )
+	{
+		name += wxT(" ");
+		pattern += wxT(" ");
 	}
 	
 	if( m_LangType == udCTAGS::ltCPP )
@@ -448,21 +454,21 @@ wxString udRevEngPanel::GetDataType(udCTAGS* ctag, bool decorations )
 		
 		if( ctag->m_Type == udCTAGS::ttCLASS_MEMBER )
 		{
-			namePos = ctag->m_Pattern.Find( name );
+			namePos = pattern.Find( name );
 		}
 		else if( ctag->m_Type == udCTAGS::ttCLASS_FUNCTION )
 		{
-			if( ctag->m_Pattern.Contains( ((ctagClassFunction*)ctag)->m_ParentClass ) )
+			if( pattern.Contains( ((ctagClassFunction*)ctag)->m_ParentClass ) )
 			{
-				namePos = ctag->m_Pattern.Find( ((ctagClassFunction*)ctag)->m_ParentClass );
+				namePos = pattern.Find( ((ctagClassFunction*)ctag)->m_ParentClass );
 			}
 			else
-				namePos = ctag->m_Pattern.Find( name );
+				namePos = pattern.Find( name );
 		}
 		else
-			namePos = ctag->m_Pattern.Find( name );
+			namePos = pattern.Find( name );
 			
-		if( namePos != wxNOT_FOUND ) dataType = ctag->m_Pattern.Mid(0, namePos);
+		if( namePos != wxNOT_FOUND ) dataType = pattern.Mid(0, namePos);
 
 		if( !decorations )
 		{
