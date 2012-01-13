@@ -98,23 +98,23 @@ void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemI
 	
 	for( size_t i = 0; i < arrMembers.GetCount(); i++ )
 	{
-		udCTAGS* ctag = (udCTAGS*) m_treeSymbols->GetItemData( arrMembers[i] );
+		udCTAGS* mctag = (udCTAGS*) m_treeSymbols->GetItemData( arrMembers[i] );
 		
-		wxString memberName = ctag->m_Name;
+		wxString memberName = mctag->m_Name;
 		
 		// parse referenced class name
-		wxString targetName = wxT(" ") + GetDataType( ctag, udfWITHOUT_DECORATION ) + wxT(" ");
+		wxString targetName = wxT(" ") + GetDataType( mctag, udfWITHOUT_DECORATION ) + wxT(" ");
 		
 		for( size_t j = 0; j < arrClasses.GetCount(); j++ )
 		{
-			ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( arrClasses[j] );
+			ctagClass *cctag = (ctagClass*) m_treeSymbols->GetItemData( arrClasses[j] );
 			
-			// IPluginManager::Get()->Log( wxT("DEBUG: ") + targetName + wxT(" ?= ") + ctag->m_Name );
+			// IPluginManager::Get()->Log( wxT("DEBUG: ") + targetName + wxT(" ?= ") + cctag->m_Name );
 			
-			if( targetName.Contains( wxT(" ") + ctag->m_Name + wxT(" ") ) )
+			if( targetName.Contains( wxT(" ") + cctag->m_Name + wxT(" ") ) )
 			{
-				//udProjectItem *trgClass = udPROJECT::GetDiagramElement( diagram, ctag->m_Name );
-				udProjectItem *trgClass = m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ];
+				//udProjectItem *trgClass = udPROJECT::GetDiagramElement( diagram, cctag->m_Name );
+				udProjectItem *trgClass = m_mapProjectItems[ cctag->m_Namespace + wxT("::") + cctag->m_Name ];
 				
 				if( srcClass && trgClass )
 				{
@@ -125,7 +125,10 @@ void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemI
 					
 					connElement->SetName( wxT("Association element") );
 					udLABEL::SetContent( memberName, connection, udLABEL::ltASSOC_ROLE1 );
-					udLABEL::SetContent( wxT("[ ]"), connection, udLABEL::ltASSOC_MULT1 );
+					
+					if( mctag->m_Pattern.Contains( wxT("*") ) ) udLABEL::SetContent( wxT("0..1"), connection, udLABEL::ltASSOC_MULT1 );
+					else
+						udLABEL::SetContent( wxT("1"), connection, udLABEL::ltASSOC_MULT1 );
 					
 					connection->SetSrcShapeId( ((wxSFShapeBase*)srcClass->GetParent())->GetId() );
 					connection->SetTrgShapeId( ((wxSFShapeBase*)trgClass->GetParent())->GetId() );
