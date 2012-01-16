@@ -174,15 +174,15 @@ void udPyClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				
 				if( pFcn->GetImplementation() == uddvFUNCTION_USERIMPLEMENTATION )
 				{
-					if( pFcn->GetCode().IsEmpty() ) pLang->WriteCodeBlocks( pLang->Dummy() );
+					/*if( pFcn->GetCode().IsEmpty() ) pLang->WriteCodeBlocks( pLang->Dummy() );
 					else
-					{
+					{*/
 						pLang->SingleLineCommentCmd( udGenerator::GetBeginCodeMark( pFcn ) );
 						
 						pLang->WriteCodeBlocks( pFcn->GetCode() );
 						
 						pLang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pFcn ) );
-					}
+					/*}*/
 				}
 				else
 					pLang->WriteCodeBlocks( pFcn->ToString( udCodeItem::cfCALL, pLang) );
