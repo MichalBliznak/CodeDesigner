@@ -234,9 +234,9 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				
 				if( pFcn->IsKindOf( CLASSINFO(udConstructorFunctionItem) ) ) ProcessClassMembers( element );
 				
-				if( pFcn->GetCode().IsEmpty() ) pLang->WriteCodeBlocks( pLang->Dummy() );
+				/*if( pFcn->GetCode().IsEmpty() ) pLang->WriteCodeBlocks( pLang->Dummy() );
 				else
-				{
+				{*/
 					// insert code marks here needed for code synchronization
 					pLang->SingleLineCommentCmd( udGenerator::GetBeginCodeMark( pFcn ) );
 						
@@ -244,7 +244,7 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 					
 					pLang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pFcn ) );
 					
-				}
+				/*}*/
 					
 				pLang->EndCmd();
 				pLang->NewLine();

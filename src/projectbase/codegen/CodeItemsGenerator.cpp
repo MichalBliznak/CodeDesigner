@@ -158,16 +158,16 @@ bool udCodeItemsGenerator::GenerateCommonDefinition()
 					
 					m_pOutLang->WriteCodeBlocks( pCodeItem->ToString( udCodeItem::cfDEFINITION, m_pOutLang) );
 					m_pOutLang->BeginCmd();
-					if( pCodeItem->GetCode().IsEmpty() ) m_pOutLang->WriteCodeBlocks( m_pOutLang->Dummy() );
+					/*if( pCodeItem->GetCode().IsEmpty() ) m_pOutLang->WriteCodeBlocks( m_pOutLang->Dummy() );
 					else
-					{
+					{*/
 						// insert code marks here needed for code synchronization
 						m_pOutLang->SingleLineCommentCmd( udGenerator::GetBeginCodeMark( pCodeItem ) );
 						
 						m_pOutLang->WriteCodeBlocks( pCodeItem->GetCode() );
 						
 						m_pOutLang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pCodeItem ) );
-					}
+					/*}*/
 					m_pOutLang->EndCmd();
 				}
 			}
