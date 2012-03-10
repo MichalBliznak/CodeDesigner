@@ -176,8 +176,10 @@ IMPLEMENT_DYNAMIC_CLASS(udHiddenProjectCategory, udHiddenCategory);
 udHiddenProjectCategory::udHiddenProjectCategory()
 {
     m_sActiveLanguage = wxT("udCLanguage");
+	m_nProjectVersion = 1;
 	
     XS_SERIALIZE(m_sActiveLanguage, wxT("active_language"));
+    XS_SERIALIZE(m_nProjectVersion, wxT("project_version"));
 }
 
 udHiddenProjectCategory::~udHiddenProjectCategory()
