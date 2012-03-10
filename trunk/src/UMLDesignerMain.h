@@ -25,6 +25,7 @@
 #define udnUNKNOWN wxT("Unknown")
 
 #define udvID_OFFSET 500000
+#define udvPROJECT_VERSION 2
 
 #ifdef __WXMSW__
 #define udnIMG_SIZE 16

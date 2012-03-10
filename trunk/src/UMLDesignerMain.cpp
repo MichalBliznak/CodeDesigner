@@ -1345,19 +1345,51 @@ void UMLDesignerFrame::OpenProjectFile(const wxString& path)
 			
 			wxMessageBox(wxT("Unable to load the project file due to unsupported diagram types."), wxT("CodeDesigner"), wxOK | wxICON_WARNING);
 		}
-		
-		// update code items signatures
-		SerializableList lstCodeItems;
-		pProj->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
-		for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
+		else
 		{
-			((udCodeItem*)(*it))->UpdateSignature();
+			// do project update if needed
+			switch( pProj->GetSettings().GetProperty( wxT("project_version") )->AsLong() )
+			{
+				// 1 -> 2
+				case 1:
+				{
+					// update code items signatures
+					SerializableList lstCodeItems;
+					pProj->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
+					for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
+					{
+						((udCodeItem*)(*it))->UpdateSignature();
+					}
+					
+					// try to recover invalid links (import older projects)
+					SerializableList lstCodeLinks;
+					pProj->GetCodeLinks(udfINVALID, CLASSINFO(udCodeItem), wxT(""), wxT(""), lstCodeLinks );
+					
+					for( SerializableList::iterator it = lstCodeLinks.begin(); it != lstCodeLinks.end(); ++it )
+					{
+						udCodeLinkItem *lnk = (udCodeLinkItem*)*it;
+						for( SerializableList::iterator it2 = lstCodeItems.begin(); it2 != lstCodeItems.end(); ++it2 )
+						{
+							udCodeItem *ci = (udCodeItem*)*it2;
+							if( ci->GetName() == lnk->GetOrigCodeItem() )
+							{
+								lnk->SetOrigCodeItem( ci->GetSignature() );
+								break;
+							}
+						}
+					}
+					break;
+				}
+					
+				default:
+					break;
+			}
+			
+			// validate project items
+			pProj->CheckCodeLinks();
+			pProj->CheckElementLinks();
 		}
-		
-		// validate project items
-		pProj->CheckCodeLinks();
-		pProj->CheckElementLinks();
-				
+
 		EnableInternalEvents( true );
 		
 		wxGetApp().GetPluginManager().AppendPluginsSettings( udProject::Get()->GetSettings() );
@@ -1412,6 +1444,10 @@ void UMLDesignerFrame::OnSaveProject( wxCommandEvent &event )
 	
 	udProject *pProj = udProject::Get();
 	
+	// set current project version
+	pProj->GetSettings().GetProperty( wxT("project_version") )->AsLong() = udvPROJECT_VERSION;
+	
+	// save project
 	if( wxFileExists( pProj->GetProjectPath() ) )
 	{
 		pProj->SerializeToXml(  pProj->GetProjectPath(), true );

@@ -101,6 +101,7 @@ public:
 	
 	// public data members
 	wxString m_sActiveLanguage;
+	long m_nProjectVersion;
 };
 
 class udEditorCategory : public udSettingsCategory
