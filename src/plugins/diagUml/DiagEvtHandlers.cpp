@@ -107,14 +107,16 @@ void udUmlDiagramPlugin::OnAssignNewAction(wxCommandEvent& event)
 		// create relevant tree item
 		if( pAction )
 		{
+			pAction->UpdateSignature();
+			
 			// assign the link to selected transition
 			pParent->AssignCodeItem( new udActionLinkItem(pAction) );
 				
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
-			// edit new actions
 			pAction->OnEditItem( IPluginManager::Get()->GetMainFrame() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}
@@ -134,16 +136,18 @@ void udUmlDiagramPlugin::OnAssignNewCondition(wxCommandEvent& event)
 		// create relevant tree item
 		if( pCondition )
 		{
+			pCondition->UpdateSignature();
+			
 			// assign the link to selected transition
 			pParent->ClearCodeItems(CLASSINFO(udConditionItem));
 			pParent->ClearCodeItems(CLASSINFO(udEventItem));
 			pParent->AssignCodeItem( new udConditionLinkItem(pCondition) );
 
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pCondition, (udProjectItem*) pProj->GetRootItem() );
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
-			// edit new actions
 			pCondition->OnEditItem( IPluginManager::Get()->GetMainFrame() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}
@@ -163,16 +167,18 @@ void udUmlDiagramPlugin::OnAssignNewEvent(wxCommandEvent& event)
 		// create relevant tree item
 		if( pEvent )
 		{
+			pEvent->UpdateSignature();
+			
 			// assign the link to selected transition
 			pParent->ClearCodeItems(CLASSINFO(udConditionItem));
 			pParent->ClearCodeItems(CLASSINFO(udEventItem));
 			pParent->AssignCodeItem( new udEventLinkItem(pEvent) );
 				
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pEvent, (udProjectItem*) pProj->GetRootItem() );
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
-			// edit new actions
 			pEvent->OnEditItem( IPluginManager::Get()->GetMainFrame() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}
@@ -193,6 +199,7 @@ void udUmlDiagramPlugin::OnAssignNewFunction(wxCommandEvent& event)
 		if( pFcn )
 		{
 			pFcn->SetScope( pParent->GetName() );
+			pFcn->UpdateSignature();
 			
 			udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
@@ -201,9 +208,10 @@ void udUmlDiagramPlugin::OnAssignNewFunction(wxCommandEvent& event)
 			pParent->AssignCodeItem( new udMemberFunctionLinkItem(pFcn, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
 				
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
 			pFcn->OnEditItem( IPluginManager::Get()->GetMainFrame() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}
@@ -223,6 +231,8 @@ void udUmlDiagramPlugin::OnAssignNewStateAction(wxCommandEvent& event)
 		// create relevant tree item
 		if( pAction )
 		{
+			pAction->UpdateSignature();
+			
 			udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
 			
@@ -230,9 +240,9 @@ void udUmlDiagramPlugin::OnAssignNewStateAction(wxCommandEvent& event)
 			pParent->AssignCodeItem( new udStateActionLinkItem(pAction, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
 				
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
+			
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
-			// edit new actions
 			pAction->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
@@ -254,6 +264,7 @@ void udUmlDiagramPlugin::OnAssignNewVariable(wxCommandEvent& event)
 		if( pVar )
 		{
 			pVar->SetScope( pParent->GetName() );
+			pVar->UpdateSignature();
 			
 			udAccessTypeDialog dlg(IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
@@ -262,10 +273,10 @@ void udUmlDiagramPlugin::OnAssignNewVariable(wxCommandEvent& event)
 			pParent->AssignCodeItem( new udMemberDataLinkItem(pVar, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
 				
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pVar, (udProjectItem*)pProj->GetRootItem() );
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
-			
-			// edit new actions
+
 			pVar->OnEditItem( IPluginManager::Get()->GetMainFrame() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}
@@ -323,6 +334,7 @@ void udUmlDiagramPlugin::OnCreateConstructor(wxCommandEvent& event)
 		if( pFcn )
 		{
 			pFcn->SetScope( pParent->GetName() );
+			pFcn->UpdateSignature();
 			
 			udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
@@ -351,6 +363,7 @@ void udUmlDiagramPlugin::OnCreateDestructor(wxCommandEvent& event)
 		if( pFcn )
 		{
 			pFcn->SetScope( pParent->GetName() );
+			pFcn->UpdateSignature();
 			
 			udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();

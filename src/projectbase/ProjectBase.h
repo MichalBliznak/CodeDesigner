@@ -229,6 +229,9 @@ public:
 	bool GetInverted() const {return m_fInverted;}
 	bool IsInline() const {return m_fInline;}
 	const wxString& GetScope() const {return m_sScope;}
+	
+	void UpdateSignature();
+	const wxString& GetSignature() const { return m_sSignature; }
 
 	// public virtual functions
 	virtual wxString ToString(CODEFORMAT format, udLanguage *lang = NULL);
@@ -244,6 +247,7 @@ protected:
 	// protected data members
 	wxString m_sCode;
 	wxString m_sScope;
+	wxString m_sSignature;
 	bool m_fInverted;
 	bool m_fInline;
 	

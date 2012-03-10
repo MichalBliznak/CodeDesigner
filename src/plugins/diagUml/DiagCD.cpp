@@ -592,6 +592,8 @@ void udClassElementItem::AssignMemberCopy(udLinkItem* link)
 	udCodeItem *pNewItem = NULL;
 	udCodeItem *pOriginal = (udCodeItem*)link->GetOriginal();
 	
+	if( !pOriginal ) return;
+	
 	udLanguage::ACCESSTYPE nAccess = udLanguage::AT_PUBLIC;
 	
 	// try to retrieve access type
@@ -626,6 +628,7 @@ void udClassElementItem::AssignMemberCopy(udLinkItem* link)
 	}
 	
 	pNewItem->SetScope( GetName() );
+	pNewItem->UpdateSignature();
 	// reset id (so new one will be created later)
 	pNewItem->SetId( -1 );
 	
@@ -1173,7 +1176,7 @@ udMemberLinkItem::udMemberLinkItem()
 udMemberLinkItem::udMemberLinkItem(const udCodeItem *orig, udLanguage::ACCESSTYPE at )
 {
 	SetName( orig->GetName() );
-	SetOrigCodeItem( orig->GetName() );
+	SetOrigCodeItem( orig->GetSignature() );
 	SetScope( orig->GetScope() );
 	SetAccessType( at );
 	
@@ -1196,12 +1199,18 @@ udMemberLinkItem::~udMemberLinkItem()
 
 wxMenu* udMemberLinkItem::CreateMenu()
 {
-	wxMenu *pMenu = GetOriginal()->CreateMenu();
-	
-	pMenu->Insert(0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
-	pMenu->InsertSeparator(1);
-	
-	return pMenu;
+	udCodeItem* pOrig = wxDynamicCast( GetOriginal(), udCodeItem );
+	if( pOrig )
+	{
+		wxMenu *pMenu = GetOriginal()->CreateMenu();
+		
+		pMenu->Insert(0, wxID_ANY, wxT("Access"), CreateAccessMenu() );
+		pMenu->InsertSeparator(1);
+		
+		return pMenu;
+	}
+	else
+		return NULL;
 }
 
 udProjectItem* udMemberLinkItem::GetOriginal()
@@ -1223,7 +1232,7 @@ udProjectItem* udMemberLinkItem::GetOriginal()
 	while( node )
 	{
 		pCodeItem = (udCodeItem*)node->GetData();
-		if( (pCodeItem->GetName() == m_sOriginalCodeItem) &&
+		if( (pCodeItem->GetSignature() == m_sOriginalCodeItem) &&
 			(pCodeItem->GetScope() == m_sScope)	)
 		{
 			return pCodeItem;
@@ -1283,19 +1292,23 @@ wxString udMemberLinkItem::ToString(udCodeItem::CODEFORMAT format, udLanguage* l
 
 void udMemberLinkItem::OnEditItem(wxWindow* parent)
 {
-	udClassMemberLinkDialog dlg( parent, wxDynamicCast(GetOriginal(), udCodeItem), IPluginManager::Get()->GetSelectedLanguage() );
-	udWindowManager dlgman( dlg, wxT("member_link_dialog") );
-	
-	dlg.SetCodeName( m_sName );
-	dlg.SetAccessType( (int)m_nAccessType );
-	
-	if( dlg.ShowModal() == wxID_OK )
+	udCodeItem *pOrig = wxDynamicCast(GetOriginal(), udCodeItem);
+	if( pOrig )
 	{
-		m_nAccessType = (udLanguage::ACCESSTYPE) dlg.GetAccessType();
+		udClassMemberLinkDialog dlg( parent, pOrig, IPluginManager::Get()->GetSelectedLanguage() );
+		udWindowManager dlgman( dlg, wxT("member_link_dialog") );
 		
-		this->OnTreeTextChange( dlg.GetCodeName() );
+		dlg.SetCodeName( m_sName );
+		dlg.SetAccessType( (int)m_nAccessType );
 		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+		if( dlg.ShowModal() == wxID_OK )
+		{
+			m_nAccessType = (udLanguage::ACCESSTYPE) dlg.GetAccessType();
+			
+			this->OnTreeTextChange( dlg.GetCodeName() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+		}
 	}
 }
 

@@ -1,3 +1,9 @@
+Changes in version 1.5.5 beta (2012-03-10):
+------------------------------------------------
+- Fixed handling of overloaded class member functions.
+- Fixed crash occured when class element was pasted to the project where no original class members 
+  referenced by the class existed.
+
 Changes in version 1.5.4 beta (2012-01-1):
 ------------------------------------------------
 - Modified hierarchical state charts preprocessor: entry/exit actions aren't assigned to state-loop transitions (i.e. transitions

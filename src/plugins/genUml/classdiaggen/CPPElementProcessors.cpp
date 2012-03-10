@@ -196,7 +196,6 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 	udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 	
 	int nAccessType = 0;
-	wxClassInfo *pPrevType;
 	udFunctionItem *pFcn;
 	
 	SerializableList lstMembers;
@@ -204,7 +203,6 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 	while( pLang->GetAccessTypeString( (udLanguage::ACCESSTYPE) nAccessType ) != wxEmptyString )
 	{
 		lstMembers.Clear();
-		pPrevType = NULL;
 		
 		umlClassDiagram::GetClassMembers( (umlClassItem*) element, CLASSINFO(udMemberFunctionLinkItem), (udLanguage::ACCESSTYPE) nAccessType, lstMembers);
 		
@@ -249,8 +247,6 @@ void udCPPClassElementProcessor::ProcessClassDefinition(wxSFShapeBase* element)
 				pLang->EndCmd();
 				pLang->NewLine();
 			}
-			
-			pPrevType = (*it)->GetClassInfo();
 		}
 		
 		nAccessType++;

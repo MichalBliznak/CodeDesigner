@@ -297,7 +297,6 @@ bool udStateChartOptimizer::MergeDirectBranches(udDiagramItem *src)
 		wxSFShapeBase *pFirst, *pLast, *pState;
 		wxSFLineShape *pUpdatedTransition, *pTrans;
 		udTransElementItem *pUpdTransElement, *pTransElement;
-		udDiagElementItem *pStateElement;
 
 		// process all branches containing more than one state
 		BranchList::compatibility_iterator bnode = m_lstBranches.GetFirst();
@@ -323,7 +322,6 @@ bool udStateChartOptimizer::MergeDirectBranches(udDiagramItem *src)
 				while( snode && (snode != pBranch->GetLast()) )
 				{
 					pState = snode->GetData();
-					pStateElement = (udDiagElementItem*) udPROJECT::GetDiagramElement( pState );
 
 					// get outcomming transition
 					lstST.Clear();
