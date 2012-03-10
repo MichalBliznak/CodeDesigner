@@ -206,9 +206,6 @@ void umlClassItem::DrawNormal(wxDC& dc)
 {
     uddRectElement::DrawNormal(dc);
 
-    // draw title line
-    wxRect shapeBB = GetBoundingBox();
-
 	dc.SetPen(*wxBLACK_PEN);
 	
     DrawSeparators( dc );

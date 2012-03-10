@@ -1204,7 +1204,7 @@ void UMLDesignerFrame::OnProjectItemChanged(udProjectEvent& event)
 	{		
 		// update also children of this code items
 		SerializableList lstLinks;
-		udProject::Get()->GetCodeLinks( udfVALID, pCode->GetClassInfo(), pCode->GetName(), pCode->GetScope(), lstLinks );
+		udProject::Get()->GetCodeLinks( udfVALID, pCode->GetClassInfo(), pCode->GetSignature(), pCode->GetScope(), lstLinks );
 		
 		SerializableList::compatibility_iterator node = lstLinks.GetFirst();
 		while( node )
@@ -1313,7 +1313,10 @@ void UMLDesignerFrame::OpenProjectFile(const wxString& path)
 		pProj->CloseAllDiagrams();
 		InitializeProject(pProj);
 
-		((wxXmlSerializer*)pProj)->DeserializeFromXml( path );
+		if( !((wxXmlSerializer*)pProj)->DeserializeFromXml( path ) )
+		{
+			wxMessageBox( pProj->GetErrMessage(), wxT("CodeDesigner RAD"), wxICON_ERROR | wxOK );
+		}
 		
 		EnableInternalEvents( false );
 		
@@ -1342,6 +1345,18 @@ void UMLDesignerFrame::OpenProjectFile(const wxString& path)
 			
 			wxMessageBox(wxT("Unable to load the project file due to unsupported diagram types."), wxT("CodeDesigner"), wxOK | wxICON_WARNING);
 		}
+		
+		// update code items signatures
+		SerializableList lstCodeItems;
+		pProj->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
+		for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
+		{
+			((udCodeItem*)(*it))->UpdateSignature();
+		}
+		
+		// validate project items
+		pProj->CheckCodeLinks();
+		pProj->CheckElementLinks();
 				
 		EnableInternalEvents( true );
 		
@@ -1547,7 +1562,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.5.4.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.5.5.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams, code generation and reverse code engineering.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");

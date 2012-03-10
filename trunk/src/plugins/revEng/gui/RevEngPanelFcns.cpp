@@ -178,6 +178,8 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 		data->SetUserDeclPlace( udVariableItem::dlBUILTIN );
 		data->SetValue( GetDataValue( ctag ) );
 		
+		data->UpdateSignature();
+		
 		// assign link to the class
 		classItem->AssignCodeItem( new udMemberDataLinkItem( data, GetAccessType( ctag->m_Access ) ) );
 	}
@@ -259,6 +261,8 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 			data->AddChild( var );
 		}
 		
+		data->UpdateSignature();
+		
 		// assign link to the class
 		classItem->AssignCodeItem( new udMemberFunctionLinkItem( data, GetAccessType( ctag->m_Access ) ) );
 	}
@@ -316,6 +320,8 @@ void udRevEngPanel::CreateFunctions(wxTreeItemId fcnId)
 		
 		data->AddChild( var );
 	}
+	
+	data->UpdateSignature();
 }
 
 void udRevEngPanel::CreateVariables(wxTreeItemId varId)
@@ -349,6 +355,8 @@ void udRevEngPanel::CreateVariables(wxTreeItemId varId)
 	data->SetUserDataType( GetDataType( ctag, udfWITHOUT_DECORATION ) );
 	data->SetUserDeclPlace( udVariableItem::dlBUILTIN );
 	data->SetValue( GetDataValue( ctag ) );
+	
+	data->UpdateSignature();
 }
 
 umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)

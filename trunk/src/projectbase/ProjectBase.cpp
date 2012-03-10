@@ -474,7 +474,7 @@ udCodeLinkItem::udCodeLinkItem() : udAccessType()
 udCodeLinkItem::udCodeLinkItem(const udCodeItem *orig) : udAccessType()
 {
 	m_sName = orig->GetName();
-	m_sOriginalCodeItem = orig->GetName();
+	m_sOriginalCodeItem = orig->GetSignature();
 	m_fMustBeUnique = false;
 	m_sScope = orig->GetScope();
 	
@@ -501,7 +501,7 @@ udCodeLinkItem::~udCodeLinkItem()
 
 udProjectItem* udCodeLinkItem::GetOriginal()
 {
-	udProjectItem *pCodeItem;
+	udCodeItem *pCodeItem;
 	SerializableList lstCodeItems;
 	// get all code items...
 	IPluginManager::Get()->GetProject()->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
@@ -509,8 +509,8 @@ udProjectItem* udCodeLinkItem::GetOriginal()
 	SerializableList::compatibility_iterator node = lstCodeItems.GetFirst();
 	while( node )
 	{
-		pCodeItem = (udProjectItem*)node->GetData();
-		if( pCodeItem->GetName() == m_sOriginalCodeItem ) return pCodeItem;
+		pCodeItem = (udCodeItem*)node->GetData();
+		if( pCodeItem->GetSignature() == m_sOriginalCodeItem ) return pCodeItem;
 		
 		node = node->GetNext();
 	}
@@ -621,6 +621,7 @@ udCodeItem::udCodeItem()
 	m_fInline = false;
 	m_fInverted = false;
 	m_sScope = wxT("<global>");
+	m_sSignature = wxT("");
 	
 	AcceptSibbling(wxT("udGenericFunctionItem"));
 	AcceptSibbling(wxT("udGenericVariableItem"));
@@ -634,6 +635,7 @@ udCodeItem::udCodeItem()
 	
 	XS_SERIALIZE( m_sCode, wxT("code") );
 	XS_SERIALIZE( m_sScope, wxT("scope") );
+	XS_SERIALIZE( m_sSignature, wxT("signature") );
 }
 
 udCodeItem::udCodeItem(const udCodeItem &obj) : udProjectItem(obj)
@@ -642,9 +644,11 @@ udCodeItem::udCodeItem(const udCodeItem &obj) : udProjectItem(obj)
 	m_fInline = obj.m_fInline;
 	m_fInverted = obj.m_fInverted;
 	m_sScope = obj.m_sScope;
+	m_sSignature = obj.m_sSignature;
 	
 	XS_SERIALIZE( m_sCode, wxT("code") );
 	XS_SERIALIZE( m_sScope, wxT("scope") );
+	XS_SERIALIZE( m_sSignature, wxT("signature") );
 }
 
 udCodeItem::~udCodeItem()
@@ -742,41 +746,25 @@ void udCodeItem::OnTreeItemEndDrag(const wxPoint& pos)
 
 void udCodeItem::OnTreeTextChange(const wxString& txt)
 {
-	if( m_sName != txt )
+	wxString sPrevName = m_sName;
+	
+	udProjectItem::OnTreeTextChange( txt );
+	
+	// update linked items
+	SerializableList lstLinks;
+	IPluginManager::Get()->GetProject()->GetCodeLinks( udfVALID, GetClassInfo(), m_sSignature, m_sScope, lstLinks );
+	
+	UpdateSignature();
+	
+	SerializableList::compatibility_iterator node = lstLinks.GetFirst();
+	while( node )
 	{
-		udCodeLinkItem *pLink;
-		wxString sPrevName = m_sName;
+		udCodeLinkItem *pLink = (udCodeLinkItem*)node->GetData();
 		
-		// update linked items
-		SerializableList lstLinks;
-		IPluginManager::Get()->GetProject()->GetCodeLinks( udfVALID, GetClassInfo(), sPrevName, m_sScope, lstLinks );
+		if( pLink->GetName() == sPrevName ) pLink->OnTreeTextChange( txt );
+		pLink->SetOrigCodeItem( m_sSignature );
 		
-		SerializableList::compatibility_iterator node = lstLinks.GetFirst();
-		while( node )
-		{
-			pLink = (udCodeLinkItem*)node->GetData();
-			
-			if( pLink->GetName() == sPrevName ) pLink->OnTreeTextChange( txt );
-			pLink->SetOrigCodeItem( txt );
-			
-			node = node->GetNext();
-		}
-		
-		udProjectItem::OnTreeTextChange( txt );
-		
-		// updated specific code items
-		/*// update input actions
-		lstLinks.Clear();
-		udSStateChartDiagramItem *pDiag;
-		IPluginManager::Get()->GetProject()->GetDiagramsRecursively( CLASSINFO(udDiagramItem), lstLinks );
-		
-		node = lstLinks.GetFirst();
-		while( node )
-		{
-			pDiag = wxDynamicCast( node->GetData(), udSStateChartDiagramItem );
-			if( pDiag && pDiag->GetInputAction() == sPrevName ) pDiag->SetInputAction( txt );
-			node = node->GetNext();
-		}*/
+		node = node->GetNext();
 	}
 }
 
@@ -809,6 +797,19 @@ bool udCodeItem::DragCodeItem(udCodeLinkItem *link)
 	}
 
 	return true;
+}
+
+// public functions ////////////////////////////////////////////////////////////
+
+void udCodeItem::UpdateSignature()
+{
+	m_sSignature = m_sScope + wxT("::") + m_sName;
+	
+	for( SerializableList::const_iterator it = m_lstChildItems.begin(); it != m_lstChildItems.end(); ++it )
+	{
+		udCodeItem *ci = wxDynamicCast( *it, udCodeItem );
+		if( ci ) m_sSignature += wxT("<") + ci->GetName() + wxT(">");
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1165,11 +1166,6 @@ udFunctionItem::udFunctionItem()
 	m_sDescription = wxT("Function's descritpion...");
 	
 	AcceptChild(wxT("udParamItem"));
-	/*AcceptSibbling(wxT("udFunctionItem"));
-	AcceptSibbling(wxT("udVariableItem"));
-	AcceptSibbling(wxT("udActionItem"));
-	AcceptSibbling(wxT("udConditionItem"));
-	AcceptSibbling(wxT("udEventItem"));*/
 	
 	m_nRetValDataType = udLanguage::DT_VOID;
 	m_nRetValModifier = udLanguage::DM_NONE;
@@ -1180,7 +1176,7 @@ udFunctionItem::udFunctionItem()
 	m_sUserRetValDeclFile = wxT("");
 	m_nFcnModifier = udLanguage::FM_NONE;
 	m_sImplementation = uddvFUNCTION_USERIMPLEMENTATION;
-	
+
 	MarkSerializableDataMembers();
 }
 
