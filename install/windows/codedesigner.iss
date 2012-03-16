@@ -1,17 +1,17 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2012
 AppName=CodeDesigner RAD
-AppVerName=CodeDesigner RAD 1.5.4.2914 Beta (SVN: 276)
+AppVerName=CodeDesigner RAD 1.5.5.2946 Beta (SVN: 281)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner RAD
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.5.4.2914
+OutputBaseFilename=codedesigner-1.5.5.2946
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
 [Files]
-Source: ..\..\..\..\..\..\..\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Components: core
-Source: ..\..\..\..\..\..\..\wxWidgets-2.8.12\lib\gcc_dll\wxmsw28u_gcc.dll; DestDir: {app}; Components: core
+Source: C:\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets2.8\lib\gcc_dll\wxmsw28u_gcc.dll; DestDir: {app}; Components: core
 Source: ..\..\readme_bin.txt; DestDir: {app}; Components: core
 Source: ..\..\LICENSE.txt; DestDir: {app}; Components: core
 Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: samples
