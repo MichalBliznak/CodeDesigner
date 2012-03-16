@@ -105,6 +105,7 @@ public:
     inline const wxString& GetName() const {return m_sName;}
     inline const wxString& GetDescription() const {return m_sDescription;}
 
+    static wxString GetFormalDataTypeString(DATATYPE dt);
     wxString GetDataTypeString(DATATYPE dt) const;
     wxString GetModifierString(DATAMODIFIER modif) const;
     wxString GetModifierString(FCNMODIFIER modif) const;
@@ -210,6 +211,7 @@ protected:
     wxString m_sIndentStr;
     wxString m_sNewLineStr;
 
+    static wxArrayString m_arrFormalDataTypes;
     wxArrayString m_arrDataTypes;
     wxArrayString m_arrDataModifiers;
     wxArrayString m_arrFcnModifiers;
