@@ -1,4 +1,4 @@
-Changes in version 1.5.5 beta (2012-03-10):
+Changes in version 1.5.5 beta (2012-03-16):
 ------------------------------------------------
 - Fixed handling of overloaded class member functions.
 - Fixed crash occured when class element was pasted to the project where no original class members 

@@ -805,10 +805,17 @@ void udCodeItem::UpdateSignature()
 {
 	m_sSignature = m_sScope + wxT("::") + m_sName;
 	
+	wxString sDataType;
 	for( SerializableList::const_iterator it = m_lstChildItems.begin(); it != m_lstChildItems.end(); ++it )
 	{
-		udCodeItem *ci = wxDynamicCast( *it, udCodeItem );
-		if( ci ) m_sSignature += wxT("<") + ci->GetName() + wxT(">");
+		udVariableItem *ci = wxDynamicCast( *it, udVariableItem );
+		if( ci )
+		{
+			if( ci->GetDataType() == udLanguage::DT_USERDEFINED ) sDataType = ci->GetUserDataType();
+			else sDataType = udLanguage::GetFormalDataTypeString( ci->GetDataType() ) ;
+				
+			m_sSignature += wxT("<") + ci->GetName() + wxT(":") + sDataType + wxT(">");
+		}
 	}
 }
 
@@ -1000,7 +1007,7 @@ void udVariableItem::OnEditItem(wxWindow* parent)
 		m_sUserDeclFile = dlg.GetUserDeclFile();
 		m_nUserDeclPlace = dlg.GetUserDeclPlace();
 		
-		OnTreeTextChange( dlg.GetCodeName() );
+		this->OnTreeTextChange( dlg.GetCodeName() );
 		
 		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
 	}
@@ -1081,7 +1088,12 @@ void udParamItem::OnTreeTextChange(const wxString& txt)
 	udProjectItem::OnTreeTextChange( txt );
 	
 	// update parent function
-	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, (udProjectItem*)GetParent(), NULL, wxEmptyString, udfDELAYED );
+	udFunctionItem *parfcn = wxDynamicCast( GetParent(), udFunctionItem );
+	if( parfcn )
+	{
+		parfcn->OnTreeTextChange( parfcn->GetName() );
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, parfcn, NULL, wxEmptyString, udfDELAYED );
+	}
 }
 
 wxString udParamItem::ToString(CODEFORMAT format, udLanguage* lang)
@@ -1307,9 +1319,9 @@ void udFunctionItem::OnEditItem(wxWindow* parent)
 		m_sUserRetValDeclFile = dlg.GetUserDeclFile();
 		m_nUserRetValDeclPlace = dlg.GetUserDeclPlace();
 		m_sImplementation = dlg.GetImplementation();
-		
-		OnTreeTextChange( dlg.GetCodeName() );
 	}
+	
+	OnTreeTextChange( dlg.GetCodeName() );
 	
 	if( pDiag ) IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pDiag );
 	

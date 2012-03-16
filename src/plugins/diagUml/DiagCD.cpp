@@ -554,21 +554,34 @@ void udClassElementItem::UpdateMembers(const wxString& prevname, const wxString&
 	pProj->GetItems(CLASSINFO(udMemberDataItem), lstMembers);
 	for( SerializableList::iterator it = lstMembers.begin(); it != lstMembers.end(); ++it )
 	{
-		if( ((udMemberDataItem*)*it)->GetScope() == prevname ) ((udMemberDataItem*)*it)->SetScope( newname );
+		if( ((udMemberDataItem*)*it)->GetScope() == prevname )
+		{
+			((udMemberDataItem*)*it)->SetScope( newname );
+			((udMemberDataItem*)*it)->UpdateSignature();
+		}
 	}
 	
 	lstMembers.Clear();
 	pProj->GetItems(CLASSINFO(udMemberFunctionItem), lstMembers);
 	for( SerializableList::iterator it = lstMembers.begin(); it != lstMembers.end(); ++it )
 	{
-		if( ((udMemberFunctionItem*)*it)->GetScope() == prevname ) ((udMemberFunctionItem*)*it)->SetScope( newname );
+		if( ((udMemberFunctionItem*)*it)->GetScope() == prevname )
+		{
+			((udMemberFunctionItem*)*it)->SetScope( newname );
+			((udMemberFunctionItem*)*it)->UpdateSignature();
+		}
 	}
 	
 	// update links
+	wxString sSignature;
 	SerializableList::compatibility_iterator node = GetFirstChildNode();
 	while( node )
 	{
-		((udCodeLinkItem*) node->GetData())->SetScope( newname );
+		udCodeLinkItem *cl = (udCodeLinkItem*) node->GetData();
+		cl->SetScope( newname );
+		sSignature = cl->GetOrigCodeItem();
+		sSignature.Replace( prevname + wxT("::"), newname + wxT("::") );
+		cl->SetOrigCodeItem( sSignature );
 		node = node->GetNext();
 	}
 	

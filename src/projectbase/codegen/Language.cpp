@@ -6,8 +6,12 @@
 
 WX_DEFINE_OBJARRAY(ValueTypeArray);
 
+wxArrayString udLanguage::m_arrFormalDataTypes;
+
 udLanguage::udLanguage()
 {
+	static bool fInitFormalTypeNames = true;
+	
 	udSettings &Settings = IPluginManager::Get()->GetAppSettings();
 	
     m_sName = wxT("- Undefined language -");
@@ -35,6 +39,23 @@ udLanguage::udLanguage()
 	m_fHasUserDataType = true;
 	m_fHasSeparatedDecl = true;
 	m_fHasClasses = false;
+	
+	if( fInitFormalTypeNames )
+	{
+		m_arrFormalDataTypes.Add(wxT("<user-defined>"));
+		m_arrFormalDataTypes.Add(wxT("Bool"));
+		m_arrFormalDataTypes.Add(wxT("UInt8"));
+		m_arrFormalDataTypes.Add(wxT("UInt16"));
+		m_arrFormalDataTypes.Add(wxT("UInt32"));
+		m_arrFormalDataTypes.Add(wxT("Integer"));
+		m_arrFormalDataTypes.Add(wxT("Long"));
+		m_arrFormalDataTypes.Add(wxT("Real"));
+		m_arrFormalDataTypes.Add(wxT("BigReal"));
+		m_arrFormalDataTypes.Add(wxT("Char"));
+		m_arrFormalDataTypes.Add(wxT("Void"));
+		
+		fInitFormalTypeNames = false;
+	}
 }
 
 udLanguage::~udLanguage()
@@ -79,6 +100,16 @@ wxString udLanguage::GetDataTypeString(DATATYPE dt) const
     }
     else
         return m_arrDataTypes[(size_t)dt];
+}
+
+wxString udLanguage::GetFormalDataTypeString(DATATYPE dt)
+{
+    if( (size_t)dt >= m_arrFormalDataTypes.GetCount() )
+    {
+        return wxT("");
+    }
+    else
+        return m_arrFormalDataTypes[(size_t)dt];
 }
 
 udValueType udLanguage::GetValueType(VALUETYPE vt) const
