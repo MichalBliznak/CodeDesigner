@@ -1019,28 +1019,32 @@ wxString udVariableItem::GetDataTypeString(CODEFORMAT format, udLanguage *lang)
 {
 	if( lang )
 	{
-		if( m_nDataType != udLanguage::DT_USERDEFINED ) 
+		wxString sDataType, sDataTypeName;
+		
+		if( m_nDataType == udLanguage::DT_USERDEFINED )
 		{
-			wxString sDataType;
-			
-			switch( format )
-			{
-				case udCodeItem::cfFORMAL:
-				case udCodeItem::cfDECLARATION:
-					sDataType = GetModifierString( lang ) + wxT(" ") + lang->GetDataTypeString( m_nDataType ) + lang->GetValueType( m_nValueType ).Sign();
-					break;
-					
-				case udCodeItem::cfDEFINITION:
-					sDataType = lang->GetDataTypeString( m_nDataType ) + lang->GetValueType( m_nValueType ).Sign();
-					break;
-					
-				default:
-					break;
-			}
-			
-			return sDataType.Trim(false);
+			if( lang->HasUserDataType() ) sDataTypeName = m_sUserDataType;
+			else return wxEmptyString;
 		}
-		else if( lang->HasUserDataType() ) return m_sUserDataType + lang->GetValueType( m_nValueType ).Sign();;
+		else
+			sDataTypeName = lang->GetDataTypeString( m_nDataType );
+			
+		switch( format )
+		{
+			case udCodeItem::cfFORMAL:
+			case udCodeItem::cfDECLARATION:
+				sDataType = GetModifierString( lang ) + wxT(" ") + sDataTypeName + lang->GetValueType( m_nValueType ).Sign();
+				break;
+				
+			case udCodeItem::cfDEFINITION:
+				sDataType = sDataTypeName + lang->GetValueType( m_nValueType ).Sign();
+				break;
+				
+			default:
+				break;
+		}
+		
+		return sDataType.Trim(false);
 	}
 	
 	return wxEmptyString;
