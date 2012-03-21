@@ -70,7 +70,7 @@ void udManageBankDialog::OnRenameCat(wxCommandEvent& event)
 	udDiagramCategory *pCat = Bank.GetCategory( m_lbCategories->GetStringSelection() );
 	if( pCat )
 	{
-		wxTextEntryDialog dlg( this, wxT("New category name:"), wxT("CodeDesigner") );
+		wxTextEntryDialog dlg( this, wxT("New category name:"), wxT("CodeDesigner"), pCat->GetName() );
 	
 		if( dlg.ShowModal() == wxID_OK )
 		{

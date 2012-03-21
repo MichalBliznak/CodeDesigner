@@ -225,6 +225,11 @@ wxString UMLDesignerApp::GetSettingsPath() const
 	return udvSETTINGS_DIR;
 }
 
+wxString UMLDesignerApp::GetDiagramBankPath() const
+{
+	return udvDIAGBANK_PATH;
+}
+
 wxString UMLDesignerApp::GetPluginsPath() const
 {
 	#ifdef __WXMSW__

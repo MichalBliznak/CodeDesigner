@@ -518,6 +518,8 @@ void udClassElementItem::OnCreateCopy()
 		}
 	}
 	
+	UpdateMembers( m_sName, m_sName );
+	
 	// remove old code links
 	lstLinks.DeleteContents( true );
 	lstLinks.Clear();
@@ -565,10 +567,21 @@ void udClassElementItem::UpdateMembers(const wxString& prevname, const wxString&
 	pProj->GetItems(CLASSINFO(udMemberFunctionItem), lstMembers);
 	for( SerializableList::iterator it = lstMembers.begin(); it != lstMembers.end(); ++it )
 	{
-		if( ((udMemberFunctionItem*)*it)->GetScope() == prevname )
+		udMemberFunctionItem *pFcn = (udMemberFunctionItem*)*it;
+		if( pFcn->GetScope() == prevname )
 		{
-			((udMemberFunctionItem*)*it)->SetScope( newname );
-			((udMemberFunctionItem*)*it)->UpdateSignature();
+			pFcn->SetScope( newname );
+			pFcn->UpdateSignature();
+			
+			for( SerializableList::iterator it2 = pFcn->GetChildrenList().begin(); it2 != pFcn->GetChildrenList().end(); ++ it2 )
+			{
+				udParamItem *pPar = wxDynamicCast( *it2, udParamItem );
+				if( pPar )
+				{
+					pPar->SetScope( pFcn->GetScope() + wxT("::") + pFcn->GetName() );
+					pPar->UpdateSignature();
+				}
+			}
 		}
 	}
 	

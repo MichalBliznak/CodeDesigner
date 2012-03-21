@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 13 2011)
+// C++ code generated with wxFormBuilder (version Mar 17 2012)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -74,33 +74,35 @@
 #define IDM_BANK_MANAGE 6020
 #define IDM_DIAG_STORETOBANK 6021
 #define IDM_DIAG_INSERTFROMBANK 6022
-#define IDM_CODE_PREVIEW 6023
-#define IDM_CODE_GENERATE 6024
-#define IDM_CODE_SYNCHRONIZE 6025
-#define IDM_PLUGINS_MANAGE 6026
-#define IDC_AUINTB_PALETTES 6027
-#define IDC_AUINTB_DESIGNAREA 6028
-#define IDC_ZOOM 6029
-#define IDT_PROJMAN_LINK 6030
-#define IDT_PROJMAN_EXPAND 6031
-#define IDT_PROJMAN_SHOWPROPS 6032
-#define IDT_PROJMAN_ORGANIZECI 6033
-#define IDC_AUINTB_PROJMAN 6034
-#define IDT_INSTEDITOR_SAVE 6035
-#define IDC_SETTINGSDLG_PROPGRID 6036
-#define IDM_DBANK_SELECTALL 6037
-#define IDM_DBANK_DESELECTALL 6038
-#define IDM_DBANK_SHOWDEPS 6039
-#define IDC_CATEGORY_CREATE 6040
-#define IDC_CAT_CREATE 6041
-#define IDC_CAT_RENAME 6042
-#define IDC_CAT_REMOVE 6043
-#define IDC_DIAG_REMOVE 6044
-#define IDM_DIAG_REMOVEALL 6045
-#define IDM_DIAG_COPY 6046
-#define IDC_DIAG_MOVE 6047
-#define IDM_SYNCHRO_SELECT_ALL 6048
-#define IDM_SYNCHRO_DESELECT_ALL 6049
+#define IDM_BANK_IMPORT 6023
+#define IDM_BANK_EXPORT 6024
+#define IDM_CODE_PREVIEW 6025
+#define IDM_CODE_GENERATE 6026
+#define IDM_CODE_SYNCHRONIZE 6027
+#define IDM_PLUGINS_MANAGE 6028
+#define IDC_AUINTB_PALETTES 6029
+#define IDC_AUINTB_DESIGNAREA 6030
+#define IDC_ZOOM 6031
+#define IDT_PROJMAN_LINK 6032
+#define IDT_PROJMAN_EXPAND 6033
+#define IDT_PROJMAN_SHOWPROPS 6034
+#define IDT_PROJMAN_ORGANIZECI 6035
+#define IDC_AUINTB_PROJMAN 6036
+#define IDT_INSTEDITOR_SAVE 6037
+#define IDC_SETTINGSDLG_PROPGRID 6038
+#define IDM_DBANK_SELECTALL 6039
+#define IDM_DBANK_DESELECTALL 6040
+#define IDM_DBANK_SHOWDEPS 6041
+#define IDC_CATEGORY_CREATE 6042
+#define IDC_CAT_CREATE 6043
+#define IDC_CAT_RENAME 6044
+#define IDC_CAT_REMOVE 6045
+#define IDC_DIAG_REMOVE 6046
+#define IDM_DIAG_REMOVEALL 6047
+#define IDM_DIAG_COPY 6048
+#define IDC_DIAG_MOVE 6049
+#define IDM_SYNCHRO_SELECT_ALL 6050
+#define IDM_SYNCHRO_DESELECT_ALL 6051
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class _MainFrame
@@ -155,6 +157,8 @@ class _MainFrame : public wxFrame
 		virtual void OnUpdateStoreToBank( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnInsertFromBank( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUpdateInsertFromBank( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnImportBank( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportBank( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnPreviewClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUpdateGeneratorActivated( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnGenerateClick( wxCommandEvent& event ) { event.Skip(); }

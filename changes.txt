@@ -1,7 +1,11 @@
-Changes in version 1.5.6 beta (2012-03-20):
+Changes in version 1.6.0 beta (2012-03-21):
 ------------------------------------------------
-- Fixed code generation for variables with user-defined data types.
+- Fixed code generation for variables with user-defined data types and 'extern' modifier set.
 - Update signatures also for generic variables/functions if created via main toolbar/menu.
+- Scope and signature of function parameters are updated correctly if parent function's name is changed.
+- Scope and signature of class member function parameters are updated correctly if the parent class is copied.
+- Diagram bank content can be imported/exported from/to a file.
+- Added support for non-blocking state charts.
 
 Changes in version 1.5.5 beta (2012-03-16):
 ------------------------------------------------

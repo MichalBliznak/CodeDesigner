@@ -67,6 +67,10 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 
     wxSFDiagramManager *pDiagManager = &src->GetDiagramManager();
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
+	
+	bool fNonBlocking = false;
+	udSStateChartDiagramItem *pSCH = wxDynamicCast( src, udSStateChartDiagramItem );
+	if( pSCH ) fNonBlocking = pSCH->IsNonBlocking();
 
     // get inital states
     ShapeList lstInitialStates;
@@ -99,7 +103,11 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		
         // declare state variable
         pLang->SingleLineCommentCmd( wxT("set initial state") );
-        pLang->VariableDeclAssignCmd( wxT("STATE_T"), wxT("state"), m_pParentGenerator->MakeIDName(pInitial) );
+		
+		if( fNonBlocking )
+			pLang->VariableDeclAssignCmd( wxT("static STATE_T"), wxT("state"), m_pParentGenerator->MakeIDName(pInitial) );
+		else
+			pLang->VariableDeclAssignCmd( wxT("STATE_T"), wxT("state"), m_pParentGenerator->MakeIDName(pInitial) );
 		
 		// declare all history states and set history variables to proper values
 		if( src->IsKindOf( CLASSINFO(udHStateChartDiagramItem) ) )
@@ -122,7 +130,10 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 				{
 					pTarget = lstOutTrans.GetFirst()->GetData();
 				
-					pLang->VariableDeclAssignCmd( wxT("STATE_T"), pLang->MakeValidIdentifier( udLABEL::GetContent( pHistory, udLABEL::ltTITLE ) ).Lower(), m_pParentGenerator->MakeIDName(pTarget) );
+					if( fNonBlocking )
+						pLang->VariableDeclAssignCmd( wxT("static STATE_T"), pLang->MakeValidIdentifier( udLABEL::GetContent( pHistory, udLABEL::ltTITLE ) ).Lower(), m_pParentGenerator->MakeIDName(pTarget) );
+					else
+						pLang->VariableDeclAssignCmd( wxT("STATE_T"), pLang->MakeValidIdentifier( udLABEL::GetContent( pHistory, udLABEL::ltTITLE ) ).Lower(), m_pParentGenerator->MakeIDName(pTarget) );
 				}
 				
 				node = node->GetNext();
@@ -131,8 +142,11 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		
         pLang->NewLine();
         // create infinite loop
-        pLang->InfiniteLoopCmd();
-        pLang->BeginCmd();
+		if( !fNonBlocking )
+		{
+			pLang->InfiniteLoopCmd();
+			pLang->BeginCmd();
+		}
 		// try to generate input action if set
 		udSStateChartDiagramItem *pSSChDiag = wxDynamicCast( src, udSStateChartDiagramItem );
 		if( pSSChDiag )
@@ -152,7 +166,12 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
         ProcessState( pInitial );
 
         pLang->EndCmd();
-        pLang->EndCmd();
+        if( !fNonBlocking ) pLang->EndCmd();
+		else
+		{
+			pLang->NewLine();
+			pLang->ReturnCmd( wxT("state") );
+		}
     }
 
     //pLang->ReturnCmd(pLang->NullValue());

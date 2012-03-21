@@ -15,6 +15,10 @@ udSChDiagramDialog::udSChDiagramDialog( wxWindow *parent, udDiagramItem *diag, u
 {
 	SetTitle( wxT("State Chart diagram properties") );
 	
+	// create non-blocking option
+	m_cbNonBlocking = new wxCheckBox( m_pageAdv, wxID_ANY, wxT("Non-blocking state chart") );
+	m_pageAdv->GetSizer()->Add( m_cbNonBlocking, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
+	
 	// create input action choice
 	m_staticTextIA = new wxStaticText( m_pageAdv, wxID_ANY, wxT("Input action:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticTextIA->Wrap( -1 );
@@ -52,6 +56,8 @@ void udSChDiagramDialog::OnInit(wxInitDialogEvent& event)
 		node = node->GetNext();
 	}
 	m_chInputAction->SetStringSelection( m_InputAction );
+	
+	m_cbNonBlocking->SetValidator( wxGenericValidator(&m_NonBlocking) );
 		
 	udDiagramDialog::OnInit( event );
 }

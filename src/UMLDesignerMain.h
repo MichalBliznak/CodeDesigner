@@ -258,6 +258,8 @@ class UMLDesignerFrame: public _MainFrame
 		virtual void OnManagePlugins(wxCommandEvent& event);
 		virtual void OnResetLayout(wxCommandEvent& event);
 		virtual void OnSynchronizeCode(wxCommandEvent& event);
+		virtual void OnExportBank(wxCommandEvent& event);
+		virtual void OnImportBank(wxCommandEvent& event);
 
         virtual void OnUpdateCreatePackage( wxUpdateUIEvent &event );
 		virtual void OnUpdateCreateCodeItem( wxUpdateUIEvent &event );
