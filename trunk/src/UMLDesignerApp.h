@@ -48,6 +48,7 @@ public:
 
 	const wxString& GetPath() const { return m_sAppPath; }
 	wxString GetSettingsPath() const;
+	wxString GetDiagramBankPath() const;
 	wxString GetPluginsPath() const;
 	wxString GetResourcesPath() const;
     UMLDesignerFrame* GetMainFrame(){return m_pMainFrame;}

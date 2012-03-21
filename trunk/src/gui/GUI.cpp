@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 13 2011)
+// C++ code generated with wxFormBuilder (version Mar 17 2012)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -328,6 +328,16 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuBankInsert = new wxMenuItem( bankMenu, IDM_DIAG_INSERTFROMBANK, wxString( wxT("Insert diagram from bank") ) , wxT("Insert diagram from bank to currently selected package"), wxITEM_NORMAL );
 	bankMenu->Append( menuBankInsert );
 	
+	bankMenu->AppendSeparator();
+	
+	wxMenuItem* menuBankImport;
+	menuBankImport = new wxMenuItem( bankMenu, IDM_BANK_IMPORT, wxString( wxT("Import bank...") ) , wxEmptyString, wxITEM_NORMAL );
+	bankMenu->Append( menuBankImport );
+	
+	wxMenuItem* menuBankExport;
+	menuBankExport = new wxMenuItem( bankMenu, IDM_BANK_EXPORT, wxString( wxT("Export bank...") ) , wxEmptyString, wxITEM_NORMAL );
+	bankMenu->Append( menuBankExport );
+	
 	mbar->Append( bankMenu, wxT("&Diagram bank") ); 
 	
 	codeGenMenu = new wxMenu();
@@ -492,6 +502,8 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	this->Connect( menuBankStore->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateStoreToBank ) );
 	this->Connect( menuBankInsert->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnInsertFromBank ) );
 	this->Connect( menuBankInsert->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateInsertFromBank ) );
+	this->Connect( menuBankImport->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnImportBank ) );
+	this->Connect( menuBankExport->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnExportBank ) );
 	this->Connect( menuCodePreview->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnPreviewClick ) );
 	this->Connect( menuCodePreview->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateGeneratorActivated ) );
 	this->Connect( menuCodeGenerate->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnGenerateClick ) );
@@ -570,6 +582,8 @@ _MainFrame::~_MainFrame()
 	this->Disconnect( IDM_DIAG_STORETOBANK, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateStoreToBank ) );
 	this->Disconnect( IDM_DIAG_INSERTFROMBANK, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnInsertFromBank ) );
 	this->Disconnect( IDM_DIAG_INSERTFROMBANK, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateInsertFromBank ) );
+	this->Disconnect( IDM_BANK_IMPORT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnImportBank ) );
+	this->Disconnect( IDM_BANK_EXPORT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnExportBank ) );
 	this->Disconnect( IDM_CODE_PREVIEW, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnPreviewClick ) );
 	this->Disconnect( IDM_CODE_PREVIEW, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateGeneratorActivated ) );
 	this->Disconnect( IDM_CODE_GENERATE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnGenerateClick ) );

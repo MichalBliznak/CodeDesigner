@@ -107,12 +107,10 @@ void udUmlDiagramPlugin::OnAssignNewAction(wxCommandEvent& event)
 		// create relevant tree item
 		if( pAction )
 		{
-			pAction->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
 			
 			// assign the link to selected transition
 			pParent->AssignCodeItem( new udActionLinkItem(pAction) );
-				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
 			
 			pAction->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
@@ -136,14 +134,12 @@ void udUmlDiagramPlugin::OnAssignNewCondition(wxCommandEvent& event)
 		// create relevant tree item
 		if( pCondition )
 		{
-			pCondition->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pCondition, (udProjectItem*) pProj->GetRootItem() );
 			
 			// assign the link to selected transition
 			pParent->ClearCodeItems(CLASSINFO(udConditionItem));
 			pParent->ClearCodeItems(CLASSINFO(udEventItem));
 			pParent->AssignCodeItem( new udConditionLinkItem(pCondition) );
-
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pCondition, (udProjectItem*) pProj->GetRootItem() );
 			
 			pCondition->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
@@ -167,14 +163,12 @@ void udUmlDiagramPlugin::OnAssignNewEvent(wxCommandEvent& event)
 		// create relevant tree item
 		if( pEvent )
 		{
-			pEvent->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pEvent, (udProjectItem*) pProj->GetRootItem() );
 			
 			// assign the link to selected transition
 			pParent->ClearCodeItems(CLASSINFO(udConditionItem));
 			pParent->ClearCodeItems(CLASSINFO(udEventItem));
 			pParent->AssignCodeItem( new udEventLinkItem(pEvent) );
-				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pEvent, (udProjectItem*) pProj->GetRootItem() );
 			
 			pEvent->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
@@ -199,15 +193,13 @@ void udUmlDiagramPlugin::OnAssignNewFunction(wxCommandEvent& event)
 		if( pFcn )
 		{
 			pFcn->SetScope( pParent->GetName() );
-			pFcn->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
 			
 			udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
 		
 			// assign the link to selected transition
 			pParent->AssignCodeItem( new udMemberFunctionLinkItem(pFcn, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
-				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
 			
 			pFcn->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
@@ -231,15 +223,13 @@ void udUmlDiagramPlugin::OnAssignNewStateAction(wxCommandEvent& event)
 		// create relevant tree item
 		if( pAction )
 		{
-			pAction->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
 			
 			udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
 			
 			// assign the link to selected composite state
 			pParent->AssignCodeItem( new udStateActionLinkItem(pAction, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
-				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
 			
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			
@@ -264,15 +254,13 @@ void udUmlDiagramPlugin::OnAssignNewVariable(wxCommandEvent& event)
 		if( pVar )
 		{
 			pVar->SetScope( pParent->GetName() );
-			pVar->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pVar, (udProjectItem*)pProj->GetRootItem() );
 			
 			udAccessTypeDialog dlg(IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
 		
 			// assign the link to selected transition
 			pParent->AssignCodeItem( new udMemberDataLinkItem(pVar, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
-				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pVar, (udProjectItem*)pProj->GetRootItem() );
 
 			pVar->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
@@ -334,7 +322,7 @@ void udUmlDiagramPlugin::OnCreateConstructor(wxCommandEvent& event)
 		if( pFcn )
 		{
 			pFcn->SetScope( pParent->GetName() );
-			pFcn->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
 			
 			udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
@@ -342,7 +330,6 @@ void udUmlDiagramPlugin::OnCreateConstructor(wxCommandEvent& event)
 			// assign the link to selected transition
 			pParent->AssignCodeItem( new udMemberFunctionLinkItem(pFcn, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
 				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}
@@ -363,7 +350,7 @@ void udUmlDiagramPlugin::OnCreateDestructor(wxCommandEvent& event)
 		if( pFcn )
 		{
 			pFcn->SetScope( pParent->GetName() );
-			pFcn->UpdateSignature();
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
 			
 			udAccessTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
 			dlg.ShowModal();
@@ -371,7 +358,6 @@ void udUmlDiagramPlugin::OnCreateDestructor(wxCommandEvent& event)
 			// assign the link to selected transition
 			pParent->AssignCodeItem( new udMemberFunctionLinkItem(pFcn, (udLanguage::ACCESSTYPE)dlg.GetChoice()) );
 				
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pFcn, (udProjectItem*)pProj->GetRootItem() );
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}

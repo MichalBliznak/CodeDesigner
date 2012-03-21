@@ -1220,6 +1220,9 @@ void UMLDesignerFrame::OnProjectItemChanged(udProjectEvent& event)
 			udDiagramItem *pDiag = udProject::Get()->GetDiagram( pFcn->GetImplementation() );
 			if( pDiag ) pDiag->UpdateDiagramPageLabel();
 		}
+		
+		// update signature of new code item
+		pCode->UpdateSignature();
 	}
 	
 	SetModified( true );
@@ -1242,11 +1245,8 @@ void UMLDesignerFrame::OnProjectItemAdded(udProjectEvent& event)
 		
 		if( pItem->IsKindOf(CLASSINFO(udVariableItem)) ||
 			pItem->IsKindOf(CLASSINFO(udFunctionItem)) )
-			//pItem->IsKindOf(CLASSINFO(udDiagramItem)) )
 		{
 			bool fNewPkg = false;
-			
-			//wxWindowUpdateLocker noUpdate(GetProjectTree());
 			
 			wxString sPkgName = m_mapDefaultPkgNames[pItem->GetClassInfo()->GetClassName()];
 			
@@ -1271,6 +1271,10 @@ void UMLDesignerFrame::OnProjectItemAdded(udProjectEvent& event)
 			}
 		}
 	}
+	
+	// update signature of new code item
+	udCodeItem *pCi = wxDynamicCast( event.GetProjectItem(), udCodeItem );
+	if( pCi ) pCi->UpdateSignature();
 	
 	SetModified( true );
 }
@@ -1785,9 +1789,6 @@ void UMLDesignerFrame::OnCreateProjectItem( wxCommandEvent &event )
 		{
 			m_pProjectManager->SetActiveView( pItemType->m_sViewName );
 			
-			udCodeItem *pCI = wxDynamicCast( pItem, udCodeItem );
-			if( pCI ) pCI->UpdateSignature();
-				
 			SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pItem, pParent );
 			//SaveDiagramState( GetActiveDiagram() );
 		}
@@ -2718,6 +2719,43 @@ void UMLDesignerFrame::OnManageBank( wxCommandEvent& event )
 	dlg.ShowModal();
 }
 
+void UMLDesignerFrame::OnExportBank(wxCommandEvent& event)
+{
+	wxFileDialog dlg(this, wxT("Export diagram bank..."), wxT(""), wxT(""),
+		wxT("Diagram bank (*.cdbank)|*.cdbank|All files (*.*)|*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT );
+		
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		if( wxGetApp().GetDiagramBank().SerializeToXml( dlg.GetPath() ) )
+		{
+			wxMessageBox( wxT("Diagram bank has been exported to '") + dlg.GetPath() + wxT("'."), wxT("CodeDesigner") );
+		}
+		else
+			wxMessageBox( wxT("Unable to export diagram bank to '") + dlg.GetPath() + wxT("'."), wxT("CodeDesigner"), wxOK | wxICON_ERROR );
+	}
+}
+
+void UMLDesignerFrame::OnImportBank(wxCommandEvent& event)
+{
+	wxFileDialog dlg(this, wxT("Import diagram bank..."), wxT(""), wxT(""),
+		wxT("Diagram bank (*.cdbank)|*.cdbank|All files (*.*)|*.*"), wxFD_OPEN | wxFD_FILE_MUST_EXIST );
+		
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		wxCopyFile( wxGetApp().GetDiagramBankPath(), wxGetApp().GetDiagramBankPath() + wxT(".backup") );
+		
+		if( wxGetApp().GetDiagramBank().DeserializeFromXml( dlg.GetPath() ) )
+		{
+			wxMessageBox( wxT("Imported data has been merged with current diagram bank content."), wxT("CodeDesigner") );
+		}
+		else
+		{
+			wxMessageBox( wxT("Diagram bank file couldn't be read correctly (probably some previously used plugins aren't loaded at this time)."), wxT("CodeDesigner"), wxOK | wxICON_ERROR );
+			wxCopyFile( wxGetApp().GetDiagramBankPath() + wxT(".backup"), wxGetApp().GetDiagramBankPath() );
+		}
+	}
+}
+
 void UMLDesignerFrame::OnManagePlugins(wxCommandEvent& event)
 {
 	udManagePluginsDialog dlg( this );
@@ -2946,7 +2984,6 @@ void UMLDesignerFrame::UpdateAfterCopy(ShapeList& elements)
 		if( pDiagElement )
 		{
 			pDiagElement->OnCreateCopy();
-		    //pDiagElement->OnTreeTextChange(udProject::Get()->MakeUniqueName(pDiagElement->GetName(), 1));
 			
 		    if( pDiagElement->IsKindOf(CLASSINFO(udElementLinkItem)) )
 		    {

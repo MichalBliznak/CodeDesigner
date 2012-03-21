@@ -766,6 +766,20 @@ void udCodeItem::OnTreeTextChange(const wxString& txt)
 		
 		node = node->GetNext();
 	}
+	
+	// update child parameters if any
+	node = GetFirstChildNode();
+	while( node )
+	{
+		udParamItem *pPar = wxDynamicCast( node->GetData(), udParamItem );
+		if( pPar )
+		{
+			pPar->SetScope( GetScope() + wxT("::") + GetName() );
+			pPar->UpdateSignature();
+		}
+		
+		node = node->GetNext();
+	}
 }
 
 // protected functions //////////////////////////////////////////////////////////////

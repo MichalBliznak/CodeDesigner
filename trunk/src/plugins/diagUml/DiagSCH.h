@@ -187,8 +187,9 @@ public:
 	
 	// public member data accessors
 	void SetInputAction(const wxString& action){m_sInputAction = action;}
-	
 	const wxString& GetInputAction() {return m_sInputAction;}
+	
+	bool IsNonBlocking(){return m_fNonBlocking;}
 	
 	// public virtual functions
 	virtual void OnEditItem(wxWindow* parent);
@@ -198,6 +199,7 @@ public:
 protected:
 	// protected data members
 	wxString m_sInputAction;
+	bool m_fNonBlocking;
 	
     // protected virtual functions
     virtual udDiagramCanvas* CreateCanvas();
