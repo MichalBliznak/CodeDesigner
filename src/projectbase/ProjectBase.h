@@ -509,7 +509,6 @@ public:
     void SetActiveAlgorithm(const wxString& name){m_sActiveAlgorithm = name;}
     void SetActiveGenerator(const wxString& name){m_sActiveGenerator = name;}
 	void SetOutputFile(const wxString& path){m_sOutputFile = path;}
-	void SetInline(bool inln){m_fInline = inln;}
 	void SetSubdiagramElement(udSubDiagramElementItem *sub){m_pSubElement = sub;}
 	void EnableGeneration(bool enab){m_fGenerate = enab;}
 
@@ -520,7 +519,6 @@ public:
     const wxString& GetActiveGenerator(){return m_sActiveGenerator;}
 	const wxString& GetOutputFile() {return m_sOutputFile;}
 	udSubDiagramElementItem* GetSubdiagramElement(){return m_pSubElement;}
-	bool IsInline(){return m_fInline;}
 	bool IsGenerated(){return m_fGenerate;}
 
     // public function
@@ -553,7 +551,6 @@ protected:
     wxString m_sActiveAlgorithm;
 	
 	wxString m_sOutputFile;
-	bool m_fInline;
 	bool m_fGenerate;
 
     // protected virtual functions

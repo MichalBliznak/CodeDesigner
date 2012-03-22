@@ -188,7 +188,8 @@ public:
 	// public member data accessors
 	void SetInputAction(const wxString& action){m_sInputAction = action;}
 	const wxString& GetInputAction() {return m_sInputAction;}
-	
+	void SetInline(bool inln){m_fInline = inln;}
+	bool IsInline(){return m_fInline;}
 	bool IsNonBlocking(){return m_fNonBlocking;}
 	
 	// public virtual functions
@@ -199,6 +200,7 @@ public:
 protected:
 	// protected data members
 	wxString m_sInputAction;
+	bool m_fInline;
 	bool m_fNonBlocking;
 	
     // protected virtual functions

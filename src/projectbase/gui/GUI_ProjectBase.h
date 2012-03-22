@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 13 2011)
+// C++ code generated with wxFormBuilder (version Mar 17 2012)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -63,7 +63,6 @@ class _DiagramDialog : public wxDialog
 		wxNotebook* m_pNotebook;
 		wxPanel* m_pageAdv;
 		wxCheckBox* m_cbGenerate;
-		wxCheckBox* m_cbInline;
 		wxPanel* m_pageGen;
 		wxStaticText* m_staticText14;
 		wxFilePickerCtrl* m_fpOutputFile;

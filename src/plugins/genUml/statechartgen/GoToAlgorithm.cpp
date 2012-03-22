@@ -70,16 +70,18 @@ void udGOTOAlgorithm::ProcessAlgorithm(udDiagramItem *src)
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 	
 	udSStateChartDiagramItem *pSCH = wxDynamicCast( src, udSStateChartDiagramItem );
-	if( pSCH && pSCH->IsNonBlocking() ) IPluginManager::Get()->Log( wxT("WARNING: GOTO algorithm doesn't support non-blocking state charts (") + src->GetName() + wxT(")") );
+	if( ! pSCH ) return;
+	
+	if( pSCH->IsNonBlocking() ) IPluginManager::Get()->Log( wxT("WARNING: GOTO algorithm doesn't support non-blocking state charts (") + pSCH->GetName() + wxT(")") );
 
     // get inital states
     ShapeList lstInitialStates;
     pDiagManager->GetShapes(CLASSINFO(umlInitialItem), lstInitialStates);
 
     // create diagram function declaration
-	if( !src->IsInline() )
+	if( !pSCH->IsInline() )
 	{
-		udFunctionItem *pDeclFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( src );
+		udFunctionItem *pDeclFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( pSCH );
 		if( pDeclFcn )
 		{
 			pLang->WriteCodeBlocks( pDeclFcn->ToString( udCodeItem::cfDEFINITION, pLang ) );
@@ -87,9 +89,9 @@ void udGOTOAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		else
 		{
 			if( pDiagManager->Contains(CLASSINFO(umlFinalItem)) )
-				pLang->FunctionDefCmd(wxT("STATE_T"), m_pParentGenerator->MakeValidIdentifier(src->GetName()), wxEmptyString );
+				pLang->FunctionDefCmd(wxT("STATE_T"), m_pParentGenerator->MakeValidIdentifier(pSCH->GetName()), wxEmptyString );
 			else
-				pLang->FunctionDefCmd(pLang->GetDataTypeString(udLanguage::DT_VOID), m_pParentGenerator->MakeValidIdentifier(src->GetName()), wxEmptyString );
+				pLang->FunctionDefCmd(pLang->GetDataTypeString(udLanguage::DT_VOID), m_pParentGenerator->MakeValidIdentifier(pSCH->GetName()), wxEmptyString );
 		}
 		pLang->BeginCmd();
 	}
@@ -99,7 +101,7 @@ void udGOTOAlgorithm::ProcessAlgorithm(udDiagramItem *src)
         m_lstProcessedElements.Clear();
 		
 		// declare all history states and set history variables to proper values
-		if( src->IsKindOf( CLASSINFO(udHStateChartDiagramItem) ) )
+		if( pSCH->IsKindOf( CLASSINFO(udHStateChartDiagramItem) ) )
 		{
 			wxSFShapeBase *pHistory, *pTarget;
 			ShapeList lstHistoryStates, lstOutTrans;
@@ -135,7 +137,7 @@ void udGOTOAlgorithm::ProcessAlgorithm(udDiagramItem *src)
         ProcessState(pInitial);
     }
 
-	if( !src->IsInline() )pLang->EndCmd();
+	if( !pSCH->IsInline() )pLang->EndCmd();
 }
 
 void udGOTOAlgorithm::ProcessState(wxSFShapeBase *state)

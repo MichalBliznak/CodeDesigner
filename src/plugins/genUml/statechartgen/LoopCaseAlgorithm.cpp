@@ -68,9 +68,10 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
     wxSFDiagramManager *pDiagManager = &src->GetDiagramManager();
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 	
-	bool fNonBlocking = false;
 	udSStateChartDiagramItem *pSCH = wxDynamicCast( src, udSStateChartDiagramItem );
-	if( pSCH ) fNonBlocking = pSCH->IsNonBlocking();
+	if( ! pSCH ) return;
+	
+	bool fNonBlocking = pSCH->IsNonBlocking();
 
     // get inital states
     ShapeList lstInitialStates;
@@ -78,9 +79,9 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
     pDiagManager->GetShapes(CLASSINFO(umlEntryItem), lstInitialStates);
 
     // create diagram function declaration
-	if( !src->IsInline() )
+	if( !pSCH->IsInline() )
 	{
-		udFunctionItem *pDeclFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( src );
+		udFunctionItem *pDeclFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( pSCH );
 		if( pDeclFcn )
 		{
 			pLang->WriteCodeBlocks( pDeclFcn->ToString( udCodeItem::cfDEFINITION, pLang ) );
@@ -88,9 +89,9 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		else
 		{
 			if( pDiagManager->Contains(CLASSINFO(umlFinalItem)) )
-				pLang->FunctionDefCmd(wxT("STATE_T"), m_pParentGenerator->MakeValidIdentifier(src->GetName()), wxEmptyString );
+				pLang->FunctionDefCmd(wxT("STATE_T"), m_pParentGenerator->MakeValidIdentifier(pSCH->GetName()), wxEmptyString );
 			else
-				pLang->FunctionDefCmd(pLang->GetDataTypeString(udLanguage::DT_VOID), m_pParentGenerator->MakeValidIdentifier(src->GetName()), wxEmptyString );
+				pLang->FunctionDefCmd(pLang->GetDataTypeString(udLanguage::DT_VOID), m_pParentGenerator->MakeValidIdentifier(pSCH->GetName()), wxEmptyString );
 		}			
 		pLang->BeginCmd();
 	}
@@ -148,17 +149,14 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 			pLang->BeginCmd();
 		}
 		// try to generate input action if set
-		udSStateChartDiagramItem *pSSChDiag = wxDynamicCast( src, udSStateChartDiagramItem );
-		if( pSSChDiag )
+		udFunctionItem *pInputAction = (udFunctionItem*) IPluginManager::Get()->GetProject()->GetProjectItem( CLASSINFO(udFunctionItem), pSCH->GetInputAction() );
+		if( pInputAction )
 		{
-			udFunctionItem *pInputAction = (udFunctionItem*) IPluginManager::Get()->GetProject()->GetProjectItem( CLASSINFO(udFunctionItem), pSSChDiag->GetInputAction() );
-			if( pInputAction )
-			{
-				pLang->SingleLineCommentCmd( wxT("Input action") );
-				pLang->WriteCodeBlocks( pInputAction->ToString( udCodeItem::cfCALL, pLang ) );
-				pLang->SingleLineCommentCmd( wxT("State machine") );
-			}
+			pLang->SingleLineCommentCmd( wxT("Input action") );
+			pLang->WriteCodeBlocks( pInputAction->ToString( udCodeItem::cfCALL, pLang ) );
+			pLang->SingleLineCommentCmd( wxT("State machine") );
 		}
+			
         pLang->SwitchCmd( wxT("state") );
         pLang->BeginCmd();
 
@@ -175,7 +173,7 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
     }
 
     //pLang->ReturnCmd(pLang->NullValue());
-   if( !src->IsInline() ) pLang->EndCmd();
+   if( !pSCH->IsInline() ) pLang->EndCmd();
 }
 
 void udLoopCaseAlgorithm::ProcessState(wxSFShapeBase *state)

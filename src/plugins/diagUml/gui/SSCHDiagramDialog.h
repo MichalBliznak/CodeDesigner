@@ -14,14 +14,18 @@ public:
 	const wxString& GetInputAction() const {return m_InputAction;}
 	void SetNonBlocking(bool NonBlocking) {this->m_NonBlocking = NonBlocking;}
 	bool IsNonBlocking() const {return m_NonBlocking;}
+	void SetInline(bool Inline) {this->m_Inline = Inline;}
+	bool IsInline() const {return m_Inline;}
 	
 protected:
 	// protected data members
 	wxString m_InputAction;
 	bool m_NonBlocking;
+	bool m_Inline;
 	
 	wxStaticText* m_staticTextIA;
 	wxChoice* m_chInputAction;
+	wxCheckBox* m_cbInline;
 	wxCheckBox* m_cbNonBlocking;
 	
 	// protected virtual functions
