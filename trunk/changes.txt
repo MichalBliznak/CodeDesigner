@@ -6,6 +6,7 @@ Changes in version 1.6.0 beta (2012-03-21):
 - Scope and signature of class member function parameters are updated correctly if the parent class is copied.
 - Diagram bank content can be imported/exported from/to a file.
 - Added support for non-blocking state charts.
+- Removed useless "Inline code" option from Class diagram properties dialog.
 
 Changes in version 1.5.5 beta (2012-03-16):
 ------------------------------------------------
