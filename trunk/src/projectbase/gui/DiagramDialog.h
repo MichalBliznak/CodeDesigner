@@ -13,21 +13,18 @@ public:
 	// public member data accessors
 	void SetDescription(const wxString& Description) {this->m_Description = Description;}
 	void SetCodeName(const wxString& Name) {this->m_Name = Name;}
-	void SetInline(const bool& Inline) {this->m_Inline = Inline;}
 	void SetOutputFile(const wxString& OutputFile) {this->m_OutputFile = OutputFile;}
 	void SetGenerateCode(const bool& GenerateCode) {this->m_GenerateCode = GenerateCode;}
 	
 	const bool& GetGenerateCode() const {return m_GenerateCode;}
 	const wxString& GetDescription() const {return m_Description;}
 	const wxString& GetCodeName() const {return m_Name;}
-	const bool& GetInline() const {return m_Inline;}
 	const wxString& GetOutputFile() const {return m_OutputFile;}
 	const wxString& GetAlgorithm() const {return m_Algorithm;}
 	const wxString& GetGenerator() const {return m_Generator;}
 	
 protected:
 	// protected data members
-	bool m_Inline;
 	bool m_GenerateCode;
 	wxString m_Name;
 	wxString m_Description;

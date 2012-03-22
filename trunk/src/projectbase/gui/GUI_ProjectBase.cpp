@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 13 2011)
+// C++ code generated with wxFormBuilder (version Mar 17 2012)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -55,9 +55,6 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	
 	m_cbGenerate = new wxCheckBox( m_pageAdv, wxID_ANY, wxT("Generate code from this diagram"), wxDefaultPosition, wxDefaultSize, 0 );
 	advSizer->Add( m_cbGenerate, 0, wxALL, 5 );
-	
-	m_cbInline = new wxCheckBox( m_pageAdv, wxID_ANY, wxT("Inline code"), wxDefaultPosition, wxDefaultSize, 0 );
-	advSizer->Add( m_cbInline, 0, wxALL, 5 );
 	
 	
 	m_pageAdv->SetSizer( advSizer );

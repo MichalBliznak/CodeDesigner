@@ -218,16 +218,17 @@ bool udStateChartGenerator::GenerateCommonDefinition()
 }
 
 bool udStateChartGenerator::GenerateDeclaration(udDiagramItem* src)
-{		
-	if( !src->IsInline() )
+{	
+	udSStateChartDiagramItem *pSCH = wxDynamicCast( src, udSStateChartDiagramItem );
+	if( pSCH && !pSCH->IsInline() )
 	{
 		// initialize output stream
 		wxTextOutputStream textOut(*m_pOut);
 		
 		// generate IDs (if suitable)
-		if( m_pOutLang->HasSeparatedDecl() ) GenerateIDs( src );
+		if( m_pOutLang->HasSeparatedDecl() ) GenerateIDs( pSCH );
 		
-		udFunctionItem *pFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( src );
+		udFunctionItem *pFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( pSCH );
 		if( pFcn )
 		{
 			// class member functions are declared at other place (in the class declaration)
@@ -241,10 +242,10 @@ bool udStateChartGenerator::GenerateDeclaration(udDiagramItem* src)
 		}
 		else
 		{
-			if( src->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
-				m_pOutLang->FunctionDeclCmd(wxT("STATE_T"), m_pOutLang->MakeValidIdentifier( src->GetName() ), wxEmptyString );
+			if( pSCH->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
+				m_pOutLang->FunctionDeclCmd(wxT("STATE_T"), m_pOutLang->MakeValidIdentifier( pSCH->GetName() ), wxEmptyString );
 			else
-				m_pOutLang->FunctionDeclCmd(m_pOutLang->GetDataTypeString(udLanguage::DT_VOID), m_pOutLang->MakeValidIdentifier( src->GetName() ), wxEmptyString );
+				m_pOutLang->FunctionDeclCmd(m_pOutLang->GetDataTypeString(udLanguage::DT_VOID), m_pOutLang->MakeValidIdentifier( pSCH->GetName() ), wxEmptyString );
 		}
 			
 		textOut << m_pOutLang->GetCodeBuffer();		

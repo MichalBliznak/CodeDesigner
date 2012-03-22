@@ -1540,7 +1540,6 @@ udDiagramItem::udDiagramItem() : udProjectItem()
 	m_sActiveAlgorithm = wxT("<default>");
 	m_sActiveGenerator = wxT("<default>");
 	
-	m_fInline = false;
 	m_fGenerate = true;
 	
 	m_pSubElement = NULL;
@@ -1552,7 +1551,6 @@ udDiagramItem::udDiagramItem() : udProjectItem()
     XS_SERIALIZE(m_sDiagramType, wxT("diagram_type"));
 	XS_SERIALIZE(m_fGenerate, wxT("generate_code"));
 	XS_SERIALIZE(m_sOutputFile, wxT("output_file"));
-	XS_SERIALIZE(m_fInline, wxT("inline"));
     XS_SERIALIZE(m_sActiveGenerator, wxT("active_generator"));
     XS_SERIALIZE(m_sActiveAlgorithm, wxT("active_algorithm"));
 }
@@ -1561,11 +1559,9 @@ udDiagramItem::udDiagramItem(const udDiagramItem &obj) : udProjectItem(obj)
 {
     m_sDiagramType = obj.m_sDiagramType;
 	m_sOutputFile = obj.m_sOutputFile;
-	m_fInline = obj.m_fInline;
 	m_sActiveAlgorithm = obj.m_sActiveAlgorithm;
 	m_sActiveGenerator = obj.m_sActiveGenerator;
 	
-	m_fInline = obj.m_fInline;
 	m_fGenerate = obj.m_fGenerate;
 
 	m_pSubElement = NULL;
@@ -1578,7 +1574,6 @@ udDiagramItem::udDiagramItem(const udDiagramItem &obj) : udProjectItem(obj)
 	XS_SERIALIZE(m_sDescription, wxT("description"));
 	XS_SERIALIZE(m_fGenerate, wxT("generate_code"));
 	XS_SERIALIZE(m_sOutputFile, wxT("output_file"));
-	XS_SERIALIZE(m_fInline, wxT("inline"));
     XS_SERIALIZE(m_sActiveGenerator, wxT("active_generator"));
     XS_SERIALIZE(m_sActiveAlgorithm, wxT("active_algorithm"));
 }
@@ -1831,14 +1826,12 @@ void udDiagramItem::OnEditItem(wxWindow* parent)
 	
 	dlg.SetCodeName( m_sName );
 	dlg.SetDescription( m_sDescription );
-	dlg.SetInline( m_fInline );
 	dlg.SetGenerateCode( m_fGenerate );
 	dlg.SetOutputFile( m_sOutputFile );
 	
 	if( dlg.ShowModal() == wxID_OK )
 	{
 		m_sDescription = dlg.GetDescription();
-		m_fInline = dlg.GetInline();
 		m_fGenerate = dlg.GetGenerateCode();
 		
 		if( dlg.GetOutputFile().Contains( wxT(".") ) )

@@ -9,7 +9,6 @@ udDiagramDialog::udDiagramDialog( wxWindow *parent, udDiagramItem *diag, udLangu
 {
 	m_pDiagram = diag;
 	m_pLanguage = lang;
-	m_Inline = false;
 	m_GenerateCode = true;
 }
 
@@ -24,13 +23,11 @@ void udDiagramDialog::OnInit(wxInitDialogEvent& event)
 	// set validators
 	m_eName->SetValidator(wxGenericValidator(&m_Name));
 	m_eDescription->SetValidator(wxGenericValidator(&m_Description));
-	m_cbInline->SetValidator(wxGenericValidator(&m_Inline));
 	m_cbGenerate->SetValidator(wxGenericValidator(&m_GenerateCode));
 	
 	// initialize controls
 	bool fSubmachine = (m_pDiagram->GetSubdiagramElement() != NULL);
 	
-	m_cbInline->Enable( !fSubmachine ); 
 	m_fpOutputFile->Enable( !fSubmachine ); 
 	m_chGenerator->Enable( !fSubmachine ); 
 	//m_chAlgorithm->Enable( !fSubmachine );
@@ -61,7 +58,7 @@ void udDiagramDialog::OnMakeValid(wxCommandEvent& event)
 }
 
 void udDiagramDialog::OnNameChange(wxCommandEvent& event)
-{
+{		
 	udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
 	
 	if( ( m_Name != m_eName->GetValue() ) && m_cbMakeValid->GetValue() && pLang)

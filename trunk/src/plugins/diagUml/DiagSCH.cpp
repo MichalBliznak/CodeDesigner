@@ -37,9 +37,11 @@ udSStateChartDiagramItem::udSStateChartDiagramItem()
     m_sActiveAlgorithm = wxT("udLoopCaseAlgorithm");
 	m_sInputAction = wxT("<none>");
 	m_fNonBlocking = false;
+	m_fInline = false;
 	
 	XS_SERIALIZE(m_sInputAction, wxT("input_action"));
 	XS_SERIALIZE(m_fNonBlocking, wxT("non_blocking"));
+	XS_SERIALIZE(m_fInline, wxT("inline"));
 }
 
 udSStateChartDiagramItem::udSStateChartDiagramItem(const udSStateChartDiagramItem &obj)
@@ -48,9 +50,11 @@ udSStateChartDiagramItem::udSStateChartDiagramItem(const udSStateChartDiagramIte
     m_sDiagramType = udnSIMPLE_STATE_CHART;
 	m_sInputAction = obj.m_sInputAction;
 	m_fNonBlocking = obj.m_fNonBlocking;
+	m_fInline = obj.m_fInline;
 	
 	XS_SERIALIZE(m_sInputAction, wxT("input_action"));
 	XS_SERIALIZE(m_fNonBlocking, wxT("non_blocking"));
+	XS_SERIALIZE(m_fInline, wxT("inline"));
 }
 
 udSStateChartDiagramItem::~udSStateChartDiagramItem()
@@ -81,7 +85,7 @@ void udSStateChartDiagramItem::OnEditItem(wxWindow* parent)
 	if( dlg.ShowModal() == wxID_OK )
 	{
 		m_sDescription = dlg.GetDescription();
-		m_fInline = dlg.GetInline();
+		m_fInline = dlg.IsInline();
 		m_fGenerate = dlg.GetGenerateCode();
 		m_sInputAction = dlg.GetInputAction();
 		m_fNonBlocking = dlg.IsNonBlocking();
