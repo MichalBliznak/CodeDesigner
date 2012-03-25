@@ -3,6 +3,8 @@
 #include "DiagramDialog.h"
 #include "codegen/Generator.h"
 
+static int wxEVT_CD_MAKE_VALID_NAME = wxNewEventType();
+
 // constructor and destructor ////////////////////////////////////////////////////////////////
 
 udDiagramDialog::udDiagramDialog( wxWindow *parent, udDiagramItem *diag, udLanguage *lang ) : _DiagramDialog( parent )
@@ -10,6 +12,8 @@ udDiagramDialog::udDiagramDialog( wxWindow *parent, udDiagramItem *diag, udLangu
 	m_pDiagram = diag;
 	m_pLanguage = lang;
 	m_GenerateCode = true;
+	
+	Connect( wxEVT_CD_MAKE_VALID_NAME, wxCommandEventHandler(udDiagramDialog::OnDelayedNameUpdate) );
 }
 
 udDiagramDialog::~udDiagramDialog()
@@ -54,21 +58,15 @@ void udDiagramDialog::OnInit(wxInitDialogEvent& event)
 
 void udDiagramDialog::OnMakeValid(wxCommandEvent& event)
 {
-	OnNameChange( event );
+	OnDelayedNameUpdate( event );
 }
 
 void udDiagramDialog::OnNameChange(wxCommandEvent& event)
-{		
-	udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
-	
-	if( ( m_Name != m_eName->GetValue() ) && m_cbMakeValid->GetValue() && pLang)
+{			
+	if( ( m_Name != m_eName->GetValue() ) && m_cbMakeValid->GetValue() )
 	{
-		long nFrom, nTo;
-		m_eName->GetSelection(&nFrom, &nTo);
-		
-		m_eName->ChangeValue( pLang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
-		
-		m_eName->SetSelection( nFrom, nTo );
+		wxCommandEvent e(wxEVT_CD_MAKE_VALID_NAME);
+		wxPostEvent( this, e );
 	}
 }
 
@@ -117,3 +115,16 @@ void udDiagramDialog::OnReset(wxCommandEvent& event)
 	m_fpOutputFile->SetPath( wxT("<default>") );
 }
 
+void udDiagramDialog::OnDelayedNameUpdate(wxCommandEvent& event)
+{
+	long nFrom, nTo;
+	
+	udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
+	
+	if( pLang )
+	{
+		m_eName->GetSelection(&nFrom, &nTo);
+		m_eName->ChangeValue( pLang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
+		m_eName->SetSelection( nFrom, nTo );
+	}
+}
