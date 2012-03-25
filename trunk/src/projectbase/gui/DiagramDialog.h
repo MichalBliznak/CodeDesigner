@@ -42,6 +42,8 @@ protected:
 	virtual void OnGeneratorChange( wxCommandEvent& event );
 	virtual void OnOk( wxCommandEvent& event );
 	virtual void OnReset(wxCommandEvent& event);
+	
+	void OnDelayedNameUpdate(wxCommandEvent& event);
 
 };
 #endif // __diagramdialog__
