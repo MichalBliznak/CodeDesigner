@@ -25,7 +25,7 @@ protected:
 	bool CheckUnconnectedStates(udDiagramItem *diagram);
 	bool CheckConnections(udDiagramItem *diagram);
 	bool CheckHistoryStates(udDiagramItem *diagram);
-	bool CheckInputAction(udDiagramItem *diagram);
+	bool CheckGOTOConstraints(udDiagramItem *diagram);
 
 	bool _CheckOutcommingPaths(wxSFDiagramManager *manager, wxSFShapeBase *parent);
 };

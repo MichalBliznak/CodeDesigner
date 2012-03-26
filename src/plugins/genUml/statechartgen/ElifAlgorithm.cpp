@@ -153,7 +153,13 @@ void udElifAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		if( pInputAction )
 		{
 			pLang->SingleLineCommentCmd( wxT("Input action") );
-			pLang->WriteCodeBlocks( pInputAction->ToString( udCodeItem::cfCALL, pLang ) );
+			if( !pInputAction->IsInline() )  pLang->WriteCodeBlocks( pInputAction->ToString( udCodeItem::cfCALL, pLang ) );
+			else
+			{
+				pLang->SingleLineCommentCmd( udGenerator::GetBeginCodeMark( pInputAction ) );
+				pLang->WriteCodeBlocks( pInputAction->GetCode() );
+				pLang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pInputAction ) );
+			}
 			pLang->SingleLineCommentCmd( wxT("State machine") );
 		}
 

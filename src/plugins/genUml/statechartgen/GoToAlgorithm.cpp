@@ -71,9 +71,7 @@ void udGOTOAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 	
 	udSStateChartDiagramItem *pSCH = wxDynamicCast( src, udSStateChartDiagramItem );
 	if( ! pSCH ) return;
-	
-	if( pSCH->IsNonBlocking() ) IPluginManager::Get()->Log( wxT("WARNING: GOTO algorithm doesn't support non-blocking state charts (") + pSCH->GetName() + wxT(")") );
-
+			
     // get inital states
     ShapeList lstInitialStates;
     pDiagManager->GetShapes(CLASSINFO(umlInitialItem), lstInitialStates);
