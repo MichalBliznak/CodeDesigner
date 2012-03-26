@@ -1093,17 +1093,12 @@ XS_IMPLEMENT_CLONABLE_CLASS(udActionItem, udFunctionItem);
 udActionItem::udActionItem()
 {
 	m_sName = wxT("Action");
-	m_fInline = false;
-
 	m_sDescription = wxT("Action's description...");
-	
-	XS_SERIALIZE( m_fInline, wxT("inline") );
 }
 
 udActionItem::udActionItem(const udActionItem &obj)
 : udFunctionItem(obj)
 {
-	XS_SERIALIZE( m_fInline, wxT("inline") );
 }
 
 udActionItem::~udActionItem()
@@ -1267,20 +1262,16 @@ XS_IMPLEMENT_CLONABLE_CLASS(udConditionItem, udFunctionItem);
 udConditionItem::udConditionItem()
 {
 	m_sName = wxT("Condition");
-	m_fInline = false;
 	m_fInverted = false;
 	
 	m_nRetValDataType = udLanguage::DT_BOOL;
 
 	m_sDescription = wxT("Condition's description...");
-	
-	XS_SERIALIZE( m_fInline, wxT("inline") );
 }
 
 udConditionItem::udConditionItem(const udConditionItem &obj)
 : udFunctionItem(obj)
 {
-	XS_SERIALIZE( m_fInline, wxT("inline") );
 }
 
 udConditionItem::~udConditionItem()

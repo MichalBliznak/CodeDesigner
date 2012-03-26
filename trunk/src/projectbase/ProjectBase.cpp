@@ -1182,6 +1182,38 @@ wxString udParamItem::ToString(CODEFORMAT format, udLanguage* lang)
 	}
 }
 
+wxString udParamItem::GetDataTypeString(CODEFORMAT format, udLanguage* lang)
+{
+	if( lang )
+	{
+		wxString sDataType, sDataTypeName;
+		
+		if( m_nDataType == udLanguage::DT_USERDEFINED )
+		{
+			if( lang->HasUserDataType() ) sDataTypeName = m_sUserDataType;
+			else return wxEmptyString;
+		}
+		else
+			sDataTypeName = lang->GetDataTypeString( m_nDataType );
+			
+		switch( format )
+		{
+			case udCodeItem::cfFORMAL:
+			case udCodeItem::cfDECLARATION:
+			case udCodeItem::cfDEFINITION:
+				sDataType = GetModifierString( lang ) + wxT(" ") + sDataTypeName + lang->GetValueType( m_nValueType ).Sign();
+				break;
+				
+			default:
+				break;
+		}
+		
+		return sDataType.Trim(false);
+	}
+	
+	return wxEmptyString;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////
 // udFunctionItem class /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1197,6 +1229,7 @@ udFunctionItem::udFunctionItem()
 	
 	AcceptChild(wxT("udParamItem"));
 	
+	m_fInline = false;
 	m_nRetValDataType = udLanguage::DT_VOID;
 	m_nRetValModifier = udLanguage::DM_NONE;
 	m_nRetValType = udLanguage::VT_VALUE;
@@ -1213,6 +1246,7 @@ udFunctionItem::udFunctionItem()
 udFunctionItem::udFunctionItem(const udFunctionItem &obj)
 : udCodeItem(obj)
 {	
+	m_fInline = obj.m_fInline;
 	m_nRetValDataType = obj.m_nRetValDataType;
 	m_nRetValModifier = obj.m_nRetValModifier;
 	m_nRetValType = obj.m_nRetValType;
@@ -1232,6 +1266,7 @@ udFunctionItem::~udFunctionItem()
 
 void udFunctionItem::MarkSerializableDataMembers()
 {
+	XS_SERIALIZE( m_fInline, wxT("inline") );
 	XS_SERIALIZE_INT(m_nRetValDataType, wxT("retval_data_type"));
 	XS_SERIALIZE_INT(m_nRetValType, wxT("retval_value_type"));
 	XS_SERIALIZE_INT(m_nRetValModifier, wxT("retval_data_modifier"));
@@ -1323,6 +1358,7 @@ void udFunctionItem::OnEditItem(wxWindow* parent)
 	dlg.SetUserDeclFile( m_sUserRetValDeclFile );
 	dlg.SetUserDeclPlace( m_nUserRetValDeclPlace );
 	dlg.SetImplementation( m_sImplementation );
+	dlg.SetInline( m_fInline );
 	
 	if( dlg.ShowModal() == wxID_OK )
 	{
@@ -1337,6 +1373,7 @@ void udFunctionItem::OnEditItem(wxWindow* parent)
 		m_sUserRetValDeclFile = dlg.GetUserDeclFile();
 		m_nUserRetValDeclPlace = dlg.GetUserDeclPlace();
 		m_sImplementation = dlg.GetImplementation();
+		m_fInline = dlg.GetInline();
 	}
 	
 	OnTreeTextChange( dlg.GetCodeName() );
