@@ -81,38 +81,19 @@ void udXS2PG::Initialize()
 	(*pMap)[wxT("udParamItem")] = wxT("Function parameter");
 	(*pMap)[wxT("udSubDiagramItem")] = wxT("Sub diagram");
 	
-	// action types
-	pMap = new NameMap();
-	m_mapMaps[wxT("action_type")] = pMap;
-	
-	// initialize action types
-	(*pMap)[wxT("0")] = wxT("Entry action");
-	(*pMap)[wxT("1")] = wxT("Exit action");
-	
 	// boolean flag
 	pMap = new NameMap();
 	m_mapMaps[wxT("inline")] = pMap;
 	m_mapMaps[wxT("generate_code")] = pMap;
-	m_mapMaps[wxT("include_target_class")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("False");
 	(*pMap)[wxT("1")] = wxT("True");
-	
-	// event types 
-	pMap = new NameMap();
-	m_mapMaps[wxT("evt_type")] = pMap;
-	
-	// initialize boolean flag values
-	(*pMap)[wxT("0")] = wxT("Normal event");
-	(*pMap)[wxT("1")] = wxT("Critical event");
 	
 	// declaration places
 	pMap = new NameMap();
 	m_mapMaps[wxT("user_decl_place")] = pMap;
 	m_mapMaps[wxT("user_retval_decl_place")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("Built-in");
 	(*pMap)[wxT("1")] = wxT("Defined in editor");
 	(*pMap)[wxT("2")] = wxT("Defined in header file");
@@ -122,7 +103,6 @@ void udXS2PG::Initialize()
 	m_mapMaps[wxT("value_type")] = pMap;
 	m_mapMaps[wxT("retval_value_type")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("VALUE");
 	(*pMap)[wxT("1")] = wxT("POINTER");
 	(*pMap)[wxT("2")] = wxT("REFERENCE");
@@ -132,7 +112,6 @@ void udXS2PG::Initialize()
 	m_mapMaps[wxT("data_type")] = pMap;
 	m_mapMaps[wxT("retval_data_type")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("<user-defined>");
 	(*pMap)[wxT("1")] = wxT("BOOL");
 	(*pMap)[wxT("2")] = wxT("UINT8");
@@ -150,7 +129,6 @@ void udXS2PG::Initialize()
 	m_mapMaps[wxT("data_modifier")] = pMap;
 	m_mapMaps[wxT("retval_data_modifier")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("<none>");
 	(*pMap)[wxT("1")] = wxT("SHORT");
 	(*pMap)[wxT("2")] = wxT("LONG");
@@ -165,7 +143,6 @@ void udXS2PG::Initialize()
 	pMap = new NameMap();
 	m_mapMaps[wxT("function_modifier")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("<none>");
 	(*pMap)[wxT("1")] = wxT("STATIC");
 	(*pMap)[wxT("2")] = wxT("VIRTUAL");
@@ -176,7 +153,6 @@ void udXS2PG::Initialize()
 	pMap = new NameMap();
 	m_mapMaps[wxT("access_type")] = pMap;
 	
-	// initialize boolean flag values
 	(*pMap)[wxT("0")] = wxT("PUBLIC");
 	(*pMap)[wxT("1")] = wxT("PROTECTED");
 	(*pMap)[wxT("2")] = wxT("PRIVATE");
