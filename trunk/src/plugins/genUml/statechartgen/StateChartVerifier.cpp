@@ -25,7 +25,7 @@ bool udStateChartVerifier::Verify(udDiagramItem *diagram)
 	else if( !CheckEndingStates(diagram) ) return false;
 	else if( !CheckUnconnectedStates(diagram) ) return false;
 	else if( !CheckConnections(diagram) ) return false;
-	else if( !CheckInputAction(diagram) ) return false;
+	else if( !CheckGOTOConstraints(diagram) ) return false;
 
     return true;
 }
@@ -302,15 +302,23 @@ bool udStateChartVerifier::CheckHistoryStates(udDiagramItem *diagram)
 	return fSuccess;
 }
 
-bool udStateChartVerifier::CheckInputAction(udDiagramItem* diagram)
+bool udStateChartVerifier::CheckGOTOConstraints(udDiagramItem* diagram)
 {
 	// Check whether a state machine with defined input action has activated code generation algorithm supporting the 
-	// input actions.
+	// input actions and non-blocking state charts.
 	udSStateChartDiagramItem *pSSCh = wxDynamicCast( diagram, udSStateChartDiagramItem);
-	if( pSSCh && (pSSCh->GetInputAction() != wxT("<none>")) && (pSSCh->GetActiveAlgorithm() == wxT("udGOTOAlgorithm")) )
+	if( pSSCh && (pSSCh->GetActiveAlgorithm() == wxT("udGOTOAlgorithm")) )
 	{
-		IPluginManager::Get()->Log( wxString::Format( wxT("ERROR: 'GOTO' code generation algorithm set in diagram '%s' doesn't support input actions."), diagram->GetName().c_str() ) );
-		return false;
+		if( pSSCh->GetInputAction() != wxT("<none>") )
+		{
+			IPluginManager::Get()->Log( wxString::Format( wxT("ERROR: 'GOTO' code generation algorithm set in diagram '%s' doesn't support input actions."), diagram->GetName().c_str() ) );
+			return false;
+		}
+		if( pSSCh->IsNonBlocking() )
+		{
+			IPluginManager::Get()->Log( wxString::Format( wxT("ERROR: 'GOTO' code generation algorithm set in diagram '%s' doesn't support non-blocking state charts."), diagram->GetName().c_str() ) );
+			return false;
+		}
 	}
 	return true;
 }
