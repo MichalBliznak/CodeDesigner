@@ -311,8 +311,8 @@ public:
     virtual ~udVariableItem();
 	
 	// public functions
-	wxString GetDataTypeString(CODEFORMAT format, udLanguage *lang);
-	wxString GetModifierString(udLanguage *lang);
+	virtual wxString GetDataTypeString(CODEFORMAT format, udLanguage *lang);
+	virtual wxString GetModifierString(udLanguage *lang);
 
 	// public member data accessors
 	void SetValueType(const udLanguage::VALUETYPE& vt) {m_nValueType = vt;}
@@ -389,6 +389,8 @@ public:
 	udParamItem();
 	udParamItem(const udParamItem& obj) : udVariableItem(obj) {;}
 	virtual ~udParamItem() {;}
+	
+	virtual wxString GetDataTypeString(CODEFORMAT format, udLanguage *lang);
 	
 	// public virtual functions
 	virtual void OnTreeTextChange(const wxString& txt);

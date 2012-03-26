@@ -8,6 +8,8 @@ Changes in version 1.6.0 beta (2012-03-25):
 - Added support for non-blocking state charts.
 - Removed useless "Inline code" option from Class diagram properties dialog.
 - Fixed application freeze on making of valid identifier name from properties dialogs (occured if wx2.9.x was used for building the app).
+- Fixed code generation of function parameters with data modifier defined.
+- Fixed generic function's properties dialog where "Inline code" check box wasn't handled propely.
 
 Changes in version 1.5.5 beta (2012-03-16):
 ------------------------------------------------
