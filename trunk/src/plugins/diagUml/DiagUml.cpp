@@ -179,6 +179,18 @@ bool udUmlDiagramPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udClassDiagramItem"), wxT("Class diagram") );
 	m_PluginManager->RegisterFriendlyName( wxT("classname"), wxT("udTransElementItem"), wxT("Inheritance element") );
 	
+	m_PluginManager->RegisterFriendlyName( wxT("non_blocking"), wxT("0"), wxT("False") );
+	m_PluginManager->RegisterFriendlyName( wxT("non_blocking"), wxT("1"), wxT("True") );
+	
+	m_PluginManager->RegisterFriendlyName( wxT("action_type"), wxT("0"), wxT("Entry action") );
+	m_PluginManager->RegisterFriendlyName( wxT("action_type"), wxT("1"), wxT("Exit action") );
+	
+	m_PluginManager->RegisterFriendlyName( wxT("include_target_class"), wxT("0"), wxT("False") );
+	m_PluginManager->RegisterFriendlyName( wxT("include_target_class"), wxT("1"), wxT("True") );
+	
+	m_PluginManager->RegisterFriendlyName( wxT("evt_type"), wxT("0"), wxT("Normal event") );
+	m_PluginManager->RegisterFriendlyName( wxT("evt_type"), wxT("1"), wxT("Critical event") );
+	
 	// register event handlers
 	wxWindow *pFrame = m_PluginManager->GetMainFrame();
 	pFrame->Connect( IDM_TRANS_ASSIGNACTION, IDM_TRANS_ASSIGNACTION + udvMAX_ITEMS - 1, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAssignAction ), NULL, this );  
