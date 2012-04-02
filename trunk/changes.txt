@@ -1,4 +1,4 @@
-Changes in version 1.6.0 beta (2012-03-25):
+Changes in version 1.6.0 beta (2012-04-02):
 ------------------------------------------------
 - Fixed code generation for variables with user-defined data types and 'extern' modifier set.
 - Update signatures also for generic variables/functions if created via main toolbar/menu.
@@ -11,6 +11,8 @@ Changes in version 1.6.0 beta (2012-03-25):
 - Fixed code generation of function parameters with data modifier defined.
 - Fixed generic function's properties dialog where "Inline code" check box wasn't handled propely.
 - User-defined state chart's input actions can be generated inlined.
+- Use project settings instead of global application settings for determination whether the project code
+  should be automatically synchronized on the code generation.
 
 Changes in version 1.5.5 beta (2012-03-16):
 ------------------------------------------------
