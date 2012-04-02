@@ -2605,7 +2605,7 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
 			UMLDesignerFrame::SendProjectEvent( wxEVT_CD_PROJECT_BEFORE_GENERATION, wxID_ANY );
 			
 			// synchronize code if requested
-			udSettings& Settings = wxGetApp().GetSettings();
+			udSettings& Settings = udProject::Get()->GetSettings();
 			
 			if( Settings.GetProperty( wxT("Synchronize before generation") )->AsBool() )
 			{
