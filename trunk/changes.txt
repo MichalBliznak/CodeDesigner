@@ -9,7 +9,7 @@ Changes in version 1.6.0 beta (2012-04-02):
 - Removed useless "Inline code" option from Class diagram properties dialog.
 - Fixed application freeze on making of valid identifier name from properties dialogs (occured if wx2.9.x was used for building the app).
 - Fixed code generation of function parameters with data modifier defined.
-- Fixed generic function's properties dialog where "Inline code" check box wasn't handled propely.
+- Fixed generic function's properties dialog where "Inline code" check box wasn't handled properly.
 - User-defined state chart's input actions can be generated inlined.
 - Use project settings instead of global application settings for determination whether the project code
   should be automatically synchronized on the code generation.
