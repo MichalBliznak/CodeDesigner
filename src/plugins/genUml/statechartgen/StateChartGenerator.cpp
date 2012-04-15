@@ -220,7 +220,7 @@ bool udStateChartGenerator::GenerateCommonDefinition()
 bool udStateChartGenerator::GenerateDeclaration(udDiagramItem* src)
 {	
 	udSStateChartDiagramItem *pSCH = wxDynamicCast( src, udSStateChartDiagramItem );
-	if( pSCH && !pSCH->IsInline() )
+	if( pSCH )
 	{
 		// initialize output stream
 		wxTextOutputStream textOut(*m_pOut);
@@ -228,24 +228,27 @@ bool udStateChartGenerator::GenerateDeclaration(udDiagramItem* src)
 		// generate IDs (if suitable)
 		if( m_pOutLang->HasSeparatedDecl() ) GenerateIDs( pSCH );
 		
-		udFunctionItem *pFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( pSCH );
-		if( pFcn )
+		if( !pSCH->IsInline() )
 		{
-			// class member functions are declared at other place (in the class declaration)
-			if( !pFcn->IsKindOf(CLASSINFO(udMemberFunctionItem)) || !m_pOutLang->HasSeparatedDecl() )
+			udFunctionItem *pFcn = IPluginManager::Get()->GetProject()->GetFunctionImplementedBy( pSCH );
+			if( pFcn )
 			{
-				// generate comment if exists
-				m_pOutLang->WriteCodeBlocks( GetComment( pFcn, m_pOutLang ) );
-				// generate function decl
-				m_pOutLang->WriteCodeBlocks( pFcn->ToString( udCodeItem::cfDECLARATION, m_pOutLang) );
+				// class member functions are declared at other place (in the class declaration)
+				if( !pFcn->IsKindOf(CLASSINFO(udMemberFunctionItem)) || !m_pOutLang->HasSeparatedDecl() )
+				{
+					// generate comment if exists
+					m_pOutLang->WriteCodeBlocks( GetComment( pFcn, m_pOutLang ) );
+					// generate function decl
+					m_pOutLang->WriteCodeBlocks( pFcn->ToString( udCodeItem::cfDECLARATION, m_pOutLang) );
+				}
 			}
-		}
-		else
-		{
-			if( pSCH->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
-				m_pOutLang->FunctionDeclCmd(wxT("STATE_T"), m_pOutLang->MakeValidIdentifier( pSCH->GetName() ), wxEmptyString );
 			else
-				m_pOutLang->FunctionDeclCmd(m_pOutLang->GetDataTypeString(udLanguage::DT_VOID), m_pOutLang->MakeValidIdentifier( pSCH->GetName() ), wxEmptyString );
+			{
+				if( pSCH->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
+					m_pOutLang->FunctionDeclCmd(wxT("STATE_T"), m_pOutLang->MakeValidIdentifier( pSCH->GetName() ), wxEmptyString );
+				else
+					m_pOutLang->FunctionDeclCmd(m_pOutLang->GetDataTypeString(udLanguage::DT_VOID), m_pOutLang->MakeValidIdentifier( pSCH->GetName() ), wxEmptyString );
+			}
 		}
 			
 		textOut << m_pOutLang->GetCodeBuffer();		
