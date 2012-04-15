@@ -106,7 +106,7 @@ void udCProjectGenerator::ProcessProject(udProject *src)
 			wxString sCommonMark( wxString::Format( wxT("%s '%s'"), COMMON_DECLARATIONS_MARK, pCommonGen->GetName().c_str() ) );
 			
 			// clear previous code if exists
-			if( !CodemarkExists( sCommonMark, CommonHeaderFile ) ) InsertCodemark( sCommonMark, CommonHeaderFile, 0 );
+			if( !CodemarkExists( sCommonMark, CommonHeaderFile ) ) InsertCodemark( sCommonMark, CommonHeaderFile, -1 );
 			else
 				ClearCodemark( sCommonMark, CommonHeaderFile );	
 				
@@ -224,7 +224,7 @@ void udCProjectGenerator::ProcessProject(udProject *src)
 				if( arrProcessedGenerators.Index( pGenerator->GetName() ) == wxNOT_FOUND )
 				{
 					// clear previous code if exists
-					if( !CodemarkExists( sCommonMark, CommonHeaderFile ) ) InsertCodemark( sCommonMark, CommonHeaderFile, 0 );
+					if( !CodemarkExists( sCommonMark, CommonHeaderFile ) ) InsertCodemark( sCommonMark, CommonHeaderFile, -1 );
 					else
 						ClearCodemark( sCommonMark, CommonHeaderFile );	
 

@@ -1,3 +1,9 @@
+Changes in version 1.6.1 beta (2012-04-15):
+------------------------------------------------
+- Fixed position of generated 'include' in code items header file.
+- Fixed code generation of state chart's IDs if 'Inline code' property for the state chart
+  is set to TRUE.
+
 Changes in version 1.6.0 beta (2012-04-02):
 ------------------------------------------------
 - Fixed code generation for variables with user-defined data types and 'extern' modifier set.
