@@ -121,6 +121,36 @@ void udUmlDiagramPlugin::OnAssignNewAction(wxCommandEvent& event)
 	}
 }
 
+void udUmlDiagramPlugin::OnAssignNewStateAction(wxCommandEvent& event)
+{
+	udCompStateElementItem *pParent = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udCompStateElementItem );
+	
+	if( pParent )
+	{
+		IProject *pProj = IPluginManager::Get()->GetProject();
+		
+		// create new state action
+		udActionItem* pAction = (udActionItem*)  pProj->CreateProjectItem( wxT("udActionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		// create relevant tree item
+		if( pAction )
+		{
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
+			
+			udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
+			dlg.ShowModal();
+			
+			// assign the link to selected composite state
+			pParent->AssignCodeItem( new udStateActionLinkItem(pAction, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
+			
+			pAction->OnEditItem( IPluginManager::Get()->GetMainFrame() );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
+			
+			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
+		}
+	}
+}
+
 void udUmlDiagramPlugin::OnAssignNewCondition(wxCommandEvent& event)
 {
 	udTransElementItem *pParent = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udTransElementItem );
@@ -204,36 +234,6 @@ void udUmlDiagramPlugin::OnAssignNewFunction(wxCommandEvent& event)
 			pFcn->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
-			
-			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
-		}
-	}
-}
-
-void udUmlDiagramPlugin::OnAssignNewStateAction(wxCommandEvent& event)
-{
-	udCompStateElementItem *pParent = wxDynamicCast( IPluginManager::Get()->GetSelectedProjectItem(), udCompStateElementItem );
-	
-	if( pParent )
-	{
-		IProject *pProj = IPluginManager::Get()->GetProject();
-		
-		// create new state action
-		udActionItem* pAction = (udActionItem*)  pProj->CreateProjectItem( wxT("udActionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
-		// create relevant tree item
-		if( pAction )
-		{
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*) pProj->GetRootItem() );
-			
-			udActionTypeDialog dlg( IPluginManager::Get()->GetMainFrame() );
-			dlg.ShowModal();
-			
-			// assign the link to selected composite state
-			pParent->AssignCodeItem( new udStateActionLinkItem(pAction, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
-			
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pParent );
-			
-			pAction->OnEditItem( IPluginManager::Get()->GetMainFrame() );
 			
 			IPluginManager::Get()->SaveDiagramState( IPluginManager::Get()->GetActiveDiagram() );
 		}

@@ -1199,7 +1199,7 @@ udStateActionLinkItem::udStateActionLinkItem()
 udStateActionLinkItem::udStateActionLinkItem(const udCodeItem *orig, TYPE type)
 {
 	SetName( orig->GetName() );
-	SetOrigCodeItem( orig->GetName() );
+	m_sOriginalCodeItem = orig->GetSignature();
 	m_nActionType = type;
 	
 	m_arrAcceptedSibbling.Clear();
