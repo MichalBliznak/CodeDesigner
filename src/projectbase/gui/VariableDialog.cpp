@@ -4,10 +4,11 @@
 
 // constructor and destructor ////////////////////////////////////////////////////////////////
 
-udVariableDialog::udVariableDialog(wxWindow *parent, udLanguage *lang, bool unique) : _VariableDialog( parent )
+udVariableDialog::udVariableDialog(wxWindow *parent, udVariableItem *var, udLanguage *lang) : _VariableDialog( parent )
 {
 	m_pLang = lang;
-	m_fUnique = unique;
+	//m_fUnique = unique;
+	m_pVarItem = var;
 	
 	m_DataType = udLanguage::DT_INT;
 	m_DataModifier = udLanguage::DM_NONE;
@@ -73,7 +74,7 @@ void udVariableDialog::OnNameChange(wxCommandEvent& event)
 		long nFrom, nTo;
 		m_eName->GetSelection(&nFrom, &nTo);
 		
-		if( m_fUnique )
+		if( m_pVarItem->MustBeUnique() )
 			m_eName->ChangeValue( m_pLang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
 		else
 			m_eName->ChangeValue( m_pLang->MakeValidIdentifier( m_eName->GetValue() ) );
@@ -94,7 +95,9 @@ void udVariableDialog::OnOk(wxCommandEvent& event)
 		wxMessageBox(wxT("Name cannot be empty."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
 		m_eName->SetFocus();
 	}
-	else if( m_fUnique && (m_Name != m_eName->GetValue()) && !IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
+	else if( m_pVarItem->MustBeUnique() &&
+			(m_Name != m_eName->GetValue()) &&
+			!IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
 	{
 		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
 		m_eName->SetFocus();		

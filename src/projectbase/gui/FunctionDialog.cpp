@@ -330,7 +330,7 @@ bool udFunctionDialog::EditParameter(udVariableItem* param)
 	if( param )
 	{
 		// parameter name don't have to be unique
-		udVariableDialog dlg( this, m_pLang, false );
+		udVariableDialog dlg( this, param, m_pLang );
 		dlg.SetTitle( wxT("Parameter properties") );
 		
 		dlg.SetCodeName( param->GetName() );

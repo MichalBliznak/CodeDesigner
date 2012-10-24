@@ -1457,7 +1457,7 @@ bool udEventItem::OnTreeItemBeginDrag(const wxPoint& pos)
 
 void udEventItem::OnEditItem(wxWindow* parent)
 {
-	udVariableDialog dlg( parent,IPluginManager::Get()->GetSelectedLanguage(), true );
+	udVariableDialog dlg( parent, this, IPluginManager::Get()->GetSelectedLanguage() );
 	udWindowManager dlgman( dlg, wxT("event_dialog") );
 	
 	dlg.SetTitle( wxT("Event flag properties") );
