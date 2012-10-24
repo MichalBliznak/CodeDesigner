@@ -7,7 +7,8 @@
 class WXDLLIMPEXP_CD udVariableDialog : public _VariableDialog
 {
 public:
-	udVariableDialog(wxWindow *parent, udLanguage *lang, bool unique);
+	//udVariableDialog(wxWindow *parent, udLanguage *lang, bool unique);
+	udVariableDialog(wxWindow *parent, udVariableItem *var, udLanguage *lang);
 	virtual ~udVariableDialog();
 	
 	// member data accessors
@@ -47,7 +48,8 @@ protected:
 	wxString m_UserDeclFile;
 	
 	udLanguage *m_pLang;
-	bool m_fUnique;
+	//bool m_fUnique;
+	udVariableItem *m_pVarItem;
 	
 	// protected virtual functions
 	virtual void OnInit(wxInitDialogEvent &event);

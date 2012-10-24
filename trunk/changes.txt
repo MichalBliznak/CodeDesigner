@@ -1,3 +1,7 @@
+Changes in version 1.6.2 beta (2012-10-24):
+------------------------------------------------
+- Class members names don't have to be unique.
+
 Changes in version 1.6.1 beta (2012-04-30):
 ------------------------------------------------
 - Fixed position of generated 'include' in code items header file.

@@ -995,7 +995,7 @@ wxString udVariableItem::ToString(CODEFORMAT format, udLanguage *lang)
 
 void udVariableItem::OnEditItem(wxWindow* parent)
 {
-	udVariableDialog dlg( parent, IPluginManager::Get()->GetSelectedLanguage(), true );
+	udVariableDialog dlg( parent, this, IPluginManager::Get()->GetSelectedLanguage() );
 	udWindowManager dlgman( dlg, wxT("variable_dialog") );
 	
 	dlg.SetCodeName( m_sName );
