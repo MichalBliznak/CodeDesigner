@@ -167,7 +167,7 @@ void udElifAlgorithm::ProcessAlgorithm(udDiagramItem *src)
         ProcessState(pInitial);
 
 		if( !fNonBlocking ) pLang->EndCmd();
-		else
+		else if( !pSCH->IsInline() )
 		{
 			pLang->NewLine();
 			pLang->ReturnCmd( wxT("state") );

@@ -1,6 +1,7 @@
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
 - Class members names don't have to be unique.
+- Return statement is not generated in inlined non-blocking state chart.
 
 Changes in version 1.6.1 beta (2012-04-30):
 ------------------------------------------------
