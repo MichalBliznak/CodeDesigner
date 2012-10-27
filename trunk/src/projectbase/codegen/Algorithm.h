@@ -30,6 +30,7 @@ public:
     wxString GetDescription(){return m_sDescription;}
     wxArrayString& GetSupportedLanguages(){return m_arrSuppLanguages;}
 	ShapeList& GetProcessedElements() {return m_lstProcessedElements;}
+	udDiagramItem* GetProcessedDiagram() {return m_pProcessedDiagram;}
 
     // public functions
     void Process(udDiagramItem *src);
@@ -40,6 +41,7 @@ protected:
     wxArrayString m_arrSuppLanguages;
 	ShapeList m_lstProcessedElements;
 
+	udDiagramItem* m_pProcessedDiagram;
     udGenerator *m_pParentGenerator;
     wxSFShapeBase *m_pNextElement;
     wxSFShapeBase *m_pPrevElement;

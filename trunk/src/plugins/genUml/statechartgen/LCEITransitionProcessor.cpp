@@ -27,6 +27,7 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 	
 	bool fIndent;
 	bool fOneTarget = true;
+	bool fNonBlocking = false;
 	long nPrevTrgId = -1;
 
 	//SerializableList lstActs;
@@ -41,6 +42,9 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
     wxSFDiagramManager *pDiagManager = element->GetShapeManager();
 	wxSFShapeBase *pNext = m_pParentGenerator->GetActiveAlgorithm()->GetNextElement();
+	
+	udSStateChartDiagramItem *pSCH = wxDynamicCast( ((udLoopCaseAlgorithm*)m_pParentGenerator->GetActiveAlgorithm())->GetProcessedDiagram(), udSStateChartDiagramItem );
+	if( pSCH ) fNonBlocking = pSCH->IsNonBlocking();
 	
 	// find history state at the same level like processed element
 	wxSFShapeBase *pHistory = NULL;
@@ -155,7 +159,11 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
     if( m_pParentGenerator->GetActiveAlgorithm()->IsKindOf(CLASSINFO(udLoopCaseAlgorithm)) )
     {
         wxSFLineShape* pCondlessPath = GetConditionlessPath(element);
-        if( !pCondlessPath || !pNext || (pNext && (pCondlessPath->GetTrgShapeId() != pNext->GetId())) || !fOneTarget ) //(lstTransitions.GetCount() > 1) )
+        if( !pCondlessPath ||
+		    !pNext ||
+			(pNext && (pCondlessPath->GetTrgShapeId() != pNext->GetId())) ||
+			!fOneTarget ||
+			fNonBlocking ) //(lstTransitions.GetCount() > 1) )
         {
             pLang->BreakCmd();
         }

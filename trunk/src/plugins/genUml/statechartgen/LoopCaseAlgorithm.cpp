@@ -171,7 +171,7 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 
         pLang->EndCmd();
         if( !fNonBlocking ) pLang->EndCmd();
-		else
+		else if( !pSCH->IsInline() )
 		{
 			pLang->NewLine();
 			pLang->ReturnCmd( wxT("state") );

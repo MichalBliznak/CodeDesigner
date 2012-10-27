@@ -3,6 +3,7 @@
 udAlgorithm::udAlgorithm()
 {
     m_pParentGenerator = NULL;
+	m_pProcessedDiagram = NULL;
     m_pNextElement = NULL;
     m_pPrevElement = NULL;
 }
@@ -10,6 +11,7 @@ udAlgorithm::udAlgorithm()
 udAlgorithm::udAlgorithm(udGenerator *parent)
 {
     m_pParentGenerator = parent;
+	m_pProcessedDiagram = NULL;
     m_pNextElement = NULL;
     m_pPrevElement = NULL;
 }
@@ -55,6 +57,7 @@ void udAlgorithm::Process(udDiagramItem *src)
     // initialize algorithm
     if(this->Initialize())
     {
+		m_pProcessedDiagram = src;
         this->ProcessAlgorithm(src);
     }
 
