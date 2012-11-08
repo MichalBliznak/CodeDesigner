@@ -415,7 +415,11 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 
 	// set palettes min size
 #ifdef __WXGTK__
+#if wxVERSION_NUMBER > 2904
+	m_auintbPalettes->SetMinSize( wxSize( -1, 68 ) );
+#else
 	m_auintbPalettes->SetMinSize( wxSize( -1, 62 ) );
+#endif
 	btnZoom100->SetMinSize( wxSize( -1, 27 ) );
 	btnZoomAll->SetMinSize( wxSize( -1, 27 ) );
 #elif defined(__WXMSW__)
