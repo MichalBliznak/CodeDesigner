@@ -35,6 +35,11 @@ package.includepaths = { "../../src/controls/include" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_PROPGRID", "MONOLITHIC" }
 
+-- Set compiler flags.
+if( ( target == "cl-gcc" or target == "gnu" ) and options["architecture"] ) then
+	table.insert(package.buildoptions, "-arch " .. options["architecture"])
+end
+
 -- Set wxWidgets presets
 dofile('../premake/scripts/wxpresets.lua')
 
