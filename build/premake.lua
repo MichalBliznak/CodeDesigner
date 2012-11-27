@@ -55,7 +55,7 @@ else
 	if ( not os.fileexists( "..\\bin\\plugins" ) ) then
 		os.mkdir( "..\\bin\\plugins" )
 	end
-	-- Copy neede files (images)
+	-- Copy needed files (images)
 	if( not os.fileexists( "..\\output\\res\\app" ) ) then
 		os.execute( "xcopy ..\\src\\res ..\\output\\res\\app /Y /s /i /q" )
 	end

@@ -39,6 +39,9 @@ end
 if( ( target == "vs2003" or target == "vs2005" ) and options["no-builtin-wchar"] ) then
 	table.insert(package.buildoptions, "/Zc:wchar_t-")
 end
+if( ( target == "cl-gcc" or target == "gnu" ) and options["architecture"] ) then
+	table.insert(package.buildoptions, "-arch " .. options["architecture"])
+end
 
 -- Set the files to include.
 package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }
@@ -47,12 +50,14 @@ package.excludes = { matchrecursive( "controls/*", "projectbase/*", "plugins/*",
 -- Set the include paths.
 package.includepaths = { "controls/include", "." }
 -- Set hardcoded path for loaded shared libraries
-if( not windows ) then
+if( linux ) then
 	if ( target == "cb-gcc" ) then
 		table.insert( package.linkoptions, "-Wl,-rpath,$``ORIGIN/../lib/" .. project.name )
 	else
 		table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/../lib/" .. project.name )
 	end
+elseif( macosx ) then
+	table.insert( package.linkoptions, "-Wl,-L../lib/" .. project.name )
 end
 -- Set windows resource file
 if ( (windows) and not (target == "vs2005") ) then    

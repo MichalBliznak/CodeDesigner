@@ -26,6 +26,10 @@ class UMLDesignerFrame;
 class UMLDesignerApp : public wxApp
 {
 public:
+//#ifdef __WXGTK__
+//	// fix broken menu bar behaviour under Ubuntu
+//	UMLDesignerApp() { wxSetEnv(wxT("UBUNTU_MENUPROXY"), wxT("0")); }
+//#endif
 	enum LOG
 	{
 		logNONE = 0,

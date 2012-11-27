@@ -36,6 +36,11 @@ package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.
 package.links = { "wxShapeFramework", "projectBase" }
 
+-- Set compiler flags.
+if( ( target == "cl-gcc" or target == "gnu" ) and options["architecture"] ) then
+	table.insert(package.buildoptions, "-arch " .. options["architecture"])
+end
+
 -- Set wxWidgets presets
 dofile('../../../build/premake/scripts/wxpresets.lua')
 

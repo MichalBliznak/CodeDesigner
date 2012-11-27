@@ -15,10 +15,6 @@ do
         echo "                          in your system (alternate/custom builds)"
         echo "                          Example: --wx-root=/home/devel/wx/3.0/buildgtk"
         echo "                          Current: $wxpath"
-#       echo
-#       echo " --wx-version             Specify the wxWidgets version."
-#       echo "                          Example: --wx-version=2.9"
-#       echo "                          Current: $wxver"
         echo
         exit
     elif ( [ "$haveroot" -gt "0" ] ); then
@@ -53,12 +49,6 @@ echo
 premake/premake-linux --target gnu --wx-version $release --shared --with-wx-shared $propgrid $unicode $debug $wxroot $1
 #premake/premake-linux --target gnu --wx-version $release $propgrid $unicode $debug $wxroot $1
 echo done...
-echo 
-#
-# ========== Code::Blocks project files ==========
-#premake/premake-linux --target cb-gcc --wx-version $release --shared --with-wx-shared $propgrid $unicode $debug $wxroot $1
-#premake/premake-linux --target cb-gcc --wx-version $release $propgrid $unicode $debug $wxroot $1
-#echo done...
 echo 
 #
 echo Done generating all project files for CodeDesigner.

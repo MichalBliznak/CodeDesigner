@@ -24,6 +24,7 @@ addoption( "with-wx-shared", "Link against wxWidgets as a shared library" )
 addoption( "wx-version", "Used wxWidgets version" )
 addoption( "no-builtin-propgrid", "Use external wxPropertyGrid control instead of built-in one" )
 addoption( "wx-root", "Specify wxWidgets prefix for platforms which uses wx-config" )
+addoption( "architecture", "Specify build architecture" )
 
 wx_target = ""
 if ( windows ) then
