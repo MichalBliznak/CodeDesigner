@@ -47,7 +47,7 @@ end
 
 -- Set the files to include.
 package.files = { matchrecursive( "*.c", "*.h" ) }
-if( linux ) then
+if( linux or macosx ) then
 	package.excludes = { matchrecursive( "gnu_regex/*" ) }
 else
 	package.excludes = { "gnu_regex/regexec.c", "gnu_regex/regex_internal.c", "gnu_regex/regex_internal.h", "gnu_regex/regcomp.c" }

@@ -28,7 +28,7 @@ do
 		shared=""
 		continue
 	elif ( [ "$havearch" -gt "0" ] ); then
-        arch=${args}
+        arch=${args//=/" "}
 		continue
     elif ( [ "$haveroot" -gt "0" ] ); then
         wxroot=${args}

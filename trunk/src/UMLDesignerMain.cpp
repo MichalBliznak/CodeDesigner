@@ -424,6 +424,8 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	btnZoomAll->SetMinSize( wxSize( -1, 27 ) );
 #elif defined(__WXMSW__)
 	m_auintbPalettes->SetMinSize( wxSize( -1, 52 ) );
+#elif defined(__WXMAC__)
+	m_auintbPalettes->SetMinSize( wxSize( -1, 58 ) );
 #endif
 
 	// maximize and center frame
@@ -505,23 +507,23 @@ void UMLDesignerFrame::CreatePopupMenu()
 
 	pItem = new wxMenuItem(m_pPopupMenu, IDM_CODE_PREVIEW, wxT("Code preview"));
 	//pItem->SetBitmap(udArt::GetBitmap(wxT("udICON_PREVIEW")));
-	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_PNG));
 	m_pPopupMenu->Append(pItem);
 
 	m_pPopupMenu->AppendSeparator();
 
 	pItem = new wxMenuItem(m_pPopupMenu, wxID_UNDO, wxT("Undo\tCtrl+Z"));
-	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/undo.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/undo.png"), wxBITMAP_TYPE_PNG));
 	m_pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(m_pPopupMenu, wxID_REDO, wxT("Redo\tCtrl+Y"));
-	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/redo.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/redo.png"), wxBITMAP_TYPE_PNG));
 	m_pPopupMenu->Append(pItem);
 
 	m_pPopupMenu->AppendSeparator();
 
 	pItem = new wxMenuItem(m_pPopupMenu, wxID_PASTE, wxT("Paste\tCtrl+V"));
-	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/editpaste.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sResPath + wxT("app/gui/editpaste.png"), wxBITMAP_TYPE_PNG));
 	m_pPopupMenu->Append(pItem);
 
 	m_pPopupMenu->AppendSeparator();
@@ -649,19 +651,19 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbMainFrame = new wxToolBar(this, -1, wxDefaultPosition, wxDefaultSize, wxTB_FLAT);
 	#endif*/
 	m_tbMainFrame->SetToolBitmapSize(wxSize(udnIMG_SIZE, udnIMG_SIZE));
-	m_tbMainFrame->AddTool(wxID_NEW, wxT("New"), wxBitmap(sResPath + wxT("app/gui/filenew.png"), wxBITMAP_TYPE_ANY), wxT("New project"));
-	m_tbMainFrame->AddTool(wxID_OPEN, wxT("Load"), wxBitmap(sResPath + wxT("app/gui/fileopen.png"), wxBITMAP_TYPE_ANY), wxT("Open project..."));
-	m_tbMainFrame->AddTool(wxID_SAVEAS, wxT("Save as..."), wxBitmap(sResPath + wxT("app/gui/filesave.png"), wxBITMAP_TYPE_ANY), wxT("Save project as..."));
+	m_tbMainFrame->AddTool(wxID_NEW, wxT("New"), wxBitmap(sResPath + wxT("app/gui/filenew.png"), wxBITMAP_TYPE_PNG), wxT("New project"));
+	m_tbMainFrame->AddTool(wxID_OPEN, wxT("Load"), wxBitmap(sResPath + wxT("app/gui/fileopen.png"), wxBITMAP_TYPE_PNG), wxT("Open project..."));
+	m_tbMainFrame->AddTool(wxID_SAVEAS, wxT("Save as..."), wxBitmap(sResPath + wxT("app/gui/filesave.png"), wxBITMAP_TYPE_PNG), wxT("Save project as..."));
 	m_tbMainFrame->AddSeparator();
-	m_tbMainFrame->AddTool(wxID_PRINT, wxT("Print"), wxBitmap(sResPath + wxT("app/gui/fileprint.png"), wxBITMAP_TYPE_ANY), wxT("Print active diagram..."));
-	m_tbMainFrame->AddTool(wxID_PREVIEW, wxT("Preview"), wxBitmap(sResPath + wxT("app/gui/filepreview.png"), wxBITMAP_TYPE_ANY), wxT("Preview active diagram..."));
+	m_tbMainFrame->AddTool(wxID_PRINT, wxT("Print"), wxBitmap(sResPath + wxT("app/gui/fileprint.png"), wxBITMAP_TYPE_PNG), wxT("Print active diagram..."));
+	m_tbMainFrame->AddTool(wxID_PREVIEW, wxT("Preview"), wxBitmap(sResPath + wxT("app/gui/filepreview.png"), wxBITMAP_TYPE_PNG), wxT("Preview active diagram..."));
 	m_tbMainFrame->AddSeparator();
-	m_tbMainFrame->AddTool(wxID_COPY, wxT("Copy"), wxBitmap(sResPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY), wxT("Copy to clipboard"));
-	m_tbMainFrame->AddTool(wxID_CUT, wxT("Cut"), wxBitmap(sResPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY), wxT("Cut to clipboard"));
-	m_tbMainFrame->AddTool(wxID_PASTE, wxT("Paste"), wxBitmap(sResPath + wxT("app/gui/editpaste.png"), wxBITMAP_TYPE_ANY), wxT("Paste from clipboard"));
+	m_tbMainFrame->AddTool(wxID_COPY, wxT("Copy"), wxBitmap(sResPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_PNG), wxT("Copy to clipboard"));
+	m_tbMainFrame->AddTool(wxID_CUT, wxT("Cut"), wxBitmap(sResPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_PNG), wxT("Cut to clipboard"));
+	m_tbMainFrame->AddTool(wxID_PASTE, wxT("Paste"), wxBitmap(sResPath + wxT("app/gui/editpaste.png"), wxBITMAP_TYPE_PNG), wxT("Paste from clipboard"));
 	m_tbMainFrame->AddSeparator();
-	m_tbMainFrame->AddTool(wxID_UNDO, wxT("Undo"), wxBitmap(sResPath + wxT("app/gui/undo.png"), wxBITMAP_TYPE_ANY), wxT("Undo"));
-	m_tbMainFrame->AddTool(wxID_REDO, wxT("Redo"), wxBitmap(sResPath + wxT("app/gui/redo.png"), wxBITMAP_TYPE_ANY), wxT("Redo"));
+	m_tbMainFrame->AddTool(wxID_UNDO, wxT("Undo"), wxBitmap(sResPath + wxT("app/gui/undo.png"), wxBITMAP_TYPE_PNG), wxT("Undo"));
+	m_tbMainFrame->AddTool(wxID_REDO, wxT("Redo"), wxBitmap(sResPath + wxT("app/gui/redo.png"), wxBITMAP_TYPE_PNG), wxT("Redo"));
 	m_tbMainFrame->Realize();
 
 	// project toolbar
@@ -683,7 +685,7 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbProjectItems->AddTool(IDM_PROJ_VARIABLE, wxT("Variable"), udArt::GetBitmap(wxT("udGenericVariableItem")), wxT("Create user-defined generic variable"));
 	m_tbProjectItems->AddTool(IDM_PROJ_FUNCTION, wxT("Function"), udArt::GetBitmap(wxT("udGenericFunctionItem")), wxT("Create user-defined generic function"));
 	m_tbProjectItems->AddSeparator();
-	m_tbProjectItems->AddTool(IDM_PROJ_SETTINGS, wxT("Project settings"), wxBitmap(sResPath + wxT("app/gui/configure.png"), wxBITMAP_TYPE_ANY), wxT("Project settings"));
+	m_tbProjectItems->AddTool(IDM_PROJ_SETTINGS, wxT("Project settings"), wxBitmap(sResPath + wxT("app/gui/configure.png"), wxBITMAP_TYPE_PNG), wxT("Project settings"));
 
     m_tbProjectItems->Realize();
 
@@ -718,8 +720,8 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbGenerator = new wxToolBar(this, -1, wxDefaultPosition, wxDefaultSize, wxTB_FLAT);
 	#endif*/
 	m_tbGenerator->SetToolBitmapSize(wxSize(udnIMG_SIZE, udnIMG_SIZE));
-	m_tbGenerator->AddTool(IDM_CODE_PREVIEW, wxT("Code preview"), wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY), wxT("Generate code preview for an active chart"));
-	m_tbGenerator->AddTool(IDM_CODE_GENERATE, wxT("Generate"), wxBitmap(sResPath + wxT("app/gui/actionrun.png"), wxBITMAP_TYPE_ANY), wxT("Generate code for an active project"));
+	m_tbGenerator->AddTool(IDM_CODE_PREVIEW, wxT("Code preview"), wxBitmap(sResPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_PNG), wxT("Generate code preview for an active chart"));
+	m_tbGenerator->AddTool(IDM_CODE_GENERATE, wxT("Generate"), wxBitmap(sResPath + wxT("app/gui/actionrun.png"), wxBITMAP_TYPE_PNG), wxT("Generate code for an active project"));
 	m_tbGenerator->AddSeparator();
 	wxArrayString dummy; // This is just because gcc 4.3 does not like the num at 0 and the cont wxString* at NULL
 	m_chLanguages = new wxChoice(m_tbGenerator, IDC_CHOICE_LANGUAGES, wxDefaultPosition, wxSize(200, -1), dummy);

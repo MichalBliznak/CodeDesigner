@@ -310,12 +310,12 @@ void udElementLinkItem::OnContextMenu(wxWindow* parent, const wxPoint& pos)
 	
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, wxID_COPY, wxT("Copy\tCtrl+C"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_COPY, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_PNG));
 	pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(pPopupMenu, IDM_DELAYED_CUTELEMENT, wxT("Cut\tCtrl+X"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_CUT, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_PNG));
 	pPopupMenu->Append(pItem);
 
 	pPopupMenu->AppendSeparator();
@@ -1921,7 +1921,7 @@ wxMenu* udDiagramItem::CreateMenu()
 
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, IDM_DIAG_SHOWPREVIEW, wxT("Code preview"));
 	//pItem->SetBitmap(udArt::GetBitmap(wxT("udICON_PREVIEW")));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_PNG));
 	pPopupMenu->Append(pItem);
 
 	pPopupMenu->AppendSeparator();
@@ -2404,12 +2404,12 @@ wxMenu* udDiagElementItem::CreateMenu()
 	
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, wxID_COPY, wxT("Copy\tCtrl+C"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_COPY, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcopy.png"), wxBITMAP_TYPE_PNG));
 	pPopupMenu->Append(pItem);
 
 	pItem = new wxMenuItem(pPopupMenu, IDM_DELAYED_CUTELEMENT, wxT("Cut\tCtrl+X"));
 	//pItem->SetBitmap(wxArtProvider::GetBitmap(wxART_CUT, wxART_MENU));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/editcut.png"), wxBITMAP_TYPE_PNG));
 	pPopupMenu->Append(pItem);
 
 	pPopupMenu->AppendSeparator();
@@ -2624,7 +2624,7 @@ wxMenu* udSubDiagramElementItem::CreateMenu()
 
 	wxMenuItem *pItem = new wxMenuItem(pPopupMenu, IDM_DIAG_SHOWPREVIEW, wxT("Code preview"));
 	//pItem->SetBitmap(udArt::GetBitmap(wxT("udICON_PREVIEW")));
-	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_ANY));
+	pItem->SetBitmap(wxBitmap(sAppPath + wxT("app/gui/spellcheck.png"), wxBITMAP_TYPE_PNG));
 	pPopupMenu->Insert(1, pItem);
 
 	pPopupMenu->InsertSeparator(2);

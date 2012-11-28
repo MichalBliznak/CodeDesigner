@@ -57,14 +57,16 @@ if( linux ) then
 		table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/../lib/" .. project.name )
 	end
 elseif( macosx ) then
-	table.insert( package.linkoptions, "-Wl,-L../lib/" .. project.name )
+	table.insert( package.linkoptions, "-Wl,-rpath,$$``ORIGIN/../lib/" .. project.name )
 end
 -- Set windows resource file
 if ( (windows) and not (target == "vs2005") ) then    
 	table.insert(package.files, "resource.rc")
 end
--- Set prebuild command
+-- Set pre/postbuild command
 package.config["Debug"].prebuildcommands = { "python $(ProjectPath)/create_buildnum.py" }
+package.config["Release"].postbuildcommands = { "../install/macosx/postbuild.sh" }
+package.config["Debug"].postbuildcommands = { "../install/macosx/postbuildd.sh" }
 
 -- Set the libraries it links to.
 if ( options["no-builtin-propgrid"] ) then
