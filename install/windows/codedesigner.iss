@@ -1,11 +1,11 @@
 [Setup]
 AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2012
 AppName=CodeDesigner RAD
-AppVerName=CodeDesigner RAD 1.6.1.2994 Beta (SVN: 299)
+AppVerName=CodeDesigner RAD 1.6.2.3010 Beta (SVN: 305)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner RAD
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.6.1.2994
+OutputBaseFilename=codedesigner-1.6.2.3010
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none

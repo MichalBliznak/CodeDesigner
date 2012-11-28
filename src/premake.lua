@@ -65,8 +65,10 @@ if ( (windows) and not (target == "vs2005") ) then
 end
 -- Set pre/postbuild command
 package.config["Debug"].prebuildcommands = { "python $(ProjectPath)/create_buildnum.py" }
-package.config["Release"].postbuildcommands = { "../install/macosx/postbuild.sh" }
-package.config["Debug"].postbuildcommands = { "../install/macosx/postbuildd.sh" }
+if( macosx ) then
+	package.config["Release"].postbuildcommands = { "../install/macosx/postbuild.sh" }
+	package.config["Debug"].postbuildcommands = { "../install/macosx/postbuildd.sh" }
+end
 
 -- Set the libraries it links to.
 if ( options["no-builtin-propgrid"] ) then
