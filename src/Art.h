@@ -10,8 +10,9 @@
 #ifndef ART_H_INCLUDED
 #define ART_H_INCLUDED
 
-#include <wx/imaglist.h>
 #include <wx/hashmap.h>
+#include <wx/bitmap.h>
+#include <wx/imaglist.h>
 
 WX_DECLARE_STRING_HASH_MAP( int, ImageMap );
 

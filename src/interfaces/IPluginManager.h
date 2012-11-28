@@ -2,6 +2,7 @@
 #define IPLUGINMANAGER_H
 
 #include <wx/wx.h>
+#include <wx/imaglist.h>
 #include <wx/aui/auibook.h>
 #include <wx/wxsf/wxShapeFramework.h>
 

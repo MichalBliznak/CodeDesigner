@@ -174,7 +174,7 @@ else
 	table.insert( package.excludes, matchrecursive( "*.rc" ) )
 	
 	-- Add buildflag for proper dll building.
-	if ( macosx and options["with-wx-shared"] and package.kind == "dll") then
+	if ( macosx and package.kind == "dll") then
 		table.insert( package.buildflags, "dylib" )
 	end
 	
