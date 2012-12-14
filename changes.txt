@@ -1,3 +1,7 @@
+Changes in version 1.6.3 beta (2012-12-14):
+------------------------------------------------
+- Minor GUI tweaks and fixes.
+
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
 - Class members names don't have to be unique.
