@@ -205,9 +205,9 @@ wxSize udTabArt::GetTabSize(wxDC& dc,
                                       int* x_extent)
 {
 #if wxVERSION_NUMBER >= 2905
-	return wxAuiDefaultTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, -2);
+	return wxAuiGenericTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, 6);
 #else
-	return wxAuiDefaultTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, 3);
+	return wxAuiGenericTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, 6);
 #endif
 }
 
@@ -259,5 +259,3 @@ wxAuiToolBarArt* udToolArt::Clone()
 {
 	 return static_cast<wxAuiToolBarArt*>(new udToolArt);
 }
-
-

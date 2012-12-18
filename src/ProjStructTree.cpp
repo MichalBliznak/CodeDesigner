@@ -14,7 +14,7 @@
 // constructor and destructor ///////////////////////////////////////////////////////
 
 udProjStructTree::udProjStructTree(wxWindow *parent, wxWindowID id)
-: udProjectTree( parent, id, wxDefaultPosition, wxDefaultSize, wxTR_EDIT_LABELS | wxTR_DEFAULT_STYLE )
+: udProjectTree( parent, id, wxDefaultPosition, wxDefaultSize, wxTR_EDIT_LABELS | wxTR_DEFAULT_STYLE | wxNO_BORDER )
 {
 
 }
