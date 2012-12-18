@@ -4,8 +4,11 @@
 #include <wx/aui/auibook.h>
 #include <wx/aui/auibar.h>
 
+#if wxVERSION_NUMBER >= 2905
 class udTabArt : public wxAuiGenericTabArt {
-
+#else
+class udTabArt : public wxAuiDefaultTabArt {
+#endif
 public:
 	udTabArt();
     virtual ~udTabArt();

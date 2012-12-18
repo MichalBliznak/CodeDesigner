@@ -207,7 +207,7 @@ wxSize udTabArt::GetTabSize(wxDC& dc,
 #if wxVERSION_NUMBER >= 2905
 	return wxAuiGenericTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, 6);
 #else
-	return wxAuiGenericTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, 6);
+	return wxAuiDefaultTabArt::GetTabSize( dc, wnd, caption, bitmap, active, close_button_state, x_extent ) + wxSize(0, 6);
 #endif
 }
 

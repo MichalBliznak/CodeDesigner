@@ -25,6 +25,10 @@ do
     fi
 done
 
+# Build premake
+PREMAKE_DIR=premake
+make CONFIG=Release -C$PREMAKE_DIR/src -f../build/Makefile
+
 # Autodetect wxWidgets settings
 if ${wxpath}wx-config --unicode >/dev/null 2>/dev/null; then
 	unicode="--unicode"
