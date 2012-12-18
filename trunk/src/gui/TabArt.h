@@ -4,7 +4,7 @@
 #include <wx/aui/auibook.h>
 #include <wx/aui/auibar.h>
 
-class udTabArt : public wxAuiDefaultTabArt {
+class udTabArt : public wxAuiGenericTabArt {
 
 public:
 	udTabArt();
@@ -20,6 +20,10 @@ public:
                  bool active,
                  int close_button_state,
                  int* x_extent);
+				 
+	/*int GetAdditionalBorderSpace(wxWindow* wnd) { return 0; }
+	int GetBorderWidth(wxWindow* wnd) { return 0; };*/
+	int GetIndentSize() { return 2; }
 };
 
 class udToolArt : public wxAuiDefaultToolBarArt {
