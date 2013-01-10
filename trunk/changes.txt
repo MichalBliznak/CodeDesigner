@@ -1,6 +1,7 @@
-Changes in version 1.6.3 beta (2012-12-14):
+Changes in version 1.6.3 beta (2013-01-10):
 ------------------------------------------------
 - Minor GUI tweaks and fixes.
+- Fixed various issues in DnD operations (when some elements were dropped onto transitions or states).
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------

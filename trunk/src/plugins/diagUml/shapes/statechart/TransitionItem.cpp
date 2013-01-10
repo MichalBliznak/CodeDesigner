@@ -97,6 +97,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 		
 		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
+		pNewEvt->UpdateSignature();
 		pTransElement->AssignCodeItem( new udEventLinkItem((udCodeItem*)pNewEvt) );
 	}
 	else if( pLink->IsKindOf(CLASSINFO(udFunctionLinkItem)) )
@@ -116,6 +117,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
+			pNewCond->UpdateSignature();
 			pTransElement->AssignCodeItem( new udConditionLinkItem((udCodeItem*)pNewCond) );
 		}
 		else
@@ -126,6 +128,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
+			pNewAct->UpdateSignature();
 			pTransElement->AssignCodeItem( new udActionLinkItem((udCodeItem*)pNewAct) );
 		}
 	}
@@ -166,6 +169,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 					pCondition->SetCode(sRetVar + pLang->Equal() + pFinalElement->GetRetVal() );
 				
 				// assign the link to the transition
+				pCondition->UpdateSignature();
 				pTransElement->AssignCodeItem( new udConditionLinkItem( pCondition ) );
 
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pCondition, (udProjectItem*)pProject->GetRootItem() );
@@ -208,6 +212,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				pLang->PopCode();
 				
 				// assign the link to the transition
+				pAction->UpdateSignature();
 				pTransElement->AssignCodeItem( new udActionLinkItem( pAction ) );
 
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*)pProject->GetRootItem() );
@@ -255,6 +260,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				
 					IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewCond, (udProjectItem*)pProject->GetRootItem() );
 
+					pNewCond->UpdateSignature();
 					pTransElement->AssignCodeItem( new udConditionLinkItem((udCodeItem*)pNewCond) );
 				}
 				else
@@ -270,6 +276,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				
 					IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pProject->GetRootItem() );
 
+					pNewAct->UpdateSignature();
 					pTransElement->AssignCodeItem( new udActionLinkItem((udCodeItem*)pNewAct) );
 				}
 			}

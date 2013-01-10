@@ -182,6 +182,7 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
+			pNewAct->UpdateSignature();
 			pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, nActionType) );
 		}
 	}
@@ -233,6 +234,7 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 				pLang->PopCode();
 				
 				// assign the link to the transition
+				pAction->UpdateSignature();
 				pElement->AssignCodeItem( new udStateActionLinkItem( (udCodeItem*)pAction, nActionType ) );
 
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pAction, (udProjectItem*)pProject->GetRootItem() );
@@ -273,6 +275,7 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 					
 				IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pProject->GetRootItem() );
 
+				pNewAct->UpdateSignature();
 				pElement->AssignCodeItem( new udStateActionLinkItem((udCodeItem*)pNewAct, (udStateActionLinkItem::TYPE)dlg.GetChoice()) );
 			}
 		}
