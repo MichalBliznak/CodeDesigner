@@ -48,7 +48,7 @@ package.files = { matchrecursive( "*.cpp", "*.h", "*.fbp" ) }
 -- Set the files to exclude.
 package.excludes = { matchrecursive( "controls/*", "projectbase/*", "plugins/*", "ctags/*" ) }
 -- Set the include paths.
-package.includepaths = { "controls/include", "." }
+package.includepaths = { "." }
 -- Set hardcoded path for loaded shared libraries
 if( linux ) then
 	if ( target == "cb-gcc" ) then
@@ -92,3 +92,7 @@ if ( not options["no-builtin-propgrid"] ) then
 end
 	
 dofile('../build/premake/scripts/wxpresets.lua')
+
+-- Must be set here to avoid conflicts with built-in wxWidgets controls (wxPropertyGrid)
+table.insert( package.includepaths, "controls/include" )
+

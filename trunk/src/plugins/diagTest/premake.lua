@@ -30,7 +30,7 @@ package.kind = "dll"
 -- Set the files to include.
 package.files = { matchrecursive( "*.cpp", "*.h" ) }
 -- Set the include paths.
-package.includepaths = { ".", "../", "../../", "../../controls/include" }
+package.includepaths = { ".", "../", "../../" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.
@@ -43,4 +43,8 @@ end
 
 -- Set wxWidgets presets
 dofile('../../../build/premake/scripts/wxpresets.lua')
+
+-- Must be set here to avoid conflicts with built-in wxWidgets controls (wxPropertyGrid)
+table.insert( package.includepaths, "../../controls/include" )
+
 

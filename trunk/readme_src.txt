@@ -41,11 +41,14 @@ Supported code generators:
 	- Loop Case algorithm (C, C++)
 	- Else-If algorithm (C, C++, Python)
 
+Other features:
+- Reverse source code engineering plugin (C, C++, Python)
+
 Requirements:
 -------------
 
-- CodeDesigner is based on wxWidgets toolkit (www.wxwidgets.org) and can be built using 2.8.x version.
-  Note that wxWidgets 2.9.x and higher is NOT supported.
+- CodeDesigner is based on wxWidgets toolkit (www.wxwidgets.org) and can be built using both 2.8.x and
+  2.9.x versions (monolithic builds of wxWidgets 2.8.x and wx.2.9.x libraries are supported only).
 - Python interpreter must be available (the application's build number is created by using simple
   python script).
 - CodeLite (www.codelite.org) IDE with MinGW C++ compiler or MS Visual Studio 2005/2008 (Express)
@@ -76,7 +79,6 @@ Premake build system:
 Premake build scripts and executables are suitable for creation of various IDE project files and 
 GNU makefile as well. You can simply create Codelite, Code::Blocks and MS VS 2005/2008 project files by invoking of
 the included batch scripts.
-
 
 Installation - win32:
 
