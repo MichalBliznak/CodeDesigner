@@ -817,7 +817,7 @@ bool udCodeItem::DragCodeItem(udCodeLinkItem *link)
 
 void udCodeItem::UpdateSignature()
 {
-	m_sSignature = m_sScope + wxT("::") + m_sName;
+	m_sSignature = m_sScope + wxT("::") + m_sName + wxString::Format( wxT("#%d"), GetId() );
 	
 	wxString sDataType;
 	for( SerializableList::const_iterator it = m_lstChildItems.begin(); it != m_lstChildItems.end(); ++it )
@@ -829,6 +829,7 @@ void udCodeItem::UpdateSignature()
 			else sDataType = udLanguage::GetFormalDataTypeString( ci->GetDataType() ) ;
 				
 			m_sSignature += wxT("<") + ci->GetName() + wxT(":") + sDataType + wxT(">");
+			
 		}
 	}
 }

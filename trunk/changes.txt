@@ -1,7 +1,8 @@
-Changes in version 1.6.3 beta (2013-01-10):
+Changes in version 1.6.3 beta (2013-02-06):
 ------------------------------------------------
 - Minor GUI tweaks and fixes.
 - Fixed various issues in DnD operations (when some elements were dropped onto transitions or states).
+- Fixed handling of class members with non-unique names.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
