@@ -25,7 +25,7 @@ do
         echo
         exit
 	elif( [ ${args} = "--disable-shared" ] ); then
-		shared=""
+		shared="--shared"
 		continue
 	elif ( [ "$havearch" -gt "0" ] ); then
         arch=${args//=/" "}

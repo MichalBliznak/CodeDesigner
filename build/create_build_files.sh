@@ -45,13 +45,13 @@ fi
 
 # ========== CodeLite project files ==========
 premake/premake-linux --target cl-gcc --wx-version $release --shared --with-wx-shared $propgrid $unicode $debug $wxroot $1
-#premake/premake-linux --target cl-gcc --wx-version $release $propgrid $unicode $debug $wxroot $1
+#premake/premake-linux --target cl-gcc --wx-version $release --shared $propgrid $unicode $debug $wxroot $1
 echo done...
 echo 
 #
 # ========== GNU Makefile ==========
 premake/premake-linux --target gnu --wx-version $release --shared --with-wx-shared $propgrid $unicode $debug $wxroot $1
-#premake/premake-linux --target gnu --wx-version $release $propgrid $unicode $debug $wxroot $1
+#premake/premake-linux --target gnu --wx-version $release --shared $propgrid $unicode $debug $wxroot $1
 echo done...
 echo 
 #
