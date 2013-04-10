@@ -129,8 +129,8 @@ class UMLDesignerFrame: public _MainFrame
         void InitializeProject(udProject *proj);
         void InitializeChoices();
 		
-		void SetModified(bool modified);
-		bool IsModified(){return m_fModified;}
+		void SetProjectModified(bool modified);
+		bool IsProjectModified(){return m_fModified;}
 		void SaveDiagramState(udDiagramItem *diag);
 
 		static int UpdateCreateSubmenu(wxMenu *submenu, PaletteArray *palette, int itemmask, bool clear);
