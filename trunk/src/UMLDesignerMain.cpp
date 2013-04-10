@@ -441,7 +441,7 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	else
 		m_AUIManager.Update();
 	
-	SetModified( false );
+	SetProjectModified( false );
 }
 
 UMLDesignerFrame::~UMLDesignerFrame()
@@ -1156,7 +1156,7 @@ void UMLDesignerFrame::SaveDiagramState(udDiagramItem *diag)
 	}
 }
 
-void UMLDesignerFrame::SetModified(bool modified)
+void UMLDesignerFrame::SetProjectModified(bool modified)
 {
 	m_fModified = modified;
 	if( modified ) SetStatusText( wxT("Modified"), 2 );
@@ -1231,7 +1231,7 @@ void UMLDesignerFrame::OnProjectItemChanged(udProjectEvent& event)
 		pCode->UpdateSignature();
 	}
 	
-	SetModified( true );
+	SetProjectModified( true );
 }
 
 void UMLDesignerFrame::OnProjectItemAdded(udProjectEvent& event)
@@ -1282,12 +1282,12 @@ void UMLDesignerFrame::OnProjectItemAdded(udProjectEvent& event)
 	udCodeItem *pCi = wxDynamicCast( event.GetProjectItem(), udCodeItem );
 	if( pCi ) pCi->UpdateSignature();
 	
-	SetModified( true );
+	SetProjectModified( true );
 }
 
 void UMLDesignerFrame::OnProjectItemRemoved(udProjectEvent& event)
 {
-	SetModified( true );
+	SetProjectModified( true );
 }
 
 void UMLDesignerFrame::OnProjectTaskRemove(udProjectEvent& event)
@@ -1309,7 +1309,7 @@ void UMLDesignerFrame::OnNewProject( wxCommandEvent &event )
 		
 	SetTitle( wxT("CodeDesigner RAD") );
 	
-	SetModified( false );
+	SetProjectModified( false );
 }
 
 void UMLDesignerFrame::OpenProjectFile(const wxString& path)
@@ -1414,7 +1414,7 @@ void UMLDesignerFrame::OpenProjectFile(const wxString& path)
 				
 		SetTitle( wxT("CodeDesigner RAD [") + path + wxT("]") );
 				
-		SetModified( false );
+		SetProjectModified( false );
 				
 		wxSetCursor( *wxSTANDARD_CURSOR );
 	}
@@ -1441,7 +1441,7 @@ void UMLDesignerFrame::OnRecentFile( wxCommandEvent &event )
 		size_t nIndex = event.GetId() - wxID_FILE1;
 		if( nIndex < arrRecentFiles.GetCount() )
 		{
-			if( IsModified() && (wxMessageBox(wxT("Current unsaved changes will be lost. Would you like to load the project anyway?"), wxT("CodeDesigner"), wxICON_WARNING | wxYES_NO) == wxNO) ) return;
+			if( IsProjectModified() && (wxMessageBox(wxT("Current unsaved changes will be lost. Would you like to load the project anyway?"), wxT("CodeDesigner"), wxICON_WARNING | wxYES_NO) == wxNO) ) return;
 			
 			OpenProjectFile( arrRecentFiles[nIndex] );
 		}
@@ -1464,7 +1464,7 @@ void UMLDesignerFrame::OnSaveProject( wxCommandEvent &event )
 		
 		SetTitle( wxT("CodeDesigner RAD [") + pProj->GetProjectPath() + wxT("]") );
 		
-		SetModified( false );
+		SetProjectModified( false );
 	}
 	else
 		OnSaveProjectAs( event );
@@ -1489,7 +1489,7 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 		
 		SetTitle( wxT("CodeDesigner RAD [") + pProj->GetProjectPath() + wxT("]") );
 		
-		SetModified( false );
+		SetProjectModified( false );
 		
 		wxSetCursor( *wxSTANDARD_CURSOR );
     }
@@ -1539,7 +1539,7 @@ void UMLDesignerFrame::OnQuit( wxCommandEvent &event )
 {
 	udProject *pProj = udProject::Get();
 	
-	if( IsModified() && ( wxMessageBox( wxT("Project is changed. Do you want to save it?"), wxT("CodeDesigner"), wxYES_NO | wxICON_QUESTION) == wxYES ) )
+	if( IsProjectModified() && ( wxMessageBox( wxT("Project is changed. Do you want to save it?"), wxT("CodeDesigner"), wxYES_NO | wxICON_QUESTION) == wxYES ) )
 	{
 		if( wxFileExists( pProj->GetProjectPath() ) )
 		{
@@ -2021,7 +2021,7 @@ void UMLDesignerFrame::OnDiagramLeftClick( wxMouseEvent &event )
         event.Skip();
     }
 	
-	SetModified( true );
+	SetProjectModified( true );
 }
 
 void UMLDesignerFrame::OnDiagramRightClick( wxMouseEvent &event )
@@ -2058,7 +2058,7 @@ void UMLDesignerFrame::OnDiagramRightClick( wxMouseEvent &event )
 		}
 	}
 	
-	SetModified( true );
+	SetProjectModified( true );
 }
 
 void UMLDesignerFrame::OnDiagramLeftDoubleClick( wxMouseEvent &event )
@@ -2086,7 +2086,7 @@ void UMLDesignerFrame::OnDiagramLeftDoubleClick( wxMouseEvent &event )
 		event.Skip();
 	}
 	
-	SetModified( true );
+	SetProjectModified( true );
 }
 
 void UMLDesignerFrame::OnDiagramMouseWheel( wxMouseEvent& event )
@@ -2791,7 +2791,7 @@ void UMLDesignerFrame::OnSynchronizeCode(wxCommandEvent& event)
 			break;
 			
 		case wxID_OK:
-			SetModified( true );
+			SetProjectModified( true );
 			wxMessageBox( wxT("Some code items have been updated. Please, see the log window."), wxT("CodeDesigner"), wxOK | wxICON_INFORMATION );
 			break;
 			
