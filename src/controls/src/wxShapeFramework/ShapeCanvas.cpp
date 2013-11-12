@@ -337,56 +337,54 @@ void wxSFShapeCanvas::_OnPaint(wxPaintEvent& event)
 	PrepareDC( dc );
 	dc.PrepareGC();
 
-	DrawContent(dc, sfFROM_PAINT);
+	this->DrawBackground( dc, sfFROM_PAINT );
+	this->DrawContent( dc, sfFROM_PAINT );
+	this->DrawForeground( dc, sfFROM_PAINT );
 #else
 #if wxUSE_GRAPHICS_CONTEXT
     if( IsGCEnabled() )
 	{
-		int x, y;
 		wxGCDC gdc( paintDC );
-		wxGraphicsContext *pGC = gdc.GetGraphicsContext();
-
-		PrepareDC( paintDC );
-		paintDC.GetDeviceOrigin( &x, &y );
 		
-		// scale and translate GC
+		PrepareDC( paintDC );
+		PrepareDC( gdc );
+		
+		// scale  GC
+		wxGraphicsContext *pGC = gdc.GetGraphicsContext();
 		pGC->Scale( m_Settings.m_nScale, m_Settings.m_nScale );
-		pGC->Translate( x, y );
 	
-		DrawContent( gdc, sfFROM_PAINT );
+		this->DrawBackground( gdc, sfFROM_PAINT );
+		this->DrawContent( gdc, sfFROM_PAINT );
+		this->DrawForeground( gdc, sfFROM_PAINT );
 	}
 	else
 	{
 		wxSFScaledDC dc( (wxWindowDC*)&paintDC, m_Settings.m_nScale );
 		
 		PrepareDC( dc );
-		DrawContent( dc, sfFROM_PAINT );
+		this->DrawBackground( dc, sfFROM_PAINT );
+		this->DrawContent( dc, sfFROM_PAINT );
+		this->DrawForeground( dc, sfFROM_PAINT );
 	}
 #else
 	wxSFScaledDC dc( (wxWindowDC*)&paintDC, m_Settings.m_nScale );
 	
 	PrepareDC( dc );
-	DrawContent( dc, sfFROM_PAINT  );
+	this->DrawBackground( dc, sfFROM_PAINT  );
+	this->DrawContent( dc, sfFROM_PAINT  );
+	this->DrawForeground( dc, sfFROM_PAINT  );
 #endif
 #endif
 }
 
-void wxSFShapeCanvas::DrawContent(wxDC& dc, bool fromPaint)
+void wxSFShapeCanvas::DrawBackground(wxDC& dc, bool fromPaint)
 {
-    wxASSERT( m_pManager );
-    if(!m_pManager)return;
-    wxASSERT(m_pManager->GetRootItem());
-    if(!m_pManager->GetRootItem())return;
-
-    wxSFShapeBase *pShape = NULL, *pParentShape = NULL;
-	wxSFLineShape *pLine = NULL;
-
     #if wxVERSION_NUMBER < 2900 && wxUSE_GRAPHICS_CONTEXT
     wxSFScaledDC::EnableGC( false );
     #endif
 
 	// erase background
-	if( m_Settings.m_nStyle & sfsGRADIENT_BACKGROUND )
+	if( ContainsStyle( sfsGRADIENT_BACKGROUND ) )
 	{
 	    wxSize nBcgSize = GetVirtualSize() + wxSize(m_Settings.m_nGridSize.x, m_Settings.m_nGridSize.y);
 	    if( m_Settings.m_nScale != 1.f )
@@ -401,7 +399,7 @@ void wxSFShapeCanvas::DrawContent(wxDC& dc, bool fromPaint)
 	}
 
 	// show grid
-	if( ContainsStyle(sfsGRID_SHOW) )
+	if( ContainsStyle( sfsGRID_SHOW ) )
 	{
 		int linedist = m_Settings.m_nGridSize.x * m_Settings.m_nGridLineMult;
 		
@@ -426,6 +424,22 @@ void wxSFShapeCanvas::DrawContent(wxDC& dc, bool fromPaint)
     #if wxVERSION_NUMBER < 2900 && wxUSE_GRAPHICS_CONTEXT
     wxSFScaledDC::EnableGC( m_fEnableGC );
     #endif
+}
+
+void wxSFShapeCanvas::DrawForeground(wxDC& dc, bool fromPaint)
+{
+	// do nothing here...
+}
+
+void wxSFShapeCanvas::DrawContent(wxDC& dc, bool fromPaint)
+{
+    wxASSERT( m_pManager );
+    if(!m_pManager)return;
+    wxASSERT(m_pManager->GetRootItem());
+    if(!m_pManager->GetRootItem())return;
+
+    wxSFShapeBase *pShape = NULL, *pParentShape = NULL;
+	wxSFLineShape *pLine = NULL;
 
 	if(fromPaint)
 	{
@@ -797,19 +811,13 @@ void wxSFShapeCanvas::OnLeftDown(wxMouseEvent& event)
 		    {
 		        //wxSFShapeBase* pShapeUnder = GetShapeAtPosition(lpos);
 				wxSFShapeBase* pShapeUnder = GetShapeUnderCursor();
-                //if(pShapeUnder && !pShapeUnder->IsKindOf(CLASSINFO(wxSFLineShape)))
+				// propagate request for interactive connection if requested
+				while( pShapeUnder && pShapeUnder->ContainsStyle( wxSFShapeBase::sfsPROPAGATE_INTERACTIVE_CONNECTION ) ) {
+					pShapeUnder = pShapeUnder->GetParentShape();
+				}
+                // finish connection's creation process if possible
 				if(pShapeUnder)
                 {
-					/*if((m_pNewLineShape->GetSrcShapeId() == -1) &&
-                        (pShapeUnder->IsConnectionAccepted(m_pNewLineShape->GetClassInfo()->GetClassName())))
-                        //(!pShapeUnder->GetAcceptedTrgNeighbours().IsEmpty()))
-                    {
-                        m_pNewLineShape->SetSrcShapeId(pShapeUnder->GetId());
-
-						// swith on the "under-construcion" mode
-						m_pNewLineShape->SetUnfinishedPoint(lpos);
-                    }
-                    else */
 					if((m_pNewLineShape->GetTrgShapeId() == -1) &&
                             (pShapeUnder != m_pNewLineShape) &&
                             (pShapeUnder->GetId() != -1) &&
@@ -885,7 +893,6 @@ void wxSFShapeCanvas::OnLeftUp(wxMouseEvent &event)
 			// resize parent shape to fit all its children if neccessary
 			if( m_pSelectedHandle->GetParentShape()->GetParentShape() )
 			{
-				//((wxSFShapeBase*)m_pSelectedHandle->GetParentShape()->GetParentShape())->FitToChildren();
 				((wxSFShapeBase*)m_pSelectedHandle->GetParentShape()->GetParentShape())->Update();
 			}
 
@@ -1978,6 +1985,11 @@ void wxSFShapeCanvas::StartInteractiveConnection(wxClassInfo* shapeInfo, const w
     if((m_nWorkingMode == modeREADY) && shapeInfo->IsKindOf(CLASSINFO(wxSFLineShape)))
     {
         wxSFShapeBase* pShapeUnder = GetShapeAtPosition(lpos);
+		// propagate request for interactive connection if requested
+		while( pShapeUnder && pShapeUnder->ContainsStyle( wxSFShapeBase::sfsPROPAGATE_INTERACTIVE_CONNECTION ) ) {
+			pShapeUnder = pShapeUnder->GetParentShape();
+		}
+		// start the connection's creation process if possible
 		if( pShapeUnder && (pShapeUnder->GetId() != -1) && pShapeUnder->IsConnectionAccepted(shapeInfo->GetClassName()) )
 		{
 			m_pNewLineShape = (wxSFLineShape*)m_pManager->AddShape(shapeInfo, sfDONT_SAVE_STATE);
@@ -2099,9 +2111,12 @@ void wxSFShapeCanvas::SaveCanvasToImage(const wxString& file, wxBitmapType type,
 			RemoveStyle( wxSFShapeCanvas::sfsGRADIENT_BACKGROUND );
             RemoveStyle( wxSFShapeCanvas::sfsGRID_SHOW );
             SetCanvasColour( *wxWHITE);
+		} else {
+			this->DrawBackground( outdc, sfNOT_FROM_PAINT );
 		}
 		
-        DrawContent( outdc, sfNOT_FROM_PAINT );
+        this->DrawContent( outdc, sfNOT_FROM_PAINT );
+        this->DrawForeground( outdc, sfNOT_FROM_PAINT );
 		
 		if( !background )
 		{
@@ -3090,7 +3105,7 @@ void wxSFShapeCanvas::_OnDrop(wxCoord x, wxCoord y, wxDragResult def, wxDataObje
 									  
 				if( shape )
 				{
-					if( parent )
+					if( parent ) 
 					{
 						parent->OnChildDropped( shape->GetAbsolutePosition() - parent->GetAbsolutePosition(), shape );
 						parent->Update();
