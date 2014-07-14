@@ -4,7 +4,14 @@ Changes in version 1.6.3 beta (2014-07-14):
 - Fixed various issues in DnD operations (when some elements were dropped onto transitions or states).
 - Fixed handling of class members with non-unique names.
 - Fixed code generation for non-blocking state charts.
+- Fixed pre-processing of composite states containing another composite states (incomming and 
+  outgoing transitions connected to the outer composite state were duplicated during the re-
+  connection process).
 - Non-blocking state chart returns value only when contains any final state.
+- Holding CTRL key during a connection's control point creation allow users to place the
+  connection point even "onto" an underlyind diagram item.
+- Hold SHIFT key when clicking the diagram items to add them to the selection or hold CTRL+SHIFT
+  keys when clicking onto already selected diagram items to remove them from the selection.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
