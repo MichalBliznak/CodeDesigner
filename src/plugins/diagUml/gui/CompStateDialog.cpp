@@ -43,9 +43,9 @@ void udCompStateDialog::OnInit(wxInitDialogEvent& event)
 	for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
 	{
 		pActLink = (udStateActionLinkItem*)*it;
-		if( pActLink->GetActionType() == udStateActionLinkItem::saENTRY ) m_listUsedEntry->Append( pActLink->GetOrigCodeItem() );
+		if( pActLink->GetActionType() == udStateActionLinkItem::saENTRY ) m_listUsedEntry->Append( pActLink->GetOriginal()->GetName() );
 		else
-			 m_listUsedExit->Append( pActLink->GetOrigCodeItem() );
+			 m_listUsedExit->Append( pActLink->GetOriginal()->GetName() );
 	}
 	
 	// use validators to transfer a data

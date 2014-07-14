@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr  6 2012)
+// C++ code generated with wxFormBuilder (version Nov 12 2013)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -23,10 +23,7 @@
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
-#include <wx/wxScintilla/wxscintilla.h>
-#ifdef __VISUALC__
-#include <wx/link_additions.h>
-#endif //__VISUALC__
+#include <wx/stc/stc.h>
 #include <wx/notebook.h>
 #include <wx/button.h>
 #include <wx/gbsizer.h>
@@ -72,7 +69,7 @@ class _CodeDialog : public wxDialog
 		wxPanel* m_pageAdv;
 		wxCheckBox* m_cbInline;
 		wxPanel* m_pageEditor;
-		wxScintilla* m_sciEditor;
+		wxStyledTextCtrl* m_sciEditor;
 		wxStdDialogButtonSizer* bntSizer;
 		wxButton* bntSizerOK;
 		wxButton* bntSizerCancel;
@@ -110,7 +107,7 @@ class _StateActionDialog : public wxDialog
 		wxStaticText* m_staticText17;
 		wxChoice* m_chType;
 		wxPanel* m_pageEditor;
-		wxScintilla* m_sciEditor;
+		wxStyledTextCtrl* m_sciEditor;
 		wxStdDialogButtonSizer* bntSizer;
 		wxButton* bntSizerOK;
 		wxButton* bntSizerCancel;
@@ -449,7 +446,7 @@ class _ConstructorDialog : public wxDialog
 		wxChoice* m_chBaseConstructor;
 		wxPropertyGrid* m_pgParams;
 		wxPanel* m_pageEditor;
-		wxScintilla* m_sciEditor;
+		wxStyledTextCtrl* m_sciEditor;
 		wxStdDialogButtonSizer* bntSizer;
 		wxButton* bntSizerOK;
 		wxButton* bntSizerCancel;
@@ -500,7 +497,7 @@ class _DestructorDialog : public wxDialog
 		wxStaticText* m_staticText431;
 		wxChoice* m_chFcnModifier;
 		wxPanel* m_pageEditor;
-		wxScintilla* m_sciEditor;
+		wxStyledTextCtrl* m_sciEditor;
 		wxStdDialogButtonSizer* bntSizer;
 		wxButton* bntSizerOK;
 		wxButton* bntSizerCancel;

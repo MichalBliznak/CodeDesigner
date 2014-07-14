@@ -35,7 +35,7 @@ void udTransitionDialog::OnInit(wxInitDialogEvent& event)
 		m_chConditions->Append( ((udCodeItem*)*it)->GetName() );
 	}
 	udCodeLinkItem *pCurrCond = wxDynamicCast( m_pTransition->GetCondition(), udCodeLinkItem );
-	if( pCurrCond ) m_chConditions->SetStringSelection( pCurrCond->GetOrigCodeItem() );
+	if( pCurrCond ) m_chConditions->SetStringSelection( pCurrCond->GetOriginal()->GetName() );
 	
 	// initialize available actions
 	lstCodeItems.Clear();
@@ -52,7 +52,7 @@ void udTransitionDialog::OnInit(wxInitDialogEvent& event)
 	
 	for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
 	{
-		m_listUsed->Append( ((udActionLinkItem*)*it)->GetOrigCodeItem() );
+		m_listUsed->Append( ((udActionLinkItem*)*it)->GetOriginal()->GetName() );
 	}
 	
 	// use validators to transfer a data

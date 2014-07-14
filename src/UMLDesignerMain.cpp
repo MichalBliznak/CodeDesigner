@@ -61,7 +61,6 @@ WX_DEFINE_LIST(ListenerList);
 // TODO: implement parallel states in HSCH
 // TODO: implement QuantumLeaps code generator
 // TODO: implement re-arrangement of elements in diagram for code generation (???)
-// TODO: use built-in wxStyledTextCtrl instead of wxScintilla with wxWidgets 2.9.x
 
 // global static objects
 bool UMLDesignerFrame::m_fDispatchEvents = true;

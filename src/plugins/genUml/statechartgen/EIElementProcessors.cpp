@@ -1,4 +1,5 @@
 #include "EIElementProcessors.h"
+#include "ElifAlgorithm.h"
 #include "projectbase/GeneratorBase.h"
 #include "../../diagUml/DiagUml.h"
 
@@ -269,9 +270,20 @@ void udEIFinalItemProcessor::ProcessElement(wxSFShapeBase *element)
     // check existing parent generator
     wxASSERT(m_pParentGenerator);
     if(!m_pParentGenerator)return;
+	
+	bool fNonBlocking = false;
 
     wxSFShapeBase *pPrev = m_pParentGenerator->GetActiveAlgorithm()->GetPrevElement();
 	wxSFShapeBase *pParent = element->GetParentShape();
+	wxSFDiagramManager *pDiagManager = (wxSFDiagramManager*) element->GetParentManager();
+	
+	// get inital states
+    ShapeList lstInitialStates;
+    pDiagManager->GetShapes(CLASSINFO(umlInitialItem), lstInitialStates);
+	wxSFShapeBase *pInitial = lstInitialStates.GetFirst()->GetData();
+	
+	udSStateChartDiagramItem *pSCH = wxDynamicCast( ((udElifAlgorithm*)m_pParentGenerator->GetActiveAlgorithm())->GetProcessedDiagram(), udSStateChartDiagramItem );
+	if( pSCH ) fNonBlocking = pSCH->IsNonBlocking();
 
     // create 'if' statement
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
@@ -285,6 +297,9 @@ void udEIFinalItemProcessor::ProcessElement(wxSFShapeBase *element)
         pLang->ElseIfCmd(wxT("state") + pLang->Equal() + m_pParentGenerator->MakeIDName(element));
     }
     pLang->BeginCmd();
+	
+	// reset "state" variable in non-blocking state chart to the initial value
+	if( fNonBlocking ) pLang->VariableAssignCmd( wxT("state"), m_pParentGenerator->MakeIDName(pInitial));
 	
 	if( !pParent )
 	{

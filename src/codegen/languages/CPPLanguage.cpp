@@ -17,7 +17,7 @@ udCPPLanguage::udCPPLanguage()
 	m_fHasClasses = true;
 
     // initialize lexer
-    m_nStcLangType = wxSCI_LEX_CPP;
+    m_nStcLangType = wxSTC_LEX_CPP;
     m_sStcLangKeywords = wxT( "asm auto bool break case catch char class const const_cast \
 	                          continue default delete do double dynamic_cast else enum explicit \
 	                          export extern false float for friend goto if inline int long \

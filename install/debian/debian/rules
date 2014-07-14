@@ -4,7 +4,7 @@
 #export DH_VERBOSE=1
 
 get-orig-source:
-	svn export https://codedesigner.svn.sourceforge.net/svnroot/codedesigner/trunk codedesigner
+	svn export https://svn.code.sf.net/p/codedesigner/code/trunk codedesigner
 	
 	cd $(CURDIR)/codedesigner && install/debian/create_src_tarball
 	rm -rf $(CURDIR)/codedesigner

@@ -20,8 +20,10 @@
         <property name="path">.</property>
         <property name="precompiled_header">#include &quot;wx_pch.h&quot;</property>
         <property name="relative_path">1</property>
+        <property name="skip_lua_events">1</property>
         <property name="skip_php_events">1</property>
         <property name="skip_python_events">1</property>
+        <property name="ui_table">UI</property>
         <property name="use_enum">0</property>
         <property name="use_microsoft_bom">0</property>
         <object class="Frame" expanded="0">
@@ -1759,7 +1761,7 @@
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
-                    <object class="wxScintilla" expanded="0">
+                    <object class="wxStyledTextCtrl" expanded="0">
                         <property name="BottomDockable">1</property>
                         <property name="LeftDockable">1</property>
                         <property name="RightDockable">1</property>
@@ -1785,7 +1787,7 @@
                         <property name="fg"></property>
                         <property name="floatable">1</property>
                         <property name="folding">1</property>
-                        <property name="font">Courier New,90,90,10,74,0</property>
+                        <property name="font"></property>
                         <property name="gripper">0</property>
                         <property name="hidden">0</property>
                         <property name="id">wxID_ANY</property>
@@ -1814,12 +1816,11 @@
                         <property name="toolbar_pane">0</property>
                         <property name="tooltip"></property>
                         <property name="use_tabs">1</property>
-                        <property name="use_wxAddition">1</property>
                         <property name="view_eol">0</property>
                         <property name="view_whitespace">0</property>
                         <property name="window_extra_style"></property>
                         <property name="window_name"></property>
-                        <property name="window_style">wxVSCROLL</property>
+                        <property name="window_style"></property>
                         <event name="OnChar"></event>
                         <event name="OnEnterWindow"></event>
                         <event name="OnEraseBackground"></event>
@@ -2644,7 +2645,6 @@
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
                                             <property name="tooltip"></property>
-                                            <property name="use_wxAddition">1</property>
                                             <property name="window_extra_style"></property>
                                             <property name="window_name"></property>
                                             <property name="window_style"></property>
@@ -2937,7 +2937,7 @@
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
-                    <object class="wxScintilla" expanded="0">
+                    <object class="wxStyledTextCtrl" expanded="0">
                         <property name="BottomDockable">1</property>
                         <property name="LeftDockable">1</property>
                         <property name="RightDockable">1</property>
@@ -2992,12 +2992,11 @@
                         <property name="toolbar_pane">0</property>
                         <property name="tooltip"></property>
                         <property name="use_tabs">1</property>
-                        <property name="use_wxAddition">1</property>
                         <property name="view_eol">0</property>
                         <property name="view_whitespace">0</property>
                         <property name="window_extra_style"></property>
                         <property name="window_name"></property>
-                        <property name="window_style">wxVSCROLL</property>
+                        <property name="window_style"></property>
                         <event name="OnChar"></event>
                         <event name="OnEnterWindow"></event>
                         <event name="OnEraseBackground"></event>
@@ -3507,7 +3506,6 @@
                                             <property name="subclass"></property>
                                             <property name="toolbar_pane">0</property>
                                             <property name="tooltip"></property>
-                                            <property name="use_wxAddition">1</property>
                                             <property name="window_extra_style"></property>
                                             <property name="window_name"></property>
                                             <property name="window_style"></property>
@@ -8055,11 +8053,11 @@
                         <event name="OnSetFocus"></event>
                         <event name="OnSize"></event>
                         <event name="OnUpdateUI"></event>
-                        <object class="wxMenu" expanded="1">
+                        <object class="wxMenu" expanded="0">
                             <property name="label">MyMenu</property>
                             <property name="name">menuCheckList</property>
                             <property name="permission">protected</property>
-                            <object class="wxMenuItem" expanded="1">
+                            <object class="wxMenuItem" expanded="0">
                                 <property name="bitmap"></property>
                                 <property name="checked">0</property>
                                 <property name="enabled">1</property>
@@ -8074,7 +8072,7 @@
                                 <event name="OnMenuSelection">OnSelectAll</event>
                                 <event name="OnUpdateUI"></event>
                             </object>
-                            <object class="wxMenuItem" expanded="1">
+                            <object class="wxMenuItem" expanded="0">
                                 <property name="bitmap"></property>
                                 <property name="checked">0</property>
                                 <property name="enabled">1</property>
@@ -8278,7 +8276,7 @@
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT</property>
                             <property name="proportion">1</property>
-                            <object class="wxScintilla" expanded="0">
+                            <object class="wxStyledTextCtrl" expanded="0">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
                                 <property name="RightDockable">1</property>
@@ -8315,7 +8313,7 @@
                                 <property name="maximum_size"></property>
                                 <property name="min_size"></property>
                                 <property name="minimize_button">0</property>
-                                <property name="minimum_size">300,200</property>
+                                <property name="minimum_size"></property>
                                 <property name="moveable">1</property>
                                 <property name="name">m_scintillaModified</property>
                                 <property name="pane_border">1</property>
@@ -8331,9 +8329,8 @@
                                 <property name="tab_indents">1</property>
                                 <property name="tab_width">4</property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip">Source code from generated files</property>
+                                <property name="tooltip"></property>
                                 <property name="use_tabs">1</property>
-                                <property name="use_wxAddition">1</property>
                                 <property name="view_eol">0</property>
                                 <property name="view_whitespace">0</property>
                                 <property name="window_extra_style"></property>
@@ -8368,7 +8365,7 @@
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT</property>
                             <property name="proportion">1</property>
-                            <object class="wxScintilla" expanded="0">
+                            <object class="wxStyledTextCtrl" expanded="0">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
                                 <property name="RightDockable">1</property>
@@ -8405,7 +8402,7 @@
                                 <property name="maximum_size"></property>
                                 <property name="min_size"></property>
                                 <property name="minimize_button">0</property>
-                                <property name="minimum_size">300,200</property>
+                                <property name="minimum_size"></property>
                                 <property name="moveable">1</property>
                                 <property name="name">m_scintillaOriginal</property>
                                 <property name="pane_border">1</property>
@@ -8421,9 +8418,8 @@
                                 <property name="tab_indents">1</property>
                                 <property name="tab_width">4</property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip">Source code from original code items</property>
+                                <property name="tooltip"></property>
                                 <property name="use_tabs">1</property>
-                                <property name="use_wxAddition">1</property>
                                 <property name="view_eol">0</property>
                                 <property name="view_whitespace">0</property>
                                 <property name="window_extra_style"></property>

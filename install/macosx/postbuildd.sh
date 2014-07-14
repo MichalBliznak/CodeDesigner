@@ -43,9 +43,9 @@ cp ./install/macosx/docicon.icns $APPCONTENTS/Resources/docicon.icns
 cp ./install/macosx/Info.plist $APPCONTENTS/Info.plist
 
 # fix libraries' internal name and path... not really necessary but better
-install_name_tool -id @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/libwx_macud_shapeframework-2.8_cd.dylib
-install_name_tool -id @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/PlugIns/libwx_macud_propgrid-2.8_cd.dylib
-install_name_tool -id @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/PlugIns/libwx_macud_scintilla-2.8_cd.dylib
+install_name_tool -id @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/PlugIns/libwx_macud_shapeframework-3.0_cd.dylib
+#install_name_tool -id @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/PlugIns/libwx_macud_propgrid-2.8_cd.dylib
+#install_name_tool -id @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/PlugIns/libwx_macud_scintilla-2.8_cd.dylib
 install_name_tool -id @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
 #install_name_tool -id @executable_path/../PlugIns/plugins/libdiagtest_d.dylib $APPCONTENTS/PlugIns/plugins/libdiagtest_d.dylib
 install_name_tool -id @executable_path/../PlugIns/plugins/libdiaguml_d.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
@@ -56,32 +56,32 @@ install_name_tool -id @executable_path/../PlugIns/plugins/libreveng_d.dylib $APP
 # fix links betwen libraries now that we moved them, so they can find each other
 # in their new locations
 # codedesigner
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/MacOS/codedesigner_d
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_propgrid-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/MacOS/codedesigner_d
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_scintilla-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/MacOS/codedesigner_d
+install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-3.0_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/MacOS/codedesigner_d
+#install_name_tool -change ../../output/lib/codedesigner/libwx_macud_propgrid-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/MacOS/codedesigner_d
+#install_name_tool -change ../../output/lib/codedesigner/libwx_macud_scintilla-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/MacOS/codedesigner_d
 install_name_tool -change ../../output/lib/codedesigner/libcdprojectbase_d.dylib @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/MacOS/codedesigner_d
 i#nstall_name_tool -change ../../../output/lib/codedesigner/plugins/libdiagtest_d.dylib @executable_path/../PlugIns/plugins/libdiagtest_d.dylib $APPCONTENTS/MacOS/codedesigner_d
 install_name_tool -change ../../../output/lib/codedesigner/plugins/libdiaguml_d.dylib @executable_path/../PlugIns/plugins/libdiaguml_d.dylib $APPCONTENTS/MacOS/codedesigner_d
 # projectbase
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_propgrid-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_scintilla-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
+#install_name_tool -change ../../output/lib/codedesigner/libwx_macud_propgrid-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
+#install_name_tool -change ../../output/lib/codedesigner/libwx_macud_scintilla-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
+install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-3.0_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/PlugIns/libcdprojectbase_d.dylib
 # diagtest
 #install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiagtest_d.dylib
 #install_name_tool -change ../../output/lib/codedesigner/libcdprojectbase_d.dylib @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/PlugIns/plugins/libdiagtest_d.dylib
 # diaguml
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_scintilla-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_propgrid-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
+install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-3.0_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
+#install_name_tool -change ../../output/lib/codedesigner/libwx_macud_scintilla-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_scintilla-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
+#install_name_tool -change ../../output/lib/codedesigner/libwx_macud_propgrid-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_propgrid-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
 install_name_tool -change ../../output/lib/codedesigner/libcdprojectbase_d.dylib @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/PlugIns/plugins/libdiaguml_d.dylib
 # genuml
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libgenuml_d.dylib
+install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-3.0_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/PlugIns/plugins/libgenuml_d.dylib
 install_name_tool -change ../../output/lib/codedesigner/libcdprojectbase_d.dylib @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/PlugIns/plugins/libgenuml_d.dylib
 install_name_tool -change ../../../output/lib/codedesigner/plugins/libdiaguml_d.dylib @executable_path/../PlugIns/plugins/libdiaguml_d.dylib $APPCONTENTS/PlugIns/plugins/libgenuml_d.dylib
 # codelite
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libcodelite_d.dylib
+install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-3.0_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/PlugIns/plugins/libcodelite_d.dylib
 install_name_tool -change ../../output/lib/codedesigner/libcdprojectbase_d.dylib @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/PlugIns/plugins/libcodelite_d.dylib
 # reveng
-install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-2.8_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-2.8_cd.dylib $APPCONTENTS/PlugIns/plugins/libreveng_d.dylib
+install_name_tool -change ../../output/lib/codedesigner/libwx_macud_shapeframework-3.0_cd.dylib @executable_path/../PlugIns/libwx_macud_shapeframework-3.0_cd.dylib $APPCONTENTS/PlugIns/plugins/libreveng_d.dylib
 install_name_tool -change ../../output/lib/codedesigner/libcdprojectbase_d.dylib @executable_path/../PlugIns/libcdprojectbase_d.dylib $APPCONTENTS/PlugIns/plugins/libreveng_d.dylib
 install_name_tool -change ../../../output/lib/codedesigner/plugins/libdiaguml_d.dylib @executable_path/../PlugIns/plugins/libdiaguml_d.dylib $APPCONTENTS/PlugIns/plugins/libreveng_d.dylib

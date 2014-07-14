@@ -4,7 +4,7 @@
 #include "interfaces/Defs.h"
 
 #include <wx/wxsf/wxShapeFramework.h>
-#include <wx/wxScintilla/wxscintilla.h>
+#include <wx/stc/stc.h>
 
 class udLanguage;
 class udDiagramItem;
@@ -172,7 +172,7 @@ namespace udFRAME
 	 * \param sci Pointer to inilialized scintilla text control
 	 * \param lang Pointer to programming language used in the text control
 	 */
-	WXDLLIMPEXP_CD void InitStyledTextCtrl(wxScintilla *sci, udLanguage *lang);
+	WXDLLIMPEXP_CD void InitStyledTextCtrl(wxStyledTextCtrl *sci, udLanguage *lang);
 	
 	/**
 	 * \brief Get default background colour

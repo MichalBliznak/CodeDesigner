@@ -71,11 +71,7 @@ if( macosx ) then
 end
 
 -- Set the libraries it links to.
-if ( options["no-builtin-propgrid"] ) then
-	package.links = { "wxPropGrid", "wxScintilla", "wxShapeFramework", "projectBase" }
-else
-	package.links = { "wxScintilla", "wxShapeFramework", "projectBase" }
-end
+package.links = { "wxShapeFramework", "projectBase" }
 
 -- Setup the output directory options.
 --		Note: Use 'libdir' for "lib" kind only.
@@ -85,11 +81,7 @@ package.pchheader = "wx_pch.h"
 package.pchsource = "wx_pch.cpp"
 
 -- Set wxWidgets presets
-if ( not options["no-builtin-propgrid"] ) then
-	wx_config_libs="std,aui,propgrid"
--- else
--- 	wx_config_libs="std,aui"
-end
+wx_config_libs="std,aui,propgrid,stc"
 	
 dofile('../build/premake/scripts/wxpresets.lua')
 

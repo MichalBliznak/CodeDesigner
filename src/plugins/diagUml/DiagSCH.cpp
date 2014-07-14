@@ -821,7 +821,6 @@ wxString udCompStateElementItem::GetEntryActionsString()
 		if( pLink->GetActionType() == udStateActionLinkItem::saENTRY )
 		{
 			if( !sEntry.IsEmpty() ) sEntry << wxT(", ");
-			//sEntry << pLink->GetOrigCodeItem();
 			sEntry << pLink->ToString( udCodeItem::cfFORMAL, NULL );
 		}
 		
@@ -846,7 +845,6 @@ wxString udCompStateElementItem::GetExitActionsString()
 		if( pLink->GetActionType() == udStateActionLinkItem::saEXIT )
 		{
 			if( !sExit.IsEmpty() ) sExit << wxT(", ");
-			//sExit << pLink->GetOrigCodeItem();
 			sExit << pLink->ToString( udCodeItem::cfFORMAL, NULL );
 		}
 		
@@ -1428,12 +1426,23 @@ wxString udEventItem::ToString(CODEFORMAT format, udLanguage *lang)
 				sOut << m_sName;
 			}
 			return sOut;
-			
+		
 		case cfDECLARATION:
+		case cfDEFINITION:	
 			if( lang )
 			{
 				wxString sOut = udVariableItem::ToString( format, lang );
+				bool fHasExtern = lang->GetModifierString( udLanguage::DM_EXTERN) != wxT("") && 
+								  sOut.Contains( lang->GetModifierString( udLanguage::DM_EXTERN) );
+								  
+				if( fHasExtern ) {
+					sOut.Replace( lang->GetModifierString( udLanguage::DM_EXTERN ), wxT("") );
+					sOut.Trim(false);
+				}
 				sOut = lang->GetModifierString( udLanguage::DM_VOLATILE) + wxT(" ") + sOut;
+				if( fHasExtern ) {
+					sOut = lang->GetModifierString( udLanguage::DM_EXTERN) + wxT(" ") + sOut;
+				}
 				return sOut.Trim(false);
 			}
 			else
@@ -1442,8 +1451,8 @@ wxString udEventItem::ToString(CODEFORMAT format, udLanguage *lang)
 		case cfFORMAL:
 			/*return m_sName + wxT(" : Event");*/
 		
-		case cfDEFINITION:
-			return udVariableItem::ToString( format, lang );
+		/*case cfDEFINITION:
+			return udVariableItem::ToString( format, lang );*/
 		
 		default:
 			return m_sName;

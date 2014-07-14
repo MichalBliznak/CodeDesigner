@@ -1,6 +1,7 @@
 #include "LCEITransitionProcessor.h"
 #include "StateChartGenerator.h"
 #include "LoopCaseAlgorithm.h"
+#include "ElifAlgorithm.h"
 #include "../../diagUml/DiagUml.h"
 
 IMPLEMENT_DYNAMIC_CLASS(udLCEITransitionProcessor, udStateChartElementProcessor);
@@ -28,6 +29,7 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 	bool fIndent;
 	bool fOneTarget = true;
 	bool fNonBlocking = false;
+	bool fHasFinalState = false;
 	long nPrevTrgId = -1;
 
 	//SerializableList lstActs;
@@ -37,6 +39,7 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
     wxSFLineShape *pTrans = NULL;
 	wxSFShapeBase *pTrgShape = NULL;
+	wxSFShapeBase *pSrcShape = NULL;
     udTransElementItem *pTransElement;
 
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
@@ -45,6 +48,8 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 	
 	udSStateChartDiagramItem *pSCH = wxDynamicCast( ((udLoopCaseAlgorithm*)m_pParentGenerator->GetActiveAlgorithm())->GetProcessedDiagram(), udSStateChartDiagramItem );
 	if( pSCH ) fNonBlocking = pSCH->IsNonBlocking();
+	
+	fHasFinalState = pDiagManager->Contains(CLASSINFO(umlFinalItem));
 	
 	// find history state at the same level like processed element
 	wxSFShapeBase *pHistory = NULL;
@@ -143,6 +148,10 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 		
 		// set state variable to target emlement
 		pTrgShape = pDiagManager->FindShape(((wxSFLineShape*)pTrans)->GetTrgShapeId());
+		
+		if( !pSrcShape ) {
+			pSrcShape = pDiagManager->FindShape(((wxSFLineShape*)pTrans)->GetSrcShapeId());
+		}
 	
 		if( pHistory && ( pTrgShape->GetParentShape() != pHistory->GetParentShape() ) )
 			pLang->VariableAssignCmd( pLang->MakeValidIdentifier( udLABEL::GetContent( pHistory, udLABEL::ltTITLE ).Lower() ), m_pParentGenerator->MakeIDName(element));
@@ -158,14 +167,24 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
     // close the 'case' statement with 'break' if neccessary
     if( m_pParentGenerator->GetActiveAlgorithm()->IsKindOf(CLASSINFO(udLoopCaseAlgorithm)) )
     {
-        wxSFLineShape* pCondlessPath = GetConditionlessPath(element);
-        if( !pCondlessPath ||
-		    !pNext ||
-			(pNext && (pCondlessPath->GetTrgShapeId() != pNext->GetId())) ||
-			!fOneTarget ||
-			fNonBlocking ) //(lstTransitions.GetCount() > 1) )
-        {
-            pLang->BreakCmd();
-        }
+		if( fNonBlocking && fHasFinalState ) {
+			pLang->ReturnCmd( m_pParentGenerator->MakeIDName(pSrcShape) );
+			
+		} else {
+			wxSFLineShape* pCondlessPath = GetConditionlessPath(element);
+			if( !pCondlessPath ||
+				!pNext ||
+				(pNext && (pCondlessPath->GetTrgShapeId() != pNext->GetId())) ||
+				!fOneTarget ||
+				fNonBlocking ) //(lstTransitions.GetCount() > 1) )
+			{
+				pLang->BreakCmd();
+			}
+		}
     }
+	else if( m_pParentGenerator->GetActiveAlgorithm()->IsKindOf(CLASSINFO(udElifAlgorithm)) ) {
+		if( fNonBlocking && fHasFinalState ) {
+			pLang->ReturnCmd( m_pParentGenerator->MakeIDName(pSrcShape) );
+		}
+	}
 }

@@ -30,7 +30,7 @@ udLanguage::udLanguage()
 		for( int i = 0; i < Settings.GetProperty( wxT("Indentation width") )->AsInt(); i++ ) m_sIndentStr << wxT(" ");
 	}
 
-    m_nStcLangType = wxSCI_LEX_NULL;
+    m_nStcLangType = wxSTC_LEX_NULL;
     m_sStcLangKeywords = wxT("");
 
     m_nIndentation = 0;

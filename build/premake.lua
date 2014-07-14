@@ -15,10 +15,6 @@ local resdir = "../output/share/" .. project.name
 project.configs = { "Release", "Debug" }
 
 -- Add packages here.
-if( options["no-builtin-propgrid"] ) then
-	dopackage( "propgrid" )
-end
-dopackage( "wxScintilla" )
 dopackage( "wxShapeFramework" )
 dopackage( "../src/projectbase" )
 dopackage( "../src/plugins/diagTest" )

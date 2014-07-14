@@ -1,8 +1,10 @@
-Changes in version 1.6.3 beta (2013-02-06):
+Changes in version 1.6.3 beta (2014-07-14):
 ------------------------------------------------
 - Minor GUI tweaks and fixes.
 - Fixed various issues in DnD operations (when some elements were dropped onto transitions or states).
 - Fixed handling of class members with non-unique names.
+- Fixed code generation for non-blocking state charts.
+- Non-blocking state chart returns value only when contains any final state.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------

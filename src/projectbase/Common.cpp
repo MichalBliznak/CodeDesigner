@@ -382,23 +382,23 @@ namespace udFRAME
 		choice->SetSelection(algIndex);
 	}
 	
-	void InitStyledTextCtrl(wxScintilla *sci, udLanguage *lang)
+	void InitStyledTextCtrl(wxStyledTextCtrl *sci, udLanguage *lang)
 	{
 		udSettings &Settings = IPluginManager::Get()->GetAppSettings();
 
 		sci->SetLexer(lang->GetStcLanguageType());
 		sci->SetKeyWords(0, lang->GetStcLanguageKeywords());
-		sci->StyleSetFont( wxSCI_STYLE_DEFAULT, Settings.GetProperty( wxT("Editor font") )->AsFont() );
-		sci->StyleSetBold( wxSCI_C_WORD, true );
-		sci->StyleSetForeground( wxSCI_C_WORD, *wxBLUE );
-		sci->StyleSetForeground( wxSCI_C_STRING, *wxRED );
-		sci->StyleSetForeground( wxSCI_C_STRINGEOL, *wxRED );
-		sci->StyleSetForeground( wxSCI_C_PREPROCESSOR, wxColour( 49, 106, 197 ) );
-		sci->StyleSetForeground( wxSCI_C_COMMENT, wxColour( 0, 128, 0 ) );
-		sci->StyleSetForeground( wxSCI_C_COMMENTLINE, wxColour( 0, 128, 0 ) );
-		sci->StyleSetForeground( wxSCI_C_COMMENTDOC, wxColour( 0, 128, 0 ) );
-		sci->StyleSetForeground( wxSCI_C_COMMENTLINEDOC, wxColour( 0, 128, 0 ) );
-		sci->StyleSetForeground( wxSCI_C_NUMBER, *wxBLUE );
+		sci->StyleSetFont( wxSTC_STYLE_DEFAULT, Settings.GetProperty( wxT("Editor font") )->AsFont() );
+		sci->StyleSetBold( wxSTC_C_WORD, true );
+		sci->StyleSetForeground( wxSTC_C_WORD, *wxBLUE );
+		sci->StyleSetForeground( wxSTC_C_STRING, *wxRED );
+		sci->StyleSetForeground( wxSTC_C_STRINGEOL, *wxRED );
+		sci->StyleSetForeground( wxSTC_C_PREPROCESSOR, wxColour( 49, 106, 197 ) );
+		sci->StyleSetForeground( wxSTC_C_COMMENT, wxColour( 0, 128, 0 ) );
+		sci->StyleSetForeground( wxSTC_C_COMMENTLINE, wxColour( 0, 128, 0 ) );
+		sci->StyleSetForeground( wxSTC_C_COMMENTDOC, wxColour( 0, 128, 0 ) );
+		sci->StyleSetForeground( wxSTC_C_COMMENTLINEDOC, wxColour( 0, 128, 0 ) );
+		sci->StyleSetForeground( wxSTC_C_NUMBER, *wxBLUE );
 		/*sci->SetUseTabs( true );
 		sci->SetTabWidth( (int)lang->GetIndentString().Len() );
 		sci->SetTabIndents( true );
@@ -409,6 +409,14 @@ namespace udFRAME
 
 		sci->SetCaretWidth( 2 );
 		
+		sci->SetMarginType( 1, wxSTC_MARGIN_SYMBOL );
+		sci->SetMarginMask( 1, wxSTC_MASK_FOLDERS );
+		sci->SetMarginWidth( 1, 16);
+		sci->SetMarginSensitive( 1, true );
+		sci->SetProperty( wxT("fold"), wxT("1") );
+		sci->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
+		sci->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
+		
 		sci->SetTabIndents(true);
 		sci->SetBackSpaceUnIndents(true);
 		sci->SetUseTabs( Settings.GetProperty( wxT("Use tabulators") )->AsBool() );
@@ -416,35 +424,35 @@ namespace udFRAME
 		sci->SetIndent( Settings.GetProperty( wxT("Indentation width") )->AsInt() );
 
 		// markers
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDER,        wxSCI_MARK_BOXPLUS);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDER,        wxSTC_MARK_BOXPLUS);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
 		
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDEROPEN,    wxSCI_MARK_BOXMINUS);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDEROPEN,    wxSTC_MARK_BOXMINUS);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
 		
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDERSUB,     wxSCI_MARK_VLINE);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDERSUB, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDERSUB, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDERSUB,     wxSTC_MARK_VLINE);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDERSUB, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDERSUB, wxColour( wxT("WHITE") ) );
 		
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDEREND,     wxSCI_MARK_EMPTY);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDEREND,     wxSTC_MARK_EMPTY);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
 		
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDEROPENMID, wxSCI_MARK_BOXMINUS);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDEROPENMID, wxSTC_MARK_BOXMINUS);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
 
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDERMIDTAIL, wxSCI_MARK_TCORNER);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDERMIDTAIL, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDERMIDTAIL, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDERMIDTAIL, wxSTC_MARK_TCORNER);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDERMIDTAIL, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDERMIDTAIL, wxColour( wxT("WHITE") ) );
 		
-		sci->MarkerDefine(wxSCI_MARKNUM_FOLDERTAIL,    wxSCI_MARK_LCORNER);
-		sci->MarkerSetBackground( wxSCI_MARKNUM_FOLDERTAIL, wxColour( wxT("DARK GREY") ) );
-		sci->MarkerSetForeground( wxSCI_MARKNUM_FOLDERTAIL, wxColour( wxT("WHITE") ) );
+		sci->MarkerDefine(wxSTC_MARKNUM_FOLDERTAIL,    wxSTC_MARK_LCORNER);
+		sci->MarkerSetBackground( wxSTC_MARKNUM_FOLDERTAIL, wxColour( wxT("DARK GREY") ) );
+		sci->MarkerSetForeground( wxSTC_MARKNUM_FOLDERTAIL, wxColour( wxT("WHITE") ) );
 		
-		sci->SetFoldFlags( wxSCI_FOLDFLAG_LINEAFTER_CONTRACTED );
+		sci->SetFoldFlags( wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	}
 	
 	wxColour GetBcgColour()

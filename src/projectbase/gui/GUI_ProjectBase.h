@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr  6 2012)
+// C++ code generated with wxFormBuilder (version Nov 12 2013)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -32,11 +32,8 @@
 #include <wx/statbox.h>
 #include <wx/propgrid/propgrid.h>
 #include <wx/propgrid/advprops.h>
-#ifdef __VISUALC__
-#include <wx/link_additions.h>
-#endif //__VISUALC__
 #include <wx/listctrl.h>
-#include <wx/wxScintilla/wxscintilla.h>
+#include <wx/stc/stc.h>
 #include <wx/menu.h>
 #include <wx/checklst.h>
 #include <wx/gauge.h>
@@ -197,7 +194,7 @@ class _FunctionDialog : public wxDialog
 		wxButton* m_btnMoveDown;
 		wxPanel* m_pageEditor;
 		wxChoice* m_chEditedField;
-		wxScintilla* m_sciEditor;
+		wxStyledTextCtrl* m_sciEditor;
 		wxStdDialogButtonSizer* bntSizer;
 		wxButton* bntSizerOK;
 		wxButton* bntSizerCancel;
@@ -260,7 +257,7 @@ class _VariableDialog : public wxDialog
 		wxStaticText* m_staticText47;
 		wxFilePickerCtrl* m_fpDefinitionFile;
 		wxPanel* m_pageEditor;
-		wxScintilla* m_sciEditor;
+		wxStyledTextCtrl* m_sciEditor;
 		wxStdDialogButtonSizer* bntSizer;
 		wxButton* bntSizerOK;
 		wxButton* bntSizerCancel;
@@ -345,7 +342,7 @@ class _UpdateCodeDialog : public wxDialog
 		wxCheckListBox* m_checkListCodeItems;
 		wxMenu* m_menuChecklist;
 		wxStaticText* m_staticText33;
-		wxScintilla* m_scintillaCode;
+		wxStyledTextCtrl* m_scintillaCode;
 		wxButton* m_btnPrev;
 		wxButton* m_btnNext;
 		wxButton* m_btnCancel;

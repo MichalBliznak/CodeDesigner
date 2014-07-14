@@ -25,16 +25,18 @@ function archive
   
   # copy wx lib to lib dir
   wxprefix=`wx-config --prefix`
-  cp -L $wxprefix/lib/libwx_gtk2u_richtext-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_gtk2u_aui-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_gtk2u_xrc-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_gtk2u_qa-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_gtk2u_html-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_gtk2u_adv-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_gtk2u_core-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_baseu_xml-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_baseu_net-2.8.so.0 output/lib/codedesigner
-  cp -L $wxprefix/lib/libwx_baseu-2.8.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_richtext-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_aui-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_xrc-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_qa-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_html-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_adv-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_core-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_stc-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_gtk2u_propgrid-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_baseu_xml-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_baseu_net-3.0.so.0 output/lib/codedesigner
+  cp -L $wxprefix/lib/libwx_baseu-3.0.so.0 output/lib/codedesigner
 
   # copy the output directory to the share directory
   mkdir output/share/codedesigner

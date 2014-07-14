@@ -34,11 +34,7 @@ package.includepaths = { ".", "../", "../../" }
 -- Set the defines.
 package.defines = { "WXMAKINGDLL_CD" }
 -- Set the libraries it links to.
-if ( options["no-builtin-propgrid"] ) then
-	package.links = { "wxPropGrid", "wxScintilla", "wxShapeFramework", "projectBase" }
-else
-	package.links = { "wxScintilla", "wxShapeFramework", "projectBase" }
-end
+package.links = { "wxShapeFramework", "projectBase" }
 
 -- Set compiler flags.
 if( ( target == "cl-gcc" or target == "gnu" ) and options["architecture"] ) then

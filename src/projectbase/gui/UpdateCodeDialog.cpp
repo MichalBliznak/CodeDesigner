@@ -101,8 +101,8 @@ void udUpdateCodeDialog::UpdateCodePreview(int selection)
 			patternStart += m_Pattern.Len();
 		}*/
 		
-		int patternStart = m_scintillaCode->FindText( 0, m_scintillaCode->GetTextLength(), m_Pattern, wxSCI_FIND_MATCHCASE );
-		if( patternStart != wxSCI_INVALID_POSITION )
+		int patternStart = m_scintillaCode->FindText( 0, m_scintillaCode->GetTextLength(), m_Pattern, wxSTC_FIND_MATCHCASE );
+		if( patternStart != wxSTC_INVALID_POSITION )
 		{
 			m_scintillaCode->SetSelection( patternStart, patternStart + m_Pattern.Len() );
 		}
@@ -112,7 +112,7 @@ void udUpdateCodeDialog::UpdateCodePreview(int selection)
 void udUpdateCodeDialog::OnNext(wxCommandEvent& event)
 {
 	m_scintillaCode->SearchAnchor();
-	if( m_scintillaCode->SearchNext( wxSCI_FIND_MATCHCASE, m_Pattern ) == wxSCI_INVALID_POSITION )
+	if( m_scintillaCode->SearchNext( wxSTC_FIND_MATCHCASE, m_Pattern ) == wxSTC_INVALID_POSITION )
 	{
 		wxMessageBox( wxT("The end of the code preview has been reached."), wxT("CodeDesigner"), wxOK );
 	}
@@ -121,7 +121,7 @@ void udUpdateCodeDialog::OnNext(wxCommandEvent& event)
 void udUpdateCodeDialog::OnPrevious(wxCommandEvent& event)
 {
 	m_scintillaCode->SearchAnchor();
-	if( m_scintillaCode->SearchPrev( wxSCI_FIND_MATCHCASE, m_Pattern ) == wxSCI_INVALID_POSITION )
+	if( m_scintillaCode->SearchPrev( wxSTC_FIND_MATCHCASE, m_Pattern ) == wxSTC_INVALID_POSITION )
 	{
 		wxMessageBox( wxT("The begin of the code preview has been reached."), wxT("CodeDesigner"), wxOK );
 	}

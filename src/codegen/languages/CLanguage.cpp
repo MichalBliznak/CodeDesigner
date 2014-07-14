@@ -15,7 +15,7 @@ udCLanguage::udCLanguage()
     m_sDescription = wxT("Ansi C Language command processor.");
 
     // initialize lexer
-    m_nStcLangType = wxSCI_LEX_CPP;
+    m_nStcLangType = wxSTC_LEX_CPP;
     m_sStcLangKeywords = wxT( "asm auto bool break case catch char const const_cast \
 	                          continue default do double dynamic_cast else enum explicit \
 	                          export extern false float for goto if int long \

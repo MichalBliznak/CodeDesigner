@@ -9,7 +9,7 @@
 #include "UMLDesignerMain.h"
 
 BEGIN_EVENT_TABLE ( udCodeEditorPanel,  _EditorPanel )
-	EVT_SCI_MARGINCLICK( wxID_ANY, udCodeEditorPanel::OnMarginClick )
+	EVT_STC_MARGINCLICK( wxID_ANY, udCodeEditorPanel::OnMarginClick )
 	EVT_CD_ITEM_SELECTED( wxID_ANY, udCodeEditorPanel::OnProjectItemSelected )
 END_EVENT_TABLE ()
 
@@ -38,14 +38,14 @@ void udCodeEditorPanel::OnSave( wxCommandEvent& event )
 	}
 }
 
-void udCodeEditorPanel::OnMarginClick ( wxScintillaEvent &event )
+void udCodeEditorPanel::OnMarginClick ( wxStyledTextEvent &event )
 {
 	if ( event.GetMargin() == 1 )
 	{
 		int lineClick = m_scintillaEditor->LineFromPosition ( event.GetPosition() );
 		int levelClick = m_scintillaEditor->GetFoldLevel ( lineClick );
 
-		if ( ( levelClick & wxSCI_FOLDLEVELHEADERFLAG ) > 0 )
+		if ( ( levelClick & wxSTC_FOLDLEVELHEADERFLAG ) > 0 )
 		{
 			m_scintillaEditor->ToggleFold ( lineClick );
 		}

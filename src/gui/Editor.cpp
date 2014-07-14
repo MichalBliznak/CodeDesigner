@@ -4,7 +4,7 @@
 #include <wx/clipbrd.h>
 
 BEGIN_EVENT_TABLE ( udCodeEditor,  _EditorFrame )
-	EVT_SCI_MARGINCLICK( wxID_ANY, udCodeEditor::OnMarginClick )
+	EVT_STC_MARGINCLICK( wxID_ANY, udCodeEditor::OnMarginClick )
 END_EVENT_TABLE ()
 
 // constructor and destructor ///////////////////////////////////////////////////////////////
@@ -34,14 +34,14 @@ void udCodeEditor::OnCloseClick( wxCommandEvent& event )
 	Destroy();
 }
 
-void udCodeEditor::OnMarginClick ( wxScintillaEvent &event )
+void udCodeEditor::OnMarginClick ( wxStyledTextEvent &event )
 {
 	if ( event.GetMargin() == 1 )
 	{
 		int lineClick = m_scintillaEditor->LineFromPosition ( event.GetPosition() );
 		int levelClick = m_scintillaEditor->GetFoldLevel ( lineClick );
 
-		if ( ( levelClick & wxSCI_FOLDLEVELHEADERFLAG ) > 0 )
+		if ( ( levelClick & wxSTC_FOLDLEVELHEADERFLAG ) > 0 )
 		{
 			m_scintillaEditor->ToggleFold ( lineClick );
 		}

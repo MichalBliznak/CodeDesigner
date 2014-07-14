@@ -1,4 +1,5 @@
 #include "LCElementProcessors.h"
+#include "LoopCaseAlgorithm.h"
 #include "../../diagUml/DiagUml.h"
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -318,16 +319,30 @@ void udLCFinalItemProcessor::ProcessElement(wxSFShapeBase *element)
     // check existing parent generator
     wxASSERT(m_pParentGenerator);
     if(!m_pParentGenerator)return;
+	
+	bool fNonBlocking = false;
 
     // create 'case' statement
     udLanguage *pLang = m_pParentGenerator->GetActiveLanguage();
 	wxSFShapeBase *pParent = element->GetParentShape();
+	wxSFDiagramManager *pDiagManager = (wxSFDiagramManager*) element->GetParentManager();
 	
-    //wxSFDiagramManager *pDiagManager = element->GetParentManager();
+	// get inital states
+    ShapeList lstInitialStates;
+    pDiagManager->GetShapes(CLASSINFO(umlInitialItem), lstInitialStates);
+	wxSFShapeBase *pInitial = lstInitialStates.GetFirst()->GetData();
+	
+	udSStateChartDiagramItem *pSCH = wxDynamicCast( ((udLoopCaseAlgorithm*)m_pParentGenerator->GetActiveAlgorithm())->GetProcessedDiagram(), udSStateChartDiagramItem );
+	if( pSCH ) fNonBlocking = pSCH->IsNonBlocking();
 
     pLang->CaseCmd(m_pParentGenerator->MakeIDName(element));
     //pLang->IncIndentation();
 	pLang->BeginCmd();
+	
+	// reset "state" variable in non-blocking state chart to the initial value
+	if( fNonBlocking ) pLang->VariableAssignCmd( wxT("state"), m_pParentGenerator->MakeIDName(pInitial));
+	
+	// generate "return" statement
 	if( !pParent )
 	{
 		udFinalElementItem *pFinalElement = (udFinalElementItem*) udPROJECT::GetDiagramElement(element);

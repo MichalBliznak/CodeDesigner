@@ -39,7 +39,7 @@ function make_src_tarball
 
 	# Use premake to generate Makefiles
 	chmod +x $PREMAKE_DIR/premake-linux          
-	$PREMAKE_DIR/premake-linux --target gnu --unicode --disable-wx-debug --with-wx-shared --wx-version 2.8 --shared --no-builtin-propgrid
+	$PREMAKE_DIR/premake-linux --target gnu --unicode --disable-wx-debug --with-wx-shared --wx-version 3.0 --shared
 
 	cd ..
 

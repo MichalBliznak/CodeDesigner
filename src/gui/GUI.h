@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr  6 2012)
+// C++ code generated with wxFormBuilder (version Nov 12 2013)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -27,10 +27,7 @@
 #include <wx/sizer.h>
 #include <wx/panel.h>
 #include <wx/frame.h>
-#include <wx/wxScintilla/wxscintilla.h>
-#ifdef __VISUALC__
-#include <wx/link_additions.h>
-#endif //__VISUALC__
+#include <wx/stc/stc.h>
 #include <wx/listctrl.h>
 #include <wx/toolbar.h>
 #include <wx/propgrid/propgrid.h>
@@ -194,7 +191,7 @@ class _EditorFrame : public wxFrame
 		wxMenuBar* m_menuBar;
 		wxMenu* m_menuFile;
 		wxMenu* m_menuEdit;
-		wxScintilla* m_scintillaEditor;
+		wxStyledTextCtrl* m_scintillaEditor;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
@@ -281,7 +278,7 @@ class _EditorPanel : public wxPanel
 	protected:
 		wxToolBar* m_toolActions;
 		wxStaticText* m_stCodeItem;
-		wxScintilla* m_scintillaEditor;
+		wxStyledTextCtrl* m_scintillaEditor;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnSave( wxCommandEvent& event ) { event.Skip(); }
@@ -514,8 +511,8 @@ class _SynchronizeDialog : public wxDialog
 		wxMenu* menuCheckList;
 		wxStaticText* m_staticText14;
 		wxStaticText* m_staticText15;
-		wxScintilla* m_scintillaModified;
-		wxScintilla* m_scintillaOriginal;
+		wxStyledTextCtrl* m_scintillaModified;
+		wxStyledTextCtrl* m_scintillaOriginal;
 		wxStdDialogButtonSizer* buttonSizer;
 		wxButton* buttonSizerOK;
 		wxButton* buttonSizerCancel;

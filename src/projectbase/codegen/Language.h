@@ -3,7 +3,8 @@
 
 #include <wx/hashmap.h>
 #include <wx/dynarray.h>
-#include <wx/wxScintilla/wxscintilla.h>
+#include <wx/wx.h>
+#include <wx/stc/stc.h>
 
 #include "interfaces/Defs.h"
 

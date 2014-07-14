@@ -11,7 +11,7 @@ public:
 	udCodeEditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize );
 
 	// public functions
-	wxScintilla* GetScintilla() {return m_scintillaEditor;}
+	wxStyledTextCtrl* GetScintilla() {return m_scintillaEditor;}
 
 protected:
 	// protected functions
@@ -24,7 +24,7 @@ protected:
 	virtual void OnKeyDown( wxKeyEvent& event );
 	
 	void OnProjectItemSelected( udProjectEvent& event );
-	void OnMarginClick( wxScintillaEvent &event );
+	void OnMarginClick( wxStyledTextEvent &event );
 
 	DECLARE_EVENT_TABLE();
 	

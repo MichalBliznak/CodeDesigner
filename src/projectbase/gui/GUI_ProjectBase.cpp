@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr  6 2012)
+// C++ code generated with wxFormBuilder (version Nov 12 2013)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -29,6 +29,7 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -42,6 +43,7 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
+	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -177,6 +179,7 @@ _CodeLinkDialog::_CodeLinkDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_eName->SetMaxLength( 0 ); 
 	controlSizer->Add( m_eName, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxALL|wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* originalSizer;
@@ -255,6 +258,7 @@ _FunctionLinkDialog::_FunctionLinkDialog( wxWindow* parent, wxWindowID id, const
 	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_eName->SetMaxLength( 0 ); 
 	controlSizer->Add( m_eName, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxALL|wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* originalSizer;
@@ -346,6 +350,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -359,6 +364,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
+	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -457,6 +463,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	fgSizer10->Add( m_staticText46, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_eTypeName = new wxTextCtrl( m_pageUserDataType, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_eTypeName->SetMaxLength( 0 ); 
 	fgSizer10->Add( m_eTypeName, 0, wxALL|wxEXPAND, 5 );
 	
 	m_staticText48 = new wxStaticText( m_pageUserDataType, wxID_ANY, wxT("Defined in:"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -532,7 +539,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_chEditedField->SetSelection( 0 );
 	editorSizer->Add( m_chEditedField, 0, wxTOP|wxRIGHT|wxLEFT|wxEXPAND, 5 );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
+	m_sciEditor = new wxStyledTextCtrl( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -542,36 +549,37 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sciEditor->SetViewWhiteSpace( false );
 	m_sciEditor->SetMarginWidth( 2, 0 );
 	m_sciEditor->SetIndentationGuides( true );
-	m_sciEditor->SetMarginType( 1, wxSCI_MARGIN_SYMBOL );
-	m_sciEditor->SetMarginMask( 1, wxSCI_MASK_FOLDERS );
+	m_sciEditor->SetMarginType( 1, wxSTC_MARGIN_SYMBOL );
+	m_sciEditor->SetMarginMask( 1, wxSTC_MASK_FOLDERS );
 	m_sciEditor->SetMarginWidth( 1, 16);
 	m_sciEditor->SetMarginSensitive( 1, true );
 	m_sciEditor->SetProperty( wxT("fold"), wxT("1") );
-	m_sciEditor->SetFoldFlags( wxSCI_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSCI_FOLDFLAG_LINEAFTER_CONTRACTED );
-	m_sciEditor->SetMarginType( 0, wxSCI_MARGIN_NUMBER );
-	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSCI_STYLE_LINENUMBER, wxT("_99999") ) );
-	m_sciEditor->StyleSetFont( wxSCI_STYLE_DEFAULT, wxFont( 9, 76, 90, 90, false, wxT("Monospace") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDER, wxSCI_MARK_BOXPLUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDEROPEN, wxSCI_MARK_BOXMINUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDERSUB, wxSCI_MARK_EMPTY );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDEREND, wxSCI_MARK_BOXPLUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDEROPENMID, wxSCI_MARK_BOXMINUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDERMIDTAIL, wxSCI_MARK_EMPTY );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDERTAIL, wxSCI_MARK_EMPTY );
+	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
+	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
+	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
+	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDEROPEN, wxSTC_MARK_BOXMINUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDERSUB, wxSTC_MARK_EMPTY );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDEREND, wxSTC_MARK_BOXPLUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDEROPENMID, wxSTC_MARK_BOXMINUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDERMIDTAIL, wxSTC_MARK_EMPTY );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDERTAIL, wxSTC_MARK_EMPTY );
 	m_sciEditor->SetSelBackground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHT ) );
 	m_sciEditor->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
-	m_sciEditor->SetFont( wxFont( 9, 76, 90, 90, false, wxT("Monospace") ) );
+	m_sciEditor->SetFont( wxFont( 9, 70, 90, 90, false, wxEmptyString ) );
 	m_sciEditor->SetMinSize( wxSize( 400,100 ) );
 	
-	editorSizer->Add( m_sciEditor, 1, wxEXPAND|wxALL, 5 );
+	editorSizer->Add( m_sciEditor, 1, wxEXPAND | wxALL, 5 );
 	
 	
 	m_pageEditor->SetSizer( editorSizer );
@@ -673,6 +681,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -686,6 +695,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
+	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -732,6 +742,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	dataTypeSizer->Add( m_staticText431, 0, wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDefVal = new wxTextCtrl( m_pageAdv, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_eDefVal->SetMaxLength( 0 ); 
 	dataTypeSizer->Add( m_eDefVal, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	
@@ -754,6 +765,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	fgSizer10->Add( m_staticText46, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_eTypeName = new wxTextCtrl( m_pageUserDataType, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_eTypeName->SetMaxLength( 0 ); 
 	fgSizer10->Add( m_eTypeName, 0, wxALL|wxEXPAND, 5 );
 	
 	m_staticText48 = new wxStaticText( m_pageUserDataType, wxID_ANY, wxT("Defined in:"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -785,7 +797,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxScintilla( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxVSCROLL, wxEmptyString );
+	m_sciEditor = new wxStyledTextCtrl( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -795,33 +807,34 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sciEditor->SetViewWhiteSpace( false );
 	m_sciEditor->SetMarginWidth( 2, 0 );
 	m_sciEditor->SetIndentationGuides( true );
-	m_sciEditor->SetMarginType( 1, wxSCI_MARGIN_SYMBOL );
-	m_sciEditor->SetMarginMask( 1, wxSCI_MASK_FOLDERS );
+	m_sciEditor->SetMarginType( 1, wxSTC_MARGIN_SYMBOL );
+	m_sciEditor->SetMarginMask( 1, wxSTC_MASK_FOLDERS );
 	m_sciEditor->SetMarginWidth( 1, 16);
 	m_sciEditor->SetMarginSensitive( 1, true );
 	m_sciEditor->SetProperty( wxT("fold"), wxT("1") );
-	m_sciEditor->SetFoldFlags( wxSCI_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSCI_FOLDFLAG_LINEAFTER_CONTRACTED );
-	m_sciEditor->SetMarginType( 0, wxSCI_MARGIN_NUMBER );
-	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSCI_STYLE_LINENUMBER, wxT("_99999") ) );
-	m_sciEditor->StyleSetFont( wxSCI_STYLE_DEFAULT, wxFont( 9, 76, 90, 90, false, wxT("Monospace") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDER, wxSCI_MARK_BOXPLUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDEROPEN, wxSCI_MARK_BOXMINUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDERSUB, wxSCI_MARK_EMPTY );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDEREND, wxSCI_MARK_BOXPLUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDEROPENMID, wxSCI_MARK_BOXMINUS );
-	m_sciEditor->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
-	m_sciEditor->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDERMIDTAIL, wxSCI_MARK_EMPTY );
-	m_sciEditor->MarkerDefine( wxSCI_MARKNUM_FOLDERTAIL, wxSCI_MARK_EMPTY );
+	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
+	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
+	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
+	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDEROPEN, wxSTC_MARK_BOXMINUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDERSUB, wxSTC_MARK_EMPTY );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDEREND, wxSTC_MARK_BOXPLUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDEROPENMID, wxSTC_MARK_BOXMINUS );
+	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
+	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDERMIDTAIL, wxSTC_MARK_EMPTY );
+	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDERTAIL, wxSTC_MARK_EMPTY );
 	m_sciEditor->SetSelBackground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHT ) );
 	m_sciEditor->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
-	m_sciEditor->SetFont( wxFont( 9, 76, 90, 90, false, wxT("Monospace") ) );
+	m_sciEditor->SetFont( wxFont( 9, 70, 90, 90, false, wxEmptyString ) );
 	m_sciEditor->SetMinSize( wxSize( 400,100 ) );
 	
 	editorSizer->Add( m_sciEditor, 1, wxEXPAND | wxALL, 5 );
@@ -938,6 +951,7 @@ _ElementDialog::_ElementDialog( wxWindow* parent, wxWindowID id, const wxString&
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -951,6 +965,7 @@ _ElementDialog::_ElementDialog( wxWindow* parent, wxWindowID id, const wxString&
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
+	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -1029,7 +1044,7 @@ _UpdateCodeDialog::_UpdateCodeDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* previewSizer;
 	previewSizer = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_scintillaCode = new wxScintilla( this, wxID_ANY, wxDefaultPosition, wxSize( 280,150 ), wxVSCROLL, wxEmptyString );
+	m_scintillaCode = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	m_scintillaCode->SetUseTabs( true );
 	m_scintillaCode->SetTabWidth( 4 );
 	m_scintillaCode->SetIndent( 4 );
@@ -1039,34 +1054,37 @@ _UpdateCodeDialog::_UpdateCodeDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_scintillaCode->SetViewWhiteSpace( false );
 	m_scintillaCode->SetMarginWidth( 2, 0 );
 	m_scintillaCode->SetIndentationGuides( true );
-	m_scintillaCode->SetMarginType( 1, wxSCI_MARGIN_SYMBOL );
-	m_scintillaCode->SetMarginMask( 1, wxSCI_MASK_FOLDERS );
+	m_scintillaCode->SetMarginType( 1, wxSTC_MARGIN_SYMBOL );
+	m_scintillaCode->SetMarginMask( 1, wxSTC_MASK_FOLDERS );
 	m_scintillaCode->SetMarginWidth( 1, 16);
 	m_scintillaCode->SetMarginSensitive( 1, true );
 	m_scintillaCode->SetProperty( wxT("fold"), wxT("1") );
-	m_scintillaCode->SetFoldFlags( wxSCI_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSCI_FOLDFLAG_LINEAFTER_CONTRACTED );
-	m_scintillaCode->SetMarginType( 0, wxSCI_MARGIN_NUMBER );
-	m_scintillaCode->SetMarginWidth( 0, m_scintillaCode->TextWidth( wxSCI_STYLE_LINENUMBER, wxT("_99999") ) );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDER, wxSCI_MARK_BOXPLUS );
-	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
-	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDEROPEN, wxSCI_MARK_BOXMINUS );
-	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
-	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDERSUB, wxSCI_MARK_EMPTY );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDEREND, wxSCI_MARK_BOXPLUS );
-	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
-	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDEROPENMID, wxSCI_MARK_BOXMINUS );
-	m_scintillaCode->MarkerSetBackground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
-	m_scintillaCode->MarkerSetForeground( wxSCI_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDERMIDTAIL, wxSCI_MARK_EMPTY );
-	m_scintillaCode->MarkerDefine( wxSCI_MARKNUM_FOLDERTAIL, wxSCI_MARK_EMPTY );
+	m_scintillaCode->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
+	m_scintillaCode->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
+	m_scintillaCode->SetMarginWidth( 0, m_scintillaCode->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
+	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+	m_scintillaCode->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
+	m_scintillaCode->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDEROPEN, wxSTC_MARK_BOXMINUS );
+	m_scintillaCode->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPEN, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDERSUB, wxSTC_MARK_EMPTY );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDEREND, wxSTC_MARK_BOXPLUS );
+	m_scintillaCode->MarkerSetBackground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSTC_MARKNUM_FOLDEREND, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDEROPENMID, wxSTC_MARK_BOXMINUS );
+	m_scintillaCode->MarkerSetBackground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("BLACK") ) );
+	m_scintillaCode->MarkerSetForeground( wxSTC_MARKNUM_FOLDEROPENMID, wxColour( wxT("WHITE") ) );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDERMIDTAIL, wxSTC_MARK_EMPTY );
+	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDERTAIL, wxSTC_MARK_EMPTY );
 	m_scintillaCode->SetSelBackground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHT ) );
 	m_scintillaCode->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	m_scintillaCode->SetFont( wxFont( 9, 70, 90, 90, false, wxEmptyString ) );
 	m_scintillaCode->SetMinSize( wxSize( 280,150 ) );
 	
-	previewSizer->Add( m_scintillaCode, 1, wxEXPAND | wxALL, 5 );
+	previewSizer->Add( m_scintillaCode, 1, wxEXPAND|wxTOP|wxBOTTOM|wxLEFT, 5 );
 	
 	wxBoxSizer* searchSizer;
 	searchSizer = new wxBoxSizer( wxVERTICAL );
@@ -1147,6 +1165,7 @@ _ScopedElementDialog::_ScopedElementDialog( wxWindow* parent, wxWindowID id, con
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -1160,6 +1179,7 @@ _ScopedElementDialog::_ScopedElementDialog( wxWindow* parent, wxWindowID id, con
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
+	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );

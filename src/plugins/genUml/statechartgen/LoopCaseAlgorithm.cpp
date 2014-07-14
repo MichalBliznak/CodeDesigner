@@ -72,6 +72,7 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 	if( ! pSCH ) return;
 	
 	bool fNonBlocking = pSCH->IsNonBlocking();
+	bool fHasFinalState = pDiagManager->Contains(CLASSINFO(umlFinalItem));
 
     // get inital states
     ShapeList lstInitialStates;
@@ -88,7 +89,7 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 		}
 		else
 		{
-			if( pDiagManager->Contains(CLASSINFO(umlFinalItem)) )
+			if( fHasFinalState )
 				pLang->FunctionDefCmd(wxT("STATE_T"), m_pParentGenerator->MakeValidIdentifier(pSCH->GetName()), wxEmptyString );
 			else
 				pLang->FunctionDefCmd(pLang->GetDataTypeString(udLanguage::DT_VOID), m_pParentGenerator->MakeValidIdentifier(pSCH->GetName()), wxEmptyString );
@@ -171,11 +172,11 @@ void udLoopCaseAlgorithm::ProcessAlgorithm(udDiagramItem *src)
 
         pLang->EndCmd();
         if( !fNonBlocking ) pLang->EndCmd();
-		else if( !pSCH->IsInline() )
+		/*else if( !pSCH->IsInline() && fHasFinalState )
 		{
 			pLang->NewLine();
 			pLang->ReturnCmd( wxT("state") );
-		}
+		}*/
     }
 
     //pLang->ReturnCmd(pLang->NullValue());

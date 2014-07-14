@@ -1,4 +1,5 @@
 #include <wx/valgen.h>
+#include <wx/msgdlg.h>
 
 #include "ClassInstanceDialog.h"
 
