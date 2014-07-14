@@ -47,8 +47,8 @@ Other features:
 Requirements:
 -------------
 
-- CodeDesigner is based on wxWidgets toolkit (www.wxwidgets.org) and can be built using both 2.8.x and
-  2.9.x versions (monolithic builds of wxWidgets 2.8.x and wx.2.9.x libraries are supported only).
+- CodeDesigner is based on wxWidgets toolkit (www.wxwidgets.org) and can be built using
+  2.9.x and higher versions (monolithic builds of wx.2.9.x libraries are supported only).
 - Python interpreter must be available (the application's build number is created by using simple
   python script).
 - CodeLite (www.codelite.org) IDE with MinGW C++ compiler or MS Visual Studio 2005/2008 (Express)
