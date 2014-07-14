@@ -1,3 +1,0 @@
-wxicon ICON "res/gui/application-icon.ico"
-
-#include "wx/msw/wx.rc"
