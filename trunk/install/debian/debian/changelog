@@ -1,0 +1,53 @@
+codedesigner (1.6.3-0ubuntu1~trusty1) trusty; urgency=medium
+
+  * Sync to upstream 1.6.3.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Mon, 14 Jul 2014 17:41:41 +0200
+
+codedesigner (1.6.2-0ubuntu1~precise1) precise; urgency=low
+
+  * Sync to upstrem 1.6.2.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Tue, 27 Nov 2012 10:46:43 +0100
+
+codedesigner (1.6.1-0ubuntu1~lucid1) lucid; urgency=low
+
+  * Sync to upstream 1.6.1.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Sun, 13 May 2012 22:37:01 +0200
+
+codedesigner (1.6.0-0ubuntu1~lucid1) lucid; urgency=low
+
+  * Sync to upstream 1.6.0.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Wed, 04 Apr 2012 09:00:14 +0200
+
+codedesigner (1.5.5-0ubuntu1~lucid1) lucid; urgency=low
+
+  * Sync to upstream 1.5.5.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Fri, 16 Mar 2012 12:04:26 +0100
+
+codedesigner (1.5.4-0ubuntu1~lucid1) lucid; urgency=low
+
+  * Sync to upstream 1.5.4.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Wed, 08 Feb 2012 14:33:03 +0100
+
+codedesigner (1.5.3-0ubuntu1) lucid; urgency=low
+
+  * Sync to upstream 1.5.3.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Mon, 19 Dec 2011 10:44:52 +0100
+
+codedesigner (1.5.2-0ubuntu1) lucid; urgency=low
+
+  * Sync to upstream 1.5.2.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Sat, 17 Dec 2011 18:47:55 +0100
+
+codedesigner (1.5.1-0ubuntu1) lucid; urgency=low
+
+  * Sync to upstream 1.5.1.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Wed,  14 Dec 2011 09:26:25 +0100

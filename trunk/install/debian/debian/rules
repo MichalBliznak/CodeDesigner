@@ -1,0 +1,67 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+get-orig-source:
+	svn export https://svn.code.sf.net/p/codedesigner/code/trunk codedesigner
+	
+	cd $(CURDIR)/codedesigner && install/debian/create_src_tarball
+	rm -rf $(CURDIR)/codedesigner
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+
+build: build-stamp
+
+build-stamp: configure-stamp 
+	dh_testdir
+	$(MAKE) -j8 -C build CONFIG=Release
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+	$(MAKE) -C build CONFIG=Release clean
+	dh_clean 
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+	$(CURDIR)/install/debian/cd_export.sh $(CURDIR)/debian/codedesigner/usr
+	
+	# Changelog installed separately
+	rm -f $(CURDIR)/debian/codedesigner/usr/share/codedesigner/changes.txt
+	
+	# Another copy of the GPL is not necessary
+	rm -f $(CURDIR)/debian/codedesigner/usr/share/codedesigner/LICENSE.txt
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs $(CURDIR)/changes.txt 
+	dh_installdocs $(CURDIR)/readme_src.txt
+	dh_install --sourcedir=$(CURDIR)/install/debian/data/gnome --autodest \*
+	dh_installmenu
+	dh_installmime
+	dh_desktop
+	dh_installman $(CURDIR)/install/debian/data/codedesigner.1
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(CURDIR)/output/lib/codedesigner dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

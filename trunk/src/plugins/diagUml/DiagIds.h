@@ -1,0 +1,27 @@
+#ifndef _DIAG_CD_IDS_H_
+#define _DIAG_CD_IDS_H_
+
+#include "interfaces/IPluginManager.h"
+
+extern long IDM_TRANS_CREATECONDITION;
+extern long IDM_TRANS_CREATEEVENT;
+extern long IDM_TRANS_CREATEACTION;
+extern long IDM_TRANS_ASSIGNGUARD;
+extern long IDM_TRANS_ASSIGNACTION;
+extern long IDM_DIAG_ASSIGNVARIABLE;
+extern long IDM_DIAG_ASSIGNFUNCTION;
+extern long IDM_DIAG_CLEARCONDITIONS;
+extern long IDM_DIAG_CLEARACTIONS;
+extern long IDM_COMPSTATE_ACTION;
+
+extern long IDM_CLASS_CREATECONSTRUCTOR;
+extern long IDM_CLASS_CREATEDESTRUCTOR;
+extern long IDM_CLASS_CREATEVARIABLE;
+extern long IDM_CLASS_CREATEFUNCTION;
+extern long IDM_CLASS_RENAMEVIRTUAL;
+/*extern long IDM_CLASS_ACCESSTYPE;*/
+
+extern long IDM_ENUM_ADDELEMENT;
+extern long IDM_ENUM_CLEARELEMENTS;
+
+#endif //_DIAG_CD_IDS_H_

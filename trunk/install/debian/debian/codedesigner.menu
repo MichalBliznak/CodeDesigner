@@ -1,0 +1,1 @@
+?package(codedesigner):needs="X11" section="Applications/Programming" title="CodeDesigner RAD" command="codedesigner" icon="/usr/share/codedesigner/app/gui/application-icon.png"

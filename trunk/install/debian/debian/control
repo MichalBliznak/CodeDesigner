@@ -1,0 +1,18 @@
+Source: codedesigner
+Section: contrib/devel
+Priority: optional
+XSBC-Original-Maintainer: Michal Bližňák <michal.bliznak@gmail.com>
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+Build-Depends: debhelper (>= 5), libwxgtk3.0-dev (>= 3.0.0)
+Standards-Version: 3.7.3
+Homepage: http://www.codedesigner.org
+
+Package: codedesigner
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: UML CASE tool for code generation/reverse engineering
+ CodeDesigner is free and open-source RAD tool suitable for easy creation
+ of various diagrams describing applications' structure and logic and for
+ generation of production-ready source code from them.
+ .
+ Features include generation of C++ or Python code and reverse source code engineering.
