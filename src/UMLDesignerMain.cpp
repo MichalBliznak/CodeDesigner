@@ -1630,7 +1630,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
     info.SetName(wxT("CodeDesigner RAD"));
     info.SetVersion(version);
     info.SetDescription(desc);
-    info.SetCopyright(wxT("2007 - 2012 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
+    info.SetCopyright(wxT("2007 - 2014 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
     info.SetWebSite(wxT("http://www.codedesigner.org"));
     info.AddDeveloper(wxT("Michal Bližňák"));
 
