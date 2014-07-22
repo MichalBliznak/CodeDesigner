@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 12 2013)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -227,6 +227,38 @@ class _ClassMemberLinkDialog : public wxDialog
 		
 		_ClassMemberLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Class member link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_ClassMemberLinkDialog();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class _EventLinkDialog
+///////////////////////////////////////////////////////////////////////////////
+class _EventLinkDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText1;
+		wxTextCtrl* m_eName;
+		wxStaticText* m_stOriginal;
+		wxButton* btnEditOrig;
+		wxNotebook* m_pNotebook;
+		wxPanel* m_pageAdv;
+		wxCheckBox* m_checkBoxClearFlag;
+		wxStdDialogButtonSizer* bntSizer;
+		wxButton* bntSizerOK;
+		wxButton* bntSizerCancel;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnEditOriginal( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_EventLinkDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Event link properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,380 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		~_EventLinkDialog();
 	
 };
 
