@@ -13,6 +13,7 @@ Changes in version 1.6.3 beta (2014-07-21):
 - Hold SHIFT key when clicking the diagram items to add them to the selection or hold CTRL+SHIFT
   keys when clicking onto already selected diagram items to remove them from the selection.
 - Event flags can be cleared automatically on option (see Event flag's properties dialog).
+- Fixed export of diagrams with disabled background to images.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
