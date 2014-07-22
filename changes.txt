@@ -14,6 +14,9 @@ Changes in version 1.6.3 beta (2014-07-21):
   keys when clicking onto already selected diagram items to remove them from the selection.
 - Event flags can be cleared automatically on option (see Event flag's properties dialog).
 - Fixed export of diagrams with disabled background to images.
+- Append file extension (*.cdp) to the CodeDesigner's project name if missing on "Save As...".
+- Fixed code generation to an output directory specified in the project settings by using
+  relative path.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------

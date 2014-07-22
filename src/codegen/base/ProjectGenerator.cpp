@@ -408,10 +408,10 @@ wxFileName udProjectGenerator::GetFullCodePath(const wxString& name, const wxStr
 	{
 		if( fnOutDir.IsRelative() )
 		{
-			sPath = udProject::Get()->GetProjectDirectory() + wxFileName::GetPathSeparators();
+			sPath = udProject::Get()->GetProjectDirectory() + wxFileName::GetPathSeparator();
 		}
 		
-		sPath += fnOutDir.GetPath() + wxFileName::GetPathSeparators() + name + ext;
+		sPath += fnOutDir.GetPath() + wxFileName::GetPathSeparator() + name + ext;
 	}
 	else
 		sPath += name + ext;

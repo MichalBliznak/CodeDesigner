@@ -51,9 +51,17 @@ void udCProjectGenerator::ProcessProject(udProject *src)
 	// get settings of processed project
 	udProjectSettings& Settings = src->GetSettings();
 	
-	if( !wxDirExists( Settings.GetProperty(wxT("Output directory"))->ToString() ) )
+	wxFileName fnOutDir;
+	wxString sPath = Settings.GetProperty(wxT("Output directory"))->ToString();
+	fnOutDir.SetPath( sPath );
+	if( fnOutDir.IsRelative() )
 	{
-		wxMessageBox(wxT("Output directory '") + Settings.GetProperty(wxT("Output directory"))->ToString() + wxT("' doesn't exist. Please check the project settings."), wxT("CodeDesigner"), wxICON_ERROR | wxOK );
+		sPath = udProject::Get()->GetProjectDirectory() + wxFileName::GetPathSeparator() + sPath;
+	}
+	
+	if( !wxDirExists( sPath ) )
+	{
+		wxMessageBox(wxT("Output directory '") + sPath + wxT("' doesn't exist. Please check the project settings."), wxT("CodeDesigner"), wxICON_ERROR | wxOK );
 		return;
 	}
 	 

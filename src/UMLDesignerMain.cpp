@@ -1481,10 +1481,17 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
     {
 		wxSetCursor( *wxHOURGLASS_CURSOR );
 		
-		pProj->SetProjectDirectory( dlg.GetDirectory() );
-		pProj->SetProjectPath( dlg.GetPath() );
+		wxString sPath = dlg.GetPath();
+		wxFileName fnPath(sPath);
+		if( fnPath.GetExt() == wxEmptyString )
+		{
+			sPath += wxT(".cdp");
+		}
 		
-		pProj->SerializeToXml(  pProj->GetProjectPath(), true );
+		pProj->SetProjectDirectory( dlg.GetDirectory() );
+		pProj->SetProjectPath( sPath );
+		
+		pProj->SerializeToXml( pProj->GetProjectPath(), true );
 		
 		SetTitle( wxT("CodeDesigner RAD [") + pProj->GetProjectPath() + wxT("]") );
 		
