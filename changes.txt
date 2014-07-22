@@ -1,4 +1,4 @@
-Changes in version 1.6.3 beta (2014-07-21):
+Changes in version 1.6.3 beta (2014-07-22):
 ------------------------------------------------
 - Minor GUI tweaks and fixes.
 - Fixed various issues in DnD operations (when some elements were dropped onto transitions or states).
@@ -17,6 +17,7 @@ Changes in version 1.6.3 beta (2014-07-21):
 - Append file extension (*.cdp) to the CodeDesigner's project name if missing on "Save As...".
 - Fixed code generation to an output directory specified in the project settings by using
   relative path.
+- Non-blocking state chart cannot be used with Python output language.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------

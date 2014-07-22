@@ -422,7 +422,7 @@ UMLDesignerFrame::UMLDesignerFrame(wxFrame *frame)
 	btnZoom100->SetMinSize( wxSize( -1, 27 ) );
 	btnZoomAll->SetMinSize( wxSize( -1, 27 ) );
 #elif defined(__WXMSW__)
-	m_auintbPalettes->SetMinSize( wxSize( -1, 52 ) );
+	m_auintbPalettes->SetMinSize( wxSize( -1, 58 ) );
 #elif defined(__WXMAC__)
 	m_auintbPalettes->SetMinSize( wxSize( -1, 58 ) );
 #endif
