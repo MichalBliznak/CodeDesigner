@@ -129,18 +129,37 @@ public:
 	// constructor
 	udEventLinkItem()
 	{
+		m_fClearFlag = false;
+		
 		AcceptSibbling(wxT("udActionLinkItem"));
 		AcceptSibbling(wxT("udConditionLinkItem"));
 		AcceptSibbling(wxT("udEventLinkItem"));
+		
+		XS_SERIALIZE_BOOL_EX( m_fClearFlag, wxT("clear_flag"), false );
 	}
 	udEventLinkItem(const udCodeItem *orig) : udVariableLinkItem(orig)
 	{
+		m_fClearFlag = false;
+		
 		AcceptSibbling(wxT("udActionLinkItem"));
 		AcceptSibbling(wxT("udConditionLinkItem"));
 		AcceptSibbling(wxT("udEventLinkItem"));
+		
+		XS_SERIALIZE_BOOL_EX( m_fClearFlag, wxT("clear_flag"), false );
 	}
 	// public functions
 	udEventItem* GetOriginalEvent(){ return wxDynamicCast( this->GetOriginal(), udEventItem ); }
+	
+	// public member data accessors
+	void SetClearFlag(bool ClearFlag) {this->m_fClearFlag = ClearFlag;}
+	bool IsClearFlag() const {return m_fClearFlag;}
+	
+	// public virtual functions
+	virtual void OnEditItem(wxWindow* parent);
+	
+protected:
+	// protected data members
+	bool m_fClearFlag;
 };
 
 class WXDLLIMPEXP_CD udStateActionLinkItem : public udActionLinkItem

@@ -13,6 +13,7 @@
 #include "gui/TransitionDialog.h"
 #include "gui/FinalStateDialog.h"
 #include "gui/CompStateDialog.h"
+#include "gui/EventLinkDialog.h"
 #include "Ids.h"
 #include "DiagIds.h"
 #include "shapes/SimpleStateChartDiagram.h"
@@ -1521,6 +1522,23 @@ void udEventItem::OnEditItem(wxWindow* parent)
 /////////////////////////////////////////////////////////////////////////////////////
 
 XS_IMPLEMENT_CLONABLE_CLASS(udEventLinkItem, udVariableLinkItem);
+
+void udEventLinkItem::OnEditItem(wxWindow* parent)
+{
+	udEventLinkDialog dlg( parent, wxDynamicCast( GetOriginal(), udCodeItem ), IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("code_link_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetClearFlag( m_fClearFlag );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		OnTreeTextChange( dlg.GetCodeName() );
+		m_fClearFlag = dlg.IsClearFlag();
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+	}	
+}
 
 /////////////////////////////////////////////////////////////////////////////////////
 // udSCHSubDiagramElementItem class /////////////////////////////////////////////////

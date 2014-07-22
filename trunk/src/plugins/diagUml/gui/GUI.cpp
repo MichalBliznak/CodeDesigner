@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 12 2013)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -87,8 +87,10 @@ _CodeDialog::_CodeDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
@@ -246,8 +248,10 @@ _StateActionDialog::_StateActionDialog( wxWindow* parent, wxWindowID id, const w
 	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
@@ -630,6 +634,97 @@ _ClassMemberLinkDialog::~_ClassMemberLinkDialog()
 	
 }
 
+_EventLinkDialog::_EventLinkDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxSize( 400,380 ), wxDefaultSize );
+	
+	wxBoxSizer* mainSizer;
+	mainSizer = new wxBoxSizer( wxVERTICAL );
+	
+	wxGridBagSizer* controlSizer;
+	controlSizer = new wxGridBagSizer( 0, 0 );
+	controlSizer->SetFlexibleDirection( wxBOTH );
+	controlSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticText1 = new wxStaticText( this, wxID_ANY, wxT("Link name:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1->Wrap( -1 );
+	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
+	
+	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_eName->SetMaxLength( 0 ); 
+	controlSizer->Add( m_eName, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxALL|wxEXPAND, 5 );
+	
+	wxStaticBoxSizer* originalSizer;
+	originalSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Original code item:") ), wxHORIZONTAL );
+	
+	m_stOriginal = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stOriginal->Wrap( -1 );
+	m_stOriginal->SetFont( wxFont( 9, 74, 90, 92, false, wxT("Sans") ) );
+	
+	originalSizer->Add( m_stOriginal, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	btnEditOrig = new wxButton( this, wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
+	originalSizer->Add( btnEditOrig, 0, wxRIGHT|wxLEFT, 5 );
+	
+	
+	controlSizer->Add( originalSizer, wxGBPosition( 2, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	
+	m_pNotebook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_pNotebook->SetMinSize( wxSize( -1,200 ) );
+	
+	m_pageAdv = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* advSizer;
+	advSizer = new wxBoxSizer( wxVERTICAL );
+	
+	m_checkBoxClearFlag = new wxCheckBox( m_pageAdv, wxID_ANY, wxT("Clear event flag"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxClearFlag->SetToolTip( wxT("Clear event flag automatically") );
+	
+	advSizer->Add( m_checkBoxClearFlag, 0, wxALL, 5 );
+	
+	
+	m_pageAdv->SetSizer( advSizer );
+	m_pageAdv->Layout();
+	advSizer->Fit( m_pageAdv );
+	m_pNotebook->AddPage( m_pageAdv, wxT("Advanced"), true );
+	
+	controlSizer->Add( m_pNotebook, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND | wxALL, 5 );
+	
+	bntSizer = new wxStdDialogButtonSizer();
+	bntSizerOK = new wxButton( this, wxID_OK );
+	bntSizer->AddButton( bntSizerOK );
+	bntSizerCancel = new wxButton( this, wxID_CANCEL );
+	bntSizer->AddButton( bntSizerCancel );
+	bntSizer->Realize();
+	
+	controlSizer->Add( bntSizer, wxGBPosition( 4, 0 ), wxGBSpan( 1, 2 ), wxALIGN_RIGHT|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
+	
+	
+	controlSizer->AddGrowableCol( 0 );
+	controlSizer->AddGrowableRow( 3 );
+	
+	mainSizer->Add( controlSizer, 1, wxEXPAND, 5 );
+	
+	
+	this->SetSizer( mainSizer );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _EventLinkDialog::OnInit ) );
+	btnEditOrig->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _EventLinkDialog::OnEditOriginal ), NULL, this );
+	bntSizerOK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _EventLinkDialog::OnOk ), NULL, this );
+}
+
+_EventLinkDialog::~_EventLinkDialog()
+{
+	// Disconnect Events
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( _EventLinkDialog::OnInit ) );
+	btnEditOrig->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _EventLinkDialog::OnEditOriginal ), NULL, this );
+	bntSizerOK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _EventLinkDialog::OnOk ), NULL, this );
+	
+}
+
 _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 460,500 ), wxDefaultSize );
@@ -728,7 +823,7 @@ _TransitionDialog::_TransitionDialog( wxWindow* parent, wxWindowID id, const wxS
 	menuUsedDeselectAll = new wxMenuItem( m_menuUsed, IDM_TRANS_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuUsedDeselectAll->SetBitmaps( wxNullBitmap );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuUsedDeselectAll->SetBitmap( wxNullBitmap );
 	#endif
 	m_menuUsed->Append( menuUsedDeselectAll );
@@ -1056,7 +1151,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	menuUsedDeselectAll = new wxMenuItem( m_menuUsed, IDM_TRANS_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuUsedDeselectAll->SetBitmaps( wxNullBitmap );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuUsedDeselectAll->SetBitmap( wxNullBitmap );
 	#endif
 	m_menuUsed->Append( menuUsedDeselectAll );
@@ -1092,7 +1187,7 @@ _CompStateDialog::_CompStateDialog( wxWindow* parent, wxWindowID id, const wxStr
 	menuUsedDeselectAllExit = new wxMenuItem( m_menuUsedExit, IDM_TRANS_DESELECTALL, wxString( wxT("Deselect all") ) , wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuUsedDeselectAllExit->SetBitmaps( wxNullBitmap );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuUsedDeselectAllExit->SetBitmap( wxNullBitmap );
 	#endif
 	m_menuUsedExit->Append( menuUsedDeselectAllExit );
@@ -1416,8 +1511,10 @@ _ConstructorDialog::_ConstructorDialog( wxWindow* parent, wxWindowID id, const w
 	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
@@ -1611,8 +1708,10 @@ _DestructorDialog::_DestructorDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );

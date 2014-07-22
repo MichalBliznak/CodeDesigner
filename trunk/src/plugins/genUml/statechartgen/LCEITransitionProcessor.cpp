@@ -35,7 +35,6 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 	//SerializableList lstActs;
 	wxString sCond;
 	wxArrayString arrActions;
-	/*SerializableList lstActions;*/
 
     wxSFLineShape *pTrans = NULL;
 	wxSFShapeBase *pTrgShape = NULL;
@@ -83,11 +82,12 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
 		// get current condition and actions
 		arrActions.Clear();
-		/*lstActions.Clear();*/
+		
+		// determine whether the transition is guarded by event flag
+		udEventLinkItem *pEvtLink = wxDynamicCast( pTransElement->GetCondition(), udEventLinkItem );
 		
 		sCond = pTransElement->GetConditionAsString( udCodeItem::cfCALL, pLang );
 		pTransElement->GetActionsAsStrings( udCodeItem::cfCALL, pLang, udfCODEMARKS, arrActions );
-		/*pTransElement->GetActions( lstActions, udfORIGINAL );*/
 
 		fIndent = true;
 
@@ -116,6 +116,13 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 
         pLang->SingleLineCommentCmd(wxString::Format(wxT("Transition ID: %s"), m_pParentGenerator->MakeIDName(pTransElement).c_str()));
 
+		// clear event flag if required
+		if( pEvtLink && pEvtLink->IsClearFlag() ) {
+			pLang->SingleLineCommentCmd( wxT("Clear event flag") );
+			pLang->VariableAssignCmd( pEvtLink->ToString( udCodeItem::cfCALL, pLang ), pLang->False() );
+		}
+		
+		// write actions
 		if( !arrActions.IsEmpty() )
 		{
 			pLang->SingleLineCommentCmd(wxT("Actions:"));
@@ -125,26 +132,6 @@ void udLCEITransitionProcessor::ProcessElement(wxSFShapeBase *element)
 				pLang->WriteCodeBlocks( arrActions[i] );
 			}
 		}
-		
-		/*if( !lstActions.IsEmpty() )
-		{
-			pLang->SingleLineCommentCmd(wxT("Actions:"));
-		
-			size_t i = 0;
-			for( SerializableList::iterator it = lstActions.begin(); it != lstActions.end(); ++it, ++i )
-			{
-				udActionItem *pAct = (udActionItem*) *it;
-				
-				if( pAct->IsInline() )
-				{
-					pLang->SingleLineCommentCmd( udGenerator::GetBeginCodeMark( pAct ) );
-					pLang->WriteCodeBlocks( pAct->GetCode() );
-					pLang->SingleLineCommentCmd( udGenerator::GetEndCodeMark( pAct ) );
-				}
-				else
-					pLang->WriteCodeBlocks( arrActions[i] );
-			}
-		}*/
 		
 		// set state variable to target emlement
 		pTrgShape = pDiagManager->FindShape(((wxSFLineShape*)pTrans)->GetTrgShapeId());
