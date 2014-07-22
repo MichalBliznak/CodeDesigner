@@ -2173,11 +2173,10 @@ void wxSFShapeCanvas::SaveCanvasToImage(const wxString& file, wxBitmapType type,
 		{
 			RemoveStyle( wxSFShapeCanvas::sfsGRADIENT_BACKGROUND );
             RemoveStyle( wxSFShapeCanvas::sfsGRID_SHOW );
-            SetCanvasColour( *wxWHITE);
-		} else {
-			this->DrawBackground( outdc, sfNOT_FROM_PAINT );
-		}
+            SetCanvasColour( *wxWHITE );
+		} 
 		
+		this->DrawBackground( outdc, sfNOT_FROM_PAINT );
         this->DrawContent( outdc, sfNOT_FROM_PAINT );
         this->DrawForeground( outdc, sfNOT_FROM_PAINT );
 		
