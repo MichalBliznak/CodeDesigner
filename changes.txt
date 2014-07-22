@@ -18,6 +18,7 @@ Changes in version 1.6.3 beta (2014-07-22):
 - Fixed code generation to an output directory specified in the project settings by using
   relative path.
 - Non-blocking state chart cannot be used with Python output language.
+- Fixed confusing verification status.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
