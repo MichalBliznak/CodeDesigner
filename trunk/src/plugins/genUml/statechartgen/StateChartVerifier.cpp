@@ -26,6 +26,7 @@ bool udStateChartVerifier::Verify(udDiagramItem *diagram)
 	else if( !CheckUnconnectedStates(diagram) ) return false;
 	else if( !CheckConnections(diagram) ) return false;
 	else if( !CheckGOTOConstraints(diagram) ) return false;
+	else if( !CheckLanguageConstraints(diagram) ) return false;
 
     return true;
 }
@@ -317,6 +318,21 @@ bool udStateChartVerifier::CheckGOTOConstraints(udDiagramItem* diagram)
 		if( pSSCh->IsNonBlocking() )
 		{
 			IPluginManager::Get()->Log( wxString::Format( wxT("ERROR: 'GOTO' code generation algorithm set in diagram '%s' doesn't support non-blocking state charts."), diagram->GetName().c_str() ) );
+			return false;
+		}
+	}
+	return true;
+}
+
+bool udStateChartVerifier::CheckLanguageConstraints(udDiagramItem* diagram)
+{
+	// Check whether selected output language allows required features.
+	udSStateChartDiagramItem *pSSCh = wxDynamicCast( diagram, udSStateChartDiagramItem);
+	if( pSSCh && ( IPluginManager::Get()->GetSelectedLanguage()->GetName() == wxT("Python Language") ) )
+	{
+		if( pSSCh->IsNonBlocking() )
+		{
+			IPluginManager::Get()->Log( wxT("ERROR: Python language doesn't support non-blocking state charts.") );
 			return false;
 		}
 	}

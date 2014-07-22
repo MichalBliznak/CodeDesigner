@@ -41,6 +41,8 @@ if( ( target == "cl-gcc" or target == "gnu" ) and options["architecture"] ) then
 end
 
 -- Set wxWidgets presets
+wx_config_libs="std,propgrid,stc"
+
 dofile('../../build/premake/scripts/wxpresets.lua')
 
 -- Must be set here to avoid conflicts with built-in wxWidgets controls (wxPropertyGrid)

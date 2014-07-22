@@ -163,7 +163,8 @@ bool udGenerator::_Generate(udDiagramItem *src)
 				IPluginManager::Get()->Log(wxT("Verification is done with 'ERROR' status."));
 				fSuccess = false;
 			}
-			IPluginManager::Get()->Log(wxT("Verification is done with 'OK' status."));
+			else
+				IPluginManager::Get()->Log(wxT("Verification is done with 'OK' status."));
 		}
 
 		if( fSuccess )
