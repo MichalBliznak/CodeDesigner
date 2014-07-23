@@ -16,7 +16,7 @@ udDiagramCanvas::udDiagramCanvas()
 	GetDiagramManager()->AcceptShape( wxT("uddDnDElement") );
 
 	GetHistoryManager().SetMode(wxSFCanvasHistory::histUSE_SERIALIZATION);
-	GetHistoryManager().SetHistoryDepth(10);
+	GetHistoryManager().SetHistoryDepth(20);
 	
 	SaveCanvasState();
 	
@@ -30,7 +30,7 @@ udDiagramCanvas::udDiagramCanvas(wxSFDiagramManager* manager, wxWindow* parent, 
 	GetDiagramManager()->AcceptShape( wxT("uddDnDElement") );
 
 	GetHistoryManager().SetMode(wxSFCanvasHistory::histUSE_SERIALIZATION);
-	GetHistoryManager().SetHistoryDepth(10);
+	GetHistoryManager().SetHistoryDepth(20);
 	
 	SaveCanvasState();
 	

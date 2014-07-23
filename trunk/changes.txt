@@ -19,6 +19,7 @@ Changes in version 1.6.3 beta (2014-07-22):
   relative path.
 - Non-blocking state chart cannot be used with Python output language.
 - Fixed confusing verification status.
+- Undo/Redo history depth increased to 20 levels.
 
 Changes in version 1.6.2 beta (2012-10-24):
 ------------------------------------------------
