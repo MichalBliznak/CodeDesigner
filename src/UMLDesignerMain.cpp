@@ -796,11 +796,11 @@ void UMLDesignerFrame::CreatePalettes()
 
 void UMLDesignerFrame::CreatePaletteToolbar(const wxString& title)
 {
-	#ifdef __WXMSW__
+	/*#ifdef __WXMSW__
 	wxToolBar* toolbar = new wxToolBar(m_auintbPalettes, -1, wxDefaultPosition, wxSize(-1, 24), wxTB_FLAT | wxTB_HORIZONTAL | wxTB_NODIVIDER );
-	#else
+	#else*/
 	wxAuiToolBar* toolbar = new wxAuiToolBar(m_auintbPalettes, -1, wxDefaultPosition, wxSize(-1, 24), wxAUI_TB_DEFAULT_STYLE | wxAUI_TB_OVERFLOW );
-	#endif
+	/*#endif*/
 	
 	// insert design tool (common for all palettes)
 	toolbar->AddTool(IDT_DESIGN_TOOL_ID, wxT("Design tool"), udArt::GetBitmap(wxT("udICON_TOOL")), wxT("Design tool"), wxITEM_RADIO);
