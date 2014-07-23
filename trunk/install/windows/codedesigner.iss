@@ -1,27 +1,33 @@
 [Setup]
-AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2012
+AppCopyright=Tomas Bata University, Zlin, Czech Republic, 2010 - 2014
 AppName=CodeDesigner RAD
-AppVerName=CodeDesigner RAD 1.6.2.3010 Beta (SVN: 305)
+AppVerName=CodeDesigner RAD 1.6.3.3064 Beta (SVN: 337)
 ChangesAssociations=true
 DefaultGroupName=CodeDesigner RAD
 DefaultDirName={pf}\CodeDesigner
-OutputBaseFilename=codedesigner-1.6.2.3010
+OutputBaseFilename=codedesigner-1.6.3.3064
 InfoBeforeFile=..\..\changes.txt
 LicenseFile=..\..\LICENSE.txt
 PrivilegesRequired=none
 [Files]
-Source: C:\MinGW-4.4.1\bin\mingwm10.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets2.8\lib\gcc_dll\wxmsw28u_gcc.dll; DestDir: {app}; Components: core
+Source: C:\MinGW-4.8.1\bin\mingwm10.dll; DestDir: {app}; Components: core
+Source: C:\MinGW-4.8.1\bin\libgcc_s_dw2-1.dll ; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxbase30u_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxbase30u_xml_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_core_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_adv_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_aui_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_propgrid_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_stc_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_xrc_gcc_cl.dll; DestDir: {app}; Components: core
 Source: ..\..\readme_bin.txt; DestDir: {app}; Components: core
 Source: ..\..\LICENSE.txt; DestDir: {app}; Components: core
 Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: samples
 Source: ..\..\samples\TestClass.cdp; DestDir: {app}\samples; Components: samples
-Source: ..\..\output\wxmsw28u_shapeframework_cd.dll; DestDir: {app}; Components: core
+Source: ..\..\output\wxmsw30u_shapeframework_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\codedesigner.exe; DestDir: {app}; Components: core
 Source: ..\..\output\codedesigner-ctags.exe; DestDir: {app}; Components: core
 Source: ..\..\output\cdprojectbase.dll; DestDir: {app}; Components: core
-Source: ..\..\output\wxmsw28u_propgrid_cd.dll; DestDir: {app}; Components: core
-Source: ..\..\output\wxmsw28u_scintilla_cd.dll; DestDir: {app}; Components: core
 Source: ..\..\output\plugins\genuml.dll; DestDir: {app}\plugins; Components: umlgenerator
 Source: ..\..\output\plugins\diaguml.dll; DestDir: {app}\plugins; Components: umldiagram
 Source: ..\..\output\plugins\codelite.dll; DestDir: {app}\plugins; Components: codelite
