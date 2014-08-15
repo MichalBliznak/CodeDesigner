@@ -19,8 +19,8 @@ mkdir $out/build
 # copy program files
 echo "Copying build files..."
 cp -R -L ../../build/premake $out/build
-cp -R -L ../../build/propgrid $out/build
-cp -R -L ../../build/wxScintilla $out/build
+# cp -R -L ../../build/propgrid $out/build
+# cp -R -L ../../build/wxScintilla $out/build
 cp -R -L ../../build/wxShapeFramework $out/build
 cp ../../build/create_build_files.* $out/build
 cp ../../build/premake.lua $out/build
