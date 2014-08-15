@@ -35,7 +35,9 @@ function make_src_tarball
 	# create Makefiles
 	cd build
 
+    # build Premake
 	PREMAKE_DIR=premake
+    make CONFIG=Release -C$PREMAKE_DIR/src -f../build/Makefile
 
 	# Use premake to generate Makefiles
 	chmod +x $PREMAKE_DIR/premake-linux          
