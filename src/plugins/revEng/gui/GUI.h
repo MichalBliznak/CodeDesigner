@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr  6 2012)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -71,6 +71,8 @@ class _RevEngPanel : public wxPanel
 		wxPanel* m_panelSymbols;
 		wxStaticText* m_staticText2;
 		wxToolBar* m_toolBarSymbols;
+		wxToolBarToolBase* m_toolExpand; 
+		wxToolBarToolBase* m_toolImportSymbols; 
 		wxCheckBox* m_checkBoxMembers;
 		wxCheckBox* m_checkBoxBodies;
 		wxTreeCtrl* m_treeSymbols;

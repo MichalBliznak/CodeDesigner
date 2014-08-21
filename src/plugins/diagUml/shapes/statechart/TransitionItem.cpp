@@ -93,12 +93,18 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			
 		// create new instance of event flag and remove the source generic variable
 		udEventItem *pNewEvt = new udEventItem( *(udEventItem*)pOriginal );
+		pNewEvt->SetId( -1 );
+		pNewEvt->SetName( IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("event ") + pLink->GetName() ) );
+		
 		pProject->AddItem( pOriginal->GetParent(), pNewEvt );
 		
-		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
+		//IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 		pNewEvt->UpdateSignature();
 		pTransElement->AssignCodeItem( new udEventLinkItem((udCodeItem*)pNewEvt) );
+		
+		IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewEvt, (udProjectItem*)pProject->GetRootItem() );
+
 	}
 	else if( pLink->IsKindOf(CLASSINFO(udFunctionLinkItem)) )
 	{
@@ -113,23 +119,33 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			
 			// create new instance of condition and remove the source generic function
 			udConditionItem *pNewCond = new udConditionItem( *(udConditionItem*)pOriginal );
+			pNewCond->SetId( -1 );
+			pNewCond->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("condition ") + pLink->GetName() ) );
+			
 			pProject->AddItem( pOriginal->GetParent(), pNewCond );
 			
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
+			//IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 			pNewCond->UpdateSignature();
 			pTransElement->AssignCodeItem( new udConditionLinkItem((udCodeItem*)pNewCond) );
+		
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewCond, (udProjectItem*)pProject->GetRootItem() );
 		}
 		else
 		{
 			// create new instance of action and remove the source generic function
 			udActionItem *pNewAct = new udActionItem( *(udActionItem*)pOriginal );
+			pNewAct->SetId( -1 );
+			pNewAct->SetName( IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("action ") + pLink->GetName() ) );
+			
 			pProject->AddItem( pOriginal->GetParent(), pNewAct );
 			
-			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
+			//IPluginManager::Get()->SendProjectEvent( wxEVT_CD_TASK_REMOVE, wxID_ANY, pOriginal, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 
 			pNewAct->UpdateSignature();
 			pTransElement->AssignCodeItem( new udActionLinkItem((udCodeItem*)pNewAct) );
+			
+			IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, (udProjectItem*)pProject->GetRootItem() );
 		}
 	}
 	else if( pLink->IsKindOf( CLASSINFO(udElementLinkItem) ) ||
