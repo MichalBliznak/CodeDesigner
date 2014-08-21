@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr  6 2012)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -93,6 +93,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	panelSizerFiles->Add( m_staticText3, 0, wxALL, 5 );
 	
 	m_textIdentifiers = new wxTextCtrl( m_panelFiles, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,50 ), wxTE_MULTILINE );
+	m_textIdentifiers->SetMaxLength( 0 ); 
 	m_textIdentifiers->SetToolTip( wxT("Specifies a list of identifiers which are to be specially handled by CTAGS while parsing C and C++ source files.") );
 	m_textIdentifiers->SetMinSize( wxSize( -1,50 ) );
 	
@@ -118,11 +119,11 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	panelSizerSymbols->Add( m_staticText2, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_toolBarSymbols = new wxToolBar( m_panelSymbols, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
-	m_toolBarSymbols->AddTool( IDT_SYMBOLS_EXPANDALL, wxT("Expand/Collapse All"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString, NULL ); 
+	m_toolExpand = m_toolBarSymbols->AddTool( IDT_SYMBOLS_EXPANDALL, wxT("Expand/Collapse All"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString, NULL ); 
 	
 	m_toolBarSymbols->AddSeparator(); 
 	
-	m_toolBarSymbols->AddTool( IDT_SYMBOLS_IMPORT, wxT("Import symbols"), wxBitmap( scriptimport_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Import selected symbols"), wxEmptyString, NULL ); 
+	m_toolImportSymbols = m_toolBarSymbols->AddTool( IDT_SYMBOLS_IMPORT, wxT("Import symbols"), wxBitmap( scriptimport_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Import selected symbols"), wxEmptyString, NULL ); 
 	
 	m_checkBoxMembers = new wxCheckBox( m_toolBarSymbols, wxID_ANY, wxT("Members "), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxMembers->SetToolTip( wxT("Import class members") );
@@ -180,8 +181,8 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	this->Connect( menuFilesUncheckAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnUncheckAllFilesClick ) );
 	m_buttonParse->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _RevEngPanel::OnParseClick ), NULL, this );
 	m_buttonParse->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateParse ), NULL, this );
-	this->Connect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
-	this->Connect( IDT_SYMBOLS_IMPORT, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
+	this->Connect( m_toolExpand->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
+	this->Connect( m_toolImportSymbols->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Connect( menuSymbolsClassDiagram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Connect( menuSymbolsRemoveAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 }
@@ -202,8 +203,8 @@ _RevEngPanel::~_RevEngPanel()
 	this->Disconnect( IDM_FILES_UNCHECKALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnUncheckAllFilesClick ) );
 	m_buttonParse->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( _RevEngPanel::OnParseClick ), NULL, this );
 	m_buttonParse->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _RevEngPanel::OnUpdateParse ), NULL, this );
-	this->Disconnect( IDT_SYMBOLS_EXPANDALL, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
-	this->Disconnect( IDT_SYMBOLS_IMPORT, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
+	this->Disconnect( m_toolExpand->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnExpandTreeClick ) );
+	this->Disconnect( m_toolImportSymbols->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Disconnect( IDM_SYMBOLS_IMPORT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnImportSymbolsClick ) );
 	this->Disconnect( IDM_SYMBOLS_REMOVE_ALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _RevEngPanel::OnRemoveAllSymbolsClick ) );
 	

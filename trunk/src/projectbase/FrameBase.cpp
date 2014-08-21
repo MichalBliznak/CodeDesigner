@@ -56,6 +56,7 @@ udWindowManager::udWindowManager( wxWindow& wnd, const wxString& wndname)
 		// update window position and size
 		m_ManagedWindow->Move( pRec->GetPosition() );
 		m_ManagedWindow->SetSize( pRec->GetSize() );
+		m_ManagedWindow->Update();
 	}
 }
 

@@ -652,7 +652,8 @@ void UMLDesignerFrame::CreateMainToolbars()
 	m_tbMainFrame->SetToolBitmapSize(wxSize(udnIMG_SIZE, udnIMG_SIZE));
 	m_tbMainFrame->AddTool(wxID_NEW, wxT("New"), wxBitmap(sResPath + wxT("app/gui/filenew.png"), wxBITMAP_TYPE_PNG), wxT("New project"));
 	m_tbMainFrame->AddTool(wxID_OPEN, wxT("Load"), wxBitmap(sResPath + wxT("app/gui/fileopen.png"), wxBITMAP_TYPE_PNG), wxT("Open project..."));
-	m_tbMainFrame->AddTool(wxID_SAVEAS, wxT("Save as..."), wxBitmap(sResPath + wxT("app/gui/filesave.png"), wxBITMAP_TYPE_PNG), wxT("Save project as..."));
+	m_tbMainFrame->AddTool(wxID_SAVE, wxT("Save"), wxBitmap(sResPath + wxT("app/gui/filesave.png"), wxBITMAP_TYPE_PNG), wxT("Save project"));
+	m_tbMainFrame->AddTool(wxID_SAVEAS, wxT("Save as..."), wxBitmap(sResPath + wxT("app/gui/filesaveas.png"), wxBITMAP_TYPE_PNG), wxT("Save project as..."));
 	m_tbMainFrame->AddSeparator();
 	m_tbMainFrame->AddTool(wxID_PRINT, wxT("Print"), wxBitmap(sResPath + wxT("app/gui/fileprint.png"), wxBITMAP_TYPE_PNG), wxT("Print active diagram..."));
 	m_tbMainFrame->AddTool(wxID_PREVIEW, wxT("Preview"), wxBitmap(sResPath + wxT("app/gui/filepreview.png"), wxBITMAP_TYPE_PNG), wxT("Preview active diagram..."));
@@ -1449,8 +1450,8 @@ void UMLDesignerFrame::OnRecentFile( wxCommandEvent &event )
 
 void UMLDesignerFrame::OnSaveProject( wxCommandEvent &event )
 {
-	wxSetCursor( *wxHOURGLASS_CURSOR );
-	
+	wxBusyCursor busy;
+
 	udProject *pProj = udProject::Get();
 	
 	// set current project version
@@ -1467,8 +1468,6 @@ void UMLDesignerFrame::OnSaveProject( wxCommandEvent &event )
 	}
 	else
 		OnSaveProjectAs( event );
-	
-	wxSetCursor( *wxSTANDARD_CURSOR );
 }
 
 void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
@@ -1479,7 +1478,7 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 
     if(dlg.ShowModal() == wxID_OK)
     {
-		wxSetCursor( *wxHOURGLASS_CURSOR );
+		wxBusyCursor busy;
 		
 		wxString sPath = dlg.GetPath();
 		wxFileName fnPath(sPath);
@@ -1496,8 +1495,6 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 		SetTitle( wxT("CodeDesigner RAD [") + pProj->GetProjectPath() + wxT("]") );
 		
 		SetProjectModified( false );
-		
-		wxSetCursor( *wxSTANDARD_CURSOR );
     }
 }
 
@@ -1614,7 +1611,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.6.3.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.6.4.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams, code generation and reverse code engineering.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -2139,6 +2136,8 @@ void UMLDesignerFrame::OnDiagramKeyDown( wxKeyEvent &event )
             GetActiveCanvas()->OnKeyDown( event );
             break;
     }
+	
+	event.Skip();
 }
 
 void UMLDesignerFrame::OnConnectionFinished( wxSFShapeEvent& event )

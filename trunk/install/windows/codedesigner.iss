@@ -76,6 +76,7 @@ Source: ..\..\output\res\app\gui\filepreview.xpm; DestDir: {app}\res\app\gui; Co
 Source: ..\..\output\res\app\gui\fileprint.png; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\fileprint.xpm; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\filesave.png; DestDir: {app}\res\app\gui; Components: core
+Source: ..\..\output\res\app\gui\filesaveas.png; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\filesave.xpm; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\filesaveas.xpm; DestDir: {app}\res\app\gui; Components: core
 Source: ..\..\output\res\app\gui\form_blue.xpm; DestDir: {app}\res\app\gui; Components: core

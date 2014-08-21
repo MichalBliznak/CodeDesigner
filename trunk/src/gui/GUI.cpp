@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 12 2013)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -50,7 +50,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFileNew = new wxMenuItem( fileMenu, wxID_NEW, wxString( wxT("&New project") ) + wxT('\t') + wxT("Ctrl+N"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFileNew->SetBitmaps( wxBitmap( filenew_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFileNew->SetBitmap( wxBitmap( filenew_xpm ) );
 	#endif
 	fileMenu->Append( menuFileNew );
@@ -59,7 +59,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFileOpen = new wxMenuItem( fileMenu, wxID_OPEN, wxString( wxT("&Open project...") ) + wxT('\t') + wxT("Ctrl+O"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFileOpen->SetBitmaps( wxBitmap( fileopen_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFileOpen->SetBitmap( wxBitmap( fileopen_xpm ) );
 	#endif
 	fileMenu->Append( menuFileOpen );
@@ -68,7 +68,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFileSave = new wxMenuItem( fileMenu, wxID_SAVE, wxString( wxT("Save") ) + wxT('\t') + wxT("CTRL+S"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFileSave->SetBitmaps( wxBitmap( filesave_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFileSave->SetBitmap( wxBitmap( filesave_xpm ) );
 	#endif
 	fileMenu->Append( menuFileSave );
@@ -77,7 +77,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFileSaveAs = new wxMenuItem( fileMenu, wxID_SAVEAS, wxString( wxT("&Save project as...") ) + wxT('\t') + wxT("Ctrl+Shift+S"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFileSaveAs->SetBitmaps( wxBitmap( filesave_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFileSaveAs->SetBitmap( wxBitmap( filesave_xpm ) );
 	#endif
 	fileMenu->Append( menuFileSaveAs );
@@ -94,7 +94,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFilePrint = new wxMenuItem( fileMenu, wxID_PRINT, wxString( wxT("&Print...") ) + wxT('\t') + wxT("Ctrl+P"), wxT("Print active diagram"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFilePrint->SetBitmaps( wxBitmap( fileprint_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFilePrint->SetBitmap( wxBitmap( fileprint_xpm ) );
 	#endif
 	fileMenu->Append( menuFilePrint );
@@ -103,7 +103,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFilePreview = new wxMenuItem( fileMenu, wxID_PREVIEW, wxString( wxT("Preview...") ) + wxT('\t') + wxT("Alt+P"), wxT("Preview active diagram"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFilePreview->SetBitmaps( wxBitmap( filepreview_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFilePreview->SetBitmap( wxBitmap( filepreview_xpm ) );
 	#endif
 	fileMenu->Append( menuFilePreview );
@@ -115,7 +115,8 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	fileMenu->AppendSeparator();
 	
 	recentFilesMenu = new wxMenu();
-	fileMenu->Append( -1, wxT("Recent projects"), recentFilesMenu );
+	wxMenuItem* recentFilesMenuItem = new wxMenuItem( fileMenu, wxID_ANY, wxT("Recent projects"), wxEmptyString, wxITEM_NORMAL, recentFilesMenu );
+	fileMenu->Append( recentFilesMenuItem );
 	
 	fileMenu->AppendSeparator();
 	
@@ -123,7 +124,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuFileQuit = new wxMenuItem( fileMenu, wxID_EXIT, wxString( wxT("&Quit") ) + wxT('\t') + wxT("Alt+F4"), wxT("Quit the application"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuFileQuit->SetBitmaps( wxBitmap( exit_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuFileQuit->SetBitmap( wxBitmap( exit_xpm ) );
 	#endif
 	fileMenu->Append( menuFileQuit );
@@ -135,7 +136,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuEditUndo = new wxMenuItem( editMenu, wxID_UNDO, wxString( wxT("&Undo") ) + wxT('\t') + wxT("Ctrl+Z"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuEditUndo->SetBitmaps( wxBitmap( undo_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuEditUndo->SetBitmap( wxBitmap( undo_xpm ) );
 	#endif
 	editMenu->Append( menuEditUndo );
@@ -144,7 +145,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuEditRedo = new wxMenuItem( editMenu, wxID_REDO, wxString( wxT("&Redo") ) + wxT('\t') + wxT("Ctrl+Y"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuEditRedo->SetBitmaps( wxBitmap( redo_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuEditRedo->SetBitmap( wxBitmap( redo_xpm ) );
 	#endif
 	editMenu->Append( menuEditRedo );
@@ -155,7 +156,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuEditCopy = new wxMenuItem( editMenu, wxID_COPY, wxString( wxT("&Copy") ) + wxT('\t') + wxT("Ctrl+C"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuEditCopy->SetBitmaps( wxBitmap( editcopy_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuEditCopy->SetBitmap( wxBitmap( editcopy_xpm ) );
 	#endif
 	editMenu->Append( menuEditCopy );
@@ -164,7 +165,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuEditCut = new wxMenuItem( editMenu, wxID_CUT, wxString( wxT("Cut") ) + wxT('\t') + wxT("Ctrl+X"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuEditCut->SetBitmaps( wxBitmap( editcut_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuEditCut->SetBitmap( wxBitmap( editcut_xpm ) );
 	#endif
 	editMenu->Append( menuEditCut );
@@ -173,7 +174,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuEditPaste = new wxMenuItem( editMenu, wxID_PASTE, wxString( wxT("&Paste") ) + wxT('\t') + wxT("Ctrl+V"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuEditPaste->SetBitmaps( wxBitmap( editpaste_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuEditPaste->SetBitmap( wxBitmap( editpaste_xpm ) );
 	#endif
 	editMenu->Append( menuEditPaste );
@@ -190,7 +191,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuEditPreferences = new wxMenuItem( editMenu, IDM_EDIT_PREFERENCES, wxString( wxT("Preferences...") ) + wxT('\t') + wxT("Ctrl+Alt+P"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuEditPreferences->SetBitmaps( wxBitmap( configure_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuEditPreferences->SetBitmap( wxBitmap( configure_xpm ) );
 	#endif
 	editMenu->Append( menuEditPreferences );
@@ -243,7 +244,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjPackage = new wxMenuItem( projMenu, IDM_PROJ_PACKAGE, wxString( wxT("Create diagram package") ) , wxT("Crate new package"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuProjPackage->SetBitmaps( wxBitmap( cube_green_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuProjPackage->SetBitmap( wxBitmap( cube_green_xpm ) );
 	#endif
 	projMenu->Append( menuProjPackage );
@@ -252,7 +253,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjCodePackage = new wxMenuItem( projMenu, IDM_PROJ_CODEPACKAGE, wxString( wxT("Create code package") ) , wxT("Create new code package"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuProjCodePackage->SetBitmaps( wxBitmap( cube_yellow_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuProjCodePackage->SetBitmap( wxBitmap( cube_yellow_xpm ) );
 	#endif
 	projMenu->Append( menuProjCodePackage );
@@ -265,7 +266,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjVariable = new wxMenuItem( projMenu, IDM_PROJ_VARIABLE, wxString( wxT("Create generic variable") ) , wxT("Create user-defined variable"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuProjVariable->SetBitmaps( wxBitmap( Variable_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuProjVariable->SetBitmap( wxBitmap( Variable_xpm ) );
 	#endif
 	projMenu->Append( menuProjVariable );
@@ -274,7 +275,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjFunction = new wxMenuItem( projMenu, IDM_PROJ_FUNCTION, wxString( wxT("Create generic function") ) , wxT("Create user-defined function"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuProjFunction->SetBitmaps( wxBitmap( Function_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuProjFunction->SetBitmap( wxBitmap( Function_xpm ) );
 	#endif
 	projMenu->Append( menuProjFunction );
@@ -295,7 +296,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjRemoveAll = new wxMenuItem( projMenu, IDM_PROJ_REMOVEALL, wxString( wxT("Remove all") ) , wxT("Clear project (permanently remove all project items)"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuProjRemoveAll->SetBitmaps( wxNullBitmap );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuProjRemoveAll->SetBitmap( wxNullBitmap );
 	#endif
 	projMenu->Append( menuProjRemoveAll );
@@ -306,7 +307,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuProjSettings = new wxMenuItem( projMenu, IDM_PROJ_SETTINGS, wxString( wxT("Settings...") ) + wxT('\t') + wxT("Ctrl+Alt+S"), wxEmptyString, wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuProjSettings->SetBitmaps( wxBitmap( configure_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuProjSettings->SetBitmap( wxBitmap( configure_xpm ) );
 	#endif
 	projMenu->Append( menuProjSettings );
@@ -345,7 +346,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuCodePreview = new wxMenuItem( codeGenMenu, IDM_CODE_PREVIEW, wxString( wxT("&Preview") ) + wxT('\t') + wxT("Ctrl+Shift+G"), wxT("Generate code from active diagram"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuCodePreview->SetBitmaps( wxBitmap( spellcheck_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuCodePreview->SetBitmap( wxBitmap( spellcheck_xpm ) );
 	#endif
 	codeGenMenu->Append( menuCodePreview );
@@ -354,7 +355,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuCodeGenerate = new wxMenuItem( codeGenMenu, IDM_CODE_GENERATE, wxString( wxT("&Generate") ) + wxT('\t') + wxT("Ctrl+G"), wxT("Generate code for an active chart"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuCodeGenerate->SetBitmaps( wxBitmap( actionrun_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuCodeGenerate->SetBitmap( wxBitmap( actionrun_xpm ) );
 	#endif
 	codeGenMenu->Append( menuCodeGenerate );
@@ -379,7 +380,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuHelpAbout = new wxMenuItem( helpMenu, wxID_ABOUT, wxString( wxT("&About...") ) + wxT('\t') + wxT("F1"), wxT("Show info about this application"), wxITEM_NORMAL );
 	#ifdef __WXMSW__
 	menuHelpAbout->SetBitmaps( wxBitmap( helpindex_xpm ) );
-	#elif defined( __WXGTK__ )
+	#elif (defined( __WXGTK__ ) || defined( __WXOSX__ ))
 	menuHelpAbout->SetBitmap( wxBitmap( helpindex_xpm ) );
 	#endif
 	helpMenu->Append( menuHelpAbout );
@@ -745,15 +746,15 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	mainSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	m_toolBar = new wxToolBar( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL ); 
-	m_toolBar->AddTool( IDT_PROJMAN_LINK, wxT("Link on/off"), wxBitmap( link_editor_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Link project manager with design area"), wxEmptyString, NULL ); 
+	m_toolLinkEditor = m_toolBar->AddTool( IDT_PROJMAN_LINK, wxT("Link on/off"), wxBitmap( link_editor_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Link project manager with design area"), wxEmptyString, NULL ); 
 	
-	m_toolBar->AddTool( IDT_PROJMAN_EXPAND, wxT("Expand/Collapse all"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString, NULL ); 
+	m_toolExpandAll = m_toolBar->AddTool( IDT_PROJMAN_EXPAND, wxT("Expand/Collapse all"), wxBitmap( collapse_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Expand/collapse all tree items"), wxEmptyString, NULL ); 
 	
 	m_toolBar->AddSeparator(); 
 	
-	m_toolBar->AddTool( IDT_PROJMAN_SHOWPROPS, wxT("Show properies"), wxBitmap( form_blue_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Inspect properties of selected tree item"), wxEmptyString, NULL ); 
+	m_toolProperties = m_toolBar->AddTool( IDT_PROJMAN_SHOWPROPS, wxT("Show properies"), wxBitmap( form_blue_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Inspect properties of selected tree item"), wxEmptyString, NULL ); 
 	
-	m_toolBar->AddTool( IDT_PROJMAN_ORGANIZECI, wxT("Organize code items"), wxBitmap( organisation_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Organize code items"), wxEmptyString, NULL ); 
+	m_toolOrganizeCI = m_toolBar->AddTool( IDT_PROJMAN_ORGANIZECI, wxT("Organize code items"), wxBitmap( organisation_xpm ), wxNullBitmap, wxITEM_CHECK, wxT("Organize code items"), wxEmptyString, NULL ); 
 	
 	m_toolBar->Realize(); 
 	
@@ -796,13 +797,13 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	this->Layout();
 	
 	// Connect Events
-	this->Connect( IDT_PROJMAN_LINK, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnLinkedEditor ) );
-	this->Connect( IDT_PROJMAN_LINK, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateLinkedEditor ) );
-	this->Connect( IDT_PROJMAN_EXPAND, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnExpandAll ) );
-	this->Connect( IDT_PROJMAN_SHOWPROPS, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnShowProperties ) );
-	this->Connect( IDT_PROJMAN_SHOWPROPS, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateShowProperties ) );
-	this->Connect( IDT_PROJMAN_ORGANIZECI, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnOrganizeCI ) );
-	this->Connect( IDT_PROJMAN_ORGANIZECI, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateOrganizeCI ) );
+	this->Connect( m_toolLinkEditor->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnLinkedEditor ) );
+	this->Connect( m_toolLinkEditor->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateLinkedEditor ) );
+	this->Connect( m_toolExpandAll->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnExpandAll ) );
+	this->Connect( m_toolProperties->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnShowProperties ) );
+	this->Connect( m_toolProperties->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateShowProperties ) );
+	this->Connect( m_toolOrganizeCI->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnOrganizeCI ) );
+	this->Connect( m_toolOrganizeCI->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateOrganizeCI ) );
 	m_pSplitter->Connect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, wxSplitterEventHandler( _ProjManPanel::OnPropsSashChanged ), NULL, this );
 	m_auintbViews->Connect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler( _ProjManPanel::OnViewChanged ), NULL, this );
 	m_pPropertiesGrid->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( _ProjManPanel::OnPGActivated ), NULL, this );
@@ -811,13 +812,13 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 _ProjManPanel::~_ProjManPanel()
 {
 	// Disconnect Events
-	this->Disconnect( IDT_PROJMAN_LINK, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnLinkedEditor ) );
-	this->Disconnect( IDT_PROJMAN_LINK, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateLinkedEditor ) );
-	this->Disconnect( IDT_PROJMAN_EXPAND, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnExpandAll ) );
-	this->Disconnect( IDT_PROJMAN_SHOWPROPS, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnShowProperties ) );
-	this->Disconnect( IDT_PROJMAN_SHOWPROPS, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateShowProperties ) );
-	this->Disconnect( IDT_PROJMAN_ORGANIZECI, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnOrganizeCI ) );
-	this->Disconnect( IDT_PROJMAN_ORGANIZECI, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateOrganizeCI ) );
+	this->Disconnect( m_toolLinkEditor->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnLinkedEditor ) );
+	this->Disconnect( m_toolLinkEditor->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateLinkedEditor ) );
+	this->Disconnect( m_toolExpandAll->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnExpandAll ) );
+	this->Disconnect( m_toolProperties->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnShowProperties ) );
+	this->Disconnect( m_toolProperties->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateShowProperties ) );
+	this->Disconnect( m_toolOrganizeCI->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _ProjManPanel::OnOrganizeCI ) );
+	this->Disconnect( m_toolOrganizeCI->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _ProjManPanel::OnUpdateOrganizeCI ) );
 	m_pSplitter->Disconnect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, wxSplitterEventHandler( _ProjManPanel::OnPropsSashChanged ), NULL, this );
 	m_auintbViews->Disconnect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler( _ProjManPanel::OnViewChanged ), NULL, this );
 	m_pPropertiesGrid->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( _ProjManPanel::OnPGActivated ), NULL, this );
@@ -834,7 +835,7 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	mainSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	m_toolActions = new wxToolBar( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxTB_FLAT|wxTB_HORIZONTAL ); 
-	m_toolActions->AddTool( IDT_INSTEDITOR_SAVE, wxT("tool"), wxBitmap( filesave_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes (Alt+S)"), wxEmptyString, NULL ); 
+	m_toolSave = m_toolActions->AddTool( IDT_INSTEDITOR_SAVE, wxT("tool"), wxBitmap( filesave_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("Save changes (Alt+S)"), wxEmptyString, NULL ); 
 	
 	m_toolActions->AddSeparator(); 
 	
@@ -889,16 +890,16 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	this->Layout();
 	
 	// Connect Events
-	this->Connect( IDT_INSTEDITOR_SAVE, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _EditorPanel::OnSave ) );
-	this->Connect( IDT_INSTEDITOR_SAVE, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorPanel::OnUpdateSave ) );
+	this->Connect( m_toolSave->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _EditorPanel::OnSave ) );
+	this->Connect( m_toolSave->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorPanel::OnUpdateSave ) );
 	m_scintillaEditor->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( _EditorPanel::OnKeyDown ), NULL, this );
 }
 
 _EditorPanel::~_EditorPanel()
 {
 	// Disconnect Events
-	this->Disconnect( IDT_INSTEDITOR_SAVE, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _EditorPanel::OnSave ) );
-	this->Disconnect( IDT_INSTEDITOR_SAVE, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorPanel::OnUpdateSave ) );
+	this->Disconnect( m_toolSave->GetId(), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( _EditorPanel::OnSave ) );
+	this->Disconnect( m_toolSave->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _EditorPanel::OnUpdateSave ) );
 	m_scintillaEditor->Disconnect( wxEVT_KEY_DOWN, wxKeyEventHandler( _EditorPanel::OnKeyDown ), NULL, this );
 	
 }

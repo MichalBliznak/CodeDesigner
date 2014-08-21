@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 12 2013)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -242,6 +242,10 @@ class _ProjManPanel : public wxPanel
 	
 	protected:
 		wxToolBar* m_toolBar;
+		wxToolBarToolBase* m_toolLinkEditor; 
+		wxToolBarToolBase* m_toolExpandAll; 
+		wxToolBarToolBase* m_toolProperties; 
+		wxToolBarToolBase* m_toolOrganizeCI; 
 		wxSplitterWindow* m_pSplitter;
 		wxPanel* m_pPanelTree;
 		wxAuiNotebook* m_auintbViews;
@@ -277,6 +281,7 @@ class _EditorPanel : public wxPanel
 	
 	protected:
 		wxToolBar* m_toolActions;
+		wxToolBarToolBase* m_toolSave; 
 		wxStaticText* m_stCodeItem;
 		wxStyledTextCtrl* m_scintillaEditor;
 		

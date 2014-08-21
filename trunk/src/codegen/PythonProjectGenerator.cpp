@@ -142,7 +142,9 @@ void udPythonProjectGenerator::ProcessProject(udProject *src)
 			progressDlg.SetLabel(  wxString::Format( wxT("Generating '%s'..."), pDiagram->GetName().c_str() ) );
 			Log( wxString::Format( wxT("Generating code for diagram '%s'..."), pDiagram->GetName().c_str() ) );
 			
-			if( pDiagram->GetOutputFile() == wxT("<default>") )
+			udDiagramItem *pSuperDiagram = udPROJECT::GetSuperDiagram( pDiagram );
+			
+			if( pSuperDiagram->GetOutputFile() == wxT("<default>") )
 			{
 				// construct output file path
 				OutFile = GetFullCodePath( Settings.GetProperty(wxT("Base file name"))->AsString(), m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
@@ -150,7 +152,7 @@ void udPythonProjectGenerator::ProcessProject(udProject *src)
 			else
 			{
 				// construct output file path
-				OutFile = GetFullCodePath( pDiagram->GetOutputFile(), m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
+				OutFile = GetFullCodePath( pSuperDiagram->GetOutputFile(), m_pOutLang->GetExtension(udLanguage::FE_IMPL) );
 			}
 			
 			Log( wxString::Format( wxT("Output file: %s."), OutFile.GetFullPath().c_str() ) );

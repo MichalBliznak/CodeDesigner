@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Nov 12 2013)
+// C++ code generated with wxFormBuilder (version Jun  6 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -557,8 +557,10 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
@@ -607,6 +609,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
+	mainSizer->Fit( this );
 	
 	this->Centre( wxBOTH );
 	
@@ -815,8 +818,10 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sciEditor->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_sciEditor->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_sciEditor->SetMarginWidth( 0, m_sciEditor->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_sciEditor->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_sciEditor->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_sciEditor->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_sciEditor->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
@@ -1062,8 +1067,10 @@ _UpdateCodeDialog::_UpdateCodeDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_scintillaCode->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
 	m_scintillaCode->SetMarginType( 0, wxSTC_MARGIN_NUMBER );
 	m_scintillaCode->SetMarginWidth( 0, m_scintillaCode->TextWidth( wxSTC_STYLE_LINENUMBER, wxT("_99999") ) );
-	wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
-	m_scintillaCode->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	{
+		wxFont font = wxFont( 9, 70, 90, 90, false, wxEmptyString );
+		m_scintillaCode->StyleSetFont( wxSTC_STYLE_DEFAULT, font );
+	}
 	m_scintillaCode->MarkerDefine( wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS );
 	m_scintillaCode->MarkerSetBackground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("BLACK") ) );
 	m_scintillaCode->MarkerSetForeground( wxSTC_MARKNUM_FOLDER, wxColour( wxT("WHITE") ) );
