@@ -1,4 +1,4 @@
-Changes in version 1.6.4 beta (2014-08-21):
+Changes in version 1.6.4 beta (2014-08-27):
 ------------------------------------------------
 - Application keyboard shortcuts should work now as expected.
 - "Save project" icon added to the main application toolbar.
@@ -6,6 +6,9 @@ Changes in version 1.6.4 beta (2014-08-21):
 - New action function is created when a generic function is dropped onto a transition (and similarly
   for generic variable) instead of previous behavior where the former was transformed into the new
   code item.
+- Hierarchical states can handle managed submachines correctly.
+- Fixed crash appearing when an item managed by composite shape has been duplicated by using drag
+  and drop operation.
 
 Changes in version 1.6.3 beta (2014-07-22):
 ------------------------------------------------

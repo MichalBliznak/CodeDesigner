@@ -2133,11 +2133,10 @@ void UMLDesignerFrame::OnDiagramKeyDown( wxKeyEvent &event )
         break;
 
         default:
-            GetActiveCanvas()->OnKeyDown( event );
+            //GetActiveCanvas()->OnKeyDown( event );
+			event.Skip();
             break;
     }
-	
-	event.Skip();
 }
 
 void UMLDesignerFrame::OnConnectionFinished( wxSFShapeEvent& event )
