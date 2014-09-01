@@ -191,6 +191,9 @@ bool udUmlDiagramPlugin::OnInit()
 	m_PluginManager->RegisterFriendlyName( wxT("evt_type"), wxT("0"), wxT("Normal event") );
 	m_PluginManager->RegisterFriendlyName( wxT("evt_type"), wxT("1"), wxT("Critical event") );
 	
+	m_PluginManager->RegisterFriendlyName( wxT("store_ret_val"), wxT("0"), wxT("False") );
+	m_PluginManager->RegisterFriendlyName( wxT("store_ret_val"), wxT("1"), wxT("True") );
+	
 	// register event handlers
 	wxWindow *pFrame = m_PluginManager->GetMainFrame();
 	pFrame->Connect( IDM_TRANS_ASSIGNACTION, IDM_TRANS_ASSIGNACTION + udvMAX_ITEMS - 1, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( udUmlDiagramPlugin::OnAssignAction ), NULL, this );  

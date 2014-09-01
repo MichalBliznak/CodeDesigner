@@ -12,6 +12,7 @@
 #include "projectbase/gui/VariableDialog.h"
 #include "gui/TransitionDialog.h"
 #include "gui/FinalStateDialog.h"
+#include "gui/SubStateDialog.h"
 #include "gui/CompStateDialog.h"
 #include "gui/EventLinkDialog.h"
 #include "Ids.h"
@@ -1087,7 +1088,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udHistoryElementItem, udDiagElementItem);
 
 XS_IMPLEMENT_CLONABLE_CLASS(udActionItem, udFunctionItem);
 
-// constructor and destructor ///////////////////////////////////////////////////////
+// constructor and destructor //////////////////////udFinalElementItem/////////////////////////////////
 
 udActionItem::udActionItem()
 {
@@ -1549,12 +1550,42 @@ XS_IMPLEMENT_CLONABLE_CLASS(udSCHSubDiagramElementItem, udSubDiagramElementItem)
 udSCHSubDiagramElementItem::udSCHSubDiagramElementItem() : udSubDiagramElementItem()
 {
     m_sName = wxT("SubDiagram");
+	m_StoreRetVal = true;
 
 	m_pSubDiagram = new udSStateChartDiagramItem();
 	m_pSubDiagram->EnableSerialization(false);
 	m_pSubDiagram->SetSubdiagramElement(this);
 
     XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pSubDiagram, wxT("subdiagram"));
+	XS_SERIALIZE_EX( m_StoreRetVal, wxT("store_ret_val"), true );
+}
+
+udSCHSubDiagramElementItem::udSCHSubDiagramElementItem(const udSCHSubDiagramElementItem& obj)
+: udSubDiagramElementItem( obj )
+{
+	m_StoreRetVal = obj.m_StoreRetVal;
+	
+	XS_SERIALIZE_EX( m_StoreRetVal, wxT("store_ret_val"), true );
+}
+
+void udSCHSubDiagramElementItem::OnEditItem(wxWindow* parent)
+{
+	udSubStateDialog dlg( parent,  IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("sub_state_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetStoreRetVal( m_StoreRetVal );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_StoreRetVal = dlg.GetStoreRetVal();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+	}
+	
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1566,10 +1597,41 @@ XS_IMPLEMENT_CLONABLE_CLASS(udHCHSubDiagramElementItem, udSubDiagramElementItem)
 udHCHSubDiagramElementItem::udHCHSubDiagramElementItem() : udSubDiagramElementItem()
 {
     m_sName = wxT("SubDiagram");
+	m_StoreRetVal = true;
 
 	m_pSubDiagram = new udHStateChartDiagramItem();
 	m_pSubDiagram->EnableSerialization(false);
 	m_pSubDiagram->SetSubdiagramElement(this);
 
     XS_SERIALIZE_DYNAMIC_OBJECT_NO_CREATE(m_pSubDiagram, wxT("subdiagram"));
+	XS_SERIALIZE_EX( m_StoreRetVal, wxT("store_ret_val"), true );
 }
+
+udHCHSubDiagramElementItem::udHCHSubDiagramElementItem(const udHCHSubDiagramElementItem& obj)
+: udSubDiagramElementItem( obj )
+{
+	m_StoreRetVal = obj.m_StoreRetVal;
+	
+	XS_SERIALIZE_EX( m_StoreRetVal, wxT("store_ret_val"), true );
+}
+
+void udHCHSubDiagramElementItem::OnEditItem(wxWindow* parent)
+{
+	udSubStateDialog dlg( parent,  IPluginManager::Get()->GetSelectedLanguage() );
+	udWindowManager dlgman( dlg, wxT("sub_state_dialog") );
+	
+	dlg.SetCodeName( m_sName );
+	dlg.SetDescription( m_sDescription );
+	dlg.SetStoreRetVal( m_StoreRetVal );
+	
+	if( dlg.ShowModal() == wxID_OK )
+	{
+		m_sDescription = dlg.GetDescription();
+		m_StoreRetVal = dlg.GetStoreRetVal();
+		
+		OnTreeTextChange( dlg.GetCodeName() );
+	}
+	
+	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, this );
+}
+
