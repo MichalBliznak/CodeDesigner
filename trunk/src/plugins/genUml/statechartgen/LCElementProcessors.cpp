@@ -82,6 +82,15 @@ void udLCSubStateProcessor::ProcessElement(wxSFShapeBase *element)
 
     udSubDiagramElementItem *pSubElement = (udSubDiagramElementItem*) udPROJECT::GetDiagramElement( element );
 
+	// do not store return value if required
+	bool fStoreRetVal = false;
+	if( pSubElement->IsKindOf(CLASSINFO(udSCHSubDiagramElementItem)) ) {
+		fStoreRetVal = ((udSCHSubDiagramElementItem*)pSubElement)->GetStoreRetVal();
+		
+	} else if( pSubElement->IsKindOf(CLASSINFO(udHCHSubDiagramElementItem)) ) {
+		fStoreRetVal = ((udHCHSubDiagramElementItem*)pSubElement)->GetStoreRetVal();
+	}
+	
     // create 'case' statement
     pLang->CaseCmd(m_pParentGenerator->MakeIDName(element));
     //pLang->IncIndentation();
@@ -98,18 +107,18 @@ void udLCSubStateProcessor::ProcessElement(wxSFShapeBase *element)
 	else
 		pLang->FunctionCallCmd(m_pParentGenerator->MakeValidIdentifier(pSubElement->GetSubDiagram()->GetName()), wxEmptyString);
 		
-	sFcnCall = pLang->GetCodeBuffer();
+	sFcnCall = pLang->GetCodeBuffer().Trim(false);
 	
 	pLang->PopCode();
 	
-	if( pSubElement->GetSubDiagram()->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
+	if( fStoreRetVal && pSubElement->GetSubDiagram()->GetDiagramManager().Contains(CLASSINFO(umlFinalItem)) )
 	{
-		wxString sRetVar = sFcnCall.BeforeFirst('(').MakeLower().Trim(false) + wxT("_retval");
+		wxString sRetVar = sFcnCall.BeforeFirst('(').MakeLower() + wxT("_retval");
 		
 		if( !pLang->Delimiter().IsEmpty() ) sFcnCall.Replace( pLang->Delimiter(), wxT("") );
 		if( pFcn ) pLang->VariableDeclAssignCmd( pFcn->GetDataTypeString(pLang), sRetVar, sFcnCall.Trim().Trim(false) );
 		else
-			pLang->VariableDeclAssignCmd( wxT("STATE_T"), sRetVar, sFcnCall.Trim().Trim(false) );
+			pLang->VariableDeclAssignCmd( wxT("STATE_T"), sRetVar, sFcnCall.Trim() );
 	}
 	else
 		pLang->WriteCodeBlocks( sFcnCall );

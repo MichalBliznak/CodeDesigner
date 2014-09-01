@@ -1,4 +1,4 @@
-Changes in version 1.6.4 beta (2014-08-27):
+Changes in version 1.6.4 beta (2014-09-01):
 ------------------------------------------------
 - Application keyboard shortcuts should work now as expected.
 - "Save project" icon added to the main application toolbar.
@@ -9,6 +9,8 @@ Changes in version 1.6.4 beta (2014-08-27):
 - Hierarchical states can handle managed submachines correctly.
 - Fixed crash appearing when an item managed by composite shape has been duplicated by using drag
   and drop operation.
+- Sub machine's return value is now stored in the designated variable on option which can be
+  specified in the sub machine's properties dialog.
 
 Changes in version 1.6.3 beta (2014-07-22):
 ------------------------------------------------

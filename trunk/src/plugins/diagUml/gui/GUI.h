@@ -758,6 +758,40 @@ class _ClassDialog : public wxDialog
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+/// Class _SubStateDialog
+///////////////////////////////////////////////////////////////////////////////
+class _SubStateDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText1;
+		wxTextCtrl* m_eName;
+		wxCheckBox* m_cbMakeValid;
+		wxStaticText* m_staticText2;
+		wxTextCtrl* m_eDescription;
+		wxNotebook* m_pNotebook;
+		wxPanel* m_pageAdv;
+		wxCheckBox* m_chbStoreRetVal;
+		wxStdDialogButtonSizer* bntSizer;
+		wxButton* bntSizerOK;
+		wxButton* bntSizerCancel;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnInit( wxInitDialogEvent& event ) { event.Skip(); }
+		virtual void OnNameChange( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnMakeValid( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnOk( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		_SubStateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Sub machine properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		~_SubStateDialog();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
 /// Class _AggregationDialog
 ///////////////////////////////////////////////////////////////////////////////
 class _AggregationDialog : public wxDialog 

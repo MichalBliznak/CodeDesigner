@@ -365,6 +365,17 @@ public:
 	
 	// constructor
 	udSCHSubDiagramElementItem();
+	udSCHSubDiagramElementItem(const udSCHSubDiagramElementItem& obj);
+	
+	// public member data accessors
+	void SetStoreRetVal(bool StoreRetVal) {this->m_StoreRetVal = StoreRetVal;}
+	bool GetStoreRetVal() const {return m_StoreRetVal;}
+	
+	// public virtual functions
+	virtual void OnEditItem(wxWindow* parent);
+	
+protected:
+	bool m_StoreRetVal;
 };
 
 class WXDLLIMPEXP_CD udHCHSubDiagramElementItem : public udSubDiagramElementItem
@@ -374,6 +385,17 @@ public:
 	
 	// constructor
 	udHCHSubDiagramElementItem();
+	udHCHSubDiagramElementItem(const udHCHSubDiagramElementItem& obj);
+	
+	// public member data accessors
+	void SetStoreRetVal(bool StoreRetVal) {this->m_StoreRetVal = StoreRetVal;}
+	bool GetStoreRetVal() const {return m_StoreRetVal;}
+	
+	// public virtual functions
+	virtual void OnEditItem(wxWindow* parent);
+	
+protected:
+	bool m_StoreRetVal;
 };
 
 #endif //_DIAG_SCH_H_
