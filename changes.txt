@@ -11,6 +11,8 @@ Changes in version 1.6.4 beta (2014-09-01):
   and drop operation.
 - Sub machine's return value is now stored in the designated variable on option which can be
   specified in the sub machine's properties dialog.
+- Fixed regression in assignment of newly created conditions/actions whose names were
+  specified by using editable transition's guard edit control.
 
 Changes in version 1.6.3 beta (2014-07-22):
 ------------------------------------------------
