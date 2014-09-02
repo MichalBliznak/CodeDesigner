@@ -334,10 +334,13 @@ void udTransElementItem::SetConditionString(const wxString& cond)
 					if( pNewCond )
 					{
 						pNewCond->SetName( sCond );
-						// assign the link to selected transition
-						AssignCodeItem( new udConditionLinkItem(pNewCond) );
+						pNewCond->UpdateSignature();
 						
 						IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewCond, pRoot );
+						
+						// assign the link to selected transition
+						AssignCodeItem( new udConditionLinkItem(pNewCond) );
+		
 					}
 				}
 			}
@@ -394,10 +397,12 @@ void udTransElementItem::SetActionString(const wxString& acts)
 					if( pNewAct )
 					{
 						pNewAct->SetName( sAct );
+						pNewAct->UpdateSignature();
+						
+						IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, pRoot );
+						
 						// assign the link to selected transition
 						AssignCodeItem( new udActionLinkItem(pNewAct) );
-							
-						IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewAct, pRoot );
 					}
 				}
 			}
