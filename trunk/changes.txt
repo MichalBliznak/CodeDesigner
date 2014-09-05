@@ -1,4 +1,4 @@
-Changes in version 1.6.4 beta (2014-09-01):
+Changes in version 1.6.4 beta (2014-09-05):
 ------------------------------------------------
 - Application keyboard shortcuts should work now as expected.
 - "Save project" icon added to the main application toolbar.
@@ -13,6 +13,7 @@ Changes in version 1.6.4 beta (2014-09-01):
   specified in the sub machine's properties dialog.
 - Fixed regression in assignment of newly created conditions/actions whose names were
   specified by using editable transition's guard edit control.
+- Fixed synchronization of user-defined source code in diagrams with custom output file name.
 
 Changes in version 1.6.3 beta (2014-07-22):
 ------------------------------------------------
