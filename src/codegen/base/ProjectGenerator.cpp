@@ -421,13 +421,28 @@ wxFileName udProjectGenerator::GetFullCodePath(const wxString& name, const wxStr
 
 void udProjectGenerator::GetModifiedUserCode(const udLanguage* lang, SerializableList& items, wxArrayString& origcode, wxArrayString& modifcode, int *ambiguous)
 {
+	wxBusyCursor busy;
+	
+	udProject *pProject = udProject::Get();
+	
 	// initialize code items checklist	
-	udSettings& Settings = udProject::Get()->GetSettings();
+	udSettings& Settings = pProject->GetSettings();
 	
 	// get files where modified code could be
 	wxArrayString arrFiles;
 	arrFiles.Add( udProjectGenerator::GetFullCodePath( Settings.GetProperty(wxT("Code items file name"))->AsString(), lang->GetExtension(udLanguage::FE_IMPL) ).GetFullPath() );
 	arrFiles.Add( udProjectGenerator::GetFullCodePath( Settings.GetProperty(wxT("Base file name"))->AsString(), lang->GetExtension(udLanguage::FE_IMPL) ).GetFullPath() );
+	
+	SerializableList lstDiagrams;
+	pProject->GetDiagramsRecursively( NULL, lstDiagrams );
+	for( SerializableList::iterator it = lstDiagrams.begin(); it != lstDiagrams.end(); ++it ) {
+		wxString sFileName;
+		udDiagramItem *pDiagram = udPROJECT::GetSuperDiagram( (udDiagramItem*)*it );
+		if( pDiagram->GetOutputFile() != wxT("<default>") ) {
+			sFileName = udProjectGenerator::GetFullCodePath( pDiagram->GetOutputFile(), lang->GetExtension(udLanguage::FE_IMPL) ).GetFullPath();
+			if( arrFiles.Index( sFileName ) == wxNOT_FOUND ) arrFiles.Add( sFileName );
+		}
+	}
 	
 	// get all codeitems
 	SerializableList lstCodeItems;
