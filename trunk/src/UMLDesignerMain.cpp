@@ -25,6 +25,7 @@
 #include <wx/sstream.h>
 #include <wx/txtstrm.h>
 #include <wx/settings.h>
+#include <wx/dcsvg.h>
 
 #include <wx/arrimpl.cpp>
 #include <wx/listimpl.cpp>
@@ -1501,38 +1502,58 @@ void UMLDesignerFrame::OnSaveProjectAs( wxCommandEvent &event )
 void UMLDesignerFrame::OnExportDiagram( wxCommandEvent &event )
 {
 	static wxString dirpath = wxGetCwd();
-	wxFileDialog dlg(this, wxT("Export diagram to image..."), dirpath, wxT(""), wxT("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|(*.gif)|XPM Files (*.xpm)|*.xpm|PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg"), wxFD_SAVE);
+	wxFileDialog dlg(this, wxT("Export diagram to image..."), dirpath, wxT(""), wxT("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|(*.gif)|XPM Files (*.xpm)|*.xpm|PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg|SVG Files (*.svg)|*.svg"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
 	if(dlg.ShowModal() == wxID_OK)
 	{
 		dirpath = dlg.GetDirectory();
 		
 		wxBitmapType type = wxBITMAP_TYPE_ANY;
+		int filterIndex = dlg.GetFilterIndex();
 		
-		switch( dlg.GetFilterIndex() )
-		{
-			case 0:
-				type = wxBITMAP_TYPE_BMP;
-				break;
-			case 1:
-				type = wxBITMAP_TYPE_GIF;
-				break;
-			case 2:
-				type = wxBITMAP_TYPE_XPM;
-				break;
-			case 3:
-				type = wxBITMAP_TYPE_PNG;
-				break;
-			case 4:
-				type = wxBITMAP_TYPE_JPEG;
-				break;
+		if( filterIndex < 5 ) {
+			switch( filterIndex )
+			{
+				case 0:
+					type = wxBITMAP_TYPE_BMP;
+					break;
+				case 1:
+					type = wxBITMAP_TYPE_GIF;
+					break;
+				case 2:
+					type = wxBITMAP_TYPE_XPM;
+					break;
+				case 3:
+					type = wxBITMAP_TYPE_PNG;
+					break;
+				case 4:
+					type = wxBITMAP_TYPE_JPEG;
+					break;
+			}
+			
+			GetActiveCanvas()->SaveCanvasToImage( dlg.GetPath(), type, wxGetApp().GetSettings().GetProperty( wxT("Export canvas background") )->AsBool() );
+			
+		} else {
+			udDiagramCanvas *canvas = GetActiveCanvas();
+			
+			wxRect bb = canvas->GetTotalBoundingBox();
+			bb.Inflate( 10 );
+			
+			wxSVGFileDC dc( dlg.GetPath(), bb.width + bb.GetLeft(), bb.height + bb.GetTop() );
+			if( dc.IsOk() ) {
+				if( wxGetApp().GetSettings().GetProperty( wxT("Export canvas background") )->AsBool() ) {
+					canvas->DrawBackground( dc, sfNOT_FROM_PAINT );
+				}
+				canvas->DrawContent( dc, sfNOT_FROM_PAINT );
+				canvas->DrawForeground( dc, sfNOT_FROM_PAINT );
+				
+				wxMessageBox( wxString::Format( wxT("The image has been saved to '%s'."), dlg.GetPath() ), wxT("CodeDesigner") );
+			}
 		}
-		
-        GetActiveCanvas()->SaveCanvasToImage( dlg.GetPath(), type, wxGetApp().GetSettings().GetProperty( wxT("Export canvas background") )->AsBool() );
 	}
 }
 
-void UMLDesignerFrame::OnClose( wxCloseEvent &event )
+void UMLDesignerFrame::OnClose( wxCloseEvent &event ) 
 {
 	wxCommandEvent evt(0);
 	OnQuit( evt );
