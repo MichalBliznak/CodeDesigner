@@ -193,6 +193,12 @@ else
 		-- Set the wxWidgets link options.
 		table.insert( package.config["Debug"].linkoptions, "$(shell " .. wx_root .. "wx-config "..debug_option.." "..static_option.." --libs "..wx_config_libs..")" )
 		table.insert( package.config["Release"].linkoptions, "$(shell " .. wx_root .. "wx-config --debug=no "..static_option.." --libs "..wx_config_libs..")" )
+		
+		if( windows ) then
+			-- Set the wxWidgets resources options.
+			table.insert( package.config["Debug"].resoptions, "$(shell " .. wx_root .. "wx-config "..debug_option.." "..static_option.." --rcflags)" )
+			table.insert( package.config["Release"].resoptions, "$(shell " .. wx_root .. "wx-config --debug=no "..static_option.." --rcflags)" )
+		end
 	else
 		-- Set wxWidgets build options.
 		table.insert( package.config["Debug"].buildoptions, "`" .. wx_root .. "wx-config "..debug_option.." "..static_option.." --cflags`" )
@@ -202,6 +208,11 @@ else
 		table.insert( package.config["Debug"].linkoptions, "`" .. wx_root .. "wx-config "..debug_option.." "..static_option.." --libs "..wx_config_libs.."`" )
 		table.insert( package.config["Release"].linkoptions, "`" .. wx_root .. "wx-config --debug=no "..static_option.." --libs "..wx_config_libs.."`" )
 
+		if( windows ) then
+			-- Set the wxWidgets resources options.
+			table.insert( package.config["Debug"].resoptions, "`" .. wx_root .. "wx-config "..debug_option.." "..static_option.." --rcflags`" )
+			table.insert( package.config["Release"].resoptions, "`" .. wx_root .. "wx-config --debug=no "..static_option.." --rcflags`" )
+		end
 	end
 end
 
