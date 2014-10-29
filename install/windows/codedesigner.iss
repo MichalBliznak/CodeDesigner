@@ -12,14 +12,14 @@ PrivilegesRequired=none
 [Files]
 Source: C:\MinGW-4.8.1\bin\mingwm10.dll; DestDir: {app}; Components: core
 Source: C:\MinGW-4.8.1\bin\libgcc_s_dw2-1.dll ; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxbase30u_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxbase30u_xml_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_core_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_adv_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_aui_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_propgrid_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_stc_gcc_cl.dll; DestDir: {app}; Components: core
-Source: C:\SourceCode\Libraries\wxWidgets3.0\lib\gcc_dll\wxmsw30u_xrc_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxbase30u_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxbase30u_xml_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxmsw30u_core_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxmsw30u_adv_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxmsw30u_aui_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxmsw30u_propgrid_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxmsw30u_stc_gcc_cl.dll; DestDir: {app}; Components: core
+Source: C:\SourceCode\Libraries\wxWidgets-3.0.1\lib\gcc_dll\wxmsw30u_xrc_gcc_cl.dll; DestDir: {app}; Components: core
 Source: ..\..\readme_bin.txt; DestDir: {app}; Components: core
 Source: ..\..\LICENSE.txt; DestDir: {app}; Components: core
 Source: ..\..\samples\TestFullApp.cdp; DestDir: {app}\samples; Components: samples
