@@ -88,8 +88,8 @@ void udProjectItem::OnCreate()
 
 void udProjectItem::OnCreateCopy()
 {
-	 this->OnTreeTextChange( IPluginManager::Get()->GetProject()->MakeUniqueName(this->GetName(), 1) );
-}
+	this->OnTreeTextChange( this->GetUniqueName( this->GetName() ) );
+} 
 
 void udProjectItem::OnSelection()
 {
@@ -118,7 +118,7 @@ void udProjectItem::OnEditItem(wxWindow* parent)
 
 void udProjectItem::OnTreeTextChange(const wxString &txt)
 {
-	m_sName = txt;
+	SetName( txt );
 }
 
 void udProjectItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE type, int id)
@@ -141,6 +141,14 @@ wxMenu* udProjectItem::CreateMenu()
 	return NULL;
 }
 
+wxString udProjectItem::GetUniqueName(const wxString& name)
+{
+	if( m_fMustBeUnique )
+		return IPluginManager::Get()->GetProject()->MakeUniqueName( name );
+	else
+		return name;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // udLinkItem class ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -152,6 +160,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udLinkItem, udProjectItem);
 udLinkItem::udLinkItem()
 {
 	m_sDescription = wxT("Link description...");
+	m_fMustBeUnique = false;
 }
 
 udLinkItem::udLinkItem(const udLinkItem &obj) : udProjectItem( obj )
@@ -366,8 +375,9 @@ void udElementLinkItem::UpdateLabels(const wxString &diagram, const wxString& el
     m_sOriginalDiagram = diagram;
     m_sOriginalElement = element;
 
-    m_sName = IPluginManager::Get()->GetProject()->MakeUniqueName( m_sOriginalDiagram + wxT(":") + m_sOriginalElement );
-
+//    m_sName = IPluginManager::Get()->GetProject()->MakeUniqueName( m_sOriginalDiagram + wxT(":") + m_sOriginalElement );
+	SetName( m_sOriginalDiagram + wxT(":") + m_sOriginalElement );
+	
     wxSFShapeBase *pShape = (wxSFShapeBase*)GetParent();
 
     udLABEL::SetContent(GetName(), pShape, udLABEL::ltTITLE);
@@ -464,18 +474,16 @@ udCodeLinkItem::udCodeLinkItem() : udAccessType()
 {
 	m_sName = wxT("Code item link");
     m_sOriginalCodeItem = wxT("");
-	m_fMustBeUnique = false;
 	m_sScope = wxT("<global>");
 
     XS_SERIALIZE(m_sOriginalCodeItem, wxT("original_code"));
 	XS_SERIALIZE(m_sScope, wxT("scope"));
 }
 
-udCodeLinkItem::udCodeLinkItem(const udCodeItem *orig) : udAccessType()
+udCodeLinkItem::udCodeLinkItem(const udCodeItem *orig) : udLinkItem(), udAccessType()
 {
 	m_sName = orig->GetName();
 	m_sOriginalCodeItem = orig->GetSignature();
-	m_fMustBeUnique = false;
 	m_sScope = orig->GetScope();
 	
 	XS_SERIALIZE(m_sOriginalCodeItem, wxT("original_code"));
@@ -746,39 +754,42 @@ void udCodeItem::OnTreeItemEndDrag(const wxPoint& pos)
 
 void udCodeItem::OnTreeTextChange(const wxString& txt)
 {
-	wxString sPrevName = m_sName;
-	
-	udProjectItem::OnTreeTextChange( txt );
-	
-	// update linked items
-	SerializableList lstLinks;
-	IPluginManager::Get()->GetProject()->GetCodeLinks( udfVALID, GetClassInfo(), m_sSignature, m_sScope, lstLinks );
-	
-	UpdateSignature();
-	
-	SerializableList::compatibility_iterator node = lstLinks.GetFirst();
-	while( node )
-	{
-		udCodeLinkItem *pLink = (udCodeLinkItem*)node->GetData();
+	if( m_sName != txt ) {
 		
-		if( pLink->GetName() == sPrevName ) pLink->OnTreeTextChange( txt );
-		pLink->SetOrigCodeItem( m_sSignature );
+		wxString sPrevName = m_sName;
 		
-		node = node->GetNext();
-	}
-	
-	// update child parameters if any
-	node = GetFirstChildNode();
-	while( node )
-	{
-		udParamItem *pPar = wxDynamicCast( node->GetData(), udParamItem );
-		if( pPar )
+		udProjectItem::OnTreeTextChange( txt );
+		
+		// update linked items
+		SerializableList lstLinks;
+		IPluginManager::Get()->GetProject()->GetCodeLinks( udfVALID, GetClassInfo(), m_sSignature, m_sScope, lstLinks );
+		
+		UpdateSignature();
+		
+		SerializableList::compatibility_iterator node = lstLinks.GetFirst();
+		while( node )
 		{
-			pPar->SetScope( GetScope() + wxT("::") + GetName() );
-			pPar->UpdateSignature();
+			udCodeLinkItem *pLink = (udCodeLinkItem*)node->GetData();
+			
+			if( pLink->GetName() == sPrevName ) pLink->OnTreeTextChange( m_sName );
+			pLink->SetOrigCodeItem( m_sSignature );
+			
+			node = node->GetNext();
 		}
 		
-		node = node->GetNext();
+		// update child parameters if any
+		node = GetFirstChildNode();
+		while( node )
+		{
+			udParamItem *pPar = wxDynamicCast( node->GetData(), udParamItem );
+			if( pPar )
+			{
+				pPar->SetScope( GetScope() + wxT("::") + GetName() );
+				pPar->UpdateSignature();
+			}
+			
+			node = node->GetNext();
+		}
 	}
 }
 
@@ -2150,21 +2161,17 @@ wxString udDiagElementItem::RemoveCallParams(const wxString& txt)
 
 void udDiagElementItem::UpdateAffectedCodeItems(const wxString& prevname, const wxString& newname)
 {
-	udLanguage *lang = IPluginManager::Get()->GetSelectedLanguage();
-	wxString previd =  wxT("ID_") + lang->MakeValidIdentifier( prevname ).Upper();
-	wxString newid =  wxT("ID_") + lang->MakeValidIdentifier( newname ).Upper();
-	
 	// update referenced code
 	SerializableList m_References;
-	udPROJECT::FindCodeReferences( previd, m_References );
+	udPROJECT::FindCodeReferences( prevname, m_References );
 	
 	if( !m_References.IsEmpty() )
 	{
-		udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), &m_References, lang );
+		udUpdateCodeDialog dlg( IPluginManager::Get()->GetActiveCanvas(), &m_References, IPluginManager::Get()->GetSelectedLanguage() );
 		udWindowManager dlgman( dlg, wxT("update_code_dialog") );
 	
-		dlg.SetPattern( previd );
-		dlg.SetNewPattern( newid );
+		dlg.SetPattern( prevname );
+		dlg.SetNewPattern( newname );
 		dlg.ShowModal();
 	}
 }
@@ -2230,14 +2237,18 @@ void udDiagElementItem::OnTreeTextChange(const wxString &txt)
 {
 	if( m_sName != txt )
 	{
-		wxString sPrevName = m_sName;
+		udLanguage *lang = IPluginManager::Get()->GetSelectedLanguage();
 		
+		wxString sPrevName = m_sName;
+		wxString sPrevID = this->GetUniqueId( lang );
+		
+		// m_sName is modified here!
 		udProjectItem::OnTreeTextChange(txt);
 		
 		wxSFShapeBase *pParentShape = (wxSFShapeBase*)GetParent();
 		if( pParentShape )
 		{
-			udLABEL::SetContent(txt, pParentShape, udLABEL::ltTITLE);
+			udLABEL::SetContent(m_sName, pParentShape, udLABEL::ltTITLE);
 			// refresh canvas
 			pParentShape->Update();
 			if( IPluginManager::Get()->GetActiveCanvas() ) IPluginManager::Get()->GetActiveCanvas()->Refresh(false);
@@ -2258,7 +2269,7 @@ void udDiagElementItem::OnTreeTextChange(const wxString &txt)
 		}
 		
 		// update code items
-		UpdateAffectedCodeItems( sPrevName, txt );
+		UpdateAffectedCodeItems( sPrevID, this->GetUniqueId( lang ) );
 		
 		/*udLanguage *pLang = IPluginManager::Get()->GetSelectedLanguage();
 		wxString sCurrentID = wxT("ID_") + pLang->MakeValidIdentifier( sPrevName ).Upper();
@@ -2383,16 +2394,14 @@ void udDiagElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE typ
 {
 	if( m_sName != txt && type == udLABEL::ltTITLE )
 	{
-		wxString utxt = IPluginManager::Get()->GetProject()->MakeUniqueName(txt);
-		if( utxt != txt )
-		{
-			udLABEL::SetContent(utxt, (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE);
-		}
-		
-		/*// update code contents
-		UpdateAffectedCodeItems( m_sName, utxt );*/
+//		wxString utxt = IPluginManager::Get()->GetProject()->MakeUniqueName(txt);
+//		if( utxt != txt )
+//		{
+//			udLABEL::SetContent(utxt, (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE);
+//		}
 	
-		udDiagElementItem::OnTreeTextChange(utxt);
+		udDiagElementItem::OnTreeTextChange(txt);
+		udLABEL::SetContent( GetName(), (wxSFShapeBase*)GetParent(), udLABEL::ltTITLE);
 	}
 }
 
@@ -2551,6 +2560,45 @@ void udDiagElementItem::Deserialize(wxXmlNode* node)
 	IPluginManager::Get()->GetProject()->DeserializeObjects( this, node );
 }
 
+wxString udDiagElementItem::GetUniqueName(const wxString& name)
+{
+	udDiagramItem *pDiag = udPROJECT::GetParentDiagram( this );
+	if( m_fMustBeUnique && pDiag )
+	{
+		int occurence = 1;
+		wxString uname = name;
+		udProjectItem *pItem  = NULL;
+		SerializableList lstElements;
+		udPROJECT::GetDiagramElements( pDiag, CLASSINFO(udDiagElementItem), lstElements, sfNORECURSIVE );
+		
+		SerializableList::compatibility_iterator node = lstElements.GetFirst();
+		while( node )
+		{
+			pItem = (udProjectItem*)node->GetData();
+			if( pItem->GetName() == uname ) { 
+				occurence++;
+				uname = wxString::Format( wxT("%s %d"), name, occurence );
+				node = lstElements.GetFirst();
+				
+			} else {
+				node = node->GetNext();
+			}
+		}
+		
+		return uname;
+		
+	} else
+		return name;
+}
+
+wxString udDiagElementItem::GetUniqueId(const udLanguage* lang)
+{
+	udDiagramItem *pDiag = udPROJECT::GetParentDiagram( this );
+	return wxString::Format("ID_%s_%s",
+		lang->MakeValidIdentifier( pDiag->GetName() ).Upper(),
+		lang->MakeValidIdentifier( this->GetName() ).Upper() );
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 // udSubDiagramElementItem class //////////////////////////////////////////////////////
@@ -2590,8 +2638,13 @@ void udSubDiagramElementItem::OnCreate()
 	if( pParent )
 	{
 		//m_pSubDiagram->SetDiagram( (udDiagramItem*) wxCreateDynamicObject( pParent->GetClassInfo()->GetClassName() ) );
+		bool unique = m_pSubDiagram->MustBeUnique();
+		m_pSubDiagram->SetMustBeUnique( false );
+		
 		m_pSubDiagram->SetName( m_sName );
 		m_pSubDiagram->SetDiagramType( pParent->GetDiagramType() );
+		
+		m_pSubDiagram->SetMustBeUnique( unique );
 	}
 }
 
@@ -2600,7 +2653,12 @@ void udSubDiagramElementItem::OnTreeTextChange(const wxString &txt)
 	udDiagElementItem::OnTreeTextChange(txt);
 
 	// create also name of encapsulated diagram
-	m_pSubDiagram->OnTreeTextChange(txt);
+	bool unique = m_pSubDiagram->MustBeUnique();
+	m_pSubDiagram->SetMustBeUnique( false );
+		
+	m_pSubDiagram->OnTreeTextChange(m_sName);
+	
+	m_pSubDiagram->SetMustBeUnique( unique );
 }
 
 void udSubDiagramElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TYPE type, int id)
@@ -2608,7 +2666,12 @@ void udSubDiagramElementItem::OnShapeTextChange(const wxString &txt, udLABEL::TY
 	udDiagElementItem::OnShapeTextChange(txt, type, id);
 
 	// create also name of encapsulated diagram
+	bool unique = m_pSubDiagram->MustBeUnique();
+	m_pSubDiagram->SetMustBeUnique( false );
+	
 	m_pSubDiagram->OnTreeTextChange(m_sName);
+	
+	m_pSubDiagram->SetMustBeUnique( unique );
 }
 
 // protected functions //////////////////////////////////////////////////////////////
@@ -2635,4 +2698,9 @@ wxMenu* udSubDiagramElementItem::CreateMenu()
 	pPopupMenu->InsertSeparator(4);
 	
 	return pPopupMenu;
+}
+
+wxString udSubDiagramElementItem::GetUniqueName(const wxString& name)
+{
+	return udProjectItem::GetUniqueName( name );
 }

@@ -57,17 +57,19 @@ public:
 	udProjectItem(const udProjectItem& obj);
 	virtual ~udProjectItem();
 	
-	virtual void SetName(const wxString& name){m_sName = name;}
+	virtual void SetName(const wxString& name){m_sName = GetUniqueName( name );}
 	virtual void SetDescription(const wxString& desc){m_sDescription = desc;}
 
     virtual const wxString& GetName() const {return m_sName;}
 	virtual const wxString& GetDescription() const {return m_sDescription;}
+	virtual wxString GetUniqueId(const udLanguage *lang) {return wxString::Format("ID_%s", lang->MakeValidIdentifier( this->GetName() ).Upper());}
 	
 	// public functions
 	virtual void AcceptChild(const wxString& classname) { m_arrAcceptedChild.Add(classname);	}
 	virtual void AcceptSibbling(const wxString& classname) { m_arrAcceptedSibbling.Add(classname); }
 	virtual bool IsChildAccepted(const wxString& classname) const { return m_arrAcceptedChild.Index( classname ) != wxNOT_FOUND; }
 	virtual bool IsSibblingAccepted(const wxString& classname) const { return m_arrAcceptedSibbling.Index( classname ) != wxNOT_FOUND; }
+	virtual void SetMustBeUnique(bool unique) { m_fMustBeUnique = unique; }
 	virtual bool MustBeUnique() const { return m_fMustBeUnique; }
 
     // virtual public functions
@@ -93,6 +95,9 @@ protected:
 	wxArrayString m_arrAcceptedSibbling;
 	
 	bool m_fMustBeUnique;
+	
+	// protected functions
+	virtual wxString GetUniqueName(const wxString& name);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -583,6 +588,7 @@ public:
 
     // virtual public functions
 	virtual wxMenu* CreateMenu();
+	virtual wxString GetUniqueId(const udLanguage *lang);
 	
     virtual void OnSelection();
     virtual void OnActivation();
@@ -612,6 +618,8 @@ protected:
 	
     virtual wxXmlNode* Serialize(wxXmlNode* node);
     virtual void Deserialize(wxXmlNode* node);
+	
+	virtual wxString GetUniqueName(const wxString& name);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -636,6 +644,9 @@ public:
 
 protected:
     udDiagramItem* m_pSubDiagram;
+	
+	// protected functions
+	virtual wxString GetUniqueName(const wxString& name);
 };
 
 #endif //_CD_PROJECT_BASE_H

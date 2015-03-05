@@ -205,10 +205,10 @@ void umlCompStateItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* chi
 			IProject *pProject = IPluginManager::Get()->GetProject();
 			
 			// create new condition
-			udActionItem* pAction = (udActionItem*)pProject->CreateProjectItem( wxT("udActionItem"), pProject->GetRootItem()->GetId(), udfUNIQUE_NAME );
+			udActionItem* pAction = (udActionItem*)pProject->CreateProjectItem( wxT("udActionItem"), pProject->GetRootItem()->GetId() );
 			if( pAction )
 			{
-				pAction->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("instantiate ") + pLink->GetName() ) );
+				pAction->SetName( wxT("instantiate ") + pLink->GetName() );
 				pAction->SetInline( true );
 				
 				udClassInstanceDialog dlg( IPluginManager::Get()->GetActiveCanvas() );

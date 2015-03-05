@@ -77,11 +77,11 @@ void udDiagramDialog::OnOk(wxCommandEvent& event)
 		wxMessageBox(wxT("Name cannot be empty."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
 		m_eName->SetFocus();
 	}
-	else if( (m_Name != m_eName->GetValue()) && !IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
-	{
-		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
-		m_eName->SetFocus();		
-	}
+//	else if( (m_Name != m_eName->GetValue()) && !IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
+//	{
+//		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
+//		m_eName->SetFocus();		
+//	}
 	else
 	{
 		// get data via validators...
@@ -124,7 +124,7 @@ void udDiagramDialog::OnDelayedNameUpdate(wxCommandEvent& event)
 	if( pLang )
 	{
 		m_eName->GetSelection(&nFrom, &nTo);
-		m_eName->ChangeValue( pLang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
+		m_eName->ChangeValue( pLang->MakeValidIdentifier( m_eName->GetValue() ) );
 		m_eName->SetSelection( nFrom, nTo );
 	}
 }

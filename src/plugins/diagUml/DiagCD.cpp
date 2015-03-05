@@ -37,7 +37,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udClassDiagramItem, udDiagramItem);
 udClassDiagramItem::udClassDiagramItem()
 {
     m_sDiagramType = udnCLASS_DIAGRAM;
-    m_sName = IPluginManager::Get()->GetProject()->MakeUniqueName(udnCLASS_DIAGRAM);
+    SetName(udnCLASS_DIAGRAM);
 
     m_sActiveGenerator = wxT("udClassDiagramGenerator");
     m_sActiveAlgorithm = wxT("udCPPClassAlgorithm");
@@ -146,7 +146,7 @@ void udClassElementItem::SetFunctionString(const wxString& txt, int id)
 					{
 						udProjectItem *pRoot =  (udProjectItem*) IPluginManager::Get()->GetProject()->GetRootItem();
 						// create new function
-						udMemberFunctionItem* pNewFcn = (udMemberFunctionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udMemberFunctionItem"), pRoot->GetId(), udfUNIQUE_NAME );
+						udMemberFunctionItem* pNewFcn = (udMemberFunctionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udMemberFunctionItem"), pRoot->GetId() );
 						// create relevant tree item
 						if( pNewFcn )
 						{
@@ -232,7 +232,7 @@ void udClassElementItem::SetVariableString(const wxString& txt, int id)
 					{
 						udProjectItem *pRoot =  (udProjectItem*) IPluginManager::Get()->GetProject()->GetRootItem();
 						// create new condition
-						udMemberDataItem* pNewVar = (udMemberDataItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udMemberDataItem"), pRoot->GetId(), udfUNIQUE_NAME );
+						udMemberDataItem* pNewVar = (udMemberDataItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udMemberDataItem"), pRoot->GetId() );
 						// create relevant tree item
 						if( pNewVar )
 						{
@@ -492,7 +492,8 @@ void udClassElementItem::OnCreateCopy()
 	GetChildrenList().Clear();
 	
 	// rename the class item
-	udDiagElementItem::OnTreeTextChange( IPluginManager::Get()->GetProject()->MakeUniqueName( GetName(), 1 ) );
+//	udDiagElementItem::OnTreeTextChange( IPluginManager::Get()->GetProject()->MakeUniqueName( GetName(), 1 ) );
+	udDiagElementItem::OnTreeTextChange( GetUniqueName( GetName() ) );
 	
 	// create copy of previously stored code links (if don't exist)
 	for( SerializableList::iterator it = lstLinks.begin(); it != lstLinks.end(); ++it )
@@ -654,11 +655,10 @@ void udClassElementItem::AssignMemberCopy(udLinkItem* link)
 	}
 	
 	pNewItem->SetScope( GetName() );
-	pNewItem->UpdateSignature();
 	// reset id (so new one will be created later)
 	pNewItem->SetId( -1 );
-	
 	IPluginManager::Get()->GetProject()->AddItem( pOriginal->GetParent(), pNewItem );
+	pNewItem->UpdateSignature();
 	IPluginManager::Get()->SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pNewItem, (udProjectItem*)pOriginal->GetParent(), wxEmptyString, udfDELAYED );
 		
 	if( link->IsKindOf( CLASSINFO(udMemberDataLinkItem) ) || link->IsKindOf( CLASSINFO(udVariableLinkItem) ) )
@@ -1350,7 +1350,6 @@ udMemberDataItem::udMemberDataItem()
 {
 	m_sName = wxT("Variable");
 	m_fInline = false;
-	m_fMustBeUnique = false;
 	m_nDataModifier = udLanguage::DM_NONE;
 
 	m_sDescription = wxT("Class data member's description...");

@@ -33,7 +33,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udSStateChartDiagramItem, udDiagramItem);
 udSStateChartDiagramItem::udSStateChartDiagramItem()
 {
     m_sDiagramType = udnSIMPLE_STATE_CHART;
-    m_sName = IPluginManager::Get()->GetProject()->MakeUniqueName(udnSIMPLE_STATE_CHART);
+    m_sName = udnSIMPLE_STATE_CHART;
 
     m_sActiveGenerator = wxT("udSStateChartGenerator");
     m_sActiveAlgorithm = wxT("udLoopCaseAlgorithm");
@@ -145,7 +145,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udHStateChartDiagramItem, udSStateChartDiagramItem);
 udHStateChartDiagramItem::udHStateChartDiagramItem()
 {
     m_sDiagramType = udnSTATE_CHART;
-    m_sName = IPluginManager::Get()->GetProject()->MakeUniqueName(udnSTATE_CHART);
+    m_sName = udnSTATE_CHART;
 
     m_sActiveGenerator = wxT("udHStateChartGenerator");
     m_sActiveAlgorithm = wxT("udLoopCaseAlgorithm");
@@ -181,6 +181,7 @@ udTransElementItem::udTransElementItem()
 {
 	m_nPriority = uddvPRIORITY_MIN;
 	m_sDescription = wxT("Transition's description...");
+	m_fMustBeUnique = false;
 	
 	AcceptChild(wxT("udActionLinkItem"));
 	AcceptChild(wxT("udConditionLinkItem"));
@@ -329,7 +330,7 @@ void udTransElementItem::SetConditionString(const wxString& cond)
 				{
 					udProjectItem *pRoot =  (udProjectItem*)IPluginManager::Get()->GetProject()->GetRootItem();
 					// create new condition
-					udConditionItem* pNewCond = (udConditionItem*)IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udConditionItem"), pRoot->GetId(), udfUNIQUE_NAME );
+					udConditionItem* pNewCond = (udConditionItem*)IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udConditionItem"), pRoot->GetId() );
 					// create relevant tree item
 					if( pNewCond )
 					{
@@ -392,7 +393,7 @@ void udTransElementItem::SetActionString(const wxString& acts)
 				{
 					udProjectItem *pRoot =  (udProjectItem*) IPluginManager::Get()->GetProject()->GetRootItem();
 					// create new condition
-					udActionItem* pNewAct = (udActionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udActionItem"), pRoot->GetId(), udfUNIQUE_NAME );
+					udActionItem* pNewAct = (udActionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udActionItem"), pRoot->GetId() );
 					// create relevant tree item
 					if( pNewAct )
 					{
@@ -793,7 +794,7 @@ void udCompStateElementItem::SetActionsString(const wxString& txt, udStateAction
 				{
 					udProjectItem *pRoot =  (udProjectItem*) IPluginManager::Get()->GetProject()->GetRootItem();
 					// create new action
-					udActionItem* pNewAct = (udActionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udActionItem"), pRoot->GetId(), udfUNIQUE_NAME );
+					udActionItem* pNewAct = (udActionItem*) IPluginManager::Get()->GetProject()->CreateProjectItem( wxT("udActionItem"), pRoot->GetId() );
 					// create relevant tree item
 					if( pNewAct )
 					{
@@ -1203,7 +1204,7 @@ udStateActionLinkItem::udStateActionLinkItem()
 
 udStateActionLinkItem::udStateActionLinkItem(const udCodeItem *orig, TYPE type)
 {
-	SetName( orig->GetName() );
+	m_sName = orig->GetName();
 	m_sOriginalCodeItem = orig->GetSignature();
 	m_nActionType = type;
 	

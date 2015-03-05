@@ -108,7 +108,7 @@ public:
 	bool IsUniqueName(const wxString& name);
 	
 	// element manipulations
-	udProjectItem* CreateProjectItem(const wxString& classname, long parentId, bool uniquename);
+	udProjectItem* CreateProjectItem(const wxString& classname, long parentId );
 	udDiagElementItem* GetDiagramElement(const wxString& element);
 	udDiagElementItem* GetDiagramElement(const wxString& diagram, const wxString& element);
 	void GetDiagramElements(wxClassInfo *type, SerializableList& elements);

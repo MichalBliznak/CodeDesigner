@@ -94,7 +94,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 		// create new instance of event flag and remove the source generic variable
 		udEventItem *pNewEvt = new udEventItem( *(udEventItem*)pOriginal );
 		pNewEvt->SetId( -1 );
-		pNewEvt->SetName( IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("event ") + pLink->GetName() ) );
+		pNewEvt->SetName( wxT("event ") + pLink->GetName() );
 		
 		pProject->AddItem( pOriginal->GetParent(), pNewEvt );
 		
@@ -120,7 +120,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			// create new instance of condition and remove the source generic function
 			udConditionItem *pNewCond = new udConditionItem( *(udConditionItem*)pOriginal );
 			pNewCond->SetId( -1 );
-			pNewCond->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("condition ") + pLink->GetName() ) );
+			pNewCond->SetName( wxT("condition ") + pLink->GetName() );
 			
 			pProject->AddItem( pOriginal->GetParent(), pNewCond );
 			
@@ -136,7 +136,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			// create new instance of action and remove the source generic function
 			udActionItem *pNewAct = new udActionItem( *(udActionItem*)pOriginal );
 			pNewAct->SetId( -1 );
-			pNewAct->SetName( IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("action ") + pLink->GetName() ) );
+			pNewAct->SetName( wxT("action ") + pLink->GetName() );
 			
 			pProject->AddItem( pOriginal->GetParent(), pNewAct );
 			
@@ -168,10 +168,10 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			}
 
 			// create new condition
-			udConditionItem* pCondition = (udConditionItem*)pProject->CreateProjectItem( wxT("udConditionItem"), pProject->GetRootItem()->GetId(), udfUNIQUE_NAME );
+			udConditionItem* pCondition = (udConditionItem*)pProject->CreateProjectItem( wxT("udConditionItem"), pProject->GetRootItem()->GetId() );
 			if( pCondition )
 			{
-				pCondition->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("on ") + pLink->GetName() ) );
+				pCondition->SetName( wxT("on ") + pLink->GetName() );
 				pCondition->SetInline( true );
 				
 				// construct condition's code
@@ -180,7 +180,7 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 				wxString sRetVar = pLang->MakeValidIdentifier( pSubDiagram->GetName() ).MakeLower() + wxT("_retval ");
 				
 				if( pFinalElement->GetRetVal() == wxT("<default>") )
-					pCondition->SetCode(sRetVar + pLang->Equal() + wxT(" ID_") + pLang->MakeValidIdentifier( pLink->GetName() ).Upper() );
+					pCondition->SetCode(sRetVar + pLang->Equal() + wxT(" ") + pOriginal->GetUniqueId( pLang ) );
 				else
 					pCondition->SetCode(sRetVar + pLang->Equal() + pFinalElement->GetRetVal() );
 				
@@ -206,10 +206,10 @@ void umlTransitionItem::OnChildDropped(const wxRealPoint& pos, wxSFShapeBase* ch
 			}
 
 			// create new condition
-			udActionItem* pAction = (udActionItem*)pProject->CreateProjectItem( wxT("udActionItem"), pProject->GetRootItem()->GetId(), udfUNIQUE_NAME );
+			udActionItem* pAction = (udActionItem*)pProject->CreateProjectItem( wxT("udActionItem"), pProject->GetRootItem()->GetId() );
 			if( pAction )
 			{
-				pAction->SetName(IPluginManager::Get()->GetProject()->MakeUniqueName( wxT("instantiate ") + pLink->GetName() ) );
+				pAction->SetName( wxT("instantiate ") + pLink->GetName() );
 				pAction->SetInline( true );
 				
 				udClassInstanceDialog dlg( IPluginManager::Get()->GetActiveCanvas() );

@@ -302,9 +302,11 @@ namespace udPROJECT
 		SerializableList lstCodeItems;
 		IPluginManager::Get()->GetProject()->GetItems( CLASSINFO(udCodeItem), lstCodeItems );
 		
-		wxRegEx rePattern( wxT("^") + pattern + wxT("[\\s]+|") +
-						   wxT("[\\s]+") + pattern + wxT("[\\s]+|") + 
-						   wxT("[\\s]+") + pattern + wxT("$"), wxRE_ADVANCED );
+//		wxRegEx rePattern( wxT("^") + pattern + wxT("[\\s]+|") +
+//						   wxT("[\\s]+") + pattern + wxT("[\\s]+|") + 
+//						   wxT("[\\s]+") + pattern + wxT("$"), wxRE_ADVANCED );
+
+		wxRegEx rePattern( pattern, wxRE_ADVANCED );
 		
 		for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
 		{

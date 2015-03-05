@@ -103,7 +103,7 @@ void udUmlDiagramPlugin::OnAssignNewAction(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new condition
-		udActionItem* pAction = (udActionItem*) pProj->CreateProjectItem( wxT("udActionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udActionItem* pAction = (udActionItem*) pProj->CreateProjectItem( wxT("udActionItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pAction )
 		{
@@ -130,7 +130,7 @@ void udUmlDiagramPlugin::OnAssignNewStateAction(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new state action
-		udActionItem* pAction = (udActionItem*)  pProj->CreateProjectItem( wxT("udActionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udActionItem* pAction = (udActionItem*)  pProj->CreateProjectItem( wxT("udActionItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pAction )
 		{
@@ -160,7 +160,7 @@ void udUmlDiagramPlugin::OnAssignNewCondition(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new condition
-		udConditionItem* pCondition = (udConditionItem*) pProj->CreateProjectItem( wxT("udConditionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udConditionItem* pCondition = (udConditionItem*) pProj->CreateProjectItem( wxT("udConditionItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pCondition )
 		{
@@ -189,7 +189,7 @@ void udUmlDiagramPlugin::OnAssignNewEvent(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new condition
-		udEventItem* pEvent = (udEventItem*) pProj->CreateProjectItem( wxT("udEventItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udEventItem* pEvent = (udEventItem*) pProj->CreateProjectItem( wxT("udEventItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pEvent )
 		{
@@ -218,7 +218,7 @@ void udUmlDiagramPlugin::OnAssignNewFunction(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new variable
-		udMemberFunctionItem* pFcn = (udMemberFunctionItem*)pProj->CreateProjectItem( wxT("udMemberFunctionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udMemberFunctionItem* pFcn = (udMemberFunctionItem*)pProj->CreateProjectItem( wxT("udMemberFunctionItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pFcn )
 		{
@@ -249,7 +249,7 @@ void udUmlDiagramPlugin::OnAssignNewVariable(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new variable
-		udMemberDataItem* pVar = (udMemberDataItem*)pProj->CreateProjectItem( wxT("udMemberDataItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udMemberDataItem* pVar = (udMemberDataItem*)pProj->CreateProjectItem( wxT("udMemberDataItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pVar )
 		{
@@ -317,7 +317,7 @@ void udUmlDiagramPlugin::OnCreateConstructor(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new class constructor
-		udConstructorFunctionItem* pFcn = (udConstructorFunctionItem*)pProj->CreateProjectItem( wxT("udConstructorFunctionItem"),pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udConstructorFunctionItem* pFcn = (udConstructorFunctionItem*)pProj->CreateProjectItem( wxT("udConstructorFunctionItem"),pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pFcn )
 		{
@@ -345,7 +345,7 @@ void udUmlDiagramPlugin::OnCreateDestructor(wxCommandEvent& event)
 		IProject *pProj = IPluginManager::Get()->GetProject();
 		
 		// create new class destructor
-		udDestructorFunctionItem* pFcn = (udDestructorFunctionItem*)pProj->CreateProjectItem( wxT("udDestructorFunctionItem"), pProj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+		udDestructorFunctionItem* pFcn = (udDestructorFunctionItem*)pProj->CreateProjectItem( wxT("udDestructorFunctionItem"), pProj->GetRootItem()->GetId() );
 		// create relevant tree item
 		if( pFcn )
 		{

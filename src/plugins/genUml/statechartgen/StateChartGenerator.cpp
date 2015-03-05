@@ -338,9 +338,7 @@ void udStateChartGenerator::GenerateIDs(udDiagramItem *src)
 		while( node )
 		{
 			pElement = (udProjectItem*) node->GetData()->GetUserData();
-			
-			m_pOutLang->DefineCmd( wxString::Format( wxT("ID_%s"), m_pOutLang->MakeValidIdentifier( pElement->GetName() ).Upper().c_str() ), 
-								   wxString::Format( wxT("%d"), m_nIDCounter++ ) );
+			m_pOutLang->DefineCmd( pElement->GetUniqueId( m_pOutLang ), wxString::Format( wxT("%d"), m_nIDCounter++ ) );
 			node = node->GetNext();
 		}
 	}

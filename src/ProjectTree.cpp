@@ -279,16 +279,9 @@ void udProjectTree::OnEndLabelEdit(wxTreeEvent &event)
 				udProjectItem *pProjItem = itemData->GetProjectItem();
                 if(pProjItem)
                 {
-					if( pProjItem->MustBeUnique() && !udProject::Get()->IsUniqueName(event.GetLabel()) )
-					{
-						wxMessageBox(wxT("The name must be unique."), wxT("CodeDesigner"), wxOK | wxICON_WARNING);
-						event.Veto();
-					}
-					else
-					{
-						pProjItem->OnTreeTextChange(event.GetLabel());
-						UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pProjItem );
-					}
+					event.Veto();
+					pProjItem->OnTreeTextChange(event.GetLabel());
+					UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_CHANGED, wxID_ANY, pProjItem );
                 }
             }
         }

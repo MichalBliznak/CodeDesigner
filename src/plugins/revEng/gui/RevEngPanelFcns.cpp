@@ -2,6 +2,17 @@
 
 #include <wx/regex.h>
 
+
+void udRevEngPanel::ForceName(udProjectItem* item, const wxString& name)
+{
+	bool unique = item->MustBeUnique();
+	item->SetMustBeUnique( false );
+	
+	item->SetName( name );
+	
+	item->SetMustBeUnique( unique );
+}
+
 umlClassItem* udRevEngPanel::CreateClassElement(wxTreeItemId classId)
 {
 	ctagClass *ctag = (ctagClass*) m_treeSymbols->GetItemData( classId );
@@ -14,7 +25,7 @@ umlClassItem* udRevEngPanel::CreateClassElement(wxTreeItemId classId)
 		classItem->SetUserData( classElement );
 		
 		udLABEL::SetContent(ctag->m_Name, classItem, udLABEL::ltTITLE);
-		classElement->SetName( ctag->m_Name );
+		ForceName(classElement, ctag->m_Name);
 		
 		if( ctag->m_Namespace.IsEmpty() ) m_mapProjectItems[ ctag->m_Name ] = classElement;
 		m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ] = classElement;
@@ -54,7 +65,7 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 				
 				connection->SetUserData( connElement );
 				
-				connElement->SetName( wxT("Inheritance element") );
+				ForceName( connElement, wxT("Inheritance element") );
 				
 				connection->SetSrcShapeId( ((wxSFShapeBase*)newClass->GetParent())->GetId() );
 				connection->SetTrgShapeId( ((wxSFShapeBase*)baseClass->GetParent())->GetId() );
@@ -73,7 +84,7 @@ void udRevEngPanel::CreateClassAssociations(udDiagramItem* diagram, wxTreeItemId
 			
 			connection->SetUserData( connElement );
 			
-			connElement->SetName( wxT("Include association element") );
+			ForceName( connElement, wxT("Include association element") );
 			connElement->SetAccessType( GetAccessType( ctag->m_Access ) );
 			
 			connection->SetTrgShapeId( ((wxSFShapeBase*)newClass->GetParent())->GetId() );
@@ -123,7 +134,7 @@ void udRevEngPanel::CreateMemberAssociations(udDiagramItem* diagram, wxTreeItemI
 					
 					connection->SetUserData( connElement );
 					
-					connElement->SetName( wxT("Association element") );
+					ForceName( connElement, wxT("Association element") );
 					udLABEL::SetContent( memberName, connection, udLABEL::ltASSOC_ROLE1 );
 					
 					if( mctag->m_Pattern.Contains( wxT("*") ) ) udLABEL::SetContent( wxT("0..1"), connection, udLABEL::ltASSOC_MULT1 );
@@ -156,8 +167,8 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 		udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
 		if( !package )
 		{
-			package = proj->CreateProjectItem( wxT("udCodePackageItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
-			package->SetName( pkgName );
+			package = proj->CreateProjectItem( wxT("udCodePackageItem"), proj->GetRootItem()->GetId() );
+			ForceName( package, pkgName );
 		}
 		
 		parentId = package->GetId();
@@ -168,8 +179,8 @@ void udRevEngPanel::CreateDataMembers(udClassElementItem *classItem, wxTreeItemI
 		ctagClassMember *ctag = (ctagClassMember*) m_treeSymbols->GetItemData( arrMembers[i] );
 		
 		// create code item
-		udMemberDataItem *data = (udMemberDataItem*) proj->CreateProjectItem( wxT("udMemberDataItem"), parentId, udfAMBIGUOUS_NAME );
-		data->SetName( ctag->m_Name );
+		udMemberDataItem *data = (udMemberDataItem*) proj->CreateProjectItem( wxT("udMemberDataItem"), parentId );
+		ForceName( data, ctag->m_Name );
 		data->SetDescription( wxT("Original class member: \"") + ctag->m_Pattern + wxT("\"") );
 		data->SetScope( classItem->GetName() );
 		
@@ -203,20 +214,20 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 
 		if( ctag->m_Name == ctag->m_ParentClass )
 		{
-			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udConstructorFunctionItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
-			data->SetName( proj->MakeUniqueName( wxT("Constructor ") + ctag->m_Name ) );
+			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udConstructorFunctionItem"), proj->GetRootItem()->GetId() );
+			ForceName( data, wxT("Constructor ") + ctag->m_Name );
 		}
 		else if( ctag->m_Name == wxT("~") + ctag->m_ParentClass )
 		{
-			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udDestructorFunctionItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
+			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udDestructorFunctionItem"), proj->GetRootItem()->GetId() );
 			wxString name = ctag->m_Name;
 			name.Replace( wxT("~"), wxT("") );
-			data->SetName( proj->MakeUniqueName( wxT("Destructor ") + name ) );
+			ForceName( data, wxT("Destructor ") + name );
 		}
 		else
 		{
-			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udMemberFunctionItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
-			data->SetName( ctag->m_Name );
+			data = (udMemberFunctionItem*) proj->CreateProjectItem( wxT("udMemberFunctionItem"), proj->GetRootItem()->GetId() );
+			ForceName( data, ctag->m_Name );
 		}
 		
 		// create code package for new members if doesn't exists
@@ -226,8 +237,8 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 			udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
 			if( !package )
 			{
-				package = proj->CreateProjectItem( wxT("udCodePackageItem"), proj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
-				package->SetName( pkgName );
+				package = proj->CreateProjectItem( wxT("udCodePackageItem"), proj->GetRootItem()->GetId() );
+				ForceName( package, pkgName );
 			}
 			
 			data->Reparent( package );
@@ -251,7 +262,7 @@ void udRevEngPanel::CreateFunctionMembers(udClassElementItem *classItem, wxTreeI
 			
 			udParamItem *var = new udParamItem();
 			
-			var->SetName( arg.AfterLast(' ') );
+			ForceName( var, arg.AfterLast(' ') );
 			var->SetDescription( wxT("Original parameter: \"") + arg + wxT("\"") );
 			
 			var->SetDataType( udLanguage::DT_USERDEFINED );
@@ -283,16 +294,16 @@ void udRevEngPanel::CreateFunctions(wxTreeItemId fcnId)
 		udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
 		if( !package )
 		{
-			package = proj->CreateProjectItem( wxT("udCodePackageItem"), parentId, udfAMBIGUOUS_NAME );
-			package->SetName( pkgName );
+			package = proj->CreateProjectItem( wxT("udCodePackageItem"), parentId );
+			ForceName( package, pkgName );
 		}
 		
 		parentId = package->GetId();
 	}
 	
 	// create code item
-	udGenericFunctionItem *data = (udGenericFunctionItem*) proj->CreateProjectItem( wxT("udGenericFunctionItem"), parentId, udfAMBIGUOUS_NAME );
-	data->SetName( ctag->m_Name );
+	udGenericFunctionItem *data = (udGenericFunctionItem*) proj->CreateProjectItem( wxT("udGenericFunctionItem"), parentId );
+	ForceName( data, ctag->m_Name );
 
 	data->SetDescription( wxT("Original function: \"") + ctag->m_Pattern + wxT("\"") );
 	if( m_checkBoxBodies->IsChecked() ) data->SetCode( ctag->m_Content );
@@ -311,7 +322,7 @@ void udRevEngPanel::CreateFunctions(wxTreeItemId fcnId)
 		
 		udParamItem *var = new udParamItem();
 		
-		var->SetName( arg.AfterLast(' ') );
+		ForceName( var, arg.AfterLast(' ') );
 		var->SetDescription( wxT("Original parameter: \"") + arg + wxT("\"") );
 		
 		var->SetDataType( udLanguage::DT_USERDEFINED );
@@ -337,8 +348,8 @@ void udRevEngPanel::CreateVariables(wxTreeItemId varId)
 		udProjectItem *package = proj->GetProjectItem( wxClassInfo::FindClass( wxT("udCodePackageItem") ), pkgName );
 		if( !package )
 		{
-			package = proj->CreateProjectItem( wxT("udCodePackageItem"), parentId, udfAMBIGUOUS_NAME );
-			package->SetName( pkgName );
+			package = proj->CreateProjectItem( wxT("udCodePackageItem"), parentId );
+			ForceName( package, pkgName );
 		}
 		
 		parentId = package->GetId();
@@ -347,8 +358,8 @@ void udRevEngPanel::CreateVariables(wxTreeItemId varId)
 	ctagVariable *ctag = (ctagVariable*) m_treeSymbols->GetItemData( varId );
 	
 	// create code item
-	udGenericVariableItem *data = (udGenericVariableItem*) proj->CreateProjectItem( wxT("udGenericVariableItem"), parentId, udfAMBIGUOUS_NAME );
-	data->SetName( ctag->m_Name );
+	udGenericVariableItem *data = (udGenericVariableItem*) proj->CreateProjectItem( wxT("udGenericVariableItem"), parentId );
+	ForceName( data, ctag->m_Name );
 	data->SetDescription( wxT("Original variable: \"") + ctag->m_Pattern + wxT("\"") );
 	
 	data->SetDataType( udLanguage::DT_USERDEFINED );
@@ -371,7 +382,7 @@ umlEnumItem* udRevEngPanel::CreateEnumElement(wxTreeItemId enumId)
 		enumItem->SetUserData( enumElement );
 		
 		udLABEL::SetContent(ctag->m_Name, enumItem, udLABEL::ltTITLE);
-		enumElement->SetName( ctag->m_Name );
+		ForceName( enumElement, ctag->m_Name );
 		
 		if( ctag->m_Namespace.IsEmpty() ) m_mapProjectItems[ ctag->m_Name ] = enumElement;
 		m_mapProjectItems[ ctag->m_Namespace + wxT("::") + ctag->m_Name ] = enumElement;
@@ -401,7 +412,7 @@ void udRevEngPanel::CreateEnumItems(udEnumElementItem* enumItem, wxTreeItemId en
 		
 		// create code item
 		udEnumValueItem *data = new udEnumValueItem();
-		data->SetName( ctag->m_Name );
+		ForceName( data, ctag->m_Name );
 		data->SetValue( ctag->m_Value );
 		data->SetDescription( wxT("Original class member: \"") + ctag->m_Pattern + wxT("\"") );
 		
@@ -428,7 +439,7 @@ void udRevEngPanel::CreateEnumAssociations(udDiagramItem* diagram, wxTreeItemId 
 			
 			connection->SetUserData( connElement );
 			
-			connElement->SetName( wxT("Include association element") );
+			ForceName( connElement, wxT("Include association element") );
 			connElement->SetAccessType( GetAccessType( ctag->m_Access ) );
 			
 			connection->SetTrgShapeId( ((wxSFShapeBase*)newEnum->GetParent())->GetId() );
@@ -543,4 +554,3 @@ void udRevEngPanel::GetFunctionArguments(udCTAGS* ctag, wxArrayString& args)
 		if( !arg.IsEmpty() ) args.Add( arg );
 	}
 }
-

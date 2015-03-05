@@ -57,9 +57,10 @@ void udUpdateCodeDialog::OnUpdate(wxCommandEvent& event)
 	udCodeItem *pItem;
 	wxString sCode;
 	
-	wxRegEx rePattern1( wxT("^") + m_Pattern + wxT("[\\s]+"), wxRE_ADVANCED);
-	wxRegEx rePattern2( wxT("[\\s]+") + m_Pattern + wxT("[\\s]+"), wxRE_ADVANCED);
-	wxRegEx rePattern3( wxT("[\\s]+") + m_Pattern + wxT("$"), wxRE_ADVANCED);
+//	wxRegEx rePattern1( wxT("^") + m_Pattern + wxT("[\\s]+"), wxRE_ADVANCED);
+//	wxRegEx rePattern2( wxT("[\\s]+") + m_Pattern + wxT("[\\s]+"), wxRE_ADVANCED);
+//	wxRegEx rePattern3( wxT("[\\s]+") + m_Pattern + wxT("$"), wxRE_ADVANCED);
+	wxRegEx rePattern( m_Pattern, wxRE_ADVANCED);
 	
 	for( size_t i = 0; i < m_checkListCodeItems->GetCount(); ++i )
 	{
@@ -69,9 +70,10 @@ void udUpdateCodeDialog::OnUpdate(wxCommandEvent& event)
 			
 			sCode = pItem->GetCode();
 			
-			if( rePattern1.Matches( sCode ) ) sCode.Replace( m_Pattern + wxT(" "), m_NewPattern + wxT(" ") );
-			else if( rePattern2.Matches( sCode ) ) sCode.Replace( wxT(" ") + m_Pattern + wxT(" "), wxT(" ") + m_NewPattern + wxT(" ") );
-			else if( rePattern3.Matches( sCode ) ) sCode.Replace( wxT(" ") + m_Pattern, wxT(" ") + m_NewPattern );
+			if( rePattern.Matches( sCode ) ) sCode.Replace( m_Pattern, m_NewPattern );
+//			if( rePattern1.Matches( sCode ) ) sCode.Replace( m_Pattern + wxT(" "), m_NewPattern + wxT(" ") );
+//			else if( rePattern2.Matches( sCode ) ) sCode.Replace( wxT(" ") + m_Pattern + wxT(" "), wxT(" ") + m_NewPattern + wxT(" ") );
+//			else if( rePattern3.Matches( sCode ) ) sCode.Replace( wxT(" ") + m_Pattern, wxT(" ") + m_NewPattern );
 			
 			pItem->SetCode( sCode );
 		}

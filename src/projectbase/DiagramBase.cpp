@@ -53,8 +53,8 @@ void udDiagramCanvas::InitializeCanvas()
 	udSettings& settings = IPluginManager::Get()->GetAppSettings();
 	
 	SetHoverColour( settings.GetProperty(wxT("Hover colour"))->AsColour() );
-	SetGradientFrom( settings.GetProperty(wxT("Canvas gradient start"))->AsColour() );
-	SetGradientTo( settings.GetProperty(wxT("Canvas gradient end"))->AsColour() );
+	
+	InitializeBackground();
 	
 	if( settings.GetProperty(wxT("Show grid"))->AsBool() )
 	{
@@ -96,6 +96,23 @@ void udDiagramCanvas::InitializeCanvas()
 	#if wxUSE_GRAPHICS_CONTEXT
 	EnableGC( settings.GetProperty(wxT("Use enhanced graphics"))->AsBool() );
 	#endif
+}
+
+void udDiagramCanvas::InitializeBackground()
+{
+	udSettings& settings = IPluginManager::Get()->GetAppSettings();
+	udDiagramManager *manager = GetManager();
+	
+	if( manager->GetParentProjItem()->IsGenerated() )
+	{
+		SetGradientFrom( settings.GetProperty(wxT("Canvas gradient start"))->AsColour() );
+		SetGradientTo( settings.GetProperty(wxT("Canvas gradient end"))->AsColour() );
+	}
+	else
+	{
+		SetGradientFrom( settings.GetProperty(wxT("Disabled canvas gradient start"))->AsColour() );
+		SetGradientTo( settings.GetProperty(wxT("Disabled canvas gradient end"))->AsColour() );
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

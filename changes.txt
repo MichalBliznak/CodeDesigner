@@ -1,3 +1,10 @@
+Changes in version 1.6.5 beta (2015-03-05):
+------------------------------------------------
+- Diagram items IDs and names are context-exclusive now (i.e. item names are uniqe per diagram
+  and not per project). Diagram names are unique per project.
+- Fixed copying of class items.
+- Disabled code generation is indicated by different (pink by default) canvas background colour.
+
 Changes in version 1.6.4 beta (2014-10-26):
 ------------------------------------------------
 - Application keyboard shortcuts should work now as expected.
