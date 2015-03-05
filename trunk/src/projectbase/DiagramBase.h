@@ -36,6 +36,7 @@ public:
     virtual ~udDiagramCanvas();
 
 	// public functions
+	virtual void InitializeBackground();
     virtual void InitializeCanvas();
 	
 	udDiagramManager* GetManager() { return (udDiagramManager*) GetDiagramManager(); }

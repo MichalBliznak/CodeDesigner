@@ -153,6 +153,8 @@ protected:
 	void CreateFunctions( wxTreeItemId fcnId );
 	void CreateVariables( wxTreeItemId varId );
 	
+	void ForceName( udProjectItem *item, const wxString &name );
+	
 	virtual void OnAddFilesClick(wxCommandEvent& event);
 	virtual void OnCheckAllFilesClick(wxCommandEvent& event);
 	virtual void OnDeselectAllFilesClick(wxCommandEvent& event);

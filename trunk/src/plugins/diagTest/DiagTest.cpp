@@ -200,7 +200,7 @@ udTestDiagramItem::udTestDiagramItem()
 	// initialize custom diagram:
 	
     m_sDiagramType = udnTEST_DIAGRAM;
-    m_sName = IPluginManager::Get()->GetProject()->MakeUniqueName(udnTEST_DIAGRAM);
+	SetName( udnTEST_DIAGRAM );
 
     m_sActiveGenerator = wxT("udTestGenerator");
     m_sActiveAlgorithm = wxT("udTestAlgorithm");

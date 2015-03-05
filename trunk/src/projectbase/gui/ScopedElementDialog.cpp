@@ -49,7 +49,7 @@ void udScopedElementDialog::OnNameChange(wxCommandEvent& event)
 		long nFrom, nTo;
 		m_eName->GetSelection(&nFrom, &nTo);
 		
-		m_eName->ChangeValue( m_Lang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
+		m_eName->ChangeValue( m_Lang->MakeValidIdentifier( m_eName->GetValue() ) );
 		
 		m_eName->SetSelection( nFrom, nTo );
 	}
@@ -62,11 +62,11 @@ void udScopedElementDialog::OnOk(wxCommandEvent& event)
 		wxMessageBox(wxT("Name cannot be empty."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
 		m_eName->SetFocus();
 	}
-	else if( (m_Name != m_eName->GetValue()) && !IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
-	{
-		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
-		m_eName->SetFocus();		
-	}
+//	else if( (m_Name != m_eName->GetValue()) && !IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
+//	{
+//		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
+//		m_eName->SetFocus();		
+//	}
 	else
 	{
 		// get data via validators...

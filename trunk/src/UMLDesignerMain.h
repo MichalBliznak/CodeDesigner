@@ -86,12 +86,11 @@ public:
 		pitCODEITEM
 	};
 	
-	udProjectItemType(const wxString& classname, const wxString& viewname, bool uniquename, PROJITEMTYPE type) 
-	: m_sClassName(classname), m_sViewName(viewname), m_fUniqueName(uniquename), m_nProjItemType(type) {;}
+	udProjectItemType(const wxString& classname, const wxString& viewname, PROJITEMTYPE type) 
+	: m_sClassName(classname), m_sViewName(viewname), m_nProjItemType(type) {;}
 	
 	wxString m_sClassName;
 	wxString m_sViewName;
-	bool m_fUniqueName;
 	PROJITEMTYPE m_nProjItemType;
 };
 

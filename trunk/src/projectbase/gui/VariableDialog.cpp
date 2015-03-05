@@ -74,10 +74,10 @@ void udVariableDialog::OnNameChange(wxCommandEvent& event)
 		long nFrom, nTo;
 		m_eName->GetSelection(&nFrom, &nTo);
 		
-		if( m_pVarItem->MustBeUnique() )
-			m_eName->ChangeValue( m_pLang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
-		else
-			m_eName->ChangeValue( m_pLang->MakeValidIdentifier( m_eName->GetValue() ) );
+//		if( m_pVarItem->MustBeUnique() )
+//			m_eName->ChangeValue( m_pLang->MakeValidIdentifier( IPluginManager::Get()->GetProject()->MakeUniqueName(  m_eName->GetValue() ) ) );
+//		else
+		m_eName->ChangeValue( m_pLang->MakeValidIdentifier( m_eName->GetValue() ) );
 			
 		m_eName->SetSelection( nFrom, nTo );
 	}
@@ -95,13 +95,13 @@ void udVariableDialog::OnOk(wxCommandEvent& event)
 		wxMessageBox(wxT("Name cannot be empty."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
 		m_eName->SetFocus();
 	}
-	else if( m_pVarItem->MustBeUnique() &&
-			(m_Name != m_eName->GetValue()) &&
-			!IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
-	{
-		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
-		m_eName->SetFocus();		
-	}
+//	else if( m_pVarItem->MustBeUnique() &&
+//			(m_Name != m_eName->GetValue()) &&
+//			!IPluginManager::Get()->GetProject()->IsUniqueName( m_eName->GetValue() ) )
+//	{
+//		wxMessageBox(wxT("Name must be unique."), wxT("CodeDesigner"), wxICON_WARNING | wxOK );
+//		m_eName->SetFocus();		
+//	}
 	else
 	{
 		// get data via validators...

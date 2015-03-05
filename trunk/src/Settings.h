@@ -39,6 +39,8 @@ public:
 	wxColour m_colHighlightCol;
 	wxColour m_colBackgroundFrom;
 	wxColour m_colBackgroundTo;
+	wxColour m_colDisabledBackgroundFrom;
+	wxColour m_colDisabledBackgroundTo;
 	
 	wxFont m_nDefaultFont;
 };

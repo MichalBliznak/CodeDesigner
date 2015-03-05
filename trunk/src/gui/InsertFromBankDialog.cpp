@@ -94,14 +94,14 @@ void udInsertFromBankDialog::OnInsertClick(wxCommandEvent& event)
 					pDiag = (udDiagramItem*) pRec->GetDiagram()->Clone();
 					
 					// make all diagram's items' names unique
-					pDiag->SetName( udProject::Get()->MakeUniqueName( pDiag->GetName() ) );
+					pDiag->SetName( pDiag->GetName() );
 					
 					lstElements.Clear();
 					udPROJECT::GetDiagramElements( pDiag, CLASSINFO(udDiagElementItem), lstElements, sfRECURSIVE );
 					for( SerializableList::iterator it = lstElements.begin(); it != lstElements.end(); ++it )
 					{
 						pElement = (udDiagElementItem*) *it;
-						pElement->SetName( udProject::Get()->MakeUniqueName( pElement->GetName() ) );
+						pElement->SetName( pElement->GetName() );
 						udLABEL::SetContent( pElement->GetName(), (wxSFShapeBase*) pElement->GetParent(), udLABEL::ltTITLE );
 					}
 

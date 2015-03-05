@@ -140,6 +140,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udPackageItem, udProjectItem);
 udPackageItem::udPackageItem() : udProjectItem()
 {
     m_sName = wxT("Package");
+	m_fMustBeUnique = false;
 	
 	AcceptChild(wxT("udPackageItem"));
 	AcceptChild(wxT("udSStateChartDiagramItem"));
@@ -245,6 +246,7 @@ XS_IMPLEMENT_CLONABLE_CLASS(udCodePackageItem, udProjectItem);
 udCodePackageItem::udCodePackageItem() : udProjectItem()
 {
     m_sName = wxT("Package");
+	m_fMustBeUnique = false;
 	
 	AcceptChild(wxT("udCodePackageItem"));
 	AcceptChild(wxT("udActionItem"));
@@ -446,14 +448,13 @@ void udProject::CreateRootItem()
     SetRootItem(root);
 }
 
-udProjectItem* udProject::CreateProjectItem(const wxString& classname, long parentId, bool uniquename)
+udProjectItem* udProject::CreateProjectItem(const wxString& classname, long parentId )
 {
     udProjectItem* pItem = (udProjectItem*)wxCreateDynamicObject(classname);
 
     if(pItem)
     {
-		if( uniquename ) pItem->SetName( MakeUniqueName( pItem->GetName() ) );
-			
+		pItem->SetName( pItem->GetName() );
         AddItem(parentId, pItem);
     }
 
@@ -827,12 +828,12 @@ void udProject::AppendSubDiagramsShapes(ShapeList& elements)
         if( pDiagItem && pDiagItem->IsKindOf(CLASSINFO(udSubDiagramElementItem)) )
         {
             lstElements.Clear();
-            udPROJECT::GetDiagramElements(((udSubDiagramElementItem*)pDiagItem)->GetSubDiagram(), CLASSINFO(udDiagElementItem), lstElements, sfRECURSIVE);
+            udPROJECT::GetDiagramElements(((udSubDiagramElementItem*)pDiagItem)->GetSubDiagram(), CLASSINFO(udSubDiagramElementItem), lstElements, sfRECURSIVE);
 
             SerializableList::compatibility_iterator enode = lstElements.GetFirst();
             while( enode )
             {
-                elements.Append( (wxSFShapeBase*)((udDiagElementItem*)enode->GetData())->GetParent() );
+                elements.Append( (wxSFShapeBase*)((udSubDiagramElementItem*)enode->GetData())->GetParent() );
                 enode = enode->GetNext();
             }
         }

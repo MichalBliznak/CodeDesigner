@@ -10,6 +10,7 @@ class udDiagramItem;
 class udFunctionItem;
 class udCodeItem;
 class udDiagramCanvas;
+class udLanguage;
 
 /**
  * \class IProject
@@ -46,10 +47,9 @@ public:
 	 * \brief Create new project item and add it to the project.
 	 * \param classname Class name of new project item
 	 * \param parentId ID of parent project item
-	 * \param uniquename TRUE if name of new project item must be unique
 	 * \return Pointer to newly created project item on success, otherwise NULL
 	 */
-	virtual udProjectItem* CreateProjectItem(const wxString& classname, long parentId, bool uniquename) = 0;
+	virtual udProjectItem* CreateProjectItem(const wxString& classname, long parentId) = 0;
 	/**
 	 * \brief Get diagram element of given name (from any diagram in the project).
 	 * \param element Diagram element name
@@ -164,8 +164,9 @@ class IProjectItem : public xsSerializable
 public:	
     virtual ~IProjectItem() {}
 
+	// virtual public functions
 	/**
-	 * \brief Set item's name.
+	 * \brief Set item's name. The name can be modified to be unique if required.
 	 * \param name Name
 	 */
 	virtual void SetName(const wxString& name) = 0;
@@ -185,8 +186,13 @@ public:
 	 * \return Item's description
 	 */
 	virtual const wxString& GetDescription() const = 0;
+	/**
+	 * \brief Get unique ID based on the item's name, parent's name and given language.
+	 * \param lang Pointer to output programming language
+	 * \return Unique ID
+	 */
+	virtual wxString GetUniqueId(const udLanguage *lang) = 0;
 	
-	// public functions
 	/**
 	 * \brief Set type of project item which can be assigned to this item
 	 * as its child (via dnd in project structure tree).
@@ -212,12 +218,16 @@ public:
 	 */
 	virtual bool IsSibblingAccepted(const wxString& classname) const = 0;
 	/**
+	 * \brief Set whether item's name must be unique.
+	 * \param unique TRUE if the name must be unique
+	 */
+	virtual void SetMustBeUnique(bool unique) = 0;
+	/**
 	 * \brief Determine whether item's name must be unique.
 	 * \return TRUE if the name must be unique
 	 */
 	virtual bool MustBeUnique() const = 0;
 
-    // virtual public functions
 	/**
 	 * \brief Create project item's context menu (if needed).
 	 * \return Pointer to item's context menu (the application will delete it after an usage)
@@ -275,6 +285,14 @@ public:
 	 * \param pos
 	 */
     virtual void OnContextMenu(wxWindow* parent, const wxPoint& pos) = 0;
+	
+protected:
+	// virtual protected functions
+	/**
+	 * \brief Get unique name based on current item's name.
+	 * \return Unique item's name
+	 */
+	virtual wxString GetUniqueName(const wxString& name) = 0;
 };
 
 #endif //_IPROJECT_H_

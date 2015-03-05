@@ -176,13 +176,13 @@ void UMLDesignerFrame::InitializeComponents()
     m_mapGUIComponents[IDM_VIEW_GENERATOR_TB] = new udPanelItem(wxT("generator_toolbar"), wxT("Generator toolbar"));
 
 	// initialize code items types
-	m_mapProjectItems[IDM_PROJ_PACKAGE] = new udProjectItemType(wxT("udPackageItem"), wxT("Project items"), false, udProjectItemType::pitPROJITEM);
-	m_mapProjectItems[IDM_PROJ_CODEPACKAGE] = new udProjectItemType(wxT("udCodePackageItem"), wxT("Code items"), false, udProjectItemType::pitCODEITEM);
-	m_mapProjectItems[IDM_PROJ_VARIABLE] = new udProjectItemType(wxT("udGenericVariableItem"), wxT("Code items"), true, udProjectItemType::pitCODEITEM);
-	m_mapProjectItems[IDM_PROJ_FUNCTION] = new udProjectItemType(wxT("udGenericFunctionItem"), wxT("Code items"), true, udProjectItemType::pitCODEITEM);
+	m_mapProjectItems[IDM_PROJ_PACKAGE] = new udProjectItemType(wxT("udPackageItem"), wxT("Project items"), udProjectItemType::pitPROJITEM);
+	m_mapProjectItems[IDM_PROJ_CODEPACKAGE] = new udProjectItemType(wxT("udCodePackageItem"), wxT("Code items"), udProjectItemType::pitCODEITEM);
+	m_mapProjectItems[IDM_PROJ_VARIABLE] = new udProjectItemType(wxT("udGenericVariableItem"), wxT("Code items"), udProjectItemType::pitCODEITEM);
+	m_mapProjectItems[IDM_PROJ_FUNCTION] = new udProjectItemType(wxT("udGenericFunctionItem"), wxT("Code items"), udProjectItemType::pitCODEITEM);
 	
-	m_mapProjectItems[IDM_DIAG_CLEARVARIABLES] = new udProjectItemType(wxT("udVariableItem"), wxT("Code items"), true, udProjectItemType::pitCODEITEM);
-	m_mapProjectItems[IDM_DIAG_CLEARFUNCTIONS] = new udProjectItemType(wxT("udFunctionItem"), wxT("Code items"), true, udProjectItemType::pitCODEITEM);
+	m_mapProjectItems[IDM_DIAG_CLEARVARIABLES] = new udProjectItemType(wxT("udVariableItem"), wxT("Code items"), udProjectItemType::pitCODEITEM);
+	m_mapProjectItems[IDM_DIAG_CLEARFUNCTIONS] = new udProjectItemType(wxT("udFunctionItem"), wxT("Code items"), udProjectItemType::pitCODEITEM);
 	
 	// default package names
 	m_mapDefaultPkgNames[wxT("udGenericVariableItem")] = wxT("Generic variables");
@@ -1077,11 +1077,10 @@ void UMLDesignerFrame::CreateDiagramElement(long id, const wxPoint& pos)
                 udDiagElementItem* pUserData = (udDiagElementItem*)pItem->GetUserData();
                 if(pUserData)
                 {
-                    // create unique name
-					wxString sName = udProject::Get()->MakeUniqueName(pPaletteItem->m_sDesc);
+					// create (unique if required) name
+					pUserData->SetName(pPaletteItem->m_sDesc);
                     // set unique name to the element
-                    udLABEL::SetContent(sName, pItem, udLABEL::ltTITLE);
-                    pUserData->SetName(sName);
+                    udLABEL::SetContent(pUserData->GetName(), pItem, udLABEL::ltTITLE);
                     // perform user initialization steps...
                     pUserData->OnCreate();
                 }
@@ -1117,8 +1116,8 @@ bool UMLDesignerFrame::CanRemove(udProjectItem *item)
 		// check whether there exist code items refering to this item's ID
 		wxString sOwners;
 		udLanguage *pLang = wxGetApp().GetMainFrame()->GetSelectedLanguage();
-		wxString sCurrentID = wxT("ID_") + pLang->MakeValidIdentifier( pElement->GetName() ).Upper();
-		
+		wxString sCurrentID = pElement->GetUniqueId( pLang );
+
 		lstLinks.Clear();
 		udProject::Get()->GetItems( CLASSINFO(udCodeItem), lstLinks );
 		SerializableList::compatibility_iterator node = lstLinks.GetFirst();
@@ -1181,7 +1180,10 @@ void UMLDesignerFrame::OnProjectItemChanged(udProjectEvent& event)
 		InitializeChoices();
 		if( pDiagram->GetDiagramPage() )
 		{
+			pDiagram->GetDiagramPage()->InitializeBackground();
 			pDiagram->GetDiagramPage()->UpdateVirtualSize();
+			pDiagram->GetDiagramPage()->InvalidateVisibleRect();
+			pDiagram->GetDiagramPage()->RefreshInvalidatedRect();
 			pDiagram->UpdateDiagramPageLabel();
 		}
 	}
@@ -1262,7 +1264,7 @@ void UMLDesignerFrame::OnProjectItemAdded(udProjectEvent& event)
 			{
 				fNewPkg = true;
 				
-				pPkg = pProj->CreateProjectItem( wxT("udCodePackageItem"), pProj->GetRootItem()->GetId(), udfAMBIGUOUS_NAME );
+				pPkg = pProj->CreateProjectItem( wxT("udCodePackageItem"), pProj->GetRootItem()->GetId() );
 				pPkg->SetName( sPkgName ); 
 				
 				UMLDesignerFrame::SendProjectEvent( wxEVT_CD_ITEM_ADDED, wxID_ANY, pPkg, (udProjectItem*)pProj->GetRootItem(), wxEmptyString, udfDELAYED );
@@ -1632,7 +1634,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.6.4.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.6.5.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams, code generation and reverse code engineering.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -1783,7 +1785,7 @@ void UMLDesignerFrame::OnCreateDiagram( wxCommandEvent &event )
 		if( pType )
 		{
 			// create new diagram
-			udDiagramItem* pDiagram = (udDiagramItem*) udProject::Get()->CreateProjectItem( pType->m_sClassName, pParent->GetId(), udfUNIQUE_NAME );
+			udDiagramItem* pDiagram = (udDiagramItem*) udProject::Get()->CreateProjectItem( pType->m_sClassName, pParent->GetId() );
 			// create relevant tree item
 			if( pDiagram )
 			{
@@ -1814,7 +1816,7 @@ void UMLDesignerFrame::OnCreateProjectItem( wxCommandEvent &event )
 			!pParent->IsKindOf( CLASSINFO(udRootItem) ) &&
 			!pParent->IsKindOf( CLASSINFO(udPackageItem) ) ) return;
 		
-		udProjectItem *pItem = udProject::Get()->CreateProjectItem( pItemType->m_sClassName, pParent->GetId(), pItemType->m_fUniqueName );
+		udProjectItem *pItem = udProject::Get()->CreateProjectItem( pItemType->m_sClassName, pParent->GetId() );
 		if( pItem )
 		{
 			m_pProjectManager->SetActiveView( pItemType->m_sViewName );
@@ -2172,8 +2174,8 @@ void UMLDesignerFrame::OnConnectionFinished( wxSFShapeEvent& event )
         udProjectItem* pUserData = (udProjectItem*)pConnection->GetUserData();
         if(pUserData)
         {
-            // create unique name
-			pUserData->SetName(udProject::Get()->MakeUniqueName(pPaletteItem->m_sDesc));
+            // create (unique) name
+			pUserData->SetName(pPaletteItem->m_sDesc);
         }
 		
 		// try to set some specialized more properties...

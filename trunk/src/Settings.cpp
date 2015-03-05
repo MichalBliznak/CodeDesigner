@@ -70,6 +70,8 @@ udDiagramsCategory::udDiagramsCategory() : udSettingsCategory( wxT("Diagrams") )
 	m_colHighlightCol = wxColour( 128, 128, 255 );
 	m_colBackgroundFrom = wxColour( 255, 255, 255 );
 	m_colBackgroundTo = wxColour( 200, 200, 255 );
+	m_colDisabledBackgroundFrom = wxColour( 255, 255, 255 );
+	m_colDisabledBackgroundTo = wxColour( 255, 200, 200 );
 	
 	m_nDefaultFont = sfdvTEXTSHAPE_FONT;
 	
@@ -80,6 +82,8 @@ udDiagramsCategory::udDiagramsCategory() : udSettingsCategory( wxT("Diagrams") )
 	XS_SERIALIZE( m_colHighlightCol, wxT("Hover colour") );
 	XS_SERIALIZE( m_colBackgroundFrom, wxT("Canvas gradient start") );
 	XS_SERIALIZE( m_colBackgroundTo, wxT("Canvas gradient end") );
+	XS_SERIALIZE( m_colDisabledBackgroundFrom, wxT("Disabled canvas gradient start") );
+	XS_SERIALIZE( m_colDisabledBackgroundTo, wxT("Disabled canvas gradient end") );
 	XS_SERIALIZE( m_fExportBackground, wxT("Export canvas background") );
 }
 

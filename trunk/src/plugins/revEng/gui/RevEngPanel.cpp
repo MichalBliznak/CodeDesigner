@@ -780,11 +780,11 @@ void udRevEngPanel::OnImportSymbolsClick(wxCommandEvent& event)
 	IPluginManager::Get()->Log( wxT("Starting reverse code engineering...") );
 	
 	// create diagram package
-	udProjectItem *package = proj->CreateProjectItem( wxT("udPackageItem"), proj->GetRootItem()->GetId(), udfUNIQUE_NAME );
+	udProjectItem *package = proj->CreateProjectItem( wxT("udPackageItem"), proj->GetRootItem()->GetId() );
 	if( package )
 	{
 		// create class diagram
-		udClassDiagramItem *diag = (udClassDiagramItem*) proj->CreateProjectItem( wxT("udClassDiagramItem"), package->GetId(), udfUNIQUE_NAME );
+		udClassDiagramItem *diag = (udClassDiagramItem*) proj->CreateProjectItem( wxT("udClassDiagramItem"), package->GetId() );
 		if( diag )
 		{
 			GetSelectedTreeIds( udCTAGS::ttCLASS, arrItems );

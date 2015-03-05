@@ -77,16 +77,13 @@ wxString udGenerator::MakeValidIdentifier(const wxString& name)
 }
 wxString udGenerator::MakeIDName(wxSFShapeBase *element)
 {
-    //wxString sId = MakeValidIdentifier(umlDiagramBase::GetLabelContent(element, umlLabelElement::ltTITLE));
     udProjectItem *pElement = wxDynamicCast( element->GetUserData(), udProjectItem );
-    wxString sId = MakeValidIdentifier( pElement->GetName() );
-    return wxString::Format(wxT("ID_%s"), sId.MakeUpper().c_str(), element->GetId());
+	return pElement->GetUniqueId( m_pOutLang );
 }
 
 wxString udGenerator::MakeIDName(udProjectItem *element)
 {
-    wxString sId = MakeValidIdentifier(element->GetName());
-    return wxString::Format(wxT("ID_%s"), sId.MakeUpper().c_str(), element->GetId());
+	return element->GetUniqueId( m_pOutLang );
 }
 
 bool udGenerator::Generate(udDiagramItem *src, bool recursive)
