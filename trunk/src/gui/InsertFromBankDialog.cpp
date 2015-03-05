@@ -51,7 +51,7 @@ void udInsertFromBankDialog::OnInsertClick(wxCommandEvent& event)
 	
 	udDiagramRecord *pRec;
 	udDiagramItem *pDiag;
-	udDiagElementItem *pElement;
+//	udDiagElementItem *pElement;
 	udCodeItem *pDep;
 	SerializableList lstElements;
 	SerializableList lstDeps;
