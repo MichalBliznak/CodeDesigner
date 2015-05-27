@@ -1,3 +1,9 @@
+codedesigner (1.6.5-0ubuntu1-trusty1) trusty; urgency=medium
+
+  * Sync to upstream 1.6.5.
+
+ -- Michal Bližňák <michalbliznak@michal-bliznak-notebook>  Wed, 27 May 2015 20:00:38 +0200
+
 codedesigner (1.6.4-0ubuntu1~trusty1) trusty; urgency=medium
 
   * Sync to upstream 1.6.4.
