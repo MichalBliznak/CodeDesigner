@@ -38,6 +38,36 @@ udSynchronizeDialog::udSynchronizeDialog(wxWindow *parent, udLanguage *lang) : _
 	}
 }
 
+udSynchronizeDialog::udSynchronizeDialog(wxWindow* parent, udLanguage* lang, SerializableList& items, wxArrayString& origcode, wxArrayString& modifcode)
+ : _SynchronizeDialog(parent)
+{
+	m_Lang = lang;
+	
+	m_nUpdated = 0;
+	
+	// initialize scintilla editors
+	udFRAME::InitStyledTextCtrl( m_scintillaModified, m_Lang );
+	udFRAME::InitStyledTextCtrl( m_scintillaOriginal, m_Lang );
+	
+	// get mofified user code
+    m_lstFunctions = items;
+    m_arrOriginal = origcode;
+    m_arrModified = modifcode;
+	
+	for( SerializableList::iterator it = m_lstFunctions.begin(); it != m_lstFunctions.end(); ++it )
+	{
+		udCodeItem *pCodeItem = (udCodeItem*) *it;
+		m_checkList->Append( wxString::Format( wxT("%s::%s"), pCodeItem->GetScope().c_str(), pCodeItem->GetName().c_str() ) );
+	}
+	
+	if( m_lstFunctions.IsEmpty() )
+	{
+		m_checkList->Enable( false );
+		m_scintillaModified->Enable( false );
+		m_scintillaOriginal->Enable( false );
+	}
+}
+
 udSynchronizeDialog::~udSynchronizeDialog()
 {
 }
@@ -97,4 +127,3 @@ void udSynchronizeDialog::OnSelectAll(wxCommandEvent& event)
 		m_checkList->Check( i, true );
 	}
 }
-

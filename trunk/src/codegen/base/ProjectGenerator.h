@@ -8,6 +8,8 @@
 
 #include "projectbase/codegen/Generator.h"
 
+WX_DECLARE_STRING_HASH_MAP( wxString, udCodeMap );
+
 class udProject;
 class udCodeItem;
 
@@ -24,6 +26,7 @@ public:
 	
 	static wxFileName GetFullCodePath(const wxString& name, const wxString& ext);
 	static wxString GetCodeFromCodemark(const udCodeItem *item, const wxFileName& file);
+    static void GetCodeFromFile( udCodeMap& map, int* ambiguous, const wxFileName& file);
 	static void GetModifiedUserCode(const udLanguage* lang, SerializableList& items, wxArrayString& origcode, wxArrayString& modifcode, int *ambiguous);
 	
 	void ClearGeneratedFiles() { m_arrGeneratedFiles.Clear(); }

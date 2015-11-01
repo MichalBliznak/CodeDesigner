@@ -1634,7 +1634,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
 	svn = svn.SubString( 6, svn.Len() - 2 );
 	svn.Trim().Trim(false);
 	
-	wxString version = wxString::Format( wxT("1.6.5.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
+	wxString version = wxString::Format( wxT("1.6.6.%d Beta (SVN: %s) "), udvBUILD_NUMBER, svn.c_str() );
 
     wxString desc = wxT("Cross-platform CASE tool designed for drawing of UML diagrams, code generation and reverse code engineering.\n\n");
 	desc << wxbuildinfo(long_f) << wxT("\n\n");
@@ -1657,7 +1657,7 @@ void UMLDesignerFrame::OnAbout( wxCommandEvent &event )
     info.SetName(wxT("CodeDesigner RAD"));
     info.SetVersion(version);
     info.SetDescription(desc);
-    info.SetCopyright(wxT("2007 - 2014 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
+    info.SetCopyright(wxT("2007 - 2015 (C) Michal Bližňák, Tomas Bata University, Zlin, Czech Republic"));
     info.SetWebSite(wxT("http://www.codedesigner.org"));
     info.AddDeveloper(wxT("Michal Bližňák"));
 
@@ -2651,7 +2651,7 @@ void UMLDesignerFrame::OnGenerateClick( wxCommandEvent &event )
 				
 				if( !lstFunctions.IsEmpty() )
 				{
-					udSynchronizeDialog dlg( this, GetSelectedLanguage() );
+					udSynchronizeDialog dlg( this, GetSelectedLanguage(), lstFunctions, arrOriginal, arrModified );
 					udWindowManager dlgman( dlg, wxT("synchronize_dialog") );
 					
 					switch( dlg.ShowModal() )

@@ -8,6 +8,7 @@ class udSynchronizeDialog : public _SynchronizeDialog {
 
 public:
 	udSynchronizeDialog(wxWindow *parent, udLanguage *lang);
+	udSynchronizeDialog(wxWindow *parent, udLanguage *lang, SerializableList& items, wxArrayString& origcode, wxArrayString& modifcode );
 	virtual ~udSynchronizeDialog();
 	
 protected:
