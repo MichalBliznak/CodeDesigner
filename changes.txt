@@ -1,3 +1,7 @@
+Changes in version 1.6.6 beta (2015-11-01):
+------------------------------------------------
+- Significantly improved source code synchronization speed.
+
 Changes in version 1.6.5 beta (2015-03-05):
 ------------------------------------------------
 - Diagram items IDs and names are context-exclusive now (i.e. item names are uniqe per diagram

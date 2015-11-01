@@ -6,6 +6,7 @@
 
 #include <wx/wfstream.h>
 #include <wx/txtstrm.h>
+#include <wx/regex.h>
 
 #include "codegen/base/ProjectGenerator.h"
 #include "UMLDesignerApp.h"
@@ -308,6 +309,60 @@ wxString udProjectGenerator::GetCodeFromCodemark(const udCodeItem *item, const w
 		return wxT("<not found>");
 }
 
+void udProjectGenerator::GetCodeFromFile(udCodeMap& map, int* ambiguous, const wxFileName& file)
+{
+    wxString sOutput, sPrevOutput;
+    
+    wxRegEx reCodeBegin( wxT("\\['(.*::.*)' begin\\]"), wxRE_ADVANCED );
+    wxRegEx reCodeEnd( wxT("\\['(.*::.*)' end\\]"), wxRE_ADVANCED );
+    
+	if( file.IsFileReadable() )
+	{
+		wxString sLine;
+		bool fInside = false;
+		int nIndentation = 0;
+		
+		wxFileInputStream in( file.GetFullPath() );
+		if( in.IsOk() )
+		{
+			wxTextInputStream tin( in );
+			while( !in.Eof() )
+			{
+				sLine = tin.ReadLine();
+                
+                if( reCodeBegin.Matches( sLine ) ) {
+                    fInside = true;
+					sOutput = wxT("");
+					
+					// TODO: implement smarter indentation calculation in code synchronization (it is broken
+					// for mixed tabs and spaces...
+					nIndentation = sLine.Len() - sLine.Trim(false).Len();
+                    
+                } else if( reCodeEnd.Matches( sLine ) ) {
+                    fInside = false;
+                    sOutput.Trim();
+                    
+                    wxString signature = reCodeEnd.GetMatch( sLine, 1);
+                    udCodeMap::iterator it = map.find( signature );
+                    
+                    if( it == map.end() ) {
+                        map[ signature ] = sOutput;
+                        
+                    } else {
+                        sPrevOutput = it->second;
+                        if( sPrevOutput != wxT("<ambiguous>") && sPrevOutput != sOutput ) {
+                            *ambiguous++;
+                            map[ signature ] = wxT("<ambiguous>");
+                        }
+                    }
+                    
+                } else if( fInside ) {
+                    sOutput << sLine.Mid( nIndentation ) + ENDL;
+                }
+            }
+        }
+    }
+}
 
 void udProjectGenerator::WriteToFile(const wxString& txt, const wxFileName& file)
 {
@@ -450,36 +505,37 @@ void udProjectGenerator::GetModifiedUserCode(const udLanguage* lang, Serializabl
 	
 	UMLDesignerApp::ClearLog();
 	UMLDesignerApp::Log( wxT("Starting code synchronization...") );
-	
-	for( size_t i = 0; i < arrFiles.GetCount(); i++ )
-	{
-		wxString sFileName = arrFiles[i];
-		
-		for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
-		{
-			udFunctionItem *pCodeItem = (udFunctionItem*) *it;
-			
-			if( pCodeItem->GetImplementation() != uddvFUNCTION_USERIMPLEMENTATION ) continue;
-			
-			wxString sCode = udProjectGenerator::GetCodeFromCodemark( pCodeItem, sFileName );
-			if( sCode == wxT("<ambiguous>") )
-			{
-				(*ambiguous)++;
-				UMLDesignerApp::Log( wxString::Format( wxT("WARNING: Instances of '%s::%s' generated code are ambiguous."), pCodeItem->GetScope().c_str(), pCodeItem->GetName().c_str() ) );
-			}
-			else if( sCode != wxT("<not found>") )
-			{
-				if( sCode != pCodeItem->GetCode() )
-				{
-					items.Append( pCodeItem );
-					modifcode.Add( sCode );
-					origcode.Add( pCodeItem->GetCode() );
-				}
-				else
-					UMLDesignerApp::Log( wxString::Format( wxT("Code item '%s::%s' is identical."), pCodeItem->GetScope().c_str(), pCodeItem->GetName().c_str() ) );
-			}
-		}
-	}
+    
+    // parse output file and find all contained function code items
+    udCodeMap functions;
+    for( size_t i = 0; i < arrFiles.GetCount(); i++ )
+		udProjectGenerator::GetCodeFromFile( functions, ambiguous, arrFiles[i] );
+    
+    // compare retrieved code with one stored in the CodeDesigner
+    for( SerializableList::iterator it = lstCodeItems.begin(); it != lstCodeItems.end(); ++it )
+    {
+        udFunctionItem *pCodeItem = (udFunctionItem*) *it;
+        wxString signature = wxString::Format( wxT("%s::%s"), pCodeItem->GetScope().c_str(), pCodeItem->GetName().c_str() );
+        
+        if( pCodeItem->GetImplementation() != uddvFUNCTION_USERIMPLEMENTATION ) continue;
+        
+        udCodeMap::iterator mit = functions.find( signature );
+        if( mit != functions.end() ) {
+            wxString sCode = mit->second;
+            if( sCode == wxT("<ambiguous>") )
+            {
+                UMLDesignerApp::Log( wxString::Format( wxT("WARNING: Instances of '%s' generated code are ambiguous."), signature ) );
+            }
+            else if( sCode != pCodeItem->GetCode() )
+            {
+                items.Append( pCodeItem );
+                modifcode.Add( sCode );
+                origcode.Add( pCodeItem->GetCode() );
+            }
+            else
+                UMLDesignerApp::Log( wxString::Format( wxT("Code item '%s' is identical."), signature ) );
+        }
+    }
 	
 	UMLDesignerApp::Log( wxT("Done.") );
 }

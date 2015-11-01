@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun  6 2014)
+// C++ code generated with wxFormBuilder (version Jun 17 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -363,7 +363,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	codeGenMenu->AppendSeparator();
 	
 	wxMenuItem* menuCodeSynchronize;
-	menuCodeSynchronize = new wxMenuItem( codeGenMenu, IDM_CODE_SYNCHRONIZE, wxString( wxT("Synchronize code") ) , wxT("Synchronize changes in code items' source code."), wxITEM_NORMAL );
+	menuCodeSynchronize = new wxMenuItem( codeGenMenu, IDM_CODE_SYNCHRONIZE, wxString( wxT("Synchronize code") ) + wxT('\t') + wxT("Alt+S"), wxT("Synchronize changes in code items' source code."), wxITEM_NORMAL );
 	codeGenMenu->Append( menuCodeSynchronize );
 	
 	mbar->Append( codeGenMenu, wxT("&Code generation") ); 
@@ -1119,27 +1119,27 @@ _StoreToBankDialog::_StoreToBankDialog( wxWindow* parent, wxWindowID id, const w
 	wxStaticBoxSizer* sbSizer7;
 	sbSizer7 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Diagram info") ), wxVERTICAL );
 	
-	m_stDiagName = new wxStaticText( this, wxID_ANY, wxT("Diagram"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stDiagName = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, wxT("Diagram"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_stDiagName->Wrap( -1 );
 	m_stDiagName->SetFont( wxFont( 9, 74, 90, 92, false, wxT("Sans") ) );
 	
 	sbSizer7->Add( m_stDiagName, 0, wxALL, 5 );
 	
-	m_staticText76 = new wxStaticText( this, wxID_ANY, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText76 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText76->Wrap( -1 );
 	sbSizer7->Add( m_staticText76, 0, wxALL, 5 );
 	
-	m_textDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,100 ), wxTE_MULTILINE );
+	m_textDescription = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,100 ), wxTE_MULTILINE );
 	m_textDescription->SetMaxLength( 0 ); 
 	m_textDescription->SetMinSize( wxSize( -1,100 ) );
 	
 	sbSizer7->Add( m_textDescription, 0, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND, 5 );
 	
-	m_staticText70 = new wxStaticText( this, wxID_ANY, wxT("Dependencies:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText70 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, wxT("Dependencies:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText70->Wrap( -1 );
 	sbSizer7->Add( m_staticText70, 0, wxRIGHT|wxLEFT, 5 );
 	
-	m_lstDeps = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_VRULES );
+	m_lstDeps = new wxListCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_VRULES );
 	m_lstDeps->SetMinSize( wxSize( 400,100 ) );
 	
 	sbSizer7->Add( m_lstDeps, 1, wxALL|wxEXPAND, 5 );
@@ -1249,7 +1249,7 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxStaticBoxSizer* sbSizer5;
 	sbSizer5 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Categories") ), wxVERTICAL );
 	
-	m_lbCategories = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxSize( 200,250 ), 0, NULL, wxLB_SINGLE ); 
+	m_lbCategories = new wxListBox( sbSizer5->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( 200,250 ), 0, NULL, wxLB_SINGLE ); 
 	m_lbCategories->SetMinSize( wxSize( 200,250 ) );
 	
 	sbSizer5->Add( m_lbCategories, 1, wxEXPAND, 5 );
@@ -1257,15 +1257,15 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* bSizer74;
 	bSizer74 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_btnCreateCat = new wxButton( this, IDC_CAT_CREATE, wxT("Create"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnCreateCat = new wxButton( sbSizer5->GetStaticBox(), IDC_CAT_CREATE, wxT("Create"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_btnCreateCat->SetToolTip( wxT("Create new category") );
 	
 	bSizer74->Add( m_btnCreateCat, 1, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
-	m_btnRenameCat = new wxButton( this, IDC_CAT_RENAME, wxT("Rename"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnRenameCat = new wxButton( sbSizer5->GetStaticBox(), IDC_CAT_RENAME, wxT("Rename"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer74->Add( m_btnRenameCat, 0, wxTOP|wxBOTTOM|wxRIGHT|wxEXPAND, 5 );
 	
-	m_btnRemoveCat = new wxButton( this, IDC_CAT_REMOVE, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnRemoveCat = new wxButton( sbSizer5->GetStaticBox(), IDC_CAT_REMOVE, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_btnRemoveCat->SetToolTip( wxT("Remove selected categories") );
 	
 	bSizer74->Add( m_btnRemoveCat, 1, wxEXPAND|wxTOP|wxBOTTOM, 5 );
@@ -1289,24 +1289,24 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* bSizer76;
 	bSizer76 = new wxBoxSizer( wxVERTICAL );
 	
-	m_lstDiagrams = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	m_lstDiagrams = new wxListCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( 300,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
 	m_lstDiagrams->SetMinSize( wxSize( 300,-1 ) );
 	
 	bSizer76->Add( m_lstDiagrams, 1, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
-	m_staticText78 = new wxStaticText( this, wxID_ANY, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText78 = new wxStaticText( sbSizer6->GetStaticBox(), wxID_ANY, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText78->Wrap( -1 );
 	bSizer76->Add( m_staticText78, 0, wxTOP|wxRIGHT, 5 );
 	
-	m_textDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,75 ), wxTE_MULTILINE|wxTE_READONLY );
+	m_textDescription = new wxTextCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,75 ), wxTE_MULTILINE|wxTE_READONLY );
 	m_textDescription->SetMaxLength( 0 ); 
 	bSizer76->Add( m_textDescription, 0, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
-	m_staticText75 = new wxStaticText( this, wxID_ANY, wxT("Dependencies:"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_staticText75 = new wxStaticText( sbSizer6->GetStaticBox(), wxID_ANY, wxT("Dependencies:"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	m_staticText75->Wrap( -1 );
 	bSizer76->Add( m_staticText75, 0, wxTOP|wxRIGHT, 5 );
 	
-	m_lstDeps = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	m_lstDeps = new wxListCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
 	bSizer76->Add( m_lstDeps, 1, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
 	
@@ -1315,23 +1315,23 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* bSizer77;
 	bSizer77 = new wxBoxSizer( wxVERTICAL );
 	
-	m_btnRemoveDiag = new wxButton( this, IDC_DIAG_REMOVE, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnRemoveDiag = new wxButton( sbSizer6->GetStaticBox(), IDC_DIAG_REMOVE, wxT("Remove"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_btnRemoveDiag->SetToolTip( wxT("Remove selected diagrams") );
 	
 	bSizer77->Add( m_btnRemoveDiag, 0, wxBOTTOM, 5 );
 	
-	m_btnRemoveAllDiag = new wxButton( this, IDM_DIAG_REMOVEALL, wxT("Remove all"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnRemoveAllDiag = new wxButton( sbSizer6->GetStaticBox(), IDM_DIAG_REMOVEALL, wxT("Remove all"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer77->Add( m_btnRemoveAllDiag, 0, wxBOTTOM, 5 );
 	
-	m_staticline1 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+	m_staticline1 = new wxStaticLine( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	bSizer77->Add( m_staticline1, 0, wxEXPAND | wxALL, 5 );
 	
-	m_btnCopyDiag = new wxButton( this, IDM_DIAG_COPY, wxT("Copy to..."), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnCopyDiag = new wxButton( sbSizer6->GetStaticBox(), IDM_DIAG_COPY, wxT("Copy to..."), wxDefaultPosition, wxDefaultSize, 0 );
 	m_btnCopyDiag->SetToolTip( wxT("Copy dialog to another category") );
 	
 	bSizer77->Add( m_btnCopyDiag, 0, wxTOP|wxBOTTOM, 5 );
 	
-	m_btnMoveDiag = new wxButton( this, IDC_DIAG_MOVE, wxT("Move to..."), wxDefaultPosition, wxDefaultSize, 0 );
+	m_btnMoveDiag = new wxButton( sbSizer6->GetStaticBox(), IDC_DIAG_MOVE, wxT("Move to..."), wxDefaultPosition, wxDefaultSize, 0 );
 	m_btnMoveDiag->SetToolTip( wxT("Move to another category") );
 	
 	bSizer77->Add( m_btnMoveDiag, 0, wxEXPAND|wxBOTTOM, 5 );
