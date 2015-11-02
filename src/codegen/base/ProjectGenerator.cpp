@@ -125,24 +125,27 @@ void udProjectGenerator::ClearCodemark(const wxString& mark, const wxFileName& f
 		if( in.IsOk() )
 		{
 			wxTextInputStream tin( in );
+            wxString sBeginMark = BeginMark( mark );
+            wxString sEndMark = EndMark( mark );
+            
 			// remove all lines between code marks
 			while( !in.Eof() )
 			{
 				sLine = tin.ReadLine();
 				if( !fInside )
 				{
-					if( !sLine.Contains( BeginMark( mark ) ) ) sOutput << sLine << ENDL;
+					if( !sLine.Contains( sBeginMark ) ) sOutput << sLine << ENDL;
 					else
 					{
-						sOutput << BeginMark( mark ) << ENDL;
+						sOutput << sBeginMark << ENDL;
 						fInside = true;
 					}
 				}
 				else
 				{
-					if( sLine.Contains( EndMark( mark ) ) )
+					if( sLine.Contains( sEndMark ) )
 					{
-						sOutput << EndMark( mark ) << ENDL;
+						sOutput << sEndMark << ENDL;
 						fInside = false;
 					}
 				}
@@ -239,13 +242,14 @@ void udProjectGenerator::InsertIntoCodemark(const wxString& txt, const wxString&
 		wxFileInputStream in( file.GetFullPath() );
 		if( in.IsOk() )
 		{
+            wxString sBeginMark = BeginMark( mark );
 			wxTextInputStream tin( in );
 			while( !in.Eof() )
 			{
 				sLine = tin.ReadLine();
 				
 				sOutput << sLine << ENDL;
-				if( sLine.Contains( BeginMark( mark ) ) )
+				if( sLine.Contains( sBeginMark ) )
 				{
 					sOutput << txt;
 				}
@@ -395,10 +399,11 @@ bool udProjectGenerator::CodemarkExists(const wxString& mark, const wxFileName& 
 		wxFileInputStream in( file.GetFullPath() );
 		if( in.IsOk() )
 		{
+            wxString sBeginMark = BeginMark( mark );
 			wxTextInputStream tin( in );
 			while( !in.Eof() )
 			{
-				if( tin.ReadLine().Contains( BeginMark( mark ) ) ) return true;
+				if( tin.ReadLine().Contains( sBeginMark ) ) return true;
 			}
 		}
 	}
