@@ -1,3 +1,9 @@
+codedesigner (1.6.6-0ubuntu1~wily1) wily; urgency=medium
+
+  * Sync to upstream 1.6.6.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Thu, 12 Nov 2015 17:10:13 +0100
+
 codedesigner (1.6.5-0ubuntu1-trusty1) trusty; urgency=medium
 
   * Sync to upstream 1.6.5.
