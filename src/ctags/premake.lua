@@ -30,7 +30,7 @@ end
 
 -- Setup the package compiler settings.
 if( windows ) then
-	package.defines = { "WIN32", "HAVE_REGCOMP", "__USE_GNU", "bool=int", "false=0", "true=1", "strcasecmp=stricmp" }
+	package.defines = { "WIN32", "HAVE_REGCOMP", "__USE_GNU", "__GNUG__", "bool=int", "false=0", "true=1", "strcasecmp=stricmp" }
 else
 	package.defines = { "HAVE_CONFIG_H" }
 end
