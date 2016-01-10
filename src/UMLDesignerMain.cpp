@@ -3071,3 +3071,8 @@ udGeneratorInfo* UMLDesignerFrame::FindGeneratorInfoByName(const wxString& name)
 	}
 	return NULL;
 }
+
+void UMLDesignerFrame::OnUpdateSaveProject(wxUpdateUIEvent& event)
+{
+    event.Enable( m_fModified );
+}
