@@ -232,6 +232,7 @@ class UMLDesignerFrame: public _MainFrame
         virtual void OnNewProject( wxCommandEvent &event );
         virtual void OnOpenProject( wxCommandEvent &event );
         virtual void OnSaveProject( wxCommandEvent &event );
+        virtual void OnUpdateSaveProject( wxUpdateUIEvent &event );
 		virtual void OnSaveProjectAs( wxCommandEvent &event );
         virtual void OnClose( wxCloseEvent &event );
         virtual void OnQuit( wxCommandEvent &event );

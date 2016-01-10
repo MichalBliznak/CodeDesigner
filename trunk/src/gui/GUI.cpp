@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun 17 2015)
+// C++ code generated with wxFormBuilder (version Dec  9 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -457,6 +457,7 @@ _MainFrame::_MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, 
 	this->Connect( menuFileNew->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnNewProject ) );
 	this->Connect( menuFileOpen->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnOpenProject ) );
 	this->Connect( menuFileSave->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnSaveProject ) );
+	this->Connect( menuFileSave->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateSaveProject ) );
 	this->Connect( menuFileSaveAs->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnSaveProjectAs ) );
 	this->Connect( menuFileExportBMP->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnExportDiagram ) );
 	this->Connect( menuFileExportBMP->GetId(), wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateCanvasActivated ) );
@@ -537,6 +538,7 @@ _MainFrame::~_MainFrame()
 	this->Disconnect( wxID_NEW, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnNewProject ) );
 	this->Disconnect( wxID_OPEN, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnOpenProject ) );
 	this->Disconnect( wxID_SAVE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnSaveProject ) );
+	this->Disconnect( wxID_SAVE, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateSaveProject ) );
 	this->Disconnect( wxID_SAVEAS, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnSaveProjectAs ) );
 	this->Disconnect( IDM_FILE_EXPORT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( _MainFrame::OnExportDiagram ) );
 	this->Disconnect( IDM_FILE_EXPORT, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( _MainFrame::OnUpdateCanvasActivated ) );
@@ -1130,7 +1132,6 @@ _StoreToBankDialog::_StoreToBankDialog( wxWindow* parent, wxWindowID id, const w
 	sbSizer7->Add( m_staticText76, 0, wxALL, 5 );
 	
 	m_textDescription = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,100 ), wxTE_MULTILINE );
-	m_textDescription->SetMaxLength( 0 ); 
 	m_textDescription->SetMinSize( wxSize( -1,100 ) );
 	
 	sbSizer7->Add( m_textDescription, 0, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND, 5 );
@@ -1197,7 +1198,6 @@ _DependenciesDialog::_DependenciesDialog( wxWindow* parent, wxWindowID id, const
 	mainSizer->Add( m_staticText77, 0, wxALL, 5 );
 	
 	m_textDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,100 ), wxTE_MULTILINE|wxTE_READONLY );
-	m_textDescription->SetMaxLength( 0 ); 
 	m_textDescription->SetMinSize( wxSize( -1,100 ) );
 	
 	mainSizer->Add( m_textDescription, 0, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND, 5 );
@@ -1299,7 +1299,6 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	bSizer76->Add( m_staticText78, 0, wxTOP|wxRIGHT, 5 );
 	
 	m_textDescription = new wxTextCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,75 ), wxTE_MULTILINE|wxTE_READONLY );
-	m_textDescription->SetMaxLength( 0 ); 
 	bSizer76->Add( m_textDescription, 0, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
 	m_staticText75 = new wxStaticText( sbSizer6->GetStaticBox(), wxID_ANY, wxT("Dependencies:"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
@@ -1640,7 +1639,6 @@ _GroupDialog::_GroupDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_eName->SetMaxLength( 0 ); 
 	controlSizer->Add( m_eName, wxGBPosition( 1, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 	
 	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Description:"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -1648,7 +1646,6 @@ _GroupDialog::_GroupDialog( wxWindow* parent, wxWindowID id, const wxString& tit
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
-	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 1 ), wxEXPAND|wxALL, 5 );

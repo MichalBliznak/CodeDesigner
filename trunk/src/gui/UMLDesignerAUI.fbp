@@ -133,7 +133,7 @@
                 <event name="OnSetFocus"></event>
                 <event name="OnSize"></event>
                 <event name="OnUpdateUI"></event>
-                <object class="wxMenu" expanded="0">
+                <object class="wxMenu" expanded="1">
                     <property name="label">&amp;File</property>
                     <property name="name">fileMenu</property>
                     <property name="permission">protected</property>
@@ -180,7 +180,7 @@
                         <property name="shortcut">CTRL+S</property>
                         <property name="unchecked_bitmap"></property>
                         <event name="OnMenuSelection">OnSaveProject</event>
-                        <event name="OnUpdateUI"></event>
+                        <event name="OnUpdateUI">OnUpdateSaveProject</event>
                     </object>
                     <object class="wxMenuItem" expanded="0">
                         <property name="bitmap">Load From File; res/gui/filesave.xpm</property>
@@ -794,7 +794,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>
-                <object class="wxMenu" expanded="1">
+                <object class="wxMenu" expanded="0">
                     <property name="label">&amp;Code generation</property>
                     <property name="name">codeGenMenu</property>
                     <property name="permission">protected</property>
@@ -4718,6 +4718,7 @@
                         <property name="minimum_size"></property>
                         <property name="name">sbSizer7</property>
                         <property name="orient">wxVERTICAL</property>
+                        <property name="parent">1</property>
                         <property name="permission">none</property>
                         <event name="OnUpdateUI"></event>
                         <object class="sizeritem" expanded="0">
@@ -5997,6 +5998,7 @@
                         <property name="minimum_size"></property>
                         <property name="name">sbSizer5</property>
                         <property name="orient">wxVERTICAL</property>
+                        <property name="parent">1</property>
                         <property name="permission">none</property>
                         <event name="OnUpdateUI"></event>
                         <object class="sizeritem" expanded="0">
@@ -6374,6 +6376,7 @@
                         <property name="minimum_size"></property>
                         <property name="name">sbSizer6</property>
                         <property name="orient">wxVERTICAL</property>
+                        <property name="parent">1</property>
                         <property name="permission">none</property>
                         <event name="OnUpdateUI"></event>
                         <object class="sizeritem" expanded="0">

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun 17 2015)
+// C++ code generated with wxFormBuilder (version Dec  9 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -132,6 +132,7 @@ class _MainFrame : public wxFrame
 		virtual void OnNewProject( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnOpenProject( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnSaveProject( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpdateSaveProject( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnSaveProjectAs( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnExportDiagram( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnUpdateCanvasActivated( wxUpdateUIEvent& event ) { event.Skip(); }
