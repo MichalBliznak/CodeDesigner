@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun  6 2014)
+// C++ code generated with wxFormBuilder (version Dec  9 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -93,7 +93,6 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	panelSizerFiles->Add( m_staticText3, 0, wxALL, 5 );
 	
 	m_textIdentifiers = new wxTextCtrl( m_panelFiles, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,50 ), wxTE_MULTILINE );
-	m_textIdentifiers->SetMaxLength( 0 ); 
 	m_textIdentifiers->SetToolTip( wxT("Specifies a list of identifiers which are to be specially handled by CTAGS while parsing C and C++ source files.") );
 	m_textIdentifiers->SetMinSize( wxSize( -1,50 ) );
 	
@@ -137,7 +136,7 @@ _RevEngPanel::_RevEngPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	panelSizerSymbols->Add( m_toolBarSymbols, 0, wxEXPAND, 5 );
 	
-	m_treeSymbols = new wxTreeCtrl( m_panelSymbols, wxID_ANY, wxDefaultPosition, wxSize( -1,100 ), wxTR_DEFAULT_STYLE|wxTR_MULTIPLE );
+	m_treeSymbols = new wxTreeCtrl( m_panelSymbols, wxID_ANY, wxDefaultPosition, wxSize( -1,100 ), wxTR_DEFAULT_STYLE|wxTR_MULTIPLE|wxSTATIC_BORDER );
 	m_treeSymbols->SetMinSize( wxSize( -1,100 ) );
 	
 	m_menuSymbols = new wxMenu();

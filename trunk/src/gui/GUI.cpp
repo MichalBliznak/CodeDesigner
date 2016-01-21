@@ -647,7 +647,7 @@ _EditorFrame::_EditorFrame( wxWindow* parent, wxWindowID id, const wxString& tit
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_scintillaEditor = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_scintillaEditor = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSTATIC_BORDER, wxEmptyString );
 	m_scintillaEditor->SetUseTabs( true );
 	m_scintillaEditor->SetTabWidth( 4 );
 	m_scintillaEditor->SetIndent( 4 );
@@ -720,7 +720,7 @@ _LogPanel::_LogPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos, const
 	wxBoxSizer* mainSizer;
 	mainSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_pLogList = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER );
+	m_pLogList = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxSTATIC_BORDER );
 	mainSizer->Add( m_pLogList, 1, wxEXPAND, 5 );
 	
 	
@@ -785,7 +785,7 @@ _ProjManPanel::_ProjManPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 	wxBoxSizer* propertiesSizer;
 	propertiesSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_pPropertiesGrid = new wxPropertyGrid(m_pPanelProperties, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxPG_DEFAULT_STYLE|wxPG_SPLITTER_AUTO_CENTER|wxPG_TOOLTIPS);
+	m_pPropertiesGrid = new wxPropertyGrid(m_pPanelProperties, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxPG_DEFAULT_STYLE|wxPG_SPLITTER_AUTO_CENTER|wxPG_TOOLTIPS|wxSTATIC_BORDER);
 	propertiesSizer->Add( m_pPropertiesGrid, 1, wxEXPAND, 5 );
 	
 	
@@ -850,7 +850,7 @@ _EditorPanel::_EditorPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 	
 	mainSizer->Add( m_toolActions, 0, wxEXPAND, 5 );
 	
-	m_scintillaEditor = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_scintillaEditor = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSTATIC_BORDER, wxEmptyString );
 	m_scintillaEditor->SetUseTabs( true );
 	m_scintillaEditor->SetTabWidth( 4 );
 	m_scintillaEditor->SetIndent( 4 );
@@ -925,7 +925,7 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* treeSizer;
 	treeSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_pCategoryTree = new wxTreeCtrl( m_pPanelTree, wxID_ANY, wxDefaultPosition, wxSize( 200,350 ), wxTR_DEFAULT_STYLE|wxTR_HIDE_ROOT|wxSIMPLE_BORDER );
+	m_pCategoryTree = new wxTreeCtrl( m_pPanelTree, wxID_ANY, wxDefaultPosition, wxSize( 200,350 ), wxTR_DEFAULT_STYLE|wxTR_HIDE_ROOT|wxSTATIC_BORDER );
 	m_pCategoryTree->SetMinSize( wxSize( 200,350 ) );
 	
 	treeSizer->Add( m_pCategoryTree, 1, wxEXPAND|wxTOP|wxBOTTOM|wxLEFT, 5 );
@@ -938,7 +938,7 @@ _SettingsDialog::_SettingsDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* propsSizer;
 	propsSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_pPropertyGrid = new wxPropertyGrid(m_pPanelProps, IDC_SETTINGSDLG_PROPGRID, wxDefaultPosition, wxSize( 450,350 ), wxPG_BOLD_MODIFIED|wxPG_DEFAULT_STYLE|wxPG_SPLITTER_AUTO_CENTER);
+	m_pPropertyGrid = new wxPropertyGrid(m_pPanelProps, IDC_SETTINGSDLG_PROPGRID, wxDefaultPosition, wxSize( 450,350 ), wxPG_BOLD_MODIFIED|wxPG_DEFAULT_STYLE|wxPG_SPLITTER_AUTO_CENTER|wxSTATIC_BORDER);
 	m_pPropertyGrid->SetMinSize( wxSize( 450,350 ) );
 	
 	propsSizer->Add( m_pPropertyGrid, 1, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
@@ -1023,7 +1023,7 @@ _InsertFromBankDialog::_InsertFromBankDialog( wxWindow* parent, wxWindowID id, c
 	m_staticText70->Wrap( -1 );
 	mainSizer->Add( m_staticText70, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
-	m_lstDiagrams = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,150 ), wxLC_HRULES|wxLC_REPORT|wxLC_VRULES );
+	m_lstDiagrams = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,150 ), wxLC_HRULES|wxLC_REPORT|wxLC_VRULES|wxSTATIC_BORDER );
 	m_lstDiagrams->SetMinSize( wxSize( -1,150 ) );
 	
 	m_menuDiagrams = new wxMenu();
@@ -1140,7 +1140,7 @@ _StoreToBankDialog::_StoreToBankDialog( wxWindow* parent, wxWindowID id, const w
 	m_staticText70->Wrap( -1 );
 	sbSizer7->Add( m_staticText70, 0, wxRIGHT|wxLEFT, 5 );
 	
-	m_lstDeps = new wxListCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_VRULES );
+	m_lstDeps = new wxListCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_VRULES|wxSTATIC_BORDER );
 	m_lstDeps->SetMinSize( wxSize( 400,100 ) );
 	
 	sbSizer7->Add( m_lstDeps, 1, wxALL|wxEXPAND, 5 );
@@ -1206,7 +1206,7 @@ _DependenciesDialog::_DependenciesDialog( wxWindow* parent, wxWindowID id, const
 	m_staticText70->Wrap( -1 );
 	mainSizer->Add( m_staticText70, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 	
-	m_lstDeps = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 400,150 ), wxLC_HRULES|wxLC_REPORT|wxLC_VRULES );
+	m_lstDeps = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 400,150 ), wxLC_HRULES|wxLC_REPORT|wxLC_VRULES|wxSTATIC_BORDER );
 	m_lstDeps->SetMinSize( wxSize( 400,150 ) );
 	
 	mainSizer->Add( m_lstDeps, 0, wxALL|wxEXPAND, 5 );
@@ -1289,7 +1289,7 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* bSizer76;
 	bSizer76 = new wxBoxSizer( wxVERTICAL );
 	
-	m_lstDiagrams = new wxListCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( 300,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	m_lstDiagrams = new wxListCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( 300,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES|wxSTATIC_BORDER );
 	m_lstDiagrams->SetMinSize( wxSize( 300,-1 ) );
 	
 	bSizer76->Add( m_lstDiagrams, 1, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
@@ -1305,7 +1305,7 @@ _ManageBankDialog::_ManageBankDialog( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText75->Wrap( -1 );
 	bSizer76->Add( m_staticText75, 0, wxTOP|wxRIGHT, 5 );
 	
-	m_lstDeps = new wxListCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	m_lstDeps = new wxListCtrl( sbSizer6->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES|wxSTATIC_BORDER );
 	bSizer76->Add( m_lstDeps, 1, wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 	
 	
@@ -1426,7 +1426,7 @@ _ManagePluginsDialog::_ManagePluginsDialog( wxWindow* parent, wxWindowID id, con
 	
 	recordsSizer->Add( pluginsSizer, 1, wxEXPAND, 5 );
 	
-	m_listCtrlPluginInfo = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 350,-1 ), wxLC_HRULES|wxLC_REPORT|wxSUNKEN_BORDER );
+	m_listCtrlPluginInfo = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 350,-1 ), wxLC_HRULES|wxLC_REPORT|wxSTATIC_BORDER );
 	m_listCtrlPluginInfo->SetFont( wxFont( 9, 77, 90, 90, false, wxT("Arial") ) );
 	m_listCtrlPluginInfo->SetBackgroundColour( wxColour( 229, 229, 229 ) );
 	m_listCtrlPluginInfo->SetMinSize( wxSize( 350,-1 ) );
@@ -1511,7 +1511,7 @@ _SynchronizeDialog::_SynchronizeDialog( wxWindow* parent, wxWindowID id, const w
 	m_staticText15->Wrap( -1 );
 	compareSizer->Add( m_staticText15, 0, wxALL, 5 );
 	
-	m_scintillaModified = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,200 ), 0, wxEmptyString );
+	m_scintillaModified = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,200 ), wxSTATIC_BORDER, wxEmptyString );
 	m_scintillaModified->SetUseTabs( true );
 	m_scintillaModified->SetTabWidth( 4 );
 	m_scintillaModified->SetIndent( 4 );
@@ -1548,7 +1548,7 @@ _SynchronizeDialog::_SynchronizeDialog( wxWindow* parent, wxWindowID id, const w
 	m_scintillaModified->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	compareSizer->Add( m_scintillaModified, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
-	m_scintillaOriginal = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,200 ), 0, wxEmptyString );
+	m_scintillaOriginal = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,200 ), wxSTATIC_BORDER, wxEmptyString );
 	m_scintillaOriginal->SetUseTabs( true );
 	m_scintillaOriginal->SetTabWidth( 4 );
 	m_scintillaOriginal->SetIndent( 4 );

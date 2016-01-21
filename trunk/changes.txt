@@ -1,7 +1,8 @@
-Changes in version 1.6.7 beta (2016-01-10):
+Changes in version 1.6.7 beta (2016-01-21):
 ------------------------------------------------
 - Fixed build on 64-bit OS with MinGW 5.1.
-- Enable "Save project" toolbar icon only when the project is modified. 
+- Enable "Save project" toolbar icon only when the project is modified.
+- Improved GUI look when Arc Gnome Theme is used.
 
 Changes in version 1.6.6 beta (2015-11-01):
 ------------------------------------------------
