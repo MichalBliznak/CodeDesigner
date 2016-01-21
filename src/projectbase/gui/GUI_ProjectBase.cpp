@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun  6 2014)
+// C++ code generated with wxFormBuilder (version Dec  9 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -29,7 +29,6 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -43,7 +42,6 @@ _DiagramDialog::_DiagramDialog( wxWindow* parent, wxWindowID id, const wxString&
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
-	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -179,19 +177,18 @@ _CodeLinkDialog::_CodeLinkDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_eName->SetMaxLength( 0 ); 
 	controlSizer->Add( m_eName, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxALL|wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* originalSizer;
 	originalSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Original code item:") ), wxHORIZONTAL );
 	
-	m_stOriginal = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stOriginal = new wxStaticText( originalSizer->GetStaticBox(), wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_stOriginal->Wrap( -1 );
 	m_stOriginal->SetFont( wxFont( 9, 74, 90, 92, false, wxT("Sans") ) );
 	
 	originalSizer->Add( m_stOriginal, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	btnEditOrig = new wxButton( this, wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
+	btnEditOrig = new wxButton( originalSizer->GetStaticBox(), wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
 	originalSizer->Add( btnEditOrig, 0, wxRIGHT|wxLEFT, 5 );
 	
 	
@@ -258,19 +255,18 @@ _FunctionLinkDialog::_FunctionLinkDialog( wxWindow* parent, wxWindowID id, const
 	controlSizer->Add( m_staticText1, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_eName->SetMaxLength( 0 ); 
 	controlSizer->Add( m_eName, wxGBPosition( 1, 0 ), wxGBSpan( 1, 2 ), wxALL|wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* originalSizer;
 	originalSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Original code item:") ), wxHORIZONTAL );
 	
-	m_stOriginal = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_stOriginal = new wxStaticText( originalSizer->GetStaticBox(), wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_stOriginal->Wrap( -1 );
 	m_stOriginal->SetFont( wxFont( 9, 74, 90, 92, false, wxT("Sans") ) );
 	
 	originalSizer->Add( m_stOriginal, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	btnEditOrig = new wxButton( this, wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
+	btnEditOrig = new wxButton( originalSizer->GetStaticBox(), wxID_ANY, wxT("Edit original"), wxDefaultPosition, wxDefaultSize, 0 );
 	originalSizer->Add( btnEditOrig, 0, wxRIGHT|wxLEFT, 5 );
 	
 	
@@ -283,7 +279,7 @@ _FunctionLinkDialog::_FunctionLinkDialog( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* paramSizer;
 	paramSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_pgParams = new wxPropertyGrid(m_pageParametersMap, IDC_TRANSDLG_PROPGRID, wxDefaultPosition, wxDefaultSize, wxPG_BOLD_MODIFIED|wxPG_DEFAULT_STYLE);
+	m_pgParams = new wxPropertyGrid(m_pageParametersMap, IDC_TRANSDLG_PROPGRID, wxDefaultPosition, wxDefaultSize, wxPG_BOLD_MODIFIED|wxPG_DEFAULT_STYLE|wxSTATIC_BORDER);
 	paramSizer->Add( m_pgParams, 1, wxEXPAND | wxALL, 5 );
 	
 	
@@ -350,7 +346,6 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -364,7 +359,6 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
-	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -463,7 +457,6 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	fgSizer10->Add( m_staticText46, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_eTypeName = new wxTextCtrl( m_pageUserDataType, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_eTypeName->SetMaxLength( 0 ); 
 	fgSizer10->Add( m_eTypeName, 0, wxALL|wxEXPAND, 5 );
 	
 	m_staticText48 = new wxStaticText( m_pageUserDataType, wxID_ANY, wxT("Defined in:"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -500,7 +493,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	gbSizer->SetFlexibleDirection( wxBOTH );
 	gbSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
-	m_lstParams = new wxListCtrl( m_pageParams, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
+	m_lstParams = new wxListCtrl( m_pageParams, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES|wxSTATIC_BORDER );
 	gbSizer->Add( m_lstParams, wxGBPosition( 0, 0 ), wxGBSpan( 5, 1 ), wxALL|wxEXPAND, 5 );
 	
 	m_btnAdd = new wxButton( m_pageParams, wxID_ANY, wxT("Add"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -539,7 +532,7 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	m_chEditedField->SetSelection( 0 );
 	editorSizer->Add( m_chEditedField, 0, wxTOP|wxRIGHT|wxLEFT|wxEXPAND, 5 );
 	
-	m_sciEditor = new wxStyledTextCtrl( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxStyledTextCtrl( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSTATIC_BORDER, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -609,7 +602,6 @@ _FunctionDialog::_FunctionDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	this->SetSizer( mainSizer );
 	this->Layout();
-	mainSizer->Fit( this );
 	
 	this->Centre( wxBOTH );
 	
@@ -684,7 +676,6 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -698,7 +689,6 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
-	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -745,7 +735,6 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	dataTypeSizer->Add( m_staticText431, 0, wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDefVal = new wxTextCtrl( m_pageAdv, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_eDefVal->SetMaxLength( 0 ); 
 	dataTypeSizer->Add( m_eDefVal, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	
@@ -768,7 +757,6 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	fgSizer10->Add( m_staticText46, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_eTypeName = new wxTextCtrl( m_pageUserDataType, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_eTypeName->SetMaxLength( 0 ); 
 	fgSizer10->Add( m_eTypeName, 0, wxALL|wxEXPAND, 5 );
 	
 	m_staticText48 = new wxStaticText( m_pageUserDataType, wxID_ANY, wxT("Defined in:"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -800,7 +788,7 @@ _VariableDialog::_VariableDialog( wxWindow* parent, wxWindowID id, const wxStrin
 	wxBoxSizer* editorSizer;
 	editorSizer = new wxBoxSizer( wxVERTICAL );
 	
-	m_sciEditor = new wxStyledTextCtrl( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_sciEditor = new wxStyledTextCtrl( m_pageEditor, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSTATIC_BORDER, wxEmptyString );
 	m_sciEditor->SetUseTabs( true );
 	m_sciEditor->SetTabWidth( 4 );
 	m_sciEditor->SetIndent( 4 );
@@ -956,7 +944,6 @@ _ElementDialog::_ElementDialog( wxWindow* parent, wxWindowID id, const wxString&
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -970,7 +957,6 @@ _ElementDialog::_ElementDialog( wxWindow* parent, wxWindowID id, const wxString&
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
-	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );
@@ -1049,7 +1035,7 @@ _UpdateCodeDialog::_UpdateCodeDialog( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* previewSizer;
 	previewSizer = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_scintillaCode = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	m_scintillaCode = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSTATIC_BORDER, wxEmptyString );
 	m_scintillaCode->SetUseTabs( true );
 	m_scintillaCode->SetTabWidth( 4 );
 	m_scintillaCode->SetIndent( 4 );
@@ -1172,7 +1158,6 @@ _ScopedElementDialog::_ScopedElementDialog( wxWindow* parent, wxWindowID id, con
 	nameSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_eName = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_eName->SetMaxLength( 0 ); 
 	nameSizer->Add( m_eName, 1, wxALL|wxEXPAND, 5 );
 	
 	m_cbMakeValid = new wxCheckBox( this, wxID_ANY, wxT("Make valid"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -1186,7 +1171,6 @@ _ScopedElementDialog::_ScopedElementDialog( wxWindow* parent, wxWindowID id, con
 	controlSizer->Add( m_staticText2, wxGBPosition( 2, 0 ), wxGBSpan( 1, 1 ), wxTOP|wxRIGHT|wxLEFT, 5 );
 	
 	m_eDescription = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 400,100 ), wxTE_MULTILINE );
-	m_eDescription->SetMaxLength( 0 ); 
 	m_eDescription->SetMinSize( wxSize( 400,100 ) );
 	
 	controlSizer->Add( m_eDescription, wxGBPosition( 3, 0 ), wxGBSpan( 1, 2 ), wxEXPAND|wxALL, 5 );

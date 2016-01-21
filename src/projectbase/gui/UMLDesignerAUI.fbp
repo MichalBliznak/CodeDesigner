@@ -1853,6 +1853,7 @@
                                 <property name="minimum_size"></property>
                                 <property name="name">originalSizer</property>
                                 <property name="orient">wxHORIZONTAL</property>
+                                <property name="parent">1</property>
                                 <property name="permission">none</property>
                                 <event name="OnUpdateUI"></event>
                                 <object class="sizeritem" expanded="0">
@@ -2503,6 +2504,7 @@
                                 <property name="minimum_size"></property>
                                 <property name="name">originalSizer</property>
                                 <property name="orient">wxHORIZONTAL</property>
+                                <property name="parent">1</property>
                                 <property name="permission">none</property>
                                 <event name="OnUpdateUI"></event>
                                 <object class="sizeritem" expanded="0">
@@ -2904,7 +2906,7 @@
                                                     <property name="tooltip"></property>
                                                     <property name="window_extra_style"></property>
                                                     <property name="window_name"></property>
-                                                    <property name="window_style"></property>
+                                                    <property name="window_style">wxSTATIC_BORDER</property>
                                                     <event name="OnChar"></event>
                                                     <event name="OnEnterWindow"></event>
                                                     <event name="OnEraseBackground"></event>
@@ -2988,7 +2990,7 @@
             <property name="minimum_size">460,450</property>
             <property name="name">_FunctionDialog</property>
             <property name="pos"></property>
-            <property name="size">-1,-1</property>
+            <property name="size">531,583</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</property>
             <property name="subclass"></property>
             <property name="title">Function properties</property>
@@ -5516,7 +5518,7 @@
                                                             <property name="validator_variable"></property>
                                                             <property name="window_extra_style"></property>
                                                             <property name="window_name"></property>
-                                                            <property name="window_style"></property>
+                                                            <property name="window_style">wxSTATIC_BORDER</property>
                                                             <event name="OnChar"></event>
                                                             <event name="OnEnterWindow"></event>
                                                             <event name="OnEraseBackground"></event>
@@ -6256,7 +6258,7 @@
                                                     <property name="view_whitespace">0</property>
                                                     <property name="window_extra_style"></property>
                                                     <property name="window_name"></property>
-                                                    <property name="window_style"></property>
+                                                    <property name="window_style">wxSTATIC_BORDER</property>
                                                     <event name="OnChar"></event>
                                                     <event name="OnEnterWindow"></event>
                                                     <event name="OnEraseBackground"></event>
@@ -8493,7 +8495,7 @@
                                                     <property name="view_whitespace">0</property>
                                                     <property name="window_extra_style"></property>
                                                     <property name="window_name"></property>
-                                                    <property name="window_style"></property>
+                                                    <property name="window_style">wxSTATIC_BORDER</property>
                                                     <event name="OnChar"></event>
                                                     <event name="OnEnterWindow"></event>
                                                     <event name="OnEraseBackground"></event>
@@ -9826,7 +9828,7 @@
                                 <property name="view_whitespace">0</property>
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
-                                <property name="window_style"></property>
+                                <property name="window_style">wxSTATIC_BORDER</property>
                                 <event name="OnChar"></event>
                                 <event name="OnEnterWindow"></event>
                                 <event name="OnEraseBackground"></event>

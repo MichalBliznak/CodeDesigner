@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Jun  6 2014)
+// C++ code generated with wxFormBuilder (version Dec  9 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -221,7 +221,7 @@ class _FunctionDialog : public wxDialog
 	
 	public:
 		
-		_FunctionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Function properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		_FunctionDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Function properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 531,583 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~_FunctionDialog();
 	
 };
