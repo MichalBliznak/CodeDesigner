@@ -1,3 +1,9 @@
+codedesigner (1.6.7-0ubuntu1~xenial1) xenial; urgency=medium
+
+  * Sync to upstream 1.6.7.
+
+ -- Michal Bližňák (PGP key for Launchpad) <michal.bliznak@gmail.com>  Sun, 01 May 2016 22:28:07 +0200
+
 codedesigner (1.6.6-0ubuntu1~wily1) wily; urgency=medium
 
   * Sync to upstream 1.6.6.
